@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { CATEGORIAS } from '@/lib/constants/calculadoras'
+import { Search } from './search'
 
 export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -14,6 +15,7 @@ export function Navbar() {
           {CATEGORIAS.map((cat) => (
             <Link key={cat.slug} href={`/${cat.slug}`} className="text-sm text-slate-300 hover:text-white transition-colors">{cat.nome}</Link>
           ))}
+          <Search />
         </nav>
         <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden p-2 text-slate-300 hover:text-white" aria-label="Menu">
           <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
