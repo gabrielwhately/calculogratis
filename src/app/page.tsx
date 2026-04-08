@@ -81,7 +81,7 @@ export default function Home() {
       </section>
 
       {/* Categories */}
-      <section>
+      <section id="categorias">
         <h2 className="text-lg font-bold text-navy dark:text-white mb-4 flex items-center gap-2">
           <svg className="h-4 w-4 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h7" />
