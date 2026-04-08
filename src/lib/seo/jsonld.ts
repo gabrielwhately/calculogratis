@@ -1,5 +1,16 @@
 import { getCalculadora } from '@/lib/constants/calculadoras'
 
+const CATEGORY_APP_TYPE: Record<string, string> = {
+  trabalhista: 'BusinessApplication',
+  financeiro: 'FinanceApplication',
+  previdencia: 'FinanceApplication',
+  saude: 'HealthApplication',
+  matematica: 'EducationalApplication',
+  juridica: 'BusinessApplication',
+  conversores: 'UtilitiesApplication',
+  utilidades: 'UtilitiesApplication',
+}
+
 export function calculadoraJsonLd(slug: string) {
   const calc = getCalculadora(slug)
   if (!calc) return null
@@ -9,10 +20,10 @@ export function calculadoraJsonLd(slug: string) {
     name: `Calculadora de ${calc.nome}`,
     description: calc.descricao,
     url: `https://calculogratis.com/${calc.categoriaSlug}/${calc.slug}`,
-    applicationCategory: 'FinanceApplication',
+    applicationCategory: CATEGORY_APP_TYPE[calc.categoriaSlug] || 'UtilitiesApplication',
     operatingSystem: 'All',
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'BRL' },
-    provider: { '@type': 'Organization', name: 'Calculo Gratis', url: 'https://calculogratis.com' },
+    provider: { '@type': 'Organization', name: 'Cálculo Grátis', url: 'https://calculogratis.com' },
   }
 }
 

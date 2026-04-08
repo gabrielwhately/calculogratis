@@ -26,3 +26,15 @@ export function parseBRNumber(input: string): number {
 export function formatDate(date: Date): string {
   return new Intl.DateTimeFormat('pt-BR').format(date)
 }
+
+export function maskCurrency(input: string): string {
+  return input.replace(/[^\d.,]/g, '')
+}
+
+export function maskPercent(input: string): string {
+  return input.replace(/[^\d.,]/g, '')
+}
+
+export function maskNumber(input: string): string {
+  return input.replace(/[^\d.,]/g, '')
+}
