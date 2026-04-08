@@ -5,6 +5,7 @@ import { useState, useEffect, useCallback } from 'react'
 import { CATEGORIAS } from '@/lib/constants/calculadoras'
 import { Search } from './search'
 import { ThemeToggle } from './theme-toggle'
+import { LanguageSwitcher } from './language-switcher'
 
 export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -28,6 +29,7 @@ export function Navbar() {
           ))}
           <Search />
           <ThemeToggle />
+          <LanguageSwitcher />
         </nav>
         <div className="flex items-center gap-1 md:hidden">
           <ThemeToggle />
