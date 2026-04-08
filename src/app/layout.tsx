@@ -5,6 +5,8 @@ import { BottomNav } from '@/components/layout/bottom-nav'
 import { Footer } from '@/components/layout/footer'
 import { ThemeScript } from '@/components/layout/theme-script'
 import { ThemeProvider } from '@/components/layout/theme-provider'
+import { Analytics } from '@/components/layout/analytics'
+import { ServiceWorkerRegister } from '@/components/layout/sw-register'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -32,6 +34,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <main id="main-content" className="min-h-screen pb-20 md:pb-0">{children}</main>
           <Footer />
           <BottomNav />
+          <Analytics />
+          <ServiceWorkerRegister />
         </ThemeProvider>
       </body>
     </html>
