@@ -60,6 +60,9 @@ import { GeradorMetaTagsForm } from './gerador-meta-tags-form'
 import { PreviewHtmlForm } from './preview-html-form'
 import { FusoHorarioForm } from './fuso-horario-form'
 import { ConsumoEnergiaForm } from './consumo-energia-form'
+import { SimuladorConsorcioForm } from './simulador-consorcio-form'
+import { FrequenciaCardiacaForm } from './frequencia-cardiaca-form'
+import { CalculadoraPinturaForm } from './calculadora-pintura-form'
 
 export const FORM_MAP: Record<string, ComponentType> = {
   'rescisao': RescisaoForm,
@@ -123,4 +126,7 @@ export const FORM_MAP: Record<string, ComponentType> = {
   'preview-html': PreviewHtmlForm,
   'fuso-horario': FusoHorarioForm,
   'consumo-energia': ConsumoEnergiaForm,
+  'simulador-consorcio': SimuladorConsorcioForm,
+  'frequencia-cardiaca': FrequenciaCardiacaForm,
+  'calculadora-pintura': CalculadoraPinturaForm,
 }
