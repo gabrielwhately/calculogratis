@@ -9,7 +9,7 @@ import { Analytics } from '@/components/layout/analytics'
 import { ServiceWorkerRegister } from '@/components/layout/sw-register'
 import './globals.css'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'], display: 'swap', preload: true })
 
 export const metadata: Metadata = {
   title: { default: 'Cálculo Grátis — Calculadoras e Simuladores Online', template: '%s | Cálculo Grátis' },
@@ -24,6 +24,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="pt-BR" suppressHydrationWarning>
       <head>
         <ThemeScript />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
       </head>
       <body className={inter.className}>
         <ThemeProvider>

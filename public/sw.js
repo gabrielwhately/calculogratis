@@ -1,4 +1,4 @@
-const CACHE_NAME = 'calculogratis-v1'
+const CACHE_NAME = 'calculogratis-v2'
 const STATIC_ASSETS = ['/', '/favicon.ico']
 
 self.addEventListener('install', (event) => {
@@ -22,6 +22,24 @@ self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url)
   if (url.origin !== self.location.origin) return
 
+  // Cache-first for static assets (JS, CSS, fonts)
+  if (url.pathname.match(/\.(js|css|woff2?|ttf|png|svg|ico)$/)) {
+    event.respondWith(
+      caches.match(event.request).then((cached) => {
+        if (cached) return cached
+        return fetch(event.request).then((response) => {
+          if (response.ok) {
+            const clone = response.clone()
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone))
+          }
+          return response
+        })
+      })
+    )
+    return
+  }
+
+  // Stale-while-revalidate for HTML pages
   event.respondWith(
     caches.match(event.request).then((cached) => {
       const fetchPromise = fetch(event.request).then((response) => {
