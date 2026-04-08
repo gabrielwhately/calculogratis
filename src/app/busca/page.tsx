@@ -14,13 +14,13 @@ export default function BuscaPage() {
 
   return (
     <div className="container-app py-6">
-      <h1 className="text-2xl font-bold text-navy mb-4">Buscar Calculadora</h1>
+      <h1 className="text-2xl font-bold text-navy dark:text-white mb-4">Buscar Calculadora</h1>
       <input type="search" placeholder="Digite para buscar..." value={query} onChange={e => setQuery(e.target.value)}
-        className="w-full rounded-lg border border-slate-300 px-4 py-3 text-slate-800 outline-none focus:border-accent focus:ring-2 focus:ring-blue-100 mb-6" autoFocus />
+        className="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-3 text-base text-slate-800 dark:text-slate-200 outline-none focus:border-accent focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900 mb-6" autoFocus />
       <div className="grid gap-4 sm:grid-cols-2">
         {results.map(c => <Card key={c.slug} title={c.nome} description={c.descricao} href={`/${c.categoriaSlug}/${c.slug}`} />)}
       </div>
-      {results.length === 0 && <p className="text-slate-500 text-center py-8">Nenhuma calculadora encontrada.</p>}
+      {results.length === 0 && <p className="text-slate-600 dark:text-slate-400 text-center py-8">Nenhuma calculadora encontrada.</p>}
     </div>
   )
 }

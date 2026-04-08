@@ -1,7 +1,13 @@
 import type { Config } from 'tailwindcss'
 
 const config: Config = {
+  darkMode: 'class',
   content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
+  safelist: [
+    { pattern: /bg-(red|indigo|amber|teal)-50/ },
+    { pattern: /text-(red|indigo|amber|teal)-600/ },
+    { pattern: /border-(red|indigo|amber|teal)-(100|300)/, variants: ['hover'] },
+  ],
   theme: {
     extend: {
       colors: {

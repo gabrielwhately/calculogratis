@@ -3,25 +3,36 @@ import { Inter } from 'next/font/google'
 import { Navbar } from '@/components/layout/navbar'
 import { BottomNav } from '@/components/layout/bottom-nav'
 import { Footer } from '@/components/layout/footer'
+import { ThemeScript } from '@/components/layout/theme-script'
+import { ThemeProvider } from '@/components/layout/theme-provider'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: { default: 'Calculo Gratis - Calculadoras Online Gratis', template: '%s | Calculo Gratis' },
-  description: 'Calculadoras e simuladores online gratis. Rescisao, salario liquido, financiamento, juros, aposentadoria e mais.',
+  title: { default: 'Cálculo Grátis — Calculadoras e Simuladores Online', template: '%s | Cálculo Grátis' },
+  description: 'Calculadoras e simuladores online grátis: rescisão trabalhista, salário líquido, juros compostos, financiamento, IMC, aposentadoria e mais de 50 ferramentas. Sem cadastro, resultados instantâneos.',
   metadataBase: new URL('https://calculogratis.com'),
-  openGraph: { siteName: 'Calculo Gratis', locale: 'pt_BR', type: 'website' },
+  keywords: 'calculadora online, simulador online, calculadora grátis, ferramentas online, cálculos trabalhistas, cálculos financeiros',
+  openGraph: { siteName: 'Cálculo Grátis', locale: 'pt_BR', type: 'website' },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pt-BR">
+    <html lang="pt-BR" suppressHydrationWarning>
+      <head>
+        <ThemeScript />
+      </head>
       <body className={inter.className}>
-        <Navbar />
-        <main className="min-h-screen pb-20 md:pb-0">{children}</main>
-        <Footer />
-        <BottomNav />
+        <ThemeProvider>
+          <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:text-white focus:outline-none">
+            Pular para conteúdo principal
+          </a>
+          <Navbar />
+          <main id="main-content" className="min-h-screen pb-20 md:pb-0">{children}</main>
+          <Footer />
+          <BottomNav />
+        </ThemeProvider>
       </body>
     </html>
   )

@@ -12,9 +12,9 @@ export default function FavoritosPage() {
 
   return (
     <div className="container-app py-6">
-      <h1 className="text-2xl font-bold text-navy mb-4">Favoritos</h1>
+      <h1 className="text-2xl font-bold text-navy dark:text-white mb-4">Favoritos</h1>
       {favoritos.length === 0 ? (
-        <p className="text-slate-500 text-center py-8">Nenhuma calculadora favoritada ainda. Use a estrela nas calculadoras para salvar aqui.</p>
+        <p className="text-slate-600 dark:text-slate-400 text-center py-8">Nenhuma calculadora favoritada ainda. Use a estrela nas calculadoras para salvar aqui.</p>
       ) : (
         <div className="grid gap-4 sm:grid-cols-2">
           {favoritos.map(c => <Card key={c.slug} title={c.nome} description={c.descricao} href={`/${c.categoriaSlug}/${c.slug}`} />)}
