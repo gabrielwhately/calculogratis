@@ -27,8 +27,8 @@ export function RescisaoForm() {
 
   function handleCalcular() {
     const adm = parseDate(dataAdm), dem = parseDate(dataDem)
-    if (!adm || !dem) return
-    setResult(calcularRescisao({ salario: parseBRNumber(salario), dataAdmissao: adm, dataDemissao: dem, tipoDemissao: tipo as TipoDemissao, saldoFGTS: parseBRNumber(fgts), dependentes: parseInt(dependentes) || 0 }))
+    if (!adm || !dem || dem <= adm) return
+    setResult(calcularRescisao({ salario: parseBRNumber(salario), dataAdmissao: adm, dataDemissao: dem, tipoDemissao: tipo as TipoDemissao, saldoFGTS: parseBRNumber(fgts), dependentes: Math.max(0, parseInt(dependentes) || 0) }))
   }
 
   return (
@@ -42,7 +42,7 @@ export function RescisaoForm() {
         <Input label="Data de demissao (DD/MM/AAAA)" id="data-dem" value={dataDem} onChange={setDataDem} placeholder="Ex: 24/03/2026" />
         <Input label="Saldo FGTS (R$)" id="fgts" value={fgts} onChange={setFgts} inputMode="decimal" placeholder="Ex: 15.000,00" />
         <Input label="Dependentes" id="dependentes" value={dependentes} onChange={setDependentes} inputMode="numeric" placeholder="0" />
-        <Button onClick={handleCalcular} fullWidth disabled={parseBRNumber(salario) <= 0 || !parseDate(dataAdm) || !parseDate(dataDem)}>Calcular Rescisao</Button>
+        <Button onClick={handleCalcular} fullWidth disabled={parseBRNumber(salario) <= 0 || !parseDate(dataAdm) || !parseDate(dataDem) || (parseDate(dataAdm) !== null && parseDate(dataDem) !== null && parseDate(dataDem)! <= parseDate(dataAdm)!)}>Calcular Rescisao</Button>
       </div>
       <ResultCard visible={result !== null} title="Rescisao Trabalhista" mainValue={result ? formatCurrency(result.total) : ''} mainLabel="Valor total da rescisao"
         items={result ? [{ label: 'Saldo de salario', value: formatCurrency(result.saldoSalario) }, { label: 'Aviso previo', value: formatCurrency(result.avisoPrevio) },
