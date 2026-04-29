@@ -4,7 +4,7 @@ interface ResultCardProps { title: string; mainValue: string; mainLabel: string;
 export function ResultCard({ title, mainValue, mainLabel, items, visible }: ResultCardProps) {
   if (!visible) return null
   return (
-    <div className="mt-6 rounded-xl bg-gradient-to-br from-navy to-navy-light p-6 text-white motion-reduce:transition-none" aria-live="polite">
+    <div className="mt-6 rounded-xl bg-gradient-to-br from-navy to-navy-light dark:from-navy-dark dark:to-navy p-6 text-white motion-reduce:transition-none shadow-lg border border-white/5" aria-live="polite">
       <p className="text-sm text-slate-300">{title}</p>
       <p className="mt-1 text-4xl font-bold">{mainValue}</p>
       <p className="text-sm text-slate-300">{mainLabel}</p>

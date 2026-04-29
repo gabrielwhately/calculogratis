@@ -20,33 +20,33 @@ export default function CalculadoraIdadePage() {
       ]}
       conteudo={
         <>
-          <h2>Como a calculadora de idade funciona com precisao</h2>
-          <p>Calcular a <strong>idade exata</strong> vai muito alem de subtrair o ano de nascimento do ano atual. Se voce nasceu em dezembro de 1990 e estamos em marco de 2026, sua idade e 35 anos -- nao 36, mesmo que 2026 menos 1990 resulte em 36. A nossa calculadora verifica automaticamente se o aniversario do ano corrente ja ocorreu, leva em conta os <em>anos bissextos</em> e apresenta o resultado em anos, meses e dias completos, sem arredondamento.</p>
-          <p>Alem da idade em anos, a ferramenta calcula os <strong>dias totais vividos</strong>, as <strong>semanas completas</strong> e quantos dias faltam para o proximo aniversario -- informacoes uteis tanto para curiosidade pessoal quanto para fins praticos.</p>
+          <h2>Como a calculadora de idade funciona com precisão</h2>
+          <p>Calcular a <strong>idade exata</strong> vai muito além de subtrair o ano de nascimento do ano atual. Se você nasceu em dezembro de 1990 e estamos em março de 2026, sua idade é 35 anos — não 36, mesmo que 2026 menos 1990 resulte em 36. A nossa calculadora verifica automaticamente se o aniversário do ano corrente já ocorreu, leva em conta os <em>anos bissextos</em> e apresenta o resultado em anos, meses e dias completos, sem arredondamento.</p>
+          <p>Além da idade em anos, a ferramenta calcula os <strong>dias totais vividos</strong>, as <strong>semanas completas</strong> e quantos dias faltam para o próximo aniversário — informações úteis tanto para curiosidade pessoal quanto para fins práticos.</p>
 
-          <h2>Situacoes praticas onde a contagem precisa importa</h2>
-          <p>A idade exata em dias ou meses faz diferenca concreta em diversas situacoes do dia a dia:</p>
+          <h2>Situações práticas onde a contagem precisa importa</h2>
+          <p>A idade exata em dias ou meses faz diferença concreta em diversas situações do dia a dia:</p>
           <ul>
-            <li><strong>Pediatria:</strong> o desenvolvimento nos primeiros dois anos de vida e acompanhado em semanas e meses, nao em anos</li>
-            <li><strong>Previdencia social:</strong> o tempo de contribuicao para <a href="/previdencia/aposentadoria">aposentadoria</a> pode ser contado em dias, e cada dia conta para atingir o tempo minimo</li>
-            <li><strong>Processos judiciais:</strong> a maioridade civil e verificada pela data exata de nascimento, nao apenas pelo ano</li>
-            <li><strong>Contratos e seguros:</strong> muitas apolices e contratos usam a idade precisa na data de assinatura para calcular valores</li>
-            <li><strong>Concursos publicos:</strong> editais frequentemente exigem idade maxima na data de inscricao, verificada com precisao</li>
+            <li><strong>Pediatria:</strong> o desenvolvimento nos primeiros dois anos de vida é acompanhado em semanas e meses, não em anos</li>
+            <li><strong>Previdência social:</strong> o tempo de contribuição para <a href="/previdencia/aposentadoria">aposentadoria</a> pode ser contado em dias, e cada dia conta para atingir o tempo mínimo</li>
+            <li><strong>Processos judiciais:</strong> a maioridade civil é verificada pela data exata de nascimento, não apenas pelo ano</li>
+            <li><strong>Contratos e seguros:</strong> muitas apólices e contratos usam a idade precisa na data de assinatura para calcular valores</li>
+            <li><strong>Concursos públicos:</strong> editais frequentemente exigem idade máxima na data de inscrição, verificada com precisão</li>
           </ul>
 
-          <h3>Referencias uteis de tempo vivido</h3>
-          <p>Para dar uma perspectiva concreta: aos <strong>18 anos</strong> (maioridade civil), voce viveu aproximadamente 6.574 dias. Aos <strong>30 anos</strong>, sao cerca de 10.950 dias e 1.564 semanas. Aos <strong>65 anos</strong>, a marca chega a aproximadamente 23.725 dias. Esses numeros ficam muito mais tangiveis quando voce ve a contagem do seu proprio caso.</p>
+          <h3>Referências úteis de tempo vivido</h3>
+          <p>Para dar uma perspectiva concreta: aos <strong>18 anos</strong> (maioridade civil), você viveu aproximadamente 6.574 dias. Aos <strong>30 anos</strong>, são cerca de 10.950 dias e 1.564 semanas. Aos <strong>65 anos</strong>, a marca chega a aproximadamente 23.725 dias. Esses números ficam muito mais tangíveis quando você vê a contagem do seu próprio caso.</p>
 
           <h2>Como calcular intervalos entre datas</h2>
-          <p>A calculadora de idade e ideal para saber quanto tempo voce viveu a partir do nascimento. Mas se precisa calcular o <strong>intervalo entre duas datas quaisquer</strong> -- como o prazo de um contrato, a duracao de uma viagem ou o periodo de experiencia no trabalho -- utilize a ferramenta <a href="/utilidades/dias-entre-datas">Dias entre Datas</a>, que mostra a diferenca em dias corridos, dias uteis, semanas e meses.</p>
+          <p>A calculadora de idade é ideal para saber quanto tempo você viveu a partir do nascimento. Mas se precisa calcular o <strong>intervalo entre duas datas quaisquer</strong> — como o prazo de um contrato, a duração de uma viagem ou o período de experiência no trabalho — utilize a ferramenta <a href="/utilidades/dias-entre-datas">Dias entre Datas</a>, que mostra a diferença em dias corridos, dias úteis, semanas e meses.</p>
 
-          <h2>Ferramentas relacionadas para calculos de tempo e planejamento</h2>
-          <p>Se voce esta fazendo calculos relacionados a tempo e planejamento, considere explorar outras ferramentas uteis da plataforma:</p>
+          <h2>Ferramentas relacionadas para cálculos de tempo e planejamento</h2>
+          <p>Se você está fazendo cálculos relacionados a tempo e planejamento, considere explorar outras ferramentas úteis da plataforma:</p>
           <ul>
-            <li>O <a href="/utilidades/cronometro">Cronometro Online</a> para medicoes de tempo em tempo real com registro de voltas</li>
-            <li>O <a href="/utilidades/fuso-horario">Conversor de Fuso Horario</a> para saber que horas sao em diferentes partes do mundo</li>
-            <li>A <a href="/trabalhista/salario-liquido">Calculadora de Salario Liquido</a> para entender seus descontos trabalhistas</li>
-            <li>A <a href="/matematica/porcentagem">Calculadora de Porcentagem</a> para calculos rapidos de percentuais</li>
+            <li>O <a href="/utilidades/cronometro">Cronômetro Online</a> para medições de tempo em tempo real com registro de voltas</li>
+            <li>O <a href="/utilidades/fuso-horario">Conversor de Fuso Horário</a> para saber que horas são em diferentes partes do mundo</li>
+            <li>A <a href="/trabalhista/salario-liquido">Calculadora de Salário Líquido</a> para entender seus descontos trabalhistas</li>
+            <li>A <a href="/matematica/porcentagem">Calculadora de Porcentagem</a> para cálculos rápidos de percentuais</li>
           </ul>
         </>
       }

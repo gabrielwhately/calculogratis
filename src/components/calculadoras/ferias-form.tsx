@@ -4,6 +4,8 @@ import { useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { Select } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
+import { FormCard } from '@/components/ui/form-card'
+import { Checkbox } from '@/components/ui/checkbox'
 import { ResultCard } from '@/components/ui/result-card'
 import { calcularFerias } from '@/lib/calculadoras/ferias'
 import { formatCurrency, parseBRNumber, maskCurrency } from '@/lib/formatters'
@@ -31,23 +33,17 @@ export function FeriasForm() {
 
   return (
     <>
-      <div className="rounded-xl border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm">
-        <Input label="Salario bruto (R$)" id="salario" value={salario} onChange={(v) => setSalario(maskCurrency(v))} inputMode="decimal" placeholder="Ex: 3.000,00" />
+      <FormCard>
+        <Input label="Salário bruto (R$)" id="salario" value={salario} onChange={(v) => setSalario(maskCurrency(v))} inputMode="decimal" placeholder="Ex: 3.000,00" />
         <Input label="Dependentes" id="dependentes" value={dependentes} onChange={(v) => setDependentes(v.replace(/\D/g, ''))} inputMode="numeric" placeholder="0" optional />
-        <Select label="Dias de ferias" id="dias-ferias" value={diasFerias} onChange={setDiasFerias} options={diasOptions} />
-        <div className="mb-4">
-          <label className="flex items-center gap-3 cursor-pointer">
-            <input
-              type="checkbox"
-              checked={vendeAbono}
-              onChange={(e) => setVendeAbono(e.target.checked)}
-              className="h-5 w-5 rounded border-slate-300 dark:border-gray-600 text-accent focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900 cursor-pointer"
-            />
-            <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Vender 10 dias (abono pecuniario)</span>
-          </label>
-        </div>
-        <Button onClick={handleCalcular} fullWidth disabled={parseBRNumber(salario) <= 0}>Calcular Ferias</Button>
-      </div>
+        <Select label="Dias de férias" id="dias-ferias" value={diasFerias} onChange={setDiasFerias} options={diasOptions} />
+        <Checkbox
+          label="Vender 10 dias (abono pecuniário)"
+          checked={vendeAbono}
+          onChange={setVendeAbono}
+        />
+        <Button onClick={handleCalcular} fullWidth disabled={parseBRNumber(salario) <= 0}>Calcular Férias</Button>
+      </FormCard>
       <ResultCard
         visible={result !== null}
         title="Ferias Trabalhistas"

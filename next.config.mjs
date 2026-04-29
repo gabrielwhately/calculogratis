@@ -6,6 +6,7 @@ const nextConfig = {
   },
   skipTrailingSlashRedirect: true,
   distDir: '.next',
+  swcMinify: false,
 }
 
 export default nextConfig

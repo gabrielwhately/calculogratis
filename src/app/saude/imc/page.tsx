@@ -20,24 +20,24 @@ export default function IMCPage() {
       ]}
       conteudo={
         <>
-          <h2>O que e o IMC e como calcular</h2>
-          <p>O <strong>Indice de Massa Corporal (IMC)</strong> e uma relacao matematica entre peso e altura, utilizada pela Organizacao Mundial da Saude (OMS) como ferramenta de triagem nutricional. A formula e simples:</p>
+          <h2>O que é o IMC e como calcular</h2>
+          <p>O <strong>Índice de Massa Corporal (IMC)</strong> é uma relação matemática entre peso e altura, utilizada pela Organização Mundial da Saúde (OMS) como ferramenta de triagem nutricional. A fórmula é simples:</p>
           <p><em>IMC = peso (kg) / altura (m) x altura (m)</em></p>
-          <p>Por exemplo, uma pessoa com 70 kg e 1,75 m de altura tem IMC de <strong>22,86</strong>, classificado como peso normal. Apesar de sua simplicidade, o IMC se tornou o padrao global para avaliacoes populacionais porque permite comparacoes rapidas e padronizadas entre grandes grupos de pessoas.</p>
+          <p>Por exemplo, uma pessoa com 70 kg e 1,75 m de altura tem IMC de <strong>22,86</strong>, classificado como peso normal. Apesar de sua simplicidade, o IMC se tornou o padrão global para avaliações populacionais porque permite comparações rápidas e padronizadas entre grandes grupos de pessoas.</p>
 
-          <h2>Tabela de classificacao do IMC segundo a OMS</h2>
-          <p>A OMS estabelece as seguintes faixas de classificacao para adultos:</p>
+          <h2>Tabela de classificação do IMC segundo a OMS</h2>
+          <p>A OMS estabelece as seguintes faixas de classificação para adultos:</p>
           <ul>
-            <li><strong>Abaixo de 18,5:</strong> baixo peso -- pode indicar desnutricao, disturbios alimentares ou condicoes clinicas que requerem investigacao.</li>
-            <li><strong>18,5 a 24,9:</strong> peso normal -- faixa associada ao menor risco de doencas cronicas relacionadas ao peso.</li>
-            <li><strong>25,0 a 29,9:</strong> sobrepeso -- sinal de alerta que merece atencao a habitos alimentares e nivel de atividade fisica.</li>
-            <li><strong>30,0 a 34,9:</strong> obesidade grau I -- risco aumentado de diabetes tipo 2, hipertensao e doencas cardiovasculares.</li>
-            <li><strong>35,0 a 39,9:</strong> obesidade grau II -- risco alto, geralmente com indicacao de acompanhamento multidisciplinar.</li>
-            <li><strong>Acima de 40,0:</strong> obesidade grau III (morbida) -- risco muito alto, com possivel indicacao de tratamento cirurgico.</li>
+            <li><strong>Abaixo de 18,5:</strong> baixo peso -- pode indicar desnutrição, distúrbios alimentares ou condições clínicas que requerem investigação.</li>
+            <li><strong>18,5 a 24,9:</strong> peso normal -- faixa associada ao menor risco de doenças crônicas relacionadas ao peso.</li>
+            <li><strong>25,0 a 29,9:</strong> sobrepeso -- sinal de alerta que merece atenção a hábitos alimentares e nível de atividade física.</li>
+            <li><strong>30,0 a 34,9:</strong> obesidade grau I -- risco aumentado de diabetes tipo 2, hipertensão e doenças cardiovasculares.</li>
+            <li><strong>35,0 a 39,9:</strong> obesidade grau II -- risco alto, geralmente com indicação de acompanhamento multidisciplinar.</li>
+            <li><strong>Acima de 40,0:</strong> obesidade grau III (mórbida) -- risco muito alto, com possível indicação de tratamento cirúrgico.</li>
           </ul>
-          <p><em>Observacao:</em> para idosos acima de 65 anos, alguns especialistas consideram a faixa normal um pouco mais ampla (ate 27), pois a perda natural de massa muscular pode distorcer o resultado. Para criancas e adolescentes, existem tabelas especificas por idade e sexo.</p>
+          <p><em>Observação:</em> para idosos acima de 65 anos, alguns especialistas consideram a faixa normal um pouco mais ampla (até 27), pois a perda natural de massa muscular pode distorcer o resultado. Para crianças e adolescentes, existem tabelas específicas por idade e sexo.</p>
 
-          <h3>Exemplo pratico de calculo</h3>
+          <h3>Exemplo prático de cálculo</h3>
           <p>Veja como calcular o IMC para diferentes perfis:</p>
           <ol>
             <li><strong>Mulher, 60 kg, 1,62 m:</strong> IMC = 60 / (1,62 x 1,62) = 60 / 2,6244 = <strong>22,86</strong> (peso normal)</li>
@@ -45,25 +45,25 @@ export default function IMCPage() {
             <li><strong>Mulher, 48 kg, 1,65 m:</strong> IMC = 48 / (1,65 x 1,65) = 48 / 2,7225 = <strong>17,63</strong> (baixo peso)</li>
           </ol>
 
-          <h2>Limitacoes do IMC: quando o numero nao conta toda a historia</h2>
-          <p>Embora seja uma ferramenta util de triagem, o IMC possui <strong>limitacoes importantes</strong> que voce deve conhecer:</p>
+          <h2>Limitações do IMC: quando o número não conta toda a história</h2>
+          <p>Embora seja uma ferramenta útil de triagem, o IMC possui <strong>limitações importantes</strong> que você deve conhecer:</p>
           <ul>
-            <li><strong>Nao distingue gordura de musculo:</strong> um fisiculturista de 90 kg e 1,75 m tem IMC de 29,4 (sobrepeso), mas pode ter percentual de gordura abaixo de 10%. O IMC nao diferencia massa magra de massa gorda.</li>
-            <li><strong>Nao considera a distribuicao de gordura:</strong> a gordura abdominal (visceral) e muito mais perigosa para a saude cardiovascular do que a gordura periferica. Duas pessoas com o mesmo IMC podem ter riscos de saude completamente diferentes.</li>
-            <li><strong>Variacoes etnicas:</strong> populacoes asiaticas tendem a apresentar riscos metabolicos elevados com IMCs mais baixos, enquanto populacoes afrodescendentes podem ter maior densidade ossea e muscular.</li>
-            <li><strong>Gestantes e lactantes:</strong> o IMC nao se aplica a mulheres gravidas. Para acompanhar a gestacao, utilize nossa <a href="/saude/gestacional">calculadora gestacional</a>.</li>
+            <li><strong>Não distingue gordura de músculo:</strong> um fisiculturista de 90 kg e 1,75 m tem IMC de 29,4 (sobrepeso), mas pode ter percentual de gordura abaixo de 10%. O IMC não diferencia massa magra de massa gorda.</li>
+            <li><strong>Não considera a distribuição de gordura:</strong> a gordura abdominal (visceral) é muito mais perigosa para a saúde cardiovascular do que a gordura periférica. Duas pessoas com o mesmo IMC podem ter riscos de saúde completamente diferentes.</li>
+            <li><strong>Variações étnicas:</strong> populações asiáticas tendem a apresentar riscos metabólicos elevados com IMCs mais baixos, enquanto populações afrodescendentes podem ter maior densidade óssea e muscular.</li>
+            <li><strong>Gestantes e lactantes:</strong> o IMC não se aplica a mulheres grávidas. Para acompanhar a gestação, utilize nossa <a href="/saude/gestacional">calculadora gestacional</a>.</li>
           </ul>
-          <p>Para uma avaliacao mais completa, o IMC deve ser combinado com a <strong>circunferencia abdominal</strong> (risco elevado acima de 94 cm para homens e 80 cm para mulheres), percentual de gordura corporal e exames laboratoriais. Confira tambem nossa <a href="/saude/peso-ideal">calculadora de peso ideal</a>, que utiliza formulas clinicas complementares ao IMC.</p>
+          <p>Para uma avaliação mais completa, o IMC deve ser combinado com a <strong>circunferência abdominal</strong> (risco elevado acima de 94 cm para homens e 80 cm para mulheres), percentual de gordura corporal e exames laboratoriais. Confira também nossa <a href="/saude/peso-ideal">calculadora de peso ideal</a>, que utiliza fórmulas clínicas complementares ao IMC.</p>
 
           <h2>Como usar o resultado do IMC a seu favor</h2>
-          <p>O IMC e um <strong>ponto de partida</strong>, nao um diagnostico definitivo. Veja como aproveitar melhor o resultado:</p>
+          <p>O IMC é um <strong>ponto de partida</strong>, não um diagnóstico definitivo. Veja como aproveitar melhor o resultado:</p>
           <ol>
-            <li><strong>Acompanhe ao longo do tempo:</strong> um unico valor de IMC diz pouco. A tendencia ao longo de meses e que revela se voce esta ganhando ou perdendo peso de forma consistente.</li>
-            <li><strong>Combine com outras metricas:</strong> use a <a href="/saude/calorias-tmb">calculadora de calorias e TMB</a> para entender sua necessidade calorica diaria e ajustar a alimentacao com base em dados reais.</li>
-            <li><strong>Considere sua composicao corporal:</strong> se voce pratica atividade fisica regularmente, a <a href="/saude/peso-ideal">calculadora de peso ideal</a> pode oferecer uma perspectiva complementar usando formulas clinicas diferentes.</li>
-            <li><strong>Consulte um profissional:</strong> um medico ou nutricionista pode interpretar o IMC dentro do contexto completo da sua saude, considerando historico familiar, exames e estilo de vida.</li>
+            <li><strong>Acompanhe ao longo do tempo:</strong> um único valor de IMC diz pouco. A tendência ao longo de meses é que revela se você está ganhando ou perdendo peso de forma consistente.</li>
+            <li><strong>Combine com outras métricas:</strong> use a <a href="/saude/calorias-tmb">calculadora de calorias e TMB</a> para entender sua necessidade calórica diária e ajustar a alimentação com base em dados reais.</li>
+            <li><strong>Considere sua composição corporal:</strong> se você pratica atividade física regularmente, a <a href="/saude/peso-ideal">calculadora de peso ideal</a> pode oferecer uma perspectiva complementar usando fórmulas clínicas diferentes.</li>
+            <li><strong>Consulte um profissional:</strong> um médico ou nutricionista pode interpretar o IMC dentro do contexto completo da sua saúde, considerando histórico familiar, exames e estilo de vida.</li>
           </ol>
-          <p>Para calcular rapidamente proporcoes e variacoes percentuais do seu peso, utilize tambem a <a href="/matematica/porcentagem">calculadora de porcentagem</a>. E para saber sua idade exata em anos, meses e dias, experimente a <a href="/utilidades/calculadora-idade">calculadora de idade</a>.</p>
+          <p>Para calcular rapidamente proporções e variações percentuais do seu peso, utilize também a <a href="/matematica/porcentagem">calculadora de porcentagem</a>. E para saber sua idade exata em anos, meses e dias, experimente a <a href="/utilidades/calculadora-idade">calculadora de idade</a>.</p>
         </>
       }
     >
