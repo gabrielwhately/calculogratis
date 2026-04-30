@@ -1,13 +1,77 @@
 'use client'
 
 import { useState } from 'react'
+import { usePathname } from 'next/navigation'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Select } from '@/components/ui/select'
 import { ResultCard } from '@/components/ui/result-card'
 import { calcularTMB } from '@/lib/calculadoras/calorias-tmb'
 
+const I18N = {
+  pt: {
+    labelPeso: 'Peso (kg)',
+    labelAltura: 'Altura (cm)',
+    labelIdade: 'Idade (anos)',
+    labelSexo: 'Sexo',
+    labelAtividade: 'Nível de atividade física',
+    placeholderPeso: 'Ex: 70',
+    placeholderAltura: 'Ex: 170',
+    placeholderIdade: 'Ex: 30',
+    btnCalcular: 'Calcular Calorias',
+    resTitle: 'Necessidade Calórica Diária',
+    resMainLabel: 'Calorias por dia para seu nível de atividade',
+    itemSexo: 'Sexo',
+    itemAtividade: 'Nível de atividade',
+    itemTMB: 'TMB (Metabolismo Basal)',
+    itemTotal: 'Necessidade diária total',
+    sexoOptions: [
+      { value: 'masculino', label: 'Masculino' },
+      { value: 'feminino', label: 'Feminino' },
+    ],
+    atividadeOptions: [
+      { value: '1.2', label: 'Sedentário (pouco ou nenhum exercício)' },
+      { value: '1.375', label: 'Levemente ativo (exercício 1-3x/sem)' },
+      { value: '1.55', label: 'Moderadamente ativo (exercício 3-5x/sem)' },
+      { value: '1.725', label: 'Muito ativo (exercício 6-7x/sem)' },
+      { value: '1.9', label: 'Extremamente ativo (2x ao dia)' },
+    ]
+  },
+  es: {
+    labelPeso: 'Peso (kg)',
+    labelAltura: 'Altura (cm)',
+    labelIdade: 'Edad (años)',
+    labelSexo: 'Sexo',
+    labelAtividade: 'Nivel de actividad física',
+    placeholderPeso: 'Ej: 70',
+    placeholderAltura: 'Ej: 170',
+    placeholderIdade: 'Ej: 30',
+    btnCalcular: 'Calcular Calorías',
+    resTitle: 'Necesidad Calórica Diaria',
+    resMainLabel: 'Calorías por día para su nivel de actividad',
+    itemSexo: 'Sexo',
+    itemAtividade: 'Nivel de actividad',
+    itemTMB: 'TMB (Metabolismo Basal)',
+    itemTotal: 'Necesidad diaria total',
+    sexoOptions: [
+      { value: 'masculino', label: 'Masculino' },
+      { value: 'feminino', label: 'Femenino' },
+    ],
+    atividadeOptions: [
+      { value: '1.2', label: 'Sedentario (poco o nada de ejercicio)' },
+      { value: '1.375', label: 'Ligeramente activo (ejercicio 1-3x/sem)' },
+      { value: '1.55', label: 'Moderadamente activo (ejercicio 3-5x/sem)' },
+      { value: '1.725', label: 'Muy activo (ejercicio 6-7x/sem)' },
+      { value: '1.9', label: 'Extremamente activo (2x al día)' },
+    ]
+  }
+}
+
 export function CaloriasTMBForm() {
+  const pathname = usePathname()
+  const isSpanish = pathname?.startsWith('/es')
+  const t = isSpanish ? I18N.es : I18N.pt
+
   const [peso, setPeso] = useState('')
   const [altura, setAltura] = useState('')
   const [idade, setIdade] = useState('')
@@ -34,44 +98,35 @@ export function CaloriasTMBForm() {
   return (
     <>
       <div className="rounded-xl border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm">
-        <Input label="Peso (kg)" id="peso" value={peso} onChange={setPeso} inputMode="decimal" placeholder="Ex: 70" />
-        <Input label="Altura (cm)" id="altura" value={altura} onChange={setAltura} inputMode="decimal" placeholder="Ex: 170" />
-        <Input label="Idade (anos)" id="idade" value={idade} onChange={(v) => setIdade(v.replace(/\D/g, ''))} inputMode="numeric" placeholder="Ex: 30" />
+        <Input label={t.labelPeso} id="peso" value={peso} onChange={setPeso} inputMode="decimal" placeholder={t.placeholderPeso} />
+        <Input label={t.labelAltura} id="altura" value={altura} onChange={setAltura} inputMode="decimal" placeholder={t.placeholderAltura} />
+        <Input label={t.labelIdade} id="idade" value={idade} onChange={(v) => setIdade(v.replace(/\D/g, ''))} inputMode="numeric" placeholder={t.placeholderIdade} />
         <Select
-          label="Sexo"
+          label={t.labelSexo}
           id="sexo"
           value={sexo}
           onChange={(v) => setSexo(v as 'masculino' | 'feminino')}
-          options={[
-            { value: 'masculino', label: 'Masculino' },
-            { value: 'feminino', label: 'Feminino' },
-          ]}
+          options={t.sexoOptions}
         />
         <Select
-          label="Nível de atividade física"
+          label={t.labelAtividade}
           id="atividade"
           value={atividade}
           onChange={setAtividade}
-          options={[
-            { value: '1.2', label: 'Sedentário (pouco ou nenhum exercício)' },
-            { value: '1.375', label: 'Levemente ativo (exercício 1-3x/sem)' },
-            { value: '1.55', label: 'Moderadamente ativo (exercício 3-5x/sem)' },
-            { value: '1.725', label: 'Muito ativo (exercício 6-7x/sem)' },
-            { value: '1.9', label: 'Extremamente ativo (2x ao dia)' },
-          ]}
+          options={t.atividadeOptions}
         />
-        <Button onClick={handleCalcular} fullWidth disabled={!isValid}>Calcular Calorias</Button>
+        <Button onClick={handleCalcular} fullWidth disabled={!isValid}>{t.btnCalcular}</Button>
       </div>
       <ResultCard
         visible={result !== null}
-        title="Necessidade Calórica Diária"
+        title={t.resTitle}
         mainValue={result ? `${Math.round(result.necessidadeDiaria)} kcal` : ''}
-        mainLabel="Calorias por dia para seu nível de atividade"
+        mainLabel={t.resMainLabel}
         items={result ? [
-          { label: 'Sexo', value: result.sexo },
-          { label: 'Nível de atividade', value: result.atividade },
-          { label: 'TMB (Metabolismo Basal)', value: `${Math.round(result.tmb)} kcal`, highlight: true },
-          { label: 'Necessidade diária total', value: `${Math.round(result.necessidadeDiaria)} kcal`, highlight: true },
+          { label: t.itemSexo, value: result.sexo === 'masculino' ? (isSpanish ? 'Masculino' : 'Masculino') : (isSpanish ? 'Femenino' : 'Feminino') },
+          { label: t.itemAtividade, value: result.atividade },
+          { label: t.itemTMB, value: `${Math.round(result.tmb)} kcal`, highlight: true },
+          { label: t.itemTotal, value: `${Math.round(result.necessidadeDiaria)} kcal`, highlight: true },
         ] : []}
       />
     </>

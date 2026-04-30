@@ -1,13 +1,58 @@
 'use client'
 
 import { useState } from 'react'
+import { usePathname } from 'next/navigation'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Select } from '@/components/ui/select'
+import { FormCard } from '@/components/ui/form-card'
 import { ResultCard } from '@/components/ui/result-card'
 import { calcularPesoIdeal } from '@/lib/calculadoras/peso-ideal'
 
+const I18N = {
+  pt: {
+    labelAltura: 'Altura (cm)',
+    labelSexo: 'Sexo',
+    optionMasculino: 'Masculino',
+    optionFeminino: 'Feminino',
+    placeholderAltura: 'Ex: 170',
+    buttonCalcular: 'Calcular Peso Ideal',
+    resultTitle: 'Peso Ideal',
+    resultMainLabel: 'Faixa de peso saudável (IMC 18,5 – 24,9)',
+    itemAltura: 'Altura informada',
+    itemImcMin: 'IMC mínimo saudável',
+    itemImcMax: 'IMC máximo saudável',
+    itemPesoMin: 'Peso mínimo (IMC 18,5)',
+    itemPesoMax: 'Peso máximo (IMC 24,9)',
+    itemFormulaDevine: 'Fórmula Devine',
+    itemFormulaRobinson: 'Fórmula Robinson',
+    itemFormulaMiller: 'Fórmula Miller',
+  },
+  es: {
+    labelAltura: 'Altura (cm)',
+    labelSexo: 'Sexo',
+    optionMasculino: 'Masculino',
+    optionFeminino: 'Femenino',
+    placeholderAltura: 'Ej: 170',
+    buttonCalcular: 'Calcular Peso Ideal',
+    resultTitle: 'Peso Ideal',
+    resultMainLabel: 'Rango de peso saludable (IMC 18,5 – 24,9)',
+    itemAltura: 'Altura informada',
+    itemImcMin: 'IMC mínimo saludable',
+    itemImcMax: 'IMC máximo saludable',
+    itemPesoMin: 'Peso mínimo (IMC 18,5)',
+    itemPesoMax: 'Peso máximo (IMC 24,9)',
+    itemFormulaDevine: 'Fórmula Devine',
+    itemFormulaRobinson: 'Fórmula Robinson',
+    itemFormulaMiller: 'Fórmula Miller',
+  }
+}
+
 export function PesoIdealForm() {
+  const pathname = usePathname()
+  const isSpanish = pathname?.startsWith('/es')
+  const t = isSpanish ? I18N.es : I18N.pt
+
   const [altura, setAltura] = useState('')
   const [sexo, setSexo] = useState<'masculino' | 'feminino'>('masculino')
   const [result, setResult] = useState<ReturnType<typeof calcularPesoIdeal> | null>(null)
@@ -22,36 +67,48 @@ export function PesoIdealForm() {
 
   return (
     <>
-      <div className="rounded-xl border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm">
-        <Input label="Altura (cm)" id="altura" value={altura} onChange={setAltura} inputMode="decimal" placeholder="Ex: 170" />
+      <FormCard>
+        <Input 
+          label={t.labelAltura} 
+          id="altura" 
+          value={altura} 
+          onChange={setAltura} 
+          inputMode="decimal" 
+          placeholder={t.placeholderAltura} 
+        />
         <Select
-          label="Sexo"
+          label={t.labelSexo}
           id="sexo"
           value={sexo}
           onChange={(v) => setSexo(v as 'masculino' | 'feminino')}
           options={[
-            { value: 'masculino', label: 'Masculino' },
-            { value: 'feminino', label: 'Feminino' },
+            { value: 'masculino', label: t.optionMasculino },
+            { value: 'feminino', label: t.optionFeminino },
           ]}
         />
-        <Button onClick={handleCalcular} fullWidth disabled={!isValid}>Calcular Peso Ideal</Button>
-      </div>
-      <ResultCard
-        visible={result !== null}
-        title="Peso Ideal"
-        mainValue={result ? `${result.pesoMinimo.toFixed(1)} – ${result.pesoMaximo.toFixed(1)} kg` : ''}
-        mainLabel="Faixa de peso saudável (IMC 18,5 – 24,9)"
-        items={result ? [
-          { label: 'Altura informada', value: `${result.altura} cm` },
-          { label: 'IMC mínimo saudável', value: `${result.imcMinimo}` },
-          { label: 'IMC máximo saudável', value: `${result.imcMaximo}` },
-          { label: 'Peso mínimo (IMC 18,5)', value: `${result.pesoMinimo.toFixed(1)} kg` },
-          { label: 'Peso máximo (IMC 24,9)', value: `${result.pesoMaximo.toFixed(1)} kg`, highlight: true },
-          { label: 'Fórmula Devine', value: `${result.pesoIdealDevine.toFixed(1)} kg` },
-          { label: 'Fórmula Robinson', value: `${result.pesoIdealRobinson.toFixed(1)} kg` },
-          { label: 'Fórmula Miller', value: `${result.pesoIdealMiller.toFixed(1)} kg` },
-        ] : []}
-      />
+        <Button onClick={handleCalcular} fullWidth disabled={!isValid}>
+          {t.buttonCalcular}
+        </Button>
+      </FormCard>
+      
+      {result && (
+        <ResultCard
+          visible={true}
+          title={t.resultTitle}
+          mainValue={`${result.pesoMinimo.toFixed(1)} – ${result.pesoMaximo.toFixed(1)} kg`}
+          mainLabel={t.resultMainLabel}
+          items={[
+            { label: t.itemAltura, value: `${result.altura} cm` },
+            { label: t.itemImcMin, value: `${result.imcMinimo}` },
+            { label: t.itemImcMax, value: `${result.imcMaximo}` },
+            { label: t.itemPesoMin, value: `${result.pesoMinimo.toFixed(1)} kg` },
+            { label: t.itemPesoMax, value: `${result.pesoMaximo.toFixed(1)} kg`, highlight: true },
+            { label: t.itemFormulaDevine, value: `${result.pesoIdealDevine.toFixed(1)} kg` },
+            { label: t.itemFormulaRobinson, value: `${result.pesoIdealRobinson.toFixed(1)} kg` },
+            { label: t.itemFormulaMiller, value: `${result.pesoIdealMiller.toFixed(1)} kg` },
+          ]}
+        />
+      )}
     </>
   )
 }

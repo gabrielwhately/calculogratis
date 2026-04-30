@@ -1,9 +1,41 @@
 'use client'
 
 import { useState, useRef, useEffect, useCallback } from 'react'
+import { usePathname } from 'next/navigation'
 import { formatarTempo } from '@/lib/calculadoras/cronometro'
 
+const I18N = {
+  pt: {
+    btnPausar: 'Pausar',
+    btnContinuar: 'Continuar',
+    btnIniciar: 'Iniciar',
+    btnVolta: 'Volta',
+    btnZerar: 'Zerar',
+    labelVoltas: 'Voltas',
+    ariaPausar: 'Pausar cronômetro',
+    ariaIniciar: 'Iniciar cronômetro',
+    ariaVolta: 'Registrar volta',
+    ariaZerar: 'Zerar cronômetro',
+  },
+  es: {
+    btnPausar: 'Pausar',
+    btnContinuar: 'Continuar',
+    btnIniciar: 'Iniciar',
+    btnVolta: 'Vuelta',
+    btnZerar: 'Reiniciar',
+    labelVoltas: 'Vueltas',
+    ariaPausar: 'Pausar cronómetro',
+    ariaIniciar: 'Iniciar cronómetro',
+    ariaVolta: 'Registrar vuelta',
+    ariaZerar: 'Reiniciar cronómetro',
+  }
+}
+
 export function CronometroForm() {
+  const pathname = usePathname()
+  const isSpanish = pathname?.startsWith('/es')
+  const t = isSpanish ? I18N.es : I18N.pt
+
   const [elapsed, setElapsed] = useState(0)
   const [rodando, setRodando] = useState(false)
   const [voltas, setVoltas] = useState<{ numero: number; tempo: string; parcial: string }[]>([])
@@ -60,26 +92,26 @@ export function CronometroForm() {
         </p>
       </div>
       <div className="flex gap-3 mb-6">
-        <button onClick={handleIniciarPausar} aria-label={rodando ? 'Pausar cronometro' : 'Iniciar cronometro'}
+        <button onClick={handleIniciarPausar} aria-label={rodando ? t.ariaPausar : t.ariaIniciar}
           className={`flex-1 rounded-lg px-6 py-3 font-semibold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-gray-900 ${rodando ? 'bg-yellow-500 text-white hover:bg-yellow-600 focus:ring-yellow-300' : 'bg-accent text-white hover:bg-blue-600 focus:ring-blue-300'}`}>
-          {rodando ? 'Pausar' : elapsed > 0 ? 'Continuar' : 'Iniciar'}
+          {rodando ? t.btnPausar : elapsed > 0 ? t.btnContinuar : t.btnIniciar}
         </button>
-        <button onClick={handleVolta} disabled={elapsed === 0} aria-label="Registrar volta"
+        <button onClick={handleVolta} disabled={elapsed === 0} aria-label={t.ariaVolta}
           className="rounded-lg px-4 py-3 font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-gray-700 dark:text-slate-200 dark:hover:bg-gray-600 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-slate-300 focus:ring-offset-2 dark:focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed">
-          Volta
+          {t.btnVolta}
         </button>
-        <button onClick={handleZerar} aria-label="Zerar cronometro"
+        <button onClick={handleZerar} aria-label={t.ariaZerar}
           className="rounded-lg px-4 py-3 font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-gray-700 dark:text-slate-200 dark:hover:bg-gray-600 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-slate-300 focus:ring-offset-2 dark:focus:ring-offset-gray-900">
-          Zerar
+          {t.btnZerar}
         </button>
       </div>
       {voltas.length > 0 && (
         <div className="mt-2">
-          <p className="text-sm font-medium text-slate-600 dark:text-slate-400 mb-3">Voltas</p>
+          <p className="text-sm font-medium text-slate-600 dark:text-slate-400 mb-3">{t.labelVoltas}</p>
           <div className="space-y-2 max-h-64 overflow-y-auto">
             {voltas.map((v) => (
               <div key={v.numero} className="flex justify-between items-center rounded-lg bg-slate-50 dark:bg-gray-700 px-4 py-2.5 text-sm">
-                <span className="text-slate-500 dark:text-slate-400 font-medium">Volta {v.numero}</span>
+                <span className="text-slate-500 dark:text-slate-400 font-medium">{t.btnVolta} {v.numero}</span>
                 <span className="font-mono text-slate-500 dark:text-slate-400">{v.parcial}</span>
                 <span className="font-mono font-semibold text-slate-800 dark:text-white">{v.tempo}</span>
               </div>

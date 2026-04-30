@@ -1,14 +1,71 @@
 'use client'
 
 import { useState } from 'react'
+import { usePathname } from 'next/navigation'
 import { Input } from '@/components/ui/input'
 import { Select } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
+import { FormCard } from '@/components/ui/form-card'
 import { ResultCard } from '@/components/ui/result-card'
 import { calcularInsalubridade, calcularPericulosidade } from '@/lib/calculadoras/insalubridade'
 import { formatCurrency, parseBRNumber, maskCurrency } from '@/lib/formatters'
 
+const I18N = {
+  pt: {
+    labelTipo: 'Tipo de adicional',
+    optionInsalubridade: 'Insalubridade',
+    optionPericulosidade: 'Periculosidade',
+    labelSalario: 'Salário bruto (R$)',
+    placeholderSalario: 'Ex: 3.000,00',
+    labelGrau: 'Grau de insalubridade',
+    optionMinimo: 'Mínimo (10%)',
+    optionMedio: 'Médio (20%)',
+    optionMaximo: 'Máximo (40%)',
+    buttonCalcular: 'Calcular',
+    resultMainLabel: 'Salário com adicional',
+    itemSalarioBruto: 'Salário bruto',
+    itemPercentual: 'Percentual',
+    itemValorAdicional: 'Valor adicional',
+    itemSalarioTotal: 'Salário total',
+    itemBaseCalculo: 'Base de cálculo (SM)',
+    itemGrau: 'Grau',
+    graus: {
+      minimo: 'Mínimo',
+      medio: 'Médio',
+      maximo: 'Máximo'
+    }
+  },
+  es: {
+    labelTipo: 'Tipo de adicional',
+    optionInsalubridade: 'Insalubridad',
+    optionPericulosidade: 'Peligrosidad',
+    labelSalario: 'Salario bruto',
+    placeholderSalario: 'Ej: 3.000,00',
+    labelGrau: 'Grado de insalubridad',
+    optionMinimo: 'Mínimo (10%)',
+    optionMedio: 'Medio (20%)',
+    optionMaximo: 'Máximo (40%)',
+    buttonCalcular: 'Calcular',
+    resultMainLabel: 'Salario con adicional',
+    itemSalarioBruto: 'Salario bruto',
+    itemPercentual: 'Porcentaje',
+    itemValorAdicional: 'Valor adicional',
+    itemSalarioTotal: 'Salario total',
+    itemBaseCalculo: 'Base de cálculo (SM)',
+    itemGrau: 'Grado',
+    graus: {
+      minimo: 'Mínimo',
+      medio: 'Medio',
+      maximo: 'Máximo'
+    }
+  }
+}
+
 export function InsalubridadeForm() {
+  const pathname = usePathname()
+  const isSpanish = pathname?.startsWith('/es')
+  const t = isSpanish ? I18N.es : I18N.pt
+
   const [tipo, setTipo] = useState('insalubridade')
   const [salario, setSalario] = useState('')
   const [grau, setGrau] = useState('medio')
@@ -19,29 +76,29 @@ export function InsalubridadeForm() {
     if (tipo === 'periculosidade') {
       const r = calcularPericulosidade(sal)
       setResult({
-        title: 'Periculosidade',
+        title: t.optionPericulosidade,
         mainValue: formatCurrency(r.salarioComAdicional),
-        mainLabel: 'Salario com adicional',
+        mainLabel: t.resultMainLabel,
         items: [
-          { label: 'Salario bruto', value: formatCurrency(r.salarioBruto) },
-          { label: 'Percentual', value: `${r.percentual}%` },
-          { label: 'Valor adicional', value: formatCurrency(r.valorAdicional), highlight: true },
-          { label: 'Salario total', value: formatCurrency(r.salarioComAdicional), highlight: true },
+          { label: t.itemSalarioBruto, value: formatCurrency(r.salarioBruto) },
+          { label: t.itemPercentual, value: `${r.percentual}%` },
+          { label: t.itemValorAdicional, value: formatCurrency(r.valorAdicional), highlight: true },
+          { label: t.itemSalarioTotal, value: formatCurrency(r.salarioComAdicional), highlight: true },
         ],
       })
     } else {
       const r = calcularInsalubridade(sal, grau as 'minimo' | 'medio' | 'maximo')
       setResult({
-        title: 'Insalubridade',
+        title: t.optionInsalubridade,
         mainValue: formatCurrency(r.salarioComAdicional),
-        mainLabel: 'Salario com adicional',
+        mainLabel: t.resultMainLabel,
         items: [
-          { label: 'Salario bruto', value: formatCurrency(r.salarioBruto) },
-          { label: 'Base de calculo (SM)', value: formatCurrency(r.baseCalculo) },
-          { label: 'Grau', value: r.grau },
-          { label: 'Percentual', value: `${r.percentual}%` },
-          { label: 'Valor adicional', value: formatCurrency(r.valorAdicional), highlight: true },
-          { label: 'Salario total', value: formatCurrency(r.salarioComAdicional), highlight: true },
+          { label: t.itemSalarioBruto, value: formatCurrency(r.salarioBruto) },
+          { label: t.itemBaseCalculo, value: formatCurrency(r.baseCalculo) },
+          { label: t.itemGrau, value: t.graus[r.grau as keyof typeof t.graus] || r.grau },
+          { label: t.itemPercentual, value: `${r.percentual}%` },
+          { label: t.itemValorAdicional, value: formatCurrency(r.valorAdicional), highlight: true },
+          { label: t.itemSalarioTotal, value: formatCurrency(r.salarioComAdicional), highlight: true },
         ],
       })
     }
@@ -49,22 +106,52 @@ export function InsalubridadeForm() {
 
   return (
     <>
-      <div className="rounded-xl border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm">
-        <Select label="Tipo de adicional" id="tipo" value={tipo} onChange={setTipo} options={[
-          { value: 'insalubridade', label: 'Insalubridade' },
-          { value: 'periculosidade', label: 'Periculosidade' },
-        ]} />
-        <Input label="Salario bruto (R$)" id="salario" value={salario} onChange={(v) => setSalario(maskCurrency(v))} inputMode="decimal" placeholder="Ex: 3.000,00" />
+      <FormCard>
+        <Select 
+          label={t.labelTipo} 
+          id="tipo" 
+          value={tipo} 
+          onChange={setTipo} 
+          options={[
+            { value: 'insalubridade', label: t.optionInsalubridade },
+            { value: 'periculosidade', label: t.optionPericulosidade },
+          ]} 
+        />
+        <Input 
+          label={t.labelSalario} 
+          id="salario" 
+          value={salario} 
+          onChange={(v) => setSalario(maskCurrency(v))} 
+          inputMode="decimal" 
+          placeholder={t.placeholderSalario} 
+        />
         {tipo === 'insalubridade' && (
-          <Select label="Grau de insalubridade" id="grau" value={grau} onChange={setGrau} options={[
-            { value: 'minimo', label: 'Minimo (10%)' },
-            { value: 'medio', label: 'Medio (20%)' },
-            { value: 'maximo', label: 'Maximo (40%)' },
-          ]} />
+          <Select 
+            label={t.labelGrau} 
+            id="grau" 
+            value={grau} 
+            onChange={setGrau} 
+            options={[
+              { value: 'minimo', label: t.optionMinimo },
+              { value: 'medio', label: t.optionMedio },
+              { value: 'maximo', label: t.optionMaximo },
+            ]} 
+          />
         )}
-        <Button onClick={handleCalcular} fullWidth disabled={parseBRNumber(salario) <= 0}>Calcular</Button>
-      </div>
-      <ResultCard visible={result !== null} title={result?.title ?? ''} mainValue={result?.mainValue ?? ''} mainLabel={result?.mainLabel ?? ''} items={result?.items ?? []} />
+        <Button onClick={handleCalcular} fullWidth disabled={parseBRNumber(salario) <= 0}>
+          {t.buttonCalcular}
+        </Button>
+      </FormCard>
+      
+      {result && (
+        <ResultCard 
+          visible={true} 
+          title={result.title} 
+          mainValue={result.mainValue} 
+          mainLabel={result.mainLabel} 
+          items={result.items} 
+        />
+      )}
     </>
   )
 }

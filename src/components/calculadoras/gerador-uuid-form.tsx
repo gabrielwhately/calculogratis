@@ -1,18 +1,46 @@
 'use client'
 
 import { useState } from 'react'
+import { usePathname } from 'next/navigation'
 import { Select } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
+import { FormCard } from '@/components/ui/form-card'
 import { gerarMultiplosUUID } from '@/lib/calculadoras/gerador-uuid'
 
-const quantidadeOptions = [
-  { value: '1', label: '1 UUID' },
-  { value: '5', label: '5 UUIDs' },
-  { value: '10', label: '10 UUIDs' },
-  { value: '20', label: '20 UUIDs' },
-]
+const I18N = {
+  pt: {
+    labelQuantidade: 'Quantidade',
+    quantidadeOptions: [
+      { value: '1', label: '1 UUID' },
+      { value: '5', label: '5 UUIDs' },
+      { value: '10', label: '10 UUIDs' },
+      { value: '20', label: '20 UUIDs' },
+    ],
+    buttonCalcular: 'Gerar UUIDs',
+    resultTitle: 'UUIDs gerados (clique para copiar)',
+    buttonCopiado: 'Copiado!',
+    footer: 'UUIDs v4 gerados aleatoriamente usando crypto.randomUUID().',
+  },
+  es: {
+    labelQuantidade: 'Cantidad',
+    quantidadeOptions: [
+      { value: '1', label: '1 UUID' },
+      { value: '5', label: '5 UUIDs' },
+      { value: '10', label: '10 UUIDs' },
+      { value: '20', label: '20 UUIDs' },
+    ],
+    buttonCalcular: 'Generar UUIDs',
+    resultTitle: 'UUIDs generados (clic para copiar)',
+    buttonCopiado: '¡Copiado!',
+    footer: 'UUIDs v4 generados aleatoriamente usando crypto.randomUUID().',
+  }
+}
 
 export function GeradorUUIDForm() {
+  const pathname = usePathname()
+  const isSpanish = pathname?.startsWith('/es')
+  const t = isSpanish ? I18N.es : I18N.pt
+
   const [quantidade, setQuantidade] = useState('5')
   const [uuids, setUuids] = useState<string[]>([])
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null)
@@ -30,13 +58,22 @@ export function GeradorUUIDForm() {
 
   return (
     <>
-      <div className="rounded-xl border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm">
-        <Select label="Quantidade" id="quantidade" value={quantidade} onChange={setQuantidade} options={quantidadeOptions} />
-        <Button onClick={handleGerar} fullWidth>Gerar UUIDs</Button>
-      </div>
+      <FormCard>
+        <Select 
+          label={t.labelQuantidade} 
+          id="quantidade" 
+          value={quantidade} 
+          onChange={setQuantidade} 
+          options={t.quantidadeOptions} 
+        />
+        <Button onClick={handleGerar} fullWidth>
+          {t.buttonCalcular}
+        </Button>
+      </FormCard>
+      
       {uuids.length > 0 && (
         <div className="mt-6 rounded-xl bg-navy dark:bg-gray-800 dark:border dark:border-gray-700 p-6 text-white" aria-live="polite">
-          <p className="text-sm text-slate-300 mb-3">UUIDs gerados (clique para copiar)</p>
+          <p className="text-sm text-slate-300 mb-3">{t.resultTitle}</p>
           <div className="space-y-2">
             {uuids.map((uuid, i) => (
               <button
@@ -46,12 +83,12 @@ export function GeradorUUIDForm() {
               >
                 {uuid}
                 {copiedIndex === i && (
-                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-green-400">Copiado!</span>
+                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-green-400">{t.buttonCopiado}</span>
                 )}
               </button>
             ))}
           </div>
-          <p className="mt-4 text-xs text-slate-400">UUIDs v4 gerados aleatoriamente usando crypto.randomUUID().</p>
+          <p className="mt-4 text-xs text-slate-400">{t.footer}</p>
         </div>
       )}
     </>

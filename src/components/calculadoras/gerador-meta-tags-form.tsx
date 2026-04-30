@@ -1,11 +1,52 @@
 'use client'
 
 import { useState } from 'react'
+import { usePathname } from 'next/navigation'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
+import { FormCard } from '@/components/ui/form-card'
 import { gerarMetaTags } from '@/lib/calculadoras/gerador-meta-tags'
 
+const I18N = {
+  pt: {
+    labelTitulo: 'Título da página',
+    labelDescricao: 'Descrição',
+    labelUrl: 'URL do site',
+    labelImageUrl: 'URL da imagem',
+    labelSiteName: 'Nome do site',
+    placeholderTitulo: 'Ex: Meu Site Incrível',
+    placeholderDescricao: 'Ex: Uma descrição breve do seu site para SEO',
+    placeholderUrl: 'https://www.meusite.com.br',
+    placeholderImageUrl: 'https://www.meusite.com.br/imagem.jpg',
+    placeholderSiteName: 'Ex: Meu Site',
+    buttonCalcular: 'Gerar Meta Tags',
+    resultTitle: 'Meta Tags geradas',
+    buttonCopiar: 'Copiar HTML',
+    buttonCopiado: 'Copiado!',
+  },
+  es: {
+    labelTitulo: 'Título de la página',
+    labelDescricao: 'Descripción',
+    labelUrl: 'URL del sitio',
+    labelImageUrl: 'URL de la imagen',
+    labelSiteName: 'Nombre del sitio',
+    placeholderTitulo: 'Ej: Mi Sitio Increíble',
+    placeholderDescricao: 'Ej: Una descripción breve de su sitio para SEO',
+    placeholderUrl: 'https://www.misitio.com',
+    placeholderImageUrl: 'https://www.misitio.com/imagen.jpg',
+    placeholderSiteName: 'Ej: Mi Sitio',
+    buttonCalcular: 'Generar Meta Tags',
+    resultTitle: 'Meta Tags generadas',
+    buttonCopiar: 'Copiar HTML',
+    buttonCopiado: '¡Copiado!',
+  }
+}
+
 export function GeradorMetaTagsForm() {
+  const pathname = usePathname()
+  const isSpanish = pathname?.startsWith('/es')
+  const t = isSpanish ? I18N.es : I18N.pt
+
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [url, setUrl] = useState('')
@@ -27,33 +68,62 @@ export function GeradorMetaTagsForm() {
 
   return (
     <>
-      <div className="rounded-xl border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm">
-        <Input label="Titulo da pagina" id="title" value={title} onChange={setTitle} placeholder="Ex: Meu Site Incrivel" />
+      <FormCard>
+        <Input 
+          label={t.labelTitulo} 
+          id="title" 
+          value={title} 
+          onChange={setTitle} 
+          placeholder={t.placeholderTitulo} 
+        />
         <div className="mb-4">
-          <label htmlFor="description" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Descricao</label>
+          <label htmlFor="description" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+            {t.labelDescricao}
+          </label>
           <textarea
             id="description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            placeholder="Ex: Uma descricao breve do seu site para SEO"
+            placeholder={t.placeholderDescricao}
             rows={3}
             className="w-full rounded-lg border border-slate-300 dark:border-gray-600 px-3 py-2.5 text-slate-800 dark:text-slate-200 bg-white dark:bg-gray-800 outline-none transition-colors focus:border-accent focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900 resize-none"
           />
         </div>
-        <Input label="URL do site" id="url" value={url} onChange={setUrl} placeholder="https://www.meusite.com.br" />
-        <Input label="URL da imagem" id="image-url" value={imageUrl} onChange={setImageUrl} placeholder="https://www.meusite.com.br/imagem.jpg" />
-        <Input label="Nome do site" id="site-name" value={siteName} onChange={setSiteName} placeholder="Ex: Meu Site" />
-        <Button onClick={handleGerar} fullWidth disabled={!title && !description}>Gerar Meta Tags</Button>
-      </div>
+        <Input 
+          label={t.labelUrl} 
+          id="url" 
+          value={url} 
+          onChange={setUrl} 
+          placeholder={t.placeholderUrl} 
+        />
+        <Input 
+          label={t.labelImageUrl} 
+          id="image-url" 
+          value={imageUrl} 
+          onChange={setImageUrl} 
+          placeholder={t.placeholderImageUrl} 
+        />
+        <Input 
+          label={t.labelSiteName} 
+          id="site-name" 
+          value={siteName} 
+          onChange={setSiteName} 
+          placeholder={t.placeholderSiteName} 
+        />
+        <Button onClick={handleGerar} fullWidth disabled={!title && !description}>
+          {t.buttonCalcular}
+        </Button>
+      </FormCard>
+
       {resultado && (
         <div className="mt-6 rounded-xl bg-navy dark:bg-gray-800 dark:border dark:border-gray-700 p-6 text-white" aria-live="polite">
           <div className="flex items-center justify-between mb-3">
-            <p className="text-sm text-slate-300">Meta Tags geradas</p>
+            <p className="text-sm text-slate-300">{t.resultTitle}</p>
             <button
               onClick={handleCopiar}
               className="rounded-lg bg-navy-light px-4 py-2 text-sm hover:bg-white/10 transition-colors"
             >
-              {copiado ? 'Copiado!' : 'Copiar HTML'}
+              {copiado ? t.buttonCopiado : t.buttonCopiar}
             </button>
           </div>
           <pre className="overflow-x-auto rounded-lg bg-black/30 p-4 text-sm font-mono text-green-300 whitespace-pre-wrap break-all">

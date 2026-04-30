@@ -1,20 +1,48 @@
 'use client'
 
 import { useState } from 'react'
+import { usePathname } from 'next/navigation'
 import { contarCaracteres } from '@/lib/calculadoras/contador-caracteres'
 
+const I18N = {
+  pt: {
+    labelTexto: 'Digite ou cole seu texto',
+    placeholder: 'Cole ou digite seu texto aqui...',
+    labelCaracteres: 'Caracteres',
+    labelSemEspacos: 'Sem espaços',
+    labelPalavras: 'Palavras',
+    labelFrases: 'Frases',
+    labelParagrafos: 'Parágrafos',
+    labelLinhas: 'Linhas',
+  },
+  es: {
+    labelTexto: 'Escribe o pega tu texto',
+    placeholder: 'Pega o escribe tu texto aquí...',
+    labelCaracteres: 'Caracteres',
+    labelSemEspacos: 'Sin espacios',
+    labelPalavras: 'Palabras',
+    labelFrases: 'Frases',
+    labelParagrafos: 'Párrafos',
+    labelLinhas: 'Líneas',
+  }
+}
+
 export function ContadorCaracteresForm() {
+  const pathname = usePathname()
+  const isSpanish = pathname?.startsWith('/es')
+  const t = isSpanish ? I18N.es : I18N.pt
+
   const [texto, setTexto] = useState('')
 
   const result = contarCaracteres({ texto })
 
   const stats = [
-    { label: 'Caracteres', value: result.caracteres },
-    { label: 'Sem espacos', value: result.caracteresSemEspacos },
-    { label: 'Palavras', value: result.palavras },
-    { label: 'Frases', value: result.frases },
-    { label: 'Paragrafos', value: result.paragrafos },
-    { label: 'Linhas', value: result.linhas },
+    { label: t.labelCaracteres, value: result.caracteres },
+    { label: t.labelSemEspacos, value: result.caracteresSemEspacos },
+    { label: t.labelPalavras, value: result.palavras },
+    { label: t.labelFrases, value: result.frases },
+    { label: t.labelParagrafos, value: result.paragrafos },
+    { label: t.labelLinhas, value: result.linhas },
   ]
 
   return (
@@ -22,13 +50,13 @@ export function ContadorCaracteresForm() {
       <div className="rounded-xl border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm">
         <div className="mb-4">
           <label htmlFor="texto" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-            Digite ou cole seu texto
+            {t.labelTexto}
           </label>
           <textarea
             id="texto"
             value={texto}
             onChange={(e) => setTexto(e.target.value)}
-            placeholder="Cole ou digite seu texto aqui..."
+            placeholder={t.placeholder}
             rows={8}
             className="w-full rounded-lg border border-slate-300 dark:border-gray-600 px-3 py-2.5 text-slate-800 dark:text-slate-200 bg-white dark:bg-gray-800 outline-none transition-colors focus:border-accent focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900 resize-y"
           />

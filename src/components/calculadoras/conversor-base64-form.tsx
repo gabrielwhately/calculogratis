@@ -1,20 +1,58 @@
 'use client'
 
 import { useState } from 'react'
+import { usePathname } from 'next/navigation'
 import { Select } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
 import { encodeBase64, decodeBase64 } from '@/lib/calculadoras/conversor-base64'
 
-const modoOptions = [
-  { value: 'encode', label: 'Codificar (Texto → Base64)' },
-  { value: 'decode', label: 'Decodificar (Base64 → Texto)' },
-]
+const I18N = {
+  pt: {
+    labelModo: 'Modo',
+    modoEncode: 'Codificar (Texto → Base64)',
+    modoDecode: 'Decodificar (Base64 → Texto)',
+    labelInputEncode: 'Texto de entrada',
+    labelInputDecode: 'Base64 de entrada',
+    placeholderEncode: 'Digite ou cole o texto aqui...',
+    placeholderDecode: 'Cole o código Base64 aqui...',
+    btnEncode: 'Codificar em Base64',
+    btnDecode: 'Decodificar Base64',
+    labelEntrada: 'Entrada',
+    labelSaida: 'Saída',
+    btnCopiar: 'Copiar',
+    btnCopiado: 'Copiado!',
+  },
+  es: {
+    labelModo: 'Modo',
+    modoEncode: 'Codificar (Texto → Base64)',
+    modoDecode: 'Decodificar (Base64 → Texto)',
+    labelInputEncode: 'Texto de entrada',
+    labelInputDecode: 'Base64 de entrada',
+    placeholderEncode: 'Escribe o pega el texto aquí...',
+    placeholderDecode: 'Pega el código Base64 aquí...',
+    btnEncode: 'Codificar en Base64',
+    btnDecode: 'Decodificar Base64',
+    labelEntrada: 'Entrada',
+    labelSaida: 'Salida',
+    btnCopiar: 'Copiar',
+    btnCopiado: '¡Copiado!',
+  }
+}
 
 export function ConversorBase64Form() {
+  const pathname = usePathname()
+  const isSpanish = pathname?.startsWith('/es')
+  const t = isSpanish ? I18N.es : I18N.pt
+
   const [input, setInput] = useState('')
   const [modo, setModo] = useState('encode')
   const [resultado, setResultado] = useState<{ output: string; valido: boolean; erro?: string; tamanhoOriginal: number; tamanhoConvertido: number } | null>(null)
   const [copiado, setCopiado] = useState(false)
+
+  const modoOptions = [
+    { value: 'encode', label: t.modoEncode },
+    { value: 'decode', label: t.modoDecode },
+  ]
 
   function handleConverter() {
     if (!input.trim()) return
@@ -38,22 +76,22 @@ export function ConversorBase64Form() {
   return (
     <>
       <div className="rounded-xl border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm">
-        <Select label="Modo" id="modo" value={modo} onChange={(v) => { setModo(v); setResultado(null) }} options={modoOptions} />
+        <Select label={t.labelModo} id="modo" value={modo} onChange={(v) => { setModo(v); setResultado(null) }} options={modoOptions} />
         <div className="mb-4">
           <label htmlFor="base64-input" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-            {modo === 'encode' ? 'Texto de entrada' : 'Base64 de entrada'}
+            {modo === 'encode' ? t.labelInputEncode : t.labelInputDecode}
           </label>
           <textarea
             id="base64-input"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder={modo === 'encode' ? 'Digite ou cole o texto aqui...' : 'Cole o codigo Base64 aqui...'}
+            placeholder={modo === 'encode' ? t.placeholderEncode : t.placeholderDecode}
             rows={6}
             className="w-full rounded-lg border border-slate-300 dark:border-gray-600 px-3 py-2.5 text-slate-800 dark:text-slate-200 bg-white dark:bg-gray-800 font-mono text-sm outline-none transition-colors focus:border-accent focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900 resize-y"
           />
         </div>
         <Button onClick={handleConverter} fullWidth>
-          {modo === 'encode' ? 'Codificar em Base64' : 'Decodificar Base64'}
+          {modo === 'encode' ? t.btnEncode : t.btnDecode}
         </Button>
       </div>
 
@@ -65,14 +103,14 @@ export function ConversorBase64Form() {
             <>
               <div className="flex items-center justify-between mb-3">
                 <div className="flex gap-4 text-sm text-slate-300">
-                  <span>Entrada: {formatarTamanho(resultado.tamanhoOriginal)}</span>
-                  <span>Saida: {formatarTamanho(resultado.tamanhoConvertido)}</span>
+                  <span>{t.labelEntrada}: {formatarTamanho(resultado.tamanhoOriginal)}</span>
+                  <span>{t.labelSaida}: {formatarTamanho(resultado.tamanhoConvertido)}</span>
                 </div>
                 <button
                   onClick={handleCopiar}
                   className="rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-white hover:bg-blue-600 transition-colors"
                 >
-                  {copiado ? 'Copiado!' : 'Copiar'}
+                  {copiado ? t.btnCopiado : t.btnCopiar}
                 </button>
               </div>
               <textarea

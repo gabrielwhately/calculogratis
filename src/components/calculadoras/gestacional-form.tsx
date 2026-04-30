@@ -1,12 +1,50 @@
 'use client'
 
 import { useState } from 'react'
+import { usePathname } from 'next/navigation'
+import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
+import { FormCard } from '@/components/ui/form-card'
 import { ResultCard } from '@/components/ui/result-card'
 import { calcularGestacional } from '@/lib/calculadoras/gestacional'
 import { formatDate } from '@/lib/formatters'
 
+const I18N = {
+  pt: {
+    labelDum: 'Data da Última Menstruação (DUM)',
+    buttonCalcular: 'Calcular Gestação',
+    resultTitle: 'Idade Gestacional',
+    resultMainLabel: 'Tempo de gestação atual',
+    itemDum: 'DUM informada',
+    itemTrimestre: 'Trimestre atual',
+    itemSemanas: 'Semanas completas',
+    itemDias: 'Dias adicionais',
+    itemDpp: 'Data provável do parto (DPP)',
+    labelTrimestre: 'º trimestre',
+    labelSemanas: 'semanas',
+    labelDias: 'dias',
+  },
+  es: {
+    labelDum: 'Fecha de la última menstruación (FUM)',
+    buttonCalcular: 'Calcular Embarazo',
+    resultTitle: 'Edad Gestacional',
+    resultMainLabel: 'Tiempo de gestación actual',
+    itemDum: 'FUM informada',
+    itemTrimestre: 'Trimestre actual',
+    itemSemanas: 'Semanas completas',
+    itemDias: 'Días adicionales',
+    itemDpp: 'Fecha probable de parto (FPP)',
+    labelTrimestre: 'º trimestre',
+    labelSemanas: 'semanas',
+    labelDias: 'días',
+  }
+}
+
 export function GestacionalForm() {
+  const pathname = usePathname()
+  const isSpanish = pathname?.startsWith('/es')
+  const t = isSpanish ? I18N.es : I18N.pt
+
   const [dum, setDum] = useState('')
   const [result, setResult] = useState<ReturnType<typeof calcularGestacional> | null>(null)
 
@@ -20,32 +58,34 @@ export function GestacionalForm() {
 
   return (
     <>
-      <div className="rounded-xl border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm">
-        <div className="mb-4">
-          <label htmlFor="dum" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Data da Última Menstruação (DUM)</label>
-          <input
-            id="dum"
-            type="date"
-            value={dum}
-            onChange={(e) => setDum(e.target.value)}
-            className="w-full rounded-lg border border-slate-300 dark:border-gray-600 px-3 py-2.5 text-slate-800 dark:text-slate-200 outline-none transition-colors bg-white dark:bg-gray-800 focus:border-accent focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900"
-          />
-        </div>
-        <Button onClick={handleCalcular} fullWidth disabled={!isValid}>Calcular Gestação</Button>
-      </div>
-      <ResultCard
-        visible={result !== null}
-        title="Idade Gestacional"
-        mainValue={result ? result.idadeGestacional : ''}
-        mainLabel="Tempo de gestação atual"
-        items={result ? [
-          { label: 'DUM informada', value: formatDate(result.dum) },
-          { label: 'Trimestre atual', value: `${result.trimestre}º trimestre`, highlight: true },
-          { label: 'Semanas completas', value: `${result.semanasCompletas} semanas` },
-          { label: 'Dias adicionais', value: `${result.dias} dias` },
-          { label: 'Data provável do parto (DPP)', value: formatDate(result.dataParto), highlight: true },
-        ] : []}
-      />
+      <FormCard>
+        <Input
+          label={t.labelDum}
+          id="dum"
+          type="date"
+          value={dum}
+          onChange={setDum}
+        />
+        <Button onClick={handleCalcular} fullWidth disabled={!isValid}>
+          {t.buttonCalcular}
+        </Button>
+      </FormCard>
+      
+      {result && (
+        <ResultCard
+          visible={true}
+          title={t.resultTitle}
+          mainValue={result.idadeGestacional}
+          mainLabel={t.resultMainLabel}
+          items={[
+            { label: t.itemDum, value: formatDate(result.dum) },
+            { label: t.itemTrimestre, value: `${result.trimestre}${t.labelTrimestre}`, highlight: true },
+            { label: t.itemSemanas, value: `${result.semanasCompletas} ${t.labelSemanas}` },
+            { label: t.itemDias, value: `${result.dias} ${t.labelDias}` },
+            { label: t.itemDpp, value: formatDate(result.dataParto), highlight: true },
+          ]}
+        />
+      )}
     </>
   )
 }

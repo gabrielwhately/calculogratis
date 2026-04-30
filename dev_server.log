@@ -1,0 +1,112 @@
+
+> calculogratis@0.1.0 dev
+> next dev -p 3020
+
+  ▲ Next.js 14.2.35
+  - Local:        http://localhost:3020
+
+ ✓ Starting...
+ ⚠ Disabling SWC Minifer will not be an option in the next major version. Please report any issues you may be experiencing to https://github.com/vercel/next.js/issues
+ ✓ Ready in 2s
+ ○ Compiling / ...
+ ⨯ ./src/lib/constants/calculadoras.ts
+Error: 
+  [31mx[0m Expression expected
+     ,-[[36;1;4m/home/claude/projects/calculogratis/src/lib/constants/calculadoras.ts[0m:107:1]
+ [2m107[0m | export function getCalculadora(slug: string): CalculadoraInfo | undefined {
+ [2m108[0m |   return CALCULADORAS.find(c => c.slug === slug)
+ [2m109[0m | }
+ [2m110[0m |  === slug)
+     : [31;1m ^^^[0m
+ [2m111[0m | }
+ [2m112[0m | ug)
+ [2m113[0m | }
+     `----
+
+  [31mx[0m Expected ';', '}' or <eof>
+     ,-[[36;1;4m/home/claude/projects/calculogratis/src/lib/constants/calculadoras.ts[0m:107:1]
+ [2m107[0m | export function getCalculadora(slug: string): CalculadoraInfo | undefined {
+ [2m108[0m |   return CALCULADORAS.find(c => c.slug === slug)
+ [2m109[0m | }
+ [2m110[0m |  === slug)
+     : [31;1m ^^^^|^^^[0m[33;1m^[0m
+     :      [31;1m`-- [31;1mThis is the expression part of an expression statement[0m[0m
+ [2m111[0m | }
+ [2m112[0m | ug)
+ [2m113[0m | }
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./src/lib/constants/calculadoras.ts
+./src/components/layout/navbar.tsx
+ ⨯ ./src/lib/constants/calculadoras.ts
+Error: 
+  [31mx[0m Expression expected
+     ,-[[36;1;4m/home/claude/projects/calculogratis/src/lib/constants/calculadoras.ts[0m:107:1]
+ [2m107[0m | export function getCalculadora(slug: string): CalculadoraInfo | undefined {
+ [2m108[0m |   return CALCULADORAS.find(c => c.slug === slug)
+ [2m109[0m | }
+ [2m110[0m |  === slug)
+     : [31;1m ^^^[0m
+ [2m111[0m | }
+ [2m112[0m | ug)
+ [2m113[0m | }
+     `----
+
+  [31mx[0m Expected ';', '}' or <eof>
+     ,-[[36;1;4m/home/claude/projects/calculogratis/src/lib/constants/calculadoras.ts[0m:107:1]
+ [2m107[0m | export function getCalculadora(slug: string): CalculadoraInfo | undefined {
+ [2m108[0m |   return CALCULADORAS.find(c => c.slug === slug)
+ [2m109[0m | }
+ [2m110[0m |  === slug)
+     : [31;1m ^^^^|^^^[0m[33;1m^[0m
+     :      [31;1m`-- [31;1mThis is the expression part of an expression statement[0m[0m
+ [2m111[0m | }
+ [2m112[0m | ug)
+ [2m113[0m | }
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./src/lib/constants/calculadoras.ts
+./src/components/layout/navbar.tsx
+ ⨯ ./src/lib/constants/calculadoras.ts
+Error: 
+  [31mx[0m Expression expected
+     ,-[[36;1;4m/home/claude/projects/calculogratis/src/lib/constants/calculadoras.ts[0m:107:1]
+ [2m107[0m | export function getCalculadora(slug: string): CalculadoraInfo | undefined {
+ [2m108[0m |   return CALCULADORAS.find(c => c.slug === slug)
+ [2m109[0m | }
+ [2m110[0m |  === slug)
+     : [31;1m ^^^[0m
+ [2m111[0m | }
+ [2m112[0m | ug)
+ [2m113[0m | }
+     `----
+
+  [31mx[0m Expected ';', '}' or <eof>
+     ,-[[36;1;4m/home/claude/projects/calculogratis/src/lib/constants/calculadoras.ts[0m:107:1]
+ [2m107[0m | export function getCalculadora(slug: string): CalculadoraInfo | undefined {
+ [2m108[0m |   return CALCULADORAS.find(c => c.slug === slug)
+ [2m109[0m | }
+ [2m110[0m |  === slug)
+     : [31;1m ^^^^|^^^[0m[33;1m^[0m
+     :      [31;1m`-- [31;1mThis is the expression part of an expression statement[0m[0m
+ [2m111[0m | }
+ [2m112[0m | ug)
+ [2m113[0m | }
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./src/lib/constants/calculadoras.ts
+./src/components/layout/navbar.tsx
+ GET / 500 in 18303ms
+ HEAD / 500 in 6319ms

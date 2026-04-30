@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { usePathname } from 'next/navigation'
 import { Input } from '@/components/ui/input'
 import { Select } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
@@ -15,7 +16,36 @@ interface ResultadoBases {
   hexadecimal: string
 }
 
+const I18N = {
+  pt: {
+    labelBase: 'Base de origem',
+    labelValor: 'Valor',
+    btnConverter: 'Converter',
+    resultTitle: 'Resultado da conversão',
+    invalidValue: 'Valor inválido para base',
+    base2: 'Binário (Base 2)',
+    base8: 'Octal (Base 8)',
+    base10: 'Decimal (Base 10)',
+    base16: 'Hexadecimal (Base 16)',
+  },
+  es: {
+    labelBase: 'Base de origen',
+    labelValor: 'Valor',
+    btnConverter: 'Convertir',
+    resultTitle: 'Resultado de la conversión',
+    invalidValue: 'Valor inválido para base',
+    base2: 'Binario (Base 2)',
+    base8: 'Octal (Base 8)',
+    base10: 'Decimal (Base 10)',
+    base16: 'Hexadecimal (Base 16)',
+  }
+}
+
 export function ConversorBasesForm() {
+  const pathname = usePathname()
+  const isSpanish = pathname?.startsWith('/es')
+  const t = isSpanish ? I18N.es : I18N.pt
+
   const [valor, setValor] = useState('')
   const [base, setBase] = useState<string>('10')
   const [result, setResult] = useState<ResultadoBases | null>(null)
@@ -31,7 +61,7 @@ export function ConversorBasesForm() {
       16: /^[0-9a-fA-F]+$/,
     }
     if (!chars[baseNum].test(valor.trim())) {
-      setErro(`Valor invalido para base ${base}`)
+      setErro(`${t.invalidValue} ${base}`)
       setResult(null)
       return
     }
@@ -45,46 +75,46 @@ export function ConversorBasesForm() {
     <>
       <div className="rounded-xl border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm">
         <Select
-          label="Base de origem"
+          label={t.labelBase}
           id="base"
           value={base}
           onChange={setBase}
           options={[
-            { value: '2', label: 'Binario (Base 2)' },
-            { value: '8', label: 'Octal (Base 8)' },
-            { value: '10', label: 'Decimal (Base 10)' },
-            { value: '16', label: 'Hexadecimal (Base 16)' },
+            { value: '2', label: t.base2 },
+            { value: '8', label: t.base8 },
+            { value: '10', label: t.base10 },
+            { value: '16', label: t.base16 },
           ]}
         />
         <Input
-          label="Valor"
+          label={t.labelValor}
           id="valor"
           value={valor}
           onChange={(v) => { setValor(v); setErro(null); setResult(null) }}
           placeholder={base === '2' ? 'Ex: 1010' : base === '8' ? 'Ex: 17' : base === '16' ? 'Ex: FF' : 'Ex: 255'}
         />
         {erro && <p className="mb-3 text-sm text-red-500">{erro}</p>}
-        <Button onClick={handleCalcular} fullWidth disabled={!isValid}>Converter</Button>
+        <Button onClick={handleCalcular} fullWidth disabled={!isValid}>{t.btnConverter}</Button>
       </div>
 
       {result && (
         <div className="mt-6 rounded-xl bg-navy dark:bg-gray-800 dark:border dark:border-gray-700 p-6 text-white" aria-live="polite">
-          <p className="text-sm text-slate-300 mb-4">Resultado da conversao</p>
+          <p className="text-sm text-slate-300 mb-4">{t.resultTitle}</p>
           <div className="space-y-3">
             <div className="flex items-center justify-between rounded-lg bg-white/10 px-4 py-3">
-              <span className="text-slate-300 text-sm">Decimal (Base 10)</span>
+              <span className="text-slate-300 text-sm">{t.base10}</span>
               <span className="font-mono font-bold text-lg">{result.decimal}</span>
             </div>
             <div className="flex items-center justify-between rounded-lg bg-white/10 px-4 py-3">
-              <span className="text-slate-300 text-sm">Binario (Base 2)</span>
+              <span className="text-slate-300 text-sm">{t.base2}</span>
               <span className="font-mono font-bold text-lg break-all text-right max-w-[60%]">{result.binario}</span>
             </div>
             <div className="flex items-center justify-between rounded-lg bg-white/10 px-4 py-3">
-              <span className="text-slate-300 text-sm">Octal (Base 8)</span>
+              <span className="text-slate-300 text-sm">{t.base8}</span>
               <span className="font-mono font-bold text-lg">{result.octal}</span>
             </div>
             <div className="flex items-center justify-between rounded-lg bg-white/10 px-4 py-3">
-              <span className="text-slate-300 text-sm">Hexadecimal (Base 16)</span>
+              <span className="text-slate-300 text-sm">{t.base16}</span>
               <span className="font-mono font-bold text-lg">{result.hexadecimal}</span>
             </div>
           </div>

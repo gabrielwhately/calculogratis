@@ -1,18 +1,49 @@
 'use client'
 
 import { useState } from 'react'
+import { usePathname } from 'next/navigation'
 import { Select } from '@/components/ui/select'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
+import { FormCard } from '@/components/ui/form-card'
 import { gerarLorem } from '@/lib/calculadoras/gerador-lorem'
 
-const tipoOptions = [
-  { value: 'paragrafos', label: 'Paragrafos' },
-  { value: 'frases', label: 'Frases' },
-  { value: 'palavras', label: 'Palavras' },
-]
+const I18N = {
+  pt: {
+    labelTipo: 'Tipo',
+    tipoOptions: [
+      { value: 'paragrafos', label: 'Parágrafos' },
+      { value: 'frases', label: 'Frases' },
+      { value: 'palavras', label: 'Palavras' },
+    ],
+    labelQuantidade: 'Quantidade',
+    buttonCalcular: 'Gerar Lorem Ipsum',
+    labelPalavras: 'palavras',
+    labelCaracteres: 'caracteres',
+    buttonCopiar: 'Copiar',
+    buttonCopiado: 'Copiado!',
+  },
+  es: {
+    labelTipo: 'Tipo',
+    tipoOptions: [
+      { value: 'paragrafos', label: 'Párrafos' },
+      { value: 'frases', label: 'Frases' },
+      { value: 'palavras', label: 'Palabras' },
+    ],
+    labelQuantidade: 'Cantidad',
+    buttonCalcular: 'Generar Lorem Ipsum',
+    labelPalavras: 'palabras',
+    labelCaracteres: 'caracteres',
+    buttonCopiar: 'Copiar',
+    buttonCopiado: '¡Copiado!',
+  }
+}
 
 export function GeradorLoremForm() {
+  const pathname = usePathname()
+  const isSpanish = pathname?.startsWith('/es')
+  const t = isSpanish ? I18N.es : I18N.pt
+
   const [tipo, setTipo] = useState<'paragrafos' | 'frases' | 'palavras'>('paragrafos')
   const [quantidade, setQuantidade] = useState('3')
   const [resultado, setResultado] = useState<{ texto: string; palavras: number; caracteres: number } | null>(null)
@@ -34,16 +65,16 @@ export function GeradorLoremForm() {
 
   return (
     <>
-      <div className="rounded-xl border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm">
+      <FormCard>
         <Select
-          label="Tipo"
+          label={t.labelTipo}
           id="tipo"
           value={tipo}
           onChange={(v) => setTipo(v as 'paragrafos' | 'frases' | 'palavras')}
-          options={tipoOptions}
+          options={t.tipoOptions}
         />
         <Input
-          label="Quantidade"
+          label={t.labelQuantidade}
           id="quantidade"
           type="number"
           value={quantidade}
@@ -51,21 +82,23 @@ export function GeradorLoremForm() {
           inputMode="numeric"
           placeholder="3"
         />
-        <Button onClick={handleGerar} fullWidth>Gerar Lorem Ipsum</Button>
-      </div>
+        <Button onClick={handleGerar} fullWidth>
+          {t.buttonCalcular}
+        </Button>
+      </FormCard>
 
       {resultado && (
         <div className="mt-6 rounded-xl bg-navy dark:bg-gray-800 dark:border dark:border-gray-700 p-6 text-white" aria-live="polite">
           <div className="flex items-center justify-between mb-3">
             <div className="flex gap-4 text-sm text-slate-300">
-              <span>{resultado.palavras} palavras</span>
-              <span>{resultado.caracteres} caracteres</span>
+              <span>{resultado.palavras} {t.labelPalavras}</span>
+              <span>{resultado.caracteres} {t.labelCaracteres}</span>
             </div>
             <button
               onClick={handleCopiar}
               className="rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-white hover:bg-blue-600 transition-colors"
             >
-              {copiado ? 'Copiado!' : 'Copiar'}
+              {copiado ? t.buttonCopiado : t.buttonCopiar}
             </button>
           </div>
           <div className="rounded-lg bg-navy-light px-4 py-4 text-sm leading-relaxed whitespace-pre-wrap">

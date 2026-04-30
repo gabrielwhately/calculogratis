@@ -1,10 +1,59 @@
 'use client'
 
 import { useState } from 'react'
+import { usePathname } from 'next/navigation'
 import { Button } from '@/components/ui/button'
+import { FormCard } from '@/components/ui/form-card'
 import { gerarSenha, avaliarForcaSenha } from '@/lib/calculadoras/gerador-senha'
 
+const I18N = {
+  pt: {
+    labelTamanho: 'Tamanho da senha',
+    labelMaiusculas: 'Maiúsculas (A-Z)',
+    labelMinusculas: 'Minúsculas (a-z)',
+    labelNumeros: 'Números (0-9)',
+    labelSimbolos: 'Símbolos (!@#...)',
+    buttonCalcular: 'Gerar Senha',
+    resultTitle: 'Senha gerada',
+    labelForca: 'Força da senha',
+    buttonCopiar: 'Copiar',
+    buttonCopiado: 'Copiado!',
+    forcaLabels: {
+      'Muito Fraca': 'Muito Fraca',
+      'Fraca': 'Fraca',
+      'Media': 'Média',
+      'Boa': 'Boa',
+      'Forte': 'Forte',
+      'Muito Forte': 'Muito Forte',
+    }
+  },
+  es: {
+    labelTamanho: 'Tamaño de la contraseña',
+    labelMaiusculas: 'Mayúsculas (A-Z)',
+    labelMinusculas: 'Minúsculas (a-z)',
+    labelNumeros: 'Números (0-9)',
+    labelSimbolos: 'Símbolos (!@#...)',
+    buttonCalcular: 'Generar Contraseña',
+    resultTitle: 'Contraseña generada',
+    labelForca: 'Fuerza de la contraseña',
+    buttonCopiar: 'Copiar',
+    buttonCopiado: '¡Copiado!',
+    forcaLabels: {
+      'Muito Fraca': 'Muy Débil',
+      'Fraca': 'Débil',
+      'Media': 'Media',
+      'Boa': 'Buena',
+      'Forte': 'Fuerte',
+      'Muito Forte': 'Muy Fuerte',
+    }
+  }
+}
+
 export function GeradorSenhaForm() {
+  const pathname = usePathname()
+  const isSpanish = pathname?.startsWith('/es')
+  const t = isSpanish ? I18N.es : I18N.pt
+
   const [tamanho, setTamanho] = useState(16)
   const [maiusculas, setMaiusculas] = useState(true)
   const [minusculas, setMinusculas] = useState(true)
@@ -31,10 +80,10 @@ export function GeradorSenhaForm() {
 
   return (
     <>
-      <div className="rounded-xl border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm">
+      <FormCard>
         <div className="mb-4">
           <label htmlFor="tamanho" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-            Tamanho da senha: <span className="font-bold text-accent">{tamanho}</span>
+            {t.labelTamanho}: <span className="font-bold text-accent">{tamanho}</span>
           </label>
           <input
             id="tamanho"
@@ -52,10 +101,10 @@ export function GeradorSenhaForm() {
         </div>
         <div className="grid grid-cols-2 gap-3 mb-5">
           {[
-            { label: 'Maiusculas (A-Z)', value: maiusculas, set: setMaiusculas },
-            { label: 'Minusculas (a-z)', value: minusculas, set: setMinusculas },
-            { label: 'Numeros (0-9)', value: numeros, set: setNumeros },
-            { label: 'Simbolos (!@#...)', value: simbolos, set: setSimbolos },
+            { label: t.labelMaiusculas, value: maiusculas, set: setMaiusculas },
+            { label: t.labelMinusculas, value: minusculas, set: setMinusculas },
+            { label: t.labelNumeros, value: numeros, set: setNumeros },
+            { label: t.labelSimbolos, value: simbolos, set: setSimbolos },
           ].map(({ label, value, set }) => (
             <label key={label} className="flex items-center gap-2 cursor-pointer select-none">
               <input
@@ -68,12 +117,14 @@ export function GeradorSenhaForm() {
             </label>
           ))}
         </div>
-        <Button onClick={handleGerar} fullWidth>Gerar Senha</Button>
-      </div>
+        <Button onClick={handleGerar} fullWidth>
+          {t.buttonCalcular}
+        </Button>
+      </FormCard>
 
       {senha && (
         <div className="mt-6 rounded-xl bg-navy dark:bg-gray-800 dark:border dark:border-gray-700 p-6 text-white" aria-live="polite">
-          <p className="text-sm text-slate-300 mb-3">Senha gerada</p>
+          <p className="text-sm text-slate-300 mb-3">{t.resultTitle}</p>
           <div className="flex items-center gap-3 mb-4">
             <code className="flex-1 rounded-lg bg-navy-light px-4 py-3 font-mono text-lg tracking-widest break-all">
               {senha}
@@ -82,14 +133,16 @@ export function GeradorSenhaForm() {
               onClick={handleCopiar}
               className="shrink-0 rounded-lg bg-accent px-4 py-3 text-sm font-semibold text-white hover:bg-blue-600 transition-colors"
             >
-              {copiado ? 'Copiado!' : 'Copiar'}
+              {copiado ? t.buttonCopiado : t.buttonCopiar}
             </button>
           </div>
           {forca && (
             <div>
               <div className="flex justify-between text-xs mb-1">
-                <span className="text-slate-300">Forca da senha</span>
-                <span className="font-semibold">{forca.label}</span>
+                <span className="text-slate-300">{t.labelForca}</span>
+                <span className="font-semibold">
+                  {t.forcaLabels[forca.label as keyof typeof t.forcaLabels] || forca.label}
+                </span>
               </div>
               <div className="h-2 w-full rounded-full bg-white/20">
                 <div
