@@ -123,7 +123,7 @@ export function MultaAtrasoForm() {
           items={[
             { label: t.itemValorOriginal, value: formatCurrency(result.valorOriginal) },
             { label: t.itemDiasAtraso, value: `${result.diasAtraso} ${t.labelDias}` },
-            { label: `${t.itemMulta} (${result.multaPercent}%)`, value: formatCurrency(result.multa), highlight: true },
+            { label: `${t.itemMulta} (${multaPercent}%)`, value: formatCurrency(result.multa), highlight: true },
             { label: t.itemJuros, value: formatCurrency(result.juros), highlight: true },
             { label: t.itemTotal, value: formatCurrency(result.valorTotal), highlight: true },
           ]}
