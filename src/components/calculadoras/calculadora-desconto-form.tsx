@@ -1,13 +1,48 @@
 'use client'
 
 import { useState } from 'react'
+import { usePathname } from 'next/navigation'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
+import { FormCard } from '@/components/ui/form-card'
 import { ResultCard } from '@/components/ui/result-card'
 import { calcularDesconto } from '@/lib/calculadoras/calculadora-desconto'
 import { formatCurrency, parseBRNumber, maskCurrency, maskPercent } from '@/lib/formatters'
 
+const I18N = {
+  pt: {
+    labelValor: 'Valor original (R$)',
+    labelDesconto: 'Desconto (%)',
+    placeholderValor: 'Ex: 299,90',
+    placeholderDesconto: 'Ex: 15',
+    buttonCalcular: 'Calcular Desconto',
+    resultTitle: 'Resultado do Desconto',
+    resultMainLabel: 'Valor final com desconto',
+    itemOriginal: 'Valor original',
+    itemPercentual: 'Percentual de desconto',
+    itemValorDesconto: 'Valor do desconto',
+    itemEconomia: 'Você economiza',
+  },
+  es: {
+    labelValor: 'Precio original',
+    labelDesconto: 'Descuento (%)',
+    placeholderValor: 'Ej: 299,90',
+    placeholderDesconto: 'Ej: 15',
+    buttonCalcular: 'Calcular Descuento',
+    resultTitle: 'Resultado del Descuento',
+    resultMainLabel: 'Precio final con descuento',
+    itemOriginal: 'Precio original',
+    itemPercentual: 'Porcentaje de descuento',
+    itemValorDesconto: 'Valor del descuento',
+    itemEconomia: 'Usted ahorra',
+  }
+}
+
 export function CalculadoraDescontoForm() {
+  const pathname = usePathname()
+  const isSpanish = pathname?.startsWith('/es')
+  const t = isSpanish ? I18N.es : I18N.pt
+
   const [valor, setValor] = useState('')
   const [desconto, setDesconto] = useState('')
   const [result, setResult] = useState<ReturnType<typeof calcularDesconto> | null>(null)
@@ -20,36 +55,37 @@ export function CalculadoraDescontoForm() {
 
   return (
     <>
-      <div className="rounded-xl border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm">
+      <FormCard>
         <Input
-          label="Valor original (R$)"
+          label={t.labelValor}
           id="valor"
           value={valor}
           onChange={(v) => setValor(maskCurrency(v))}
           inputMode="decimal"
-          placeholder="Ex: 299,90"
+          placeholder={t.placeholderValor}
         />
         <Input
-          label="Desconto (%)"
+          label={t.labelDesconto}
           id="desconto"
           value={desconto}
           onChange={(v) => setDesconto(maskPercent(v))}
           inputMode="decimal"
-          placeholder="Ex: 15"
+          placeholder={t.placeholderDesconto}
           suffix="%"
         />
-        <Button onClick={handleCalcular} fullWidth disabled={!isValid}>Calcular Desconto</Button>
-      </div>
+        <Button onClick={handleCalcular} fullWidth disabled={!isValid}>{t.buttonCalcular}</Button>
+      </FormCard>
+      
       <ResultCard
         visible={result !== null}
-        title="Resultado do Desconto"
+        title={t.resultTitle}
         mainValue={result ? formatCurrency(result.valorFinal) : ''}
-        mainLabel="Valor final com desconto"
+        mainLabel={t.resultMainLabel}
         items={result ? [
-          { label: 'Valor original', value: formatCurrency(result.valorOriginal) },
-          { label: 'Percentual de desconto', value: `${result.desconto}%` },
-          { label: 'Valor do desconto', value: formatCurrency(result.valorDesconto), highlight: true },
-          { label: 'Você economiza', value: formatCurrency(result.economia), highlight: true },
+          { label: t.itemOriginal, value: formatCurrency(result.valorOriginal) },
+          { label: t.itemPercentual, value: `${result.desconto}%` },
+          { label: t.itemValorDesconto, value: formatCurrency(result.valorDesconto), highlight: true },
+          { label: t.itemEconomia, value: formatCurrency(result.economia), highlight: true },
         ] : []}
       />
     </>
