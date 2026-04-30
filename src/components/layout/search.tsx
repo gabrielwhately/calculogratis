@@ -11,25 +11,52 @@ export function Search() {
   const results = useMemo(() => {
     if (!query.trim()) return []
     const q = query.toLowerCase()
-    return CALCULADORAS.filter(c => c.nome.toLowerCase().includes(q) || c.descricao.toLowerCase().includes(q) || c.keywords.toLowerCase().includes(q))
+    return CALCULADORAS.filter(c =>
+      c.nome.toLowerCase().includes(q) ||
+      c.descricao.toLowerCase().includes(q) ||
+      (c.keywords && c.keywords.toLowerCase().includes(q))
+    ).slice(0, 6)
   }, [query])
 
   return (
     <div className="relative">
-      <input type="search" placeholder="Buscar calculadora..." value={query}
+      <input
+        type="search"
+        placeholder="Buscar calculadora..."
+        value={query}
         onChange={(e) => { setQuery(e.target.value); setIsOpen(true) }}
         onFocus={() => setIsOpen(true)}
         onBlur={() => setTimeout(() => setIsOpen(false), 200)}
-        className="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-3 py-2 text-sm text-slate-800 dark:text-slate-200 outline-none focus:border-accent focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900 md:w-64" />
-      {isOpen && results.length > 0 && (
-        <div className="absolute top-full left-0 right-0 z-50 mt-1 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-lg">
-          {results.map((calc) => (
-            <Link key={calc.slug} href={`/${calc.categoriaSlug}/${calc.slug}`}
-              className="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700" onClick={() => setIsOpen(false)}>
-              <span className="font-medium">{calc.nome}</span>
-              <span className="ml-2 text-xs text-slate-600 dark:text-slate-400">{calc.categoria}</span>
-            </Link>
-          ))}
+        className="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-3 py-2 text-sm text-slate-800 dark:text-slate-200 outline-none focus:border-accent focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900 md:w-64"
+      />
+      {isOpen && query.trim() !== '' && (
+        <div className="absolute top-full left-0 right-0 z-50 mt-1 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-xl overflow-hidden min-w-[280px]">
+          {results.length > 0 ? (
+            <>
+              {results.map((calc) => (
+                <Link
+                  key={calc.slug}
+                  href={`/${calc.categoriaSlug}/${calc.slug}`}
+                  className="block px-4 py-2.5 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <div className="font-semibold">{calc.nome}</div>
+                  <div className="text-xs text-slate-500">{calc.categoria}</div>
+                </Link>
+              ))}
+              <Link
+                href="/busca"
+                className="block border-t border-slate-100 dark:border-slate-700 px-4 py-2 text-center text-xs font-bold text-accent hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors uppercase tracking-wider"
+                onClick={() => setIsOpen(false)}
+              >
+                Ver todos os resultados
+              </Link>
+            </>
+          ) : (
+            <div className="px-4 py-4 text-sm text-slate-500 text-center italic">
+              Nenhuma calculadora encontrada
+            </div>
+          )}
         </div>
       )}
     </div>

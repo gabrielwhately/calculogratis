@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { usePathname } from 'next/navigation'
 import { Input } from '@/components/ui/input'
 import { Select } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
@@ -9,12 +10,66 @@ import { ResultCard } from '@/components/ui/result-card'
 import { calcularRescisao, TipoDemissao } from '@/lib/calculadoras/rescisao'
 import { formatCurrency, parseBRNumber, maskCurrency, maskDate } from '@/lib/formatters'
 
-const TIPO_DEMISSAO_OPTIONS = [
-  { value: 'sem_justa_causa', label: 'Demissão sem justa causa' },
-  { value: 'justa_causa', label: 'Demissão por justa causa' },
-  { value: 'pedido_demissao', label: 'Pedido de demissão' },
-  { value: 'acordo', label: 'Acordo mútuo' },
-]
+const I18N = {
+  pt: {
+    labelSalario: 'Salário bruto (R$)',
+    labelTipo: 'Tipo de demissão',
+    labelDataAdm: 'Data de admissão (DD/MM/AAAA)',
+    labelDataDem: 'Data de demissão (DD/MM/AAAA)',
+    labelFGTS: 'Saldo FGTS (R$)',
+    labelDependentes: 'Dependentes',
+    placeholderData: 'Ex: 01/01/2020',
+    errorDataInvalida: 'Data inválida',
+    errorRangeInvalido: 'A demissão deve ser após a admissão',
+    buttonCalcular: 'Calcular Rescisão',
+    resultTitle: 'Rescisão Trabalhista',
+    resultMainLabel: 'Valor total da rescisão',
+    itemSaldo: 'Saldo de salário',
+    itemAviso: 'Aviso prévio',
+    itemFeriasVencidas: 'Férias vencidas',
+    itemFeriasProp: 'Férias proporcionais',
+    itemTerco: '1/3 de férias',
+    itemDecimo: '13º proporcional',
+    itemMulta: 'Multa FGTS',
+    itemINSS: 'INSS',
+    itemIRRF: 'IRRF',
+    options: [
+      { value: 'sem_justa_causa', label: 'Demissão sem justa causa' },
+      { value: 'justa_causa', label: 'Demissão por justa causa' },
+      { value: 'pedido_demissao', label: 'Pedido de demissão' },
+      { value: 'acordo', label: 'Acordo mútuo' },
+    ]
+  },
+  es: {
+    labelSalario: 'Salario bruto',
+    labelTipo: 'Tipo de despido',
+    labelDataAdm: 'Fecha de ingreso (DD/MM/AAAA)',
+    labelDataDem: 'Fecha de egreso (DD/MM/AAAA)',
+    labelFGTS: 'Saldo FGTS',
+    labelDependentes: 'Dependientes',
+    placeholderData: 'Ej: 01/01/2020',
+    errorDataInvalida: 'Fecha inválida',
+    errorRangeInvalido: 'El egreso debe ser después del ingreso',
+    buttonCalcular: 'Calcular Liquidación',
+    resultTitle: 'Liquidación Laboral',
+    resultMainLabel: 'Valor total de la liquidación',
+    itemSaldo: 'Saldo de salario',
+    itemAviso: 'Aviso previo',
+    itemFeriasVencidas: 'Vacaciones vencidas',
+    itemFeriasProp: 'Vacaciones proporcionales',
+    itemTerco: '1/3 de vacaciones',
+    itemDecimo: 'Aguinaldo proporcional',
+    itemMulta: 'Multa FGTS',
+    itemINSS: 'INSS',
+    itemIRRF: 'Impuesto de Renta',
+    options: [
+      { value: 'sem_justa_causa', label: 'Despido sin justa causa' },
+      { value: 'justa_causa', label: 'Despido por justa causa' },
+      { value: 'pedido_demissao', label: 'Renuncia' },
+      { value: 'acordo', label: 'Acuerdo mutuo' },
+    ]
+  }
+}
 
 function parseDate(str: string): Date | null {
   const parts = str.split('/')
@@ -27,6 +82,10 @@ function parseDate(str: string): Date | null {
 }
 
 export function RescisaoForm() {
+  const pathname = usePathname()
+  const isSpanish = pathname?.startsWith('/es')
+  const t = isSpanish ? I18N.es : I18N.pt
+
   const [salario, setSalario] = useState('')
   const [dataAdm, setDataAdm] = useState('')
   const [dataDem, setDataDem] = useState('')
@@ -58,33 +117,40 @@ export function RescisaoForm() {
   return (
     <>
       <FormCard>
-        <Input label="Salário bruto (R$)" id="salario" value={salario} onChange={(v) => setSalario(maskCurrency(v))} inputMode="decimal" placeholder="Ex: 3.000,00" />
-        <Select label="Tipo de demissão" id="tipo" value={tipo} onChange={setTipo} options={TIPO_DEMISSAO_OPTIONS} />
+        <Input label={t.labelSalario} id="salario" value={salario} onChange={(v) => setSalario(maskCurrency(v))} inputMode="decimal" placeholder="Ex: 3.000,00" />
+        <Select label={t.labelTipo} id="tipo" value={tipo} onChange={setTipo} options={t.options} />
         <Input
-          label="Data de admissão (DD/MM/AAAA)"
+          label={t.labelDataAdm}
           id="data-adm"
           value={dataAdm}
           onChange={(v) => setDataAdm(maskDate(v))}
-          placeholder="Ex: 01/01/2020"
-          error={!isDateAdmValid ? 'Data inválida' : ''}
+          placeholder={t.placeholderData}
+          error={!isDateAdmValid ? t.errorDataInvalida : ''}
         />
         <Input
-          label="Data de demissão (DD/MM/AAAA)"
+          label={t.labelDataDem}
           id="data-dem"
           value={dataDem}
           onChange={(v) => setDataDem(maskDate(v))}
-          placeholder="Ex: 24/03/2026"
-          error={!isDateDemValid ? 'Data inválida' : !isRangeValid ? 'A demissão deve ser após a admissão' : ''}
+          placeholder={t.placeholderData}
+          error={!isDateDemValid ? t.errorDataInvalida : !isRangeValid ? t.errorRangeInvalido : ''}
         />
-        <Input label="Saldo FGTS (R$)" id="fgts" value={fgts} onChange={(v) => setFgts(maskCurrency(v))} inputMode="decimal" placeholder="Ex: 15.000,00" />
-        <Input label="Dependentes" id="dependentes" value={dependentes} onChange={(v) => setDependentes(v.replace(/\D/g, ''))} inputMode="numeric" placeholder="0" />
-        <Button onClick={handleCalcular} fullWidth disabled={!canCalculate}>Calcular Rescisão</Button>
+        <Input label={t.labelFGTS} id="fgts" value={fgts} onChange={(v) => setFgts(maskCurrency(v))} inputMode="decimal" placeholder="Ex: 15.000,00" />
+        <Input label={t.labelDependentes} id="dependentes" value={dependentes} onChange={(v) => setDependentes(v.replace(/\D/g, ''))} inputMode="numeric" placeholder="0" />
+        <Button onClick={handleCalcular} fullWidth disabled={!canCalculate}>{t.buttonCalcular}</Button>
       </FormCard>
-      <ResultCard visible={result !== null} title="Rescisão Trabalhista" mainValue={result ? formatCurrency(result.total) : ''} mainLabel="Valor total da rescisão"
-        items={result ? [{ label: 'Saldo de salário', value: formatCurrency(result.saldoSalario) }, { label: 'Aviso prévio', value: formatCurrency(result.avisoPrevio) },
-          { label: 'Férias vencidas', value: formatCurrency(result.feriasVencidas) }, { label: 'Férias proporcionais', value: formatCurrency(result.feriasProporcionais) },
-          { label: '1/3 de férias', value: formatCurrency(result.tercoFerias) }, { label: '13º proporcional', value: formatCurrency(result.decimoTerceiro) },
-          { label: 'Multa FGTS', value: formatCurrency(result.multaFGTS), highlight: true }, { label: 'INSS', value: `- ${formatCurrency(result.inss)}` }, { label: 'IRRF', value: `- ${formatCurrency(result.irrf)}` }] : []} />
+      <ResultCard visible={result !== null} title={t.resultTitle} mainValue={result ? formatCurrency(result.total) : ''} mainLabel={t.resultMainLabel}
+        items={result ? [
+          { label: t.itemSaldo, value: formatCurrency(result.saldoSalario) },
+          { label: t.itemAviso, value: formatCurrency(result.avisoPrevio) },
+          { label: t.itemFeriasVencidas, value: formatCurrency(result.feriasVencidas) },
+          { label: t.itemFeriasProp, value: formatCurrency(result.feriasProporcionais) },
+          { label: t.itemTerco, value: formatCurrency(result.tercoFerias) },
+          { label: t.itemDecimo, value: formatCurrency(result.decimoTerceiro) },
+          { label: t.itemMulta, value: formatCurrency(result.multaFGTS), highlight: true },
+          { label: t.itemINSS, value: `- ${formatCurrency(result.inss)}` },
+          { label: t.itemIRRF, value: `- ${formatCurrency(result.irrf)}` }
+        ] : []} />
     </>
   )
 }
