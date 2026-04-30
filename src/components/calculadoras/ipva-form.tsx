@@ -1,9 +1,11 @@
 'use client'
 
 import { useState } from 'react'
+import { usePathname } from 'next/navigation'
 import { Input } from '@/components/ui/input'
 import { Select } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
+import { FormCard } from '@/components/ui/form-card'
 import { ResultCard } from '@/components/ui/result-card'
 import { calcularIPVA, ALIQUOTAS_IPVA } from '@/lib/calculadoras/ipva'
 import { formatCurrency, parseBRNumber, maskCurrency } from '@/lib/formatters'
@@ -13,7 +15,40 @@ const ESTADOS_OPTIONS = Object.keys(ALIQUOTAS_IPVA).sort().map((uf) => ({
   label: `${uf} — ${ALIQUOTAS_IPVA[uf]}%`,
 }))
 
+const I18N = {
+  pt: {
+    labelValorVenal: 'Valor venal do veículo (R$)',
+    labelEstado: 'Estado',
+    placeholderValorVenal: 'Ex: 50.000,00',
+    buttonCalcular: 'Calcular IPVA',
+    resultTitle: 'IPVA 2026',
+    resultMainLabel: 'Valor total do IPVA',
+    itemValorVenal: 'Valor venal',
+    itemEstado: 'Estado',
+    itemAliquota: 'Alíquota',
+    itemIPVATotal: 'IPVA total',
+    itemParcela: 'Parcela (1/3)',
+  },
+  es: {
+    labelValorVenal: 'Valor de tasación del vehículo',
+    labelEstado: 'Estado (Provincia)',
+    placeholderValorVenal: 'Ej: 50.000,00',
+    buttonCalcular: 'Calcular IPVA',
+    resultTitle: 'IPVA 2026',
+    resultMainLabel: 'Valor total del IPVA',
+    itemValorVenal: 'Valor de tasación',
+    itemEstado: 'Estado',
+    itemAliquota: 'Alícuota',
+    itemIPVATotal: 'IPVA total',
+    itemParcela: 'Cuota (1/3)',
+  }
+}
+
 export function IPVAForm() {
+  const pathname = usePathname()
+  const isSpanish = pathname?.startsWith('/es')
+  const t = isSpanish ? I18N.es : I18N.pt
+
   const [valorVenal, setValorVenal] = useState('')
   const [estado, setEstado] = useState('SP')
   const [result, setResult] = useState<ReturnType<typeof calcularIPVA> | null>(null)
@@ -26,35 +61,36 @@ export function IPVAForm() {
 
   return (
     <>
-      <div className="rounded-xl border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm">
+      <FormCard>
         <Input
-          label="Valor venal do veículo (R$)"
+          label={t.labelValorVenal}
           id="valorVenal"
           value={valorVenal}
           onChange={(v) => setValorVenal(maskCurrency(v))}
           inputMode="decimal"
-          placeholder="Ex: 50.000,00"
+          placeholder={t.placeholderValorVenal}
         />
         <Select
-          label="Estado"
+          label={t.labelEstado}
           id="estado"
           value={estado}
           onChange={(v) => { setEstado(v); setResult(null) }}
           options={ESTADOS_OPTIONS}
         />
-        <Button onClick={handleCalcular} fullWidth disabled={!isValid}>Calcular IPVA</Button>
-      </div>
+        <Button onClick={handleCalcular} fullWidth disabled={!isValid}>{t.buttonCalcular}</Button>
+      </FormCard>
+      
       <ResultCard
         visible={result !== null}
-        title="IPVA 2026"
+        title={t.resultTitle}
         mainValue={result ? formatCurrency(result.valorIPVA) : ''}
-        mainLabel="Valor total do IPVA"
+        mainLabel={t.resultMainLabel}
         items={result ? [
-          { label: 'Valor venal', value: formatCurrency(result.valorVenal) },
-          { label: 'Estado', value: result.estado },
-          { label: 'Alíquota', value: `${result.aliquota}%` },
-          { label: 'IPVA total', value: formatCurrency(result.valorIPVA), highlight: true },
-          { label: 'Parcela (1/3)', value: formatCurrency(result.parcelaMensal) },
+          { label: t.itemValorVenal, value: formatCurrency(result.valorVenal) },
+          { label: t.itemEstado, value: result.estado },
+          { label: t.itemAliquota, value: `${result.aliquota}%` },
+          { label: t.itemIPVATotal, value: formatCurrency(result.valorIPVA), highlight: true },
+          { label: t.itemParcela, value: formatCurrency(result.parcelaMensal) },
         ] : []}
       />
     </>
