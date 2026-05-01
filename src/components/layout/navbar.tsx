@@ -24,7 +24,7 @@ export function Navbar() {
   }, [handleEscape])
 
   return (
-    <header className="sticky top-0 z-50 border-b border-navy-light bg-navy text-white">
+    <header className="print:hidden sticky top-0 z-50 border-b border-navy-light bg-navy text-white">
       <div className="container-app flex h-14 items-center justify-between">
         <Link href={isSpanish ? '/es' : '/'} className="text-lg font-bold tracking-tight">
           Calculo<span className="text-accent">Gratis</span>

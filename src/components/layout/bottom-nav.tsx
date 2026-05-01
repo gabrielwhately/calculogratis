@@ -43,7 +43,7 @@ export function BottomNav() {
   ]
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-900 md:hidden" role="navigation" aria-label={t.navLabel}>
+    <nav className="print:hidden fixed bottom-0 left-0 right-0 z-50 border-t border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-900 md:hidden" role="navigation" aria-label={t.navLabel}>
       <div className="flex justify-around">
         {items.map((item) => {
           const hrefPath = item.href.split('#')[0] || '/'

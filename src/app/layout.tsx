@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import { Navbar } from '@/components/layout/navbar'
 import { BottomNav } from '@/components/layout/bottom-nav'
 import { Footer } from '@/components/layout/footer'
+import { PrintHeader } from '@/components/layout/print-header'
 import { ThemeScript } from '@/components/layout/theme-script'
 import { ThemeProvider } from '@/components/layout/theme-provider'
 import { Analytics } from '@/components/layout/analytics'
@@ -34,7 +35,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             Pular para conteúdo principal
           </a>
           <Navbar />
-          <main id="main-content" className="min-h-screen pb-20 md:pb-0">{children}</main>
+          <main id="main-content" className="min-h-screen pb-20 md:pb-0">
+            <PrintHeader />
+            {children}
+          </main>
           <Footer />
           <BottomNav />
           <Analytics />

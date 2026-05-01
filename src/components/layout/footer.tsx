@@ -38,7 +38,7 @@ export function Footer() {
   const popularCalcs = CALCULADORAS.filter(c => POPULARES.includes(c.slug))
 
   return (
-    <footer className="border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 py-12 pb-24 md:pb-12">
+    <footer className="print:hidden border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 py-12 pb-24 md:pb-12">
       <div className="container-app">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-4">
           <div className="md:col-span-1">
