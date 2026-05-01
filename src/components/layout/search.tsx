@@ -2,9 +2,29 @@
 
 import { useState, useMemo } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { CALCULADORAS } from '@/lib/constants/calculadoras'
 
+const I18N = {
+  pt: {
+    placeholder: 'Buscar calculadora...',
+    ariaLabel: 'Buscar calculadora',
+    viewAll: 'Ver todos os resultados',
+    noResults: 'Nenhuma calculadora encontrada',
+  },
+  es: {
+    placeholder: 'Buscar calculadora...',
+    ariaLabel: 'Buscar calculadora',
+    viewAll: 'Ver todos los resultados',
+    noResults: 'No se encontraron calculadoras',
+  }
+}
+
 export function Search() {
+  const pathname = usePathname()
+  const isSpanish = pathname?.startsWith('/es')
+  const t = isSpanish ? I18N.es : I18N.pt
+
   const [query, setQuery] = useState('')
   const [isOpen, setIsOpen] = useState(false)
 
@@ -22,7 +42,8 @@ export function Search() {
     <div className="relative">
       <input
         type="search"
-        placeholder="Buscar calculadora..."
+        placeholder={t.placeholder}
+        aria-label={t.ariaLabel}
         value={query}
         onChange={(e) => { setQuery(e.target.value); setIsOpen(true) }}
         onFocus={() => setIsOpen(true)}
@@ -49,12 +70,12 @@ export function Search() {
                 className="block border-t border-slate-100 dark:border-slate-700 px-4 py-2 text-center text-xs font-bold text-accent hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors uppercase tracking-wider"
                 onClick={() => setIsOpen(false)}
               >
-                Ver todos os resultados
+                {t.viewAll}
               </Link>
             </>
           ) : (
             <div className="px-4 py-4 text-sm text-slate-500 text-center italic">
-              Nenhuma calculadora encontrada
+              {t.noResults}
             </div>
           )}
         </div>
