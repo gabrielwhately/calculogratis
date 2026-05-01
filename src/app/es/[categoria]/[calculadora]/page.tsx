@@ -52,7 +52,7 @@ export default function CalculadoraESPage({ params }: { params: { categoria: str
   const nome = esCalc?.nome ?? calc.nome
   const catNome = esCat?.nome ?? cat.nome
   const esCatSlug = esCat?.slug ?? cat.slug
-  const jsonLd = calculadoraJsonLd(calc.slug)
+  const jsonLd = calculadoraJsonLd(calc.slug, 'es')
   const relacionadas = getCalculadorasByCategoria(cat.slug).filter(c => c.slug !== calc.slug)
 
   const FormComponent = FORM_MAP[calc.slug]

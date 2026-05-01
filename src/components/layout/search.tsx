@@ -4,6 +4,7 @@ import { useState, useMemo } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { CALCULADORAS } from '@/lib/constants/calculadoras'
+import { CATEGORIAS_ES } from '@/lib/i18n/calculadoras-es'
 
 const I18N = {
   pt: {
@@ -11,12 +12,16 @@ const I18N = {
     ariaLabel: 'Buscar calculadora',
     viewAll: 'Ver todos os resultados',
     noResults: 'Nenhuma calculadora encontrada',
+    hrefPrefix: '',
+    viewAllHref: '/busca',
   },
   es: {
     placeholder: 'Buscar calculadora...',
     ariaLabel: 'Buscar calculadora',
     viewAll: 'Ver todos los resultados',
     noResults: 'No se encontraron calculadoras',
+    hrefPrefix: '/es',
+    viewAllHref: '/es/busca',
   }
 }
 
@@ -54,19 +59,26 @@ export function Search() {
         <div className="absolute top-full left-0 right-0 z-50 mt-1 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-xl overflow-hidden min-w-[280px]">
           {results.length > 0 ? (
             <>
-              {results.map((calc) => (
-                <Link
-                  key={calc.slug}
-                  href={`/${calc.categoriaSlug}/${calc.slug}`}
-                  className="block px-4 py-2.5 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
-                  onClick={() => setIsOpen(false)}
-                >
-                  <div className="font-semibold">{calc.nome}</div>
-                  <div className="text-xs text-slate-500">{calc.categoria}</div>
-                </Link>
-              ))}
+              {results.map((calc) => {
+                const esCatSlug = CATEGORIAS_ES[calc.categoriaSlug]?.slug ?? calc.categoriaSlug
+                const href = isSpanish 
+                  ? `/es/${esCatSlug}/${calc.slug}`
+                  : `/${calc.categoriaSlug}/${calc.slug}`
+
+                return (
+                  <Link
+                    key={calc.slug}
+                    href={href}
+                    className="block px-4 py-2.5 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <div className="font-semibold">{calc.nome}</div>
+                    <div className="text-xs text-slate-500">{calc.categoria}</div>
+                  </Link>
+                )
+              })}
               <Link
-                href="/busca"
+                href={t.viewAllHref}
                 className="block border-t border-slate-100 dark:border-slate-700 px-4 py-2 text-center text-xs font-bold text-accent hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors uppercase tracking-wider"
                 onClick={() => setIsOpen(false)}
               >

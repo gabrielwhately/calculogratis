@@ -29,7 +29,7 @@ const I18N = {
   es: {
     labelSalario: 'Salario bruto',
     labelDependentes: 'Número de dependientes',
-    labelDescontos: 'Otros descuentoss',
+    labelDescontos: 'Otros descuentos',
     placeholderSalario: 'Ej: 5.000,00',
     placeholderDependentes: '0',
     placeholderDescontos: 'Ej: 200,00',
@@ -39,7 +39,7 @@ const I18N = {
     itemBruto: 'Salario bruto',
     itemINSS: 'INSS',
     itemIRRF: 'Impuesto de Renta',
-    itemOutros: 'Otros descuentoss',
+    itemOutros: 'Otros descuentos',
     itemLiquido: 'Salario neto',
   }
 }

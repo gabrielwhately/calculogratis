@@ -1,10 +1,12 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import { Breadcrumb } from '@/components/layout/breadcrumb'
 import { AdSlot } from '@/components/layout/ad-slot'
 import { Card } from '@/components/ui/card'
 import { getCalculadorasByCategoria } from '@/lib/constants/calculadoras'
+import { toggleFavorite, isFavorite } from '@/lib/favorites'
 import { CATEGORIAS_ES, CALCULADORAS_ES } from '@/lib/i18n/calculadoras-es'
 import { calculadoraJsonLd, faqJsonLd } from '@/lib/seo/jsonld'
 
@@ -27,12 +29,16 @@ const I18N = {
     calculadoraDe: 'Calculadora de',
     perguntasFrequentes: 'Perguntas frequentes',
     calculadorasRelacionadas: 'Calculadoras Relacionadas',
+    adicionarFavoritos: 'Adicionar aos favoritos',
+    removerFavoritos: 'Remover dos favoritos',
   },
   es: {
     inicio: 'Inicio',
     calculadoraDe: 'Calculadora de',
     perguntasFrequentes: 'Preguntas frecuentes',
     calculadorasRelacionadas: 'Calculadoras Relacionadas',
+    adicionarFavoritos: 'Añadir a favoritos',
+    removerFavoritos: 'Eliminar de favoritos',
   }
 }
 
@@ -41,15 +47,49 @@ export function CalculatorPage({ slug, categoriaSlug, categoriaNome, nome, descr
   const isSpanish = pathname?.startsWith('/es')
   const t = isSpanish ? I18N.es : I18N.pt
 
-  const jsonLd = calculadoraJsonLd(slug)
+  const [favorito, setFavorito] = useState(false)
+
+  useEffect(() => {
+    setFavorito(isFavorite(slug))
+  }, [slug])
+
+  const handleToggleFavorite = () => {
+    toggleFavorite(slug)
+    setFavorito(!favorito)
+  }
+
+  const jsonLd = calculadoraJsonLd(slug, isSpanish ? 'es' : 'pt')
   const relacionadas = getCalculadorasByCategoria(categoriaSlug).filter(c => c.slug !== slug)
 
   return (
     <div className="container-app py-6">
       {jsonLd && <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>}
       {faqs && faqs.length > 0 && <script type="application/ld+json">{JSON.stringify(faqJsonLd(faqs))}</script>}
-      <Breadcrumb items={[{ label: t.inicio, href: isSpanish ? '/es' : '/' }, { label: categoriaNome, href: isSpanish ? `/es/${categoriaSlug}` : `/${categoriaSlug}` }, { label: `${t.calculadoraDe} ${nome}` }]} />
-      <h1 className="text-2xl font-bold text-navy dark:text-white md:text-3xl">{t.calculadoraDe} {nome}</h1>
+      
+      <Breadcrumb items={[
+        { label: t.inicio, href: isSpanish ? '/es' : '/' }, 
+        { label: categoriaNome, href: isSpanish ? `/es/${categoriaSlug}` : `/${categoriaSlug}` }, 
+        { label: `${t.calculadoraDe} ${nome}` }
+      ]} />
+      
+      <div className="flex items-center justify-between gap-4">
+        <h1 className="text-2xl font-bold text-navy dark:text-white md:text-3xl">{t.calculadoraDe} {nome}</h1>
+        <button
+          onClick={handleToggleFavorite}
+          className={`p-2.5 rounded-full border transition-all active:scale-90 flex items-center justify-center ${
+            favorito 
+              ? 'bg-red-50 border-red-200 text-red-500 dark:bg-red-900/20 dark:border-red-800' 
+              : 'bg-white border-slate-200 text-slate-400 hover:text-slate-600 dark:bg-slate-800 dark:border-gray-700'
+          }`}
+          aria-label={favorito ? t.removerFavoritos : t.adicionarFavoritos}
+          title={favorito ? t.removerFavoritos : t.adicionarFavoritos}
+        >
+          <svg className="h-6 w-6" fill={favorito ? "currentColor" : "none"} viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+          </svg>
+        </button>
+      </div>
+
       <p className="mt-2 text-slate-600 dark:text-slate-400">{descricao}</p>
       <div className="mt-6">{children}</div>
       <AdSlot position="after-result" />

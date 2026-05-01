@@ -1,4 +1,5 @@
 import { getCalculadora } from '@/lib/constants/calculadoras'
+import { CALCULADORAS_ES, CATEGORIAS_ES } from '@/lib/i18n/calculadoras-es'
 
 const CATEGORY_APP_TYPE: Record<string, string> = {
   trabalhista: 'BusinessApplication',
@@ -11,9 +12,26 @@ const CATEGORY_APP_TYPE: Record<string, string> = {
   utilidades: 'UtilitiesApplication',
 }
 
-export function calculadoraJsonLd(slug: string) {
+export function calculadoraJsonLd(slug: string, locale: 'pt' | 'es' = 'pt') {
   const calc = getCalculadora(slug)
   if (!calc) return null
+
+  if (locale === 'es') {
+    const esCalc = CALCULADORAS_ES[slug]
+    const esCatSlug = CATEGORIAS_ES[calc.categoriaSlug]?.slug ?? calc.categoriaSlug
+    return {
+      '@context': 'https://schema.org',
+      '@type': 'WebApplication',
+      name: `Calculadora de ${esCalc?.nome ?? calc.nome}`,
+      description: esCalc?.descricao ?? calc.descricao,
+      url: `https://calculogratis.com/es/${esCatSlug}/${calc.slug}`,
+      applicationCategory: CATEGORY_APP_TYPE[calc.categoriaSlug] || 'UtilitiesApplication',
+      operatingSystem: 'All',
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+      provider: { '@type': 'Organization', name: 'Cálculo Gratis', url: 'https://calculogratis.com/es' },
+    }
+  }
+
   return {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
