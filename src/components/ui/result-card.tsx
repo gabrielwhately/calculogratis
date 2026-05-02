@@ -67,7 +67,7 @@ export function ResultCard({ title, mainValue, mainLabel, items, visible, childr
 
   return (
     <div 
-      className={`mt-6 rounded-xl bg-gradient-to-br from-navy to-navy-light dark:from-navy-dark dark:to-navy p-6 text-white shadow-lg border border-white/5 relative transition-all duration-500 ${animate ? 'scale-[1.02] ring-2 ring-accent/50 shadow-accent/20' : 'scale-100'}`} 
+      className={`mt-6 rounded-xl bg-gradient-to-br from-navy to-navy-light dark:from-navy-dark dark:to-navy p-6 text-white shadow-lg border border-white/5 relative transition-all duration-500 print:bg-none print:text-navy print:border-navy print:shadow-none ${animate ? 'scale-[1.02] ring-2 ring-accent/50 shadow-accent/20' : 'scale-100'}`} 
       aria-live="polite"
     >
       <div className="flex justify-between items-start">
@@ -84,7 +84,7 @@ export function ResultCard({ title, mainValue, mainLabel, items, visible, childr
             title={t.print}
           >
             <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6.72 13.844l.445-4.461m9.12 4.461l-.445-4.461M8.946 20.125l.43-.448a1.2 1.2 0 011.613-.09l.867.66a1.2 1.2 0 001.412 0l.867.66a1.2 1.2 0 011.613.09l.43.448m-8.23-2.106c.472.111.96.18 1.459.208a22.45 22.45 0 002.73 0c.498-.028.987-.097 1.459-.208m-4.958-3.123v-.045a1.608 1.201 0 011.608-1.201h4.425c.888 0 1.608.538 1.608 1.201v.045m-6.15-6.113V6.9c0-1.05.847-1.9 1.892-1.9h2.516c1.045 0 1.892.85 1.892 1.9v2.113" />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6.72 13.844l.445-4.461m9.12 4.461l-.445-4.461M8.946 20.125l.43-.448a1.2 1.2 0 011.613-.09l.867.66a1.2 1.2 0 001.412 0l.867-.66a1.2 1.2 0 011.613.09l.43.448m-8.23-2.106c.472.111.96.18 1.459.208a22.45 22.45 0 002.73 0c.498-.028.987-.097 1.459-.208m-4.958-3.123v-.045a1.608 1.201 0 011.608-1.201h4.425c.888 0 1.608.538 1.608 1.201v.045m-6.15-6.113V6.9c0-1.05.847-1.9 1.892-1.9h2.516c1.045 0 1.892.85 1.892 1.9v2.113" />
             </svg>
           </button>
           <button
@@ -99,7 +99,7 @@ export function ResultCard({ title, mainValue, mainLabel, items, visible, childr
           </button>
           <button
             onClick={handleCopy}
-            className="p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-all active:scale-95"
+            className="p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-all active:scale-95 text-slate-300 hover:text-white"
             aria-label={t.copy}
             title={t.copy}
           >
@@ -108,7 +108,7 @@ export function ResultCard({ title, mainValue, mainLabel, items, visible, childr
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
               </svg>
             ) : (
-              <svg className="h-5 w-5 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.666 3.888A2.25 2.25 0 0013.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0c0 .414-.336.75-.75.75H9a.75.75 0 01-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 011.927-.184" />
               </svg>
             )}

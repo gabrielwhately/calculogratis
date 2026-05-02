@@ -27,6 +27,7 @@ const I18N = {
     itemIR: 'Imposto de Renda',
     itemRendimentoLiquido: 'Rendimento líquido',
     itemRentabilidadeEfetiva: 'Rentabilidade efetiva',
+    chartTitle: 'Composição do Valor Final',
   },
   es: {
     labelValor: 'Valor invertido',
@@ -45,6 +46,7 @@ const I18N = {
     itemIR: 'Impuesto a la Renta',
     itemRendimentoLiquido: 'Rendimiento neto',
     itemRentabilidadeEfetiva: 'Rentabilidad efectiva',
+    chartTitle: 'Composición del Valor Final',
   }
 }
 
@@ -102,25 +104,59 @@ export function RendimentoCDBForm() {
           inputMode="numeric" 
           placeholder={t.placeholderPrazo} 
         />
-        <Button onClick={handleCalcular} fullWidth disabled={!isValid}>
-          {t.buttonSimular}
-        </Button>
+        <Button onClick={handleCalcular} fullWidth disabled={!isValid}>{t.buttonSimular}</Button>
       </FormCard>
       
-      <ResultCard 
-        visible={result !== null} 
-        title={t.resultTitle} 
-        mainValue={result ? formatCurrency(result.valorFinalLiquido) : ''} 
-        mainLabel={t.resultMainLabel}
-        items={result ? [
-          { label: t.itemValorInvestido, value: formatCurrency(result.valorInicial) },
-          { label: t.itemRendimentoBruto, value: formatCurrency(result.rendimentoBruto) },
-          { label: t.itemIR, value: `- ${formatCurrency(result.ir)}` },
-          { label: t.itemRendimentoLiquido, value: formatCurrency(result.rendimentoLiquido), highlight: true },
-          { label: t.resultMainLabel, value: formatCurrency(result.valorFinalLiquido), highlight: true },
-          { label: t.itemRentabilidadeEfetiva, value: `${result.rentabilidadeEfetiva.toFixed(2)}%` },
-        ] : []} 
-      />
+      {result && (
+        <ResultCard 
+          visible={true} 
+          title={t.resultTitle} 
+          mainValue={formatCurrency(result.valorFinalLiquido)} 
+          mainLabel={t.resultMainLabel}
+          items={[
+            { label: t.itemValorInvestido, value: formatCurrency(result.valorInicial) },
+            { label: t.itemRendimentoBruto, value: formatCurrency(result.rendimentoBruto) },
+            { label: t.itemIR, value: `- ${formatCurrency(result.ir)}` },
+            { label: t.itemRendimentoLiquido, value: formatCurrency(result.rendimentoLiquido), highlight: true },
+            { label: t.itemRentabilidadeEfetiva, value: `${result.rentabilidadeEfetiva.toFixed(2)}%` },
+          ]} 
+        >
+          <div className="mt-6 border-t border-white/10 pt-6">
+            <h4 className="mb-4 text-sm font-medium text-slate-300">{t.chartTitle}</h4>
+            <div className="h-6 w-full flex rounded-full overflow-hidden bg-white/5 border border-white/10">
+              <div 
+                className="h-full bg-blue-600 transition-all duration-1000" 
+                style={{ width: `${(result.valorInicial / (result.valorInicial + result.rendimentoBruto)) * 100}%` }}
+                title={`${t.itemValorInvestido}: ${formatCurrency(result.valorInicial)}`}
+              />
+              <div 
+                className="h-full bg-green-500 transition-all duration-1000 border-l border-white/10" 
+                style={{ width: `${(result.rendimentoLiquido / (result.valorInicial + result.rendimentoBruto)) * 100}%` }}
+                title={`${t.itemRendimentoLiquido}: ${formatCurrency(result.rendimentoLiquido)}`}
+              />
+              <div 
+                className="h-full bg-red-400 transition-all duration-1000 border-l border-white/10" 
+                style={{ width: `${(result.ir / (result.valorInicial + result.rendimentoBruto)) * 100}%` }}
+                title={`${t.itemIR}: ${formatCurrency(result.ir)}`}
+              />
+            </div>
+            <div className="mt-4 grid grid-cols-2 gap-y-2 gap-x-4 text-[10px]">
+              <div className="flex items-center gap-1.5">
+                <div className="h-2 w-2 rounded-full bg-blue-600" />
+                <span className="text-slate-400">{t.itemValorInvestido}</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <div className="h-2 w-2 rounded-full bg-green-500" />
+                <span className="text-slate-400">{t.itemRendimentoLiquido}</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <div className="h-2 w-2 rounded-full bg-red-400" />
+                <span className="text-slate-400">{t.itemIR}</span>
+              </div>
+            </div>
+          </div>
+        </ResultCard>
+      )}
     </>
   )
 }

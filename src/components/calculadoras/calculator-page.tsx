@@ -31,6 +31,7 @@ const I18N = {
     calculadorasRelacionadas: 'Calculadoras Relacionadas',
     adicionarFavoritos: 'Adicionar aos favoritos',
     removerFavoritos: 'Remover dos favoritos',
+    brand: 'CalculoGratis.com',
   },
   es: {
     inicio: 'Inicio',
@@ -39,6 +40,7 @@ const I18N = {
     calculadorasRelacionadas: 'Calculadoras Relacionadas',
     adicionarFavoritos: 'Añadir a favoritos',
     removerFavoritos: 'Eliminar de favoritos',
+    brand: 'CalculoGratis.com',
   }
 }
 
@@ -62,21 +64,23 @@ export function CalculatorPage({ slug, categoriaSlug, categoriaNome, nome, descr
   const relacionadas = getCalculadorasByCategoria(categoriaSlug).filter(c => c.slug !== slug)
 
   return (
-    <div className="container-app py-6">
+    <div className="container-app py-6 print:py-0">
       {jsonLd && <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>}
       {faqs && faqs.length > 0 && <script type="application/ld+json">{JSON.stringify(faqJsonLd(faqs))}</script>}
       
-      <Breadcrumb items={[
-        { label: t.inicio, href: isSpanish ? '/es' : '/' }, 
-        { label: categoriaNome, href: isSpanish ? `/es/${categoriaSlug}` : `/${categoriaSlug}` }, 
-        { label: `${t.calculadoraDe} ${nome}` }
-      ]} />
-      
+      <div className="print:hidden">
+        <Breadcrumb items={[
+          { label: t.inicio, href: isSpanish ? '/es' : '/' }, 
+          { label: categoriaNome, href: isSpanish ? `/es/${categoriaSlug}` : `/${categoriaSlug}` }, 
+          { label: `${t.calculadoraDe} ${nome}` }
+        ]} />
+      </div>
+
       <div className="flex items-center justify-between gap-4">
-        <h1 className="text-2xl font-bold text-navy dark:text-white md:text-3xl">{t.calculadoraDe} {nome}</h1>
+        <h1 className="text-2xl font-bold text-navy dark:text-white md:text-3xl print:text-navy">{t.calculadoraDe} {nome}</h1>
         <button
           onClick={handleToggleFavorite}
-          className={`p-2.5 rounded-full border transition-all active:scale-90 flex items-center justify-center ${
+          className={`p-2.5 rounded-full border transition-all active:scale-90 flex items-center justify-center print:hidden ${
             favorito 
               ? 'bg-red-50 border-red-200 text-red-500 dark:bg-red-900/20 dark:border-red-800' 
               : 'bg-white border-slate-200 text-slate-400 hover:text-slate-600 dark:bg-slate-800 dark:border-gray-700'
@@ -90,12 +94,17 @@ export function CalculatorPage({ slug, categoriaSlug, categoriaNome, nome, descr
         </button>
       </div>
 
-      <p className="mt-2 text-slate-600 dark:text-slate-400">{descricao}</p>
-      <div className="mt-6">{children}</div>
-      <AdSlot position="after-result" />
-      <section className="mt-8 prose prose-slate dark:prose-invert max-w-none">{conteudo}</section>
+      <p className="mt-2 text-slate-600 dark:text-slate-400 print:hidden">{descricao}</p>
+      <div className="mt-6 print:mt-4">{children}</div>
+      
+      <div className="print:hidden">
+        <AdSlot position="after-result" />
+      </div>
+
+      <section className="mt-8 prose prose-slate dark:prose-invert max-w-none print:hidden">{conteudo}</section>
+      
       {faqs && faqs.length > 0 && (
-        <section className="mt-8">
+        <section className="mt-8 print:hidden">
           <h2 className="text-xl font-bold text-navy dark:text-white mb-4">{t.perguntasFrequentes}</h2>
           <div className="space-y-4">
             {faqs.map((faq, i) => (
@@ -110,9 +119,13 @@ export function CalculatorPage({ slug, categoriaSlug, categoriaNome, nome, descr
           </div>
         </section>
       )}
-      <AdSlot position="mid-content" />
+
+      <div className="print:hidden">
+        <AdSlot position="mid-content" />
+      </div>
+
       {relacionadas.length > 0 && (
-        <section className="mt-8">
+        <section className="mt-8 print:hidden">
           <h2 className="text-xl font-bold text-navy dark:text-white mb-4">{t.calculadorasRelacionadas}</h2>
           <div className="grid gap-4 sm:grid-cols-2">
             {relacionadas.map((calc) => {

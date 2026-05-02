@@ -29,6 +29,7 @@ const I18N = {
     itemTotal: 'Total pago',
     itemCustoAcima: 'Custo acima do bem',
     labelMeses: 'meses',
+    chartTitle: 'Composição do Pagamento Total',
   },
   es: {
     labelValor: 'Valor del bien',
@@ -49,6 +50,7 @@ const I18N = {
     itemTotal: 'Total pagado',
     itemCustoAcima: 'Costo por encima del bien',
     labelMeses: 'meses',
+    chartTitle: 'Composición del Pago Total',
   }
 }
 
@@ -125,7 +127,42 @@ export function SimuladorConsorcioForm() {
             { label: t.itemTotal, value: formatCurrency(result.totalComTaxas), highlight: true },
             { label: t.itemCustoAcima, value: formatCurrency(result.totalComTaxas - result.valorBem), highlight: true },
           ]} 
-        />
+        >
+          <div className="mt-6 border-t border-white/10 pt-6">
+            <h4 className="mb-4 text-sm font-medium text-slate-300">{t.chartTitle}</h4>
+            <div className="h-6 w-full flex rounded-full overflow-hidden bg-white/5 border border-white/10">
+              <div 
+                className="h-full bg-blue-600 transition-all duration-1000" 
+                style={{ width: `${(result.valorBem / result.totalComTaxas) * 100}%` }}
+                title={`${t.itemValorBem}: ${formatCurrency(result.valorBem)}`}
+              />
+              <div 
+                className="h-full bg-indigo-500 transition-all duration-1000 border-l border-white/10" 
+                style={{ width: `${(result.custoAdminTotal / result.totalComTaxas) * 100}%` }}
+                title={`${t.itemTaxaTotal}: ${formatCurrency(result.custoAdminTotal)}`}
+              />
+              <div 
+                className="h-full bg-indigo-400 transition-all duration-1000 border-l border-white/10" 
+                style={{ width: `${(result.fundoReserva / result.totalComTaxas) * 100}%` }}
+                title={`${t.itemFundo}: ${formatCurrency(result.fundoReserva)}`}
+              />
+            </div>
+            <div className="mt-4 grid grid-cols-2 gap-y-2 gap-x-4 text-[10px]">
+              <div className="flex items-center gap-1.5">
+                <div className="h-2 w-2 rounded-full bg-blue-600" />
+                <span className="text-slate-400">{t.itemValorBem}</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <div className="h-2 w-2 rounded-full bg-indigo-500" />
+                <span className="text-slate-400">{t.itemTaxaTotal}</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <div className="h-2 w-2 rounded-full bg-indigo-400" />
+                <span className="text-slate-400">{t.itemFundo}</span>
+              </div>
+            </div>
+          </div>
+        </ResultCard>
       )}
     </>
   )
