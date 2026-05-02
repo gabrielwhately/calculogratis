@@ -26,7 +26,6 @@ const I18N = {
     itemTotal: 'Total pago',
     itemJuros: 'Total de juros',
     itemCet: 'CET anual estimado',
-    chartTitle: 'Composição do Pagamento Total',
   },
   es: {
     labelValor: 'Valor del préstamo',
@@ -44,7 +43,6 @@ const I18N = {
     itemTotal: 'Total pagado',
     itemJuros: 'Total de intereses',
     itemCet: 'CET anual estimado',
-    chartTitle: 'Composición del Pago Total',
   }
 }
 
@@ -101,48 +99,21 @@ export function EmprestimoForm() {
         </Button>
       </FormCard>
       
-      {result && (
-        <ResultCard 
-          visible={true} 
-          title={t.resultTitle} 
-          mainValue={formatCurrency(result.valorParcela)} 
-          mainLabel={t.resultMainLabel}
-          items={[
-            { label: t.itemValor, value: formatCurrency(result.valorEmprestimo) },
-            { label: t.itemTaxa, value: `${result.taxaMensal}%` },
-            { label: t.itemParcelas, value: `${result.parcelas}x` },
-            { label: t.itemTotal, value: formatCurrency(result.totalPago) },
-            { label: t.itemJuros, value: formatCurrency(result.totalJuros), highlight: true },
-            { label: t.itemCet, value: `${result.cet.toFixed(2)}%` },
-          ]}
-        >
-          <div className="mt-6 border-t border-white/10 pt-6">
-            <h4 className="mb-4 text-sm font-medium text-slate-300">{t.chartTitle}</h4>
-            <div className="h-6 w-full flex rounded-full overflow-hidden bg-white/5 border border-white/10">
-              <div 
-                className="h-full bg-blue-600 transition-all duration-1000" 
-                style={{ width: `${(result.valorEmprestimo / result.totalPago) * 100}%` }}
-                title={`${t.itemValor}: ${formatCurrency(result.valorEmprestimo)}`}
-              />
-              <div 
-                className="h-full bg-indigo-500 transition-all duration-1000 border-l border-white/10" 
-                style={{ width: `${(result.totalJuros / result.totalPago) * 100}%` }}
-                title={`${t.itemJuros}: ${formatCurrency(result.totalJuros)}`}
-              />
-            </div>
-            <div className="mt-4 flex gap-6 text-[10px]">
-              <div className="flex items-center gap-1.5">
-                <div className="h-2 w-2 rounded-full bg-blue-600" />
-                <span className="text-slate-400">{t.itemValor}</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <div className="h-2 w-2 rounded-full bg-indigo-500" />
-                <span className="text-slate-400">{t.itemJuros}</span>
-              </div>
-            </div>
-          </div>
-        </ResultCard>
-      )}
+      <ResultCard 
+        visible={result !== null} 
+        title={t.resultTitle} 
+        mainValue={result ? formatCurrency(result.valorParcela) : ''} 
+        mainLabel={t.resultMainLabel}
+        items={result ? [
+          { label: t.itemValor, value: formatCurrency(result.valorEmprestimo) },
+          { label: t.itemTaxa, value: `${result.taxaMensal}%` },
+          { label: t.itemParcelas, value: `${result.parcelas}x` },
+          { label: t.resultMainLabel, value: formatCurrency(result.valorParcela) },
+          { label: t.itemTotal, value: formatCurrency(result.totalPago) },
+          { label: t.itemJuros, value: formatCurrency(result.totalJuros), highlight: true },
+          { label: t.itemCet, value: `${result.cet.toFixed(2)}%` },
+        ] : []} 
+      />
     </>
   )
 }

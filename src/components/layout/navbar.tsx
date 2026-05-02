@@ -53,7 +53,7 @@ export function Navbar() {
           <ThemeToggle />
           <button 
             onClick={() => setMenuOpen(!menuOpen)} 
-            className="p-2 text-slate-300 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-inset rounded-lg" 
+            className="p-3 text-slate-300 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-inset rounded-lg" 
             aria-label="Menu" 
             aria-expanded={menuOpen}
           >

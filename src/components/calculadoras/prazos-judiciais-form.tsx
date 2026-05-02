@@ -108,20 +108,18 @@ export function PrazosJudiciaisForm() {
         </Button>
       </FormCard>
       
-      {result && (
-        <ResultCard
-          visible={true}
-          title={t.resultTitle}
-          mainValue={formatDate(result.dataFim)}
-          mainLabel={t.resultMainLabel}
-          items={[
-            { label: t.itemInicio, value: formatDate(result.dataInicio) },
-            { label: t.itemSolicitado, value: `${result.diasPrazo} ${t.tipos[result.tipo as keyof typeof t.tipos]}` },
-            { label: t.itemTotais, value: `${result.diasCorridos} ${t.labelDias}` },
-            { label: t.itemFinal, value: formatDate(result.dataFim), highlight: true },
-          ]}
-        />
-      )}
+      <ResultCard
+        visible={result !== null}
+        title={t.resultTitle}
+        mainValue={result ? formatDate(result.dataFim) : ''}
+        mainLabel={t.resultMainLabel}
+        items={result ? [
+          { label: t.itemInicio, value: formatDate(result.dataInicio) },
+          { label: t.itemSolicitado, value: `${result.diasPrazo} ${t.tipos[result.tipo as keyof typeof t.tipos]}` },
+          { label: t.itemTotais, value: `${result.diasCorridos} ${t.labelDias}` },
+          { label: t.itemFinal, value: formatDate(result.dataFim), highlight: true },
+        ] : []}
+      />
     </>
   )
 }

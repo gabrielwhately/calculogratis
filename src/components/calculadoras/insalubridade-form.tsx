@@ -143,15 +143,13 @@ export function InsalubridadeForm() {
         </Button>
       </FormCard>
       
-      {result && (
-        <ResultCard 
-          visible={true} 
-          title={result.title} 
-          mainValue={result.mainValue} 
-          mainLabel={result.mainLabel} 
-          items={result.items} 
-        />
-      )}
+      <ResultCard 
+        visible={result !== null} 
+        title={result?.title || ''} 
+        mainValue={result?.mainValue || ''} 
+        mainLabel={result?.mainLabel || ''} 
+        items={result?.items || []} 
+      />
     </>
   )
 }

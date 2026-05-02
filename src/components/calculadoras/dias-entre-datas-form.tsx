@@ -2,7 +2,9 @@
 
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
+import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
+import { FormCard } from '@/components/ui/form-card'
 import { ResultCard } from '@/components/ui/result-card'
 import { calcularDiasEntreDatas } from '@/lib/calculadoras/dias-entre-datas'
 
@@ -10,11 +12,11 @@ const I18N = {
   pt: {
     labelDataInicio: 'Data inicial',
     labelDataFim: 'Data final',
-    buttonCalcular: 'Calcular Diferenca',
-    resultTitle: 'Diferenca entre Datas',
+    buttonCalcular: 'Calcular Diferença',
+    resultTitle: 'Diferença entre Datas',
     mainLabel: 'Dias corridos',
     labelDiasCorridos: 'Dias corridos',
-    labelDiasUteis: 'Dias uteis',
+    labelDiasUteis: 'Dias úteis',
     labelSemanas: 'Semanas',
     labelMeses: 'Meses (aprox.)',
   },
@@ -46,25 +48,25 @@ export function DiasEntreDatasForm() {
 
   return (
     <>
-      <div className="rounded-xl border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm">
-        <div className="mb-4">
-          <label htmlFor="data-inicio" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-            {t.labelDataInicio}
-          </label>
-          <input id="data-inicio" type="date" value={dataInicio} onChange={(e) => setDataInicio(e.target.value)}
-            className="w-full rounded-lg border border-slate-300 dark:border-gray-600 px-3 py-2.5 text-slate-800 dark:text-slate-200 bg-white dark:bg-gray-800 outline-none transition-colors focus:border-accent focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900" />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="data-fim" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-            {t.labelDataFim}
-          </label>
-          <input id="data-fim" type="date" value={dataFim} onChange={(e) => setDataFim(e.target.value)}
-            className="w-full rounded-lg border border-slate-300 dark:border-gray-600 px-3 py-2.5 text-slate-800 dark:text-slate-200 bg-white dark:bg-gray-800 outline-none transition-colors focus:border-accent focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900" />
-        </div>
+      <FormCard>
+        <Input 
+          label={t.labelDataInicio} 
+          id="data-inicio" 
+          type="date" 
+          value={dataInicio} 
+          onChange={setDataInicio} 
+        />
+        <Input 
+          label={t.labelDataFim} 
+          id="data-fim" 
+          type="date" 
+          value={dataFim} 
+          onChange={setDataFim} 
+        />
         <Button onClick={handleCalcular} fullWidth disabled={!dataInicio || !dataFim}>
           {t.buttonCalcular}
         </Button>
-      </div>
+      </FormCard>
       <ResultCard
         visible={result !== null}
         title={t.resultTitle}

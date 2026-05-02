@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation'
 import { Select } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
 import { FormCard } from '@/components/ui/form-card'
+import { ResultCard } from '@/components/ui/result-card'
 import { gerarMultiplosUUID } from '@/lib/calculadoras/gerador-uuid'
 
 const I18N = {
@@ -16,10 +17,10 @@ const I18N = {
       { value: '10', label: '10 UUIDs' },
       { value: '20', label: '20 UUIDs' },
     ],
-    buttonCalcular: 'Gerar UUIDs',
+    buttonGerar: 'Gerar UUIDs',
     resultTitle: 'UUIDs gerados (clique para copiar)',
-    buttonCopiado: 'Copiado!',
-    footer: 'UUIDs v4 gerados aleatoriamente usando crypto.randomUUID().',
+    labelCopiado: 'Copiado!',
+    footerNote: 'UUIDs v4 gerados aleatoriamente usando crypto.randomUUID().',
   },
   es: {
     labelQuantidade: 'Cantidad',
@@ -29,17 +30,17 @@ const I18N = {
       { value: '10', label: '10 UUIDs' },
       { value: '20', label: '20 UUIDs' },
     ],
-    buttonCalcular: 'Generar UUIDs',
-    resultTitle: 'UUIDs generados (clic para copiar)',
-    buttonCopiado: '¡Copiado!',
-    footer: 'UUIDs v4 generados aleatoriamente usando crypto.randomUUID().',
+    buttonGerar: 'Generar UUIDs',
+    resultTitle: 'UUIDs generados (haga clic para copiar)',
+    labelCopiado: '¡Copiado!',
+    footerNote: 'UUIDs v4 generados aleatoriamente usando crypto.randomUUID().',
   }
 }
 
 export function GeradorUUIDForm() {
   const pathname = usePathname()
-  const isSpanish = pathname?.startsWith('/es')
-  const t = isSpanish ? I18N.es : I18N.pt
+  const locale = pathname?.startsWith('/es') ? 'es' : 'pt'
+  const t = I18N[locale]
 
   const [quantidade, setQuantidade] = useState('5')
   const [uuids, setUuids] = useState<string[]>([])
@@ -59,38 +60,32 @@ export function GeradorUUIDForm() {
   return (
     <>
       <FormCard>
-        <Select 
-          label={t.labelQuantidade} 
-          id="quantidade" 
-          value={quantidade} 
-          onChange={setQuantidade} 
-          options={t.quantidadeOptions} 
-        />
-        <Button onClick={handleGerar} fullWidth>
-          {t.buttonCalcular}
-        </Button>
+        <Select label={t.labelQuantidade} id="quantidade" value={quantidade} onChange={setQuantidade} options={t.quantidadeOptions} />
+        <Button onClick={handleGerar} fullWidth>{t.buttonGerar}</Button>
       </FormCard>
-      
-      {uuids.length > 0 && (
-        <div className="mt-6 rounded-xl bg-navy dark:bg-gray-800 dark:border dark:border-gray-700 p-6 text-white" aria-live="polite">
-          <p className="text-sm text-slate-300 mb-3">{t.resultTitle}</p>
-          <div className="space-y-2">
-            {uuids.map((uuid, i) => (
-              <button
-                key={i}
-                onClick={() => handleCopiar(uuid, i)}
-                className="block w-full rounded-lg bg-navy-light px-4 py-3 text-left font-mono text-sm hover:bg-white/10 transition-colors relative"
-              >
-                {uuid}
-                {copiedIndex === i && (
-                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-green-400">{t.buttonCopiado}</span>
-                )}
-              </button>
-            ))}
-          </div>
-          <p className="mt-4 text-xs text-slate-400">{t.footer}</p>
+
+      <ResultCard
+        visible={uuids.length > 0}
+        title={t.resultTitle}
+        mainValue=""
+        mainLabel=""
+      >
+        <div className="mt-4 space-y-2 pt-4 border-t border-white/20">
+          {uuids.map((uuid, i) => (
+            <button
+              key={i}
+              onClick={() => handleCopiar(uuid, i)}
+              className="block w-full rounded-lg bg-white/10 px-4 py-3 text-left font-mono text-sm hover:bg-white/20 transition-all relative border border-white/5 active:scale-[0.99]"
+            >
+              {uuid}
+              {copiedIndex === i && (
+                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-green-400 font-bold">{t.labelCopiado}</span>
+              )}
+            </button>
+          ))}
+          <p className="mt-4 text-center text-xs text-slate-400">{t.footerNote}</p>
         </div>
-      )}
+      </ResultCard>
     </>
   )
 }

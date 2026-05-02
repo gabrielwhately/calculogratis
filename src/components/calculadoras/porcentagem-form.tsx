@@ -191,15 +191,13 @@ export function PorcentagemForm() {
         </Button>
       </FormCard>
       
-      {result && (
-        <ResultCard 
-          visible={true} 
-          title={t.resultTitle} 
-          mainValue={result.value} 
-          mainLabel={result.label} 
-          items={result.items} 
-        />
-      )}
+      <ResultCard 
+        visible={result !== null} 
+        title={t.resultTitle} 
+        mainValue={result?.value || ''} 
+        mainLabel={result?.label || ''} 
+        items={result?.items || []} 
+      />
     </>
   )
 }

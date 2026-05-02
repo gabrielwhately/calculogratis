@@ -8,6 +8,7 @@ import { Select } from '@/components/ui/select'
 import { FormCard } from '@/components/ui/form-card'
 import { ResultCard } from '@/components/ui/result-card'
 import { calcularPesoIdeal } from '@/lib/calculadoras/peso-ideal'
+import { parseBRNumber } from '@/lib/formatters'
 
 const I18N = {
   pt: {
@@ -58,12 +59,12 @@ export function PesoIdealForm() {
   const [result, setResult] = useState<ReturnType<typeof calcularPesoIdeal> | null>(null)
 
   function handleCalcular() {
-    const alturaNum = parseFloat(altura.replace(',', '.'))
+    const alturaNum = parseBRNumber(altura)
     if (!alturaNum || alturaNum <= 0) return
     setResult(calcularPesoIdeal({ altura: alturaNum, sexo }))
   }
 
-  const isValid = !!altura && parseFloat(altura.replace(',', '.')) > 0
+  const isValid = parseBRNumber(altura) > 0
 
   return (
     <>
@@ -91,24 +92,22 @@ export function PesoIdealForm() {
         </Button>
       </FormCard>
       
-      {result && (
-        <ResultCard
-          visible={true}
-          title={t.resultTitle}
-          mainValue={`${result.pesoMinimo.toFixed(1)} – ${result.pesoMaximo.toFixed(1)} kg`}
-          mainLabel={t.resultMainLabel}
-          items={[
-            { label: t.itemAltura, value: `${result.altura} cm` },
-            { label: t.itemImcMin, value: `${result.imcMinimo}` },
-            { label: t.itemImcMax, value: `${result.imcMaximo}` },
-            { label: t.itemPesoMin, value: `${result.pesoMinimo.toFixed(1)} kg` },
-            { label: t.itemPesoMax, value: `${result.pesoMaximo.toFixed(1)} kg`, highlight: true },
-            { label: t.itemFormulaDevine, value: `${result.pesoIdealDevine.toFixed(1)} kg` },
-            { label: t.itemFormulaRobinson, value: `${result.pesoIdealRobinson.toFixed(1)} kg` },
-            { label: t.itemFormulaMiller, value: `${result.pesoIdealMiller.toFixed(1)} kg` },
-          ]}
-        />
-      )}
+      <ResultCard
+        visible={result !== null}
+        title={t.resultTitle}
+        mainValue={result ? `${result.pesoMinimo.toFixed(1)} – ${result.pesoMaximo.toFixed(1)} kg` : ''}
+        mainLabel={t.resultMainLabel}
+        items={result ? [
+          { label: t.itemAltura, value: `${result.altura} cm` },
+          { label: t.itemImcMin, value: `${result.imcMinimo}` },
+          { label: t.itemImcMax, value: `${result.imcMaximo}` },
+          { label: t.itemPesoMin, value: `${result.pesoMinimo.toFixed(1)} kg` },
+          { label: t.itemPesoMax, value: `${result.pesoMaximo.toFixed(1)} kg`, highlight: true },
+          { label: t.itemFormulaDevine, value: `${result.pesoIdealDevine.toFixed(1)} kg` },
+          { label: t.itemFormulaRobinson, value: `${result.pesoIdealRobinson.toFixed(1)} kg` },
+          { label: t.itemFormulaMiller, value: `${result.pesoIdealMiller.toFixed(1)} kg` },
+        ] : []}
+      />
     </>
   )
 }

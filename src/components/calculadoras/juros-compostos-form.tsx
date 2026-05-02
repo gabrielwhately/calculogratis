@@ -137,7 +137,7 @@ export function JurosCompostosForm() {
           {result.evolucao.length > 0 && (
             <div className="mt-6 border-t border-white/10 pt-6">
               <h4 className="mb-4 text-sm font-medium text-slate-300">{t.chartTitle}</h4>
-              <div className="flex h-40 items-end gap-1 px-1">
+              <div className="flex h-40 items-end gap-1 px-1" tabIndex={0} role="img" aria-label={t.chartTitle}>
                 {result.evolucao.filter((_, i) => {
                   const total = result.evolucao.length
                   const step = Math.max(1, Math.floor(total / 15))

@@ -34,7 +34,9 @@
 - **Input Masking**: Refined `src/lib/formatters.ts` to improve the typing experience and added new masks for common Brazilian formats.
 
 ## 6. Recommendations for Next Phase
-- **Print/PDF Export**: For complex calculators like Rescisão or Financiamento, a dedicated "Download PDF" feature with branded header would be beneficial.
+- **Branded Print/PDF Export**: (DONE) Implemented branded header/footer and optimized print styles.
+- **Interactive Charts**: (DONE) Added hover tooltips to financial charts.
+- **Accessibility Audit**: For complex calculators like Rescisão or Financiamento, a dedicated "Download PDF" feature with branded header would be beneficial.
 - **Interactive Charts**: Add visual representations (bar/line charts) for long-term projections in financial calculators.
 - **Accessibility Audit**: Continue manual testing with screen readers to ensure 100% compliance across all complex forms.
 

@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { FormCard } from '@/components/ui/form-card'
+import { ResultCard } from '@/components/ui/result-card'
 import { gerarMetaTags } from '@/lib/calculadoras/gerador-meta-tags'
 
 const I18N = {
@@ -115,22 +116,26 @@ export function GeradorMetaTagsForm() {
         </Button>
       </FormCard>
 
-      {resultado && (
-        <div className="mt-6 rounded-xl bg-navy dark:bg-gray-800 dark:border dark:border-gray-700 p-6 text-white" aria-live="polite">
-          <div className="flex items-center justify-between mb-3">
-            <p className="text-sm text-slate-300">{t.resultTitle}</p>
+      <ResultCard
+        visible={!!resultado}
+        title={t.resultTitle}
+        mainValue=""
+        mainLabel=""
+      >
+        <div className="mt-4 pt-4 border-t border-white/20">
+          <div className="flex justify-end mb-3">
             <button
               onClick={handleCopiar}
-              className="rounded-lg bg-navy-light px-4 py-2 text-sm hover:bg-white/10 transition-colors"
+              className="rounded-lg bg-white/10 px-4 py-2 text-sm hover:bg-white/20 transition-colors border border-white/10"
             >
               {copiado ? t.buttonCopiado : t.buttonCopiar}
             </button>
           </div>
-          <pre className="overflow-x-auto rounded-lg bg-black/30 p-4 text-sm font-mono text-green-300 whitespace-pre-wrap break-all">
+          <pre className="overflow-x-auto rounded-lg bg-black/30 p-4 text-xs sm:text-sm font-mono text-green-300 whitespace-pre-wrap break-all border border-white/5 shadow-inner">
             <code>{resultado}</code>
           </pre>
         </div>
-      )}
+      </ResultCard>
     </>
   )
 }

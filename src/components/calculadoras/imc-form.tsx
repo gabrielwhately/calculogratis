@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import { FormCard } from '@/components/ui/form-card'
 import { ResultCard } from '@/components/ui/result-card'
 import { calcularIMC } from '@/lib/calculadoras/imc'
+import { parseBRNumber } from '@/lib/formatters'
 
 const I18N = {
   pt: {
@@ -73,8 +74,8 @@ export function IMCForm() {
   const [result, setResult] = useState<ReturnType<typeof calcularIMC> | null>(null)
 
   function handleCalcular() {
-    const pesoNum = parseFloat(peso.replace(',', '.'))
-    const alturaCm = parseFloat(altura.replace(',', '.'))
+    const pesoNum = parseBRNumber(peso)
+    const alturaCm = parseBRNumber(altura)
     if (!pesoNum || !alturaCm || pesoNum <= 0 || alturaCm <= 0) return
     setResult(calcularIMC({ peso: pesoNum, altura: alturaCm / 100 }))
   }
@@ -103,54 +104,56 @@ export function IMCForm() {
         </Button>
       </FormCard>
       
-      {result && (
-        <ResultCard
-          visible={true}
-          title={t.resultTitle}
-          mainValue={result.imc.toFixed(2)}
-          mainLabel={t.resultMainLabel}
-          items={[
-            { label: t.itemPeso, value: `${result.peso} kg` },
-            { label: t.itemAltura, value: `${(result.altura * 100).toFixed(0)} cm` }
-          ]}
-        >
-          <div className="mt-2">
-            <span className={`inline-block rounded-full px-3 py-1 text-sm font-semibold text-white ${getClassificacaoCor(result.classificacao)}`}>
-              {t.classificacoes[result.classificacao as keyof typeof t.classificacoes] || result.classificacao}
-            </span>
-          </div>
-          
-          <div className="mt-4 border-t border-white/20 pt-4">
-            <p className="text-xs text-slate-400">{t.tabelaTitle}</p>
-            <div className="mt-2 space-y-1 text-xs">
-              <div className="flex justify-between">
-                <span className="text-slate-300">{t.classificacoes['Abaixo do peso']}</span>
-                <span className="text-slate-400">&lt; 18,5</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-slate-300">{t.classificacoes['Peso normal']}</span>
-                <span className="text-slate-400">18,5 - 24,9</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-slate-300">{t.classificacoes['Sobrepeso']}</span>
-                <span className="text-slate-400">25,0 - 29,9</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-slate-300">{t.classificacoes['Obesidade grau I']}</span>
-                <span className="text-slate-400">30,0 - 34,9</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-slate-300">{t.classificacoes['Obesidade grau II']}</span>
-                <span className="text-slate-400">35,0 - 39,9</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-slate-300">{t.classificacoes['Obesidade grau III']}</span>
-                <span className="text-slate-400">&gt;= 40,0</span>
+      <ResultCard
+        visible={result !== null}
+        title={t.resultTitle}
+        mainValue={result ? result.imc.toFixed(2) : ''}
+        mainLabel={t.resultMainLabel}
+        items={result ? [
+          { label: t.itemPeso, value: `${result.peso} kg` },
+          { label: t.itemAltura, value: `${(result.altura * 100).toFixed(0)} cm` }
+        ] : []}
+      >
+        {result && (
+          <>
+            <div className="mt-2">
+              <span className={`inline-block rounded-full px-3 py-1 text-sm font-semibold text-white ${getClassificacaoCor(result.classificacao)}`}>
+                {t.classificacoes[result.classificacao as keyof typeof t.classificacoes] || result.classificacao}
+              </span>
+            </div>
+            
+            <div className="mt-4 border-t border-white/20 pt-4">
+              <p className="text-xs text-slate-400">{t.tabelaTitle}</p>
+              <div className="mt-2 space-y-1 text-xs">
+                <div className="flex justify-between">
+                  <span className="text-slate-300">{t.classificacoes['Abaixo do peso']}</span>
+                  <span className="text-slate-400">&lt; 18,5</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-300">{t.classificacoes['Peso normal']}</span>
+                  <span className="text-slate-400">18,5 - 24,9</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-300">{t.classificacoes['Sobrepeso']}</span>
+                  <span className="text-slate-400">25,0 - 29,9</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-300">{t.classificacoes['Obesidade grau I']}</span>
+                  <span className="text-slate-400">30,0 - 34,9</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-300">{t.classificacoes['Obesidade grau II']}</span>
+                  <span className="text-slate-400">35,0 - 39,9</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-300">{t.classificacoes['Obesidade grau III']}</span>
+                  <span className="text-slate-400">&gt;= 40,0</span>
+                </div>
               </div>
             </div>
-          </div>
-        </ResultCard>
-      )}
+          </>
+        )}
+      </ResultCard>
     </>
   )
 }

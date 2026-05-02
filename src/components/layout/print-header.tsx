@@ -29,7 +29,7 @@ export function PrintHeader() {
   })
 
   return (
-    <div className="hidden print:flex flex-col border-b-2 border-navy pb-4 mb-8">
+    <div className="hidden print:flex pt-8 flex-col border-b-2 border-navy pb-4 mb-8">
       <div className="flex justify-between items-end">
         <div>
           <h1 className="text-2xl font-bold text-navy">

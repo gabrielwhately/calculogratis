@@ -114,38 +114,34 @@ export function PjVsCltForm() {
         </Button>
       </FormCard>
       
-      {result && (
-        <>
-          <ResultCard 
-            visible={true} 
-            title={t.titleClt} 
-            mainValue={formatCurrency(result.clt.beneficioEfetivoMensal)} 
-            mainLabel={t.mainLabelClt}
-            items={[
-              { label: t.itemSalarioBruto, value: formatCurrency(result.clt.salarioBruto) },
-              { label: t.itemINSS, value: `- ${formatCurrency(result.clt.inss)}` },
-              { label: t.itemIRRF, value: `- ${formatCurrency(result.clt.irrf)}` },
-              { label: t.itemLiquidoMensal, value: formatCurrency(result.clt.liquidoMensal) },
-              { label: t.itemFGTS, value: `+ ${formatCurrency(result.clt.fgts)}` },
-              { label: t.item13, value: formatCurrency(result.clt.decimoTerceiro) },
-              { label: t.itemFerias, value: formatCurrency(result.clt.feriasMaisUmTerco) },
-            ]} 
-          />
-          <ResultCard 
-            visible={true} 
-            title={t.titlePj} 
-            mainValue={formatCurrency(result.pj.liquidoMensal)} 
-            mainLabel={t.mainLabelPj}
-            items={[
-              { label: t.itemFaturamento, value: formatCurrency(result.pj.faturamento) },
-              { label: t.itemImposto, value: `- ${formatCurrency(result.pj.impostoSimples)}` },
-              { label: t.itemContador, value: `- ${formatCurrency(result.pj.custoContador)}` },
-              { label: t.itemLiquidoPj, value: formatCurrency(result.pj.liquidoMensal), highlight: true },
-              { label: t.itemDiferenca, value: `${result.diferencaMensal >= 0 ? '+' : '-'} ${formatCurrency(Math.abs(result.diferencaMensal))}`, highlight: true },
-            ]} 
-          />
-        </>
-      )}
+      <ResultCard 
+        visible={result !== null} 
+        title={t.titleClt} 
+        mainValue={result ? formatCurrency(result.clt.beneficioEfetivoMensal) : ''} 
+        mainLabel={t.mainLabelClt}
+        items={result ? [
+          { label: t.itemSalarioBruto, value: formatCurrency(result.clt.salarioBruto) },
+          { label: t.itemINSS, value: `- ${formatCurrency(result.clt.inss)}` },
+          { label: t.itemIRRF, value: `- ${formatCurrency(result.clt.irrf)}` },
+          { label: t.itemLiquidoMensal, value: formatCurrency(result.clt.liquidoMensal) },
+          { label: t.itemFGTS, value: `+ ${formatCurrency(result.clt.fgts)}` },
+          { label: t.item13, value: formatCurrency(result.clt.decimoTerceiro) },
+          { label: t.itemFerias, value: formatCurrency(result.clt.feriasMaisUmTerco) },
+        ] : []} 
+      />
+      <ResultCard 
+        visible={result !== null} 
+        title={t.titlePj} 
+        mainValue={result ? formatCurrency(result.pj.liquidoMensal) : ''} 
+        mainLabel={t.mainLabelPj}
+        items={result ? [
+          { label: t.itemFaturamento, value: formatCurrency(result.pj.faturamento) },
+          { label: t.itemImposto, value: `- ${formatCurrency(result.pj.impostoSimples)}` },
+          { label: t.itemContador, value: `- ${formatCurrency(result.pj.custoContador)}` },
+          { label: t.itemLiquidoPj, value: formatCurrency(result.pj.liquidoMensal), highlight: true },
+          { label: t.itemDiferenca, value: `${result.diferencaMensal >= 0 ? '+' : '-'} ${formatCurrency(Math.abs(result.diferencaMensal))}`, highlight: true },
+        ] : []} 
+      />
     </>
   )
 }

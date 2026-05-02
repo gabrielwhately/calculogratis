@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { FormCard } from '@/components/ui/form-card'
+import { ResultCard } from '@/components/ui/result-card'
 
 const I18N = {
   pt: {
@@ -108,27 +109,35 @@ export function PreviewHtmlForm() {
         </div>
       </FormCard>
 
-      {mostrar && (
-        <div className="mt-6 rounded-xl border border-slate-200 dark:border-gray-700 overflow-hidden shadow-sm" aria-live="polite">
-          <div className="bg-navy dark:bg-gray-800 px-4 py-3 flex items-center justify-between">
-            <p className="text-sm font-medium text-white">{t.resultTitle}</p>
+      <ResultCard
+        visible={mostrar}
+        title={t.resultTitle}
+        mainValue=""
+        mainLabel=""
+      >
+        <div className="mt-4 overflow-hidden rounded-xl border border-white/10 shadow-2xl">
+          <div className="bg-navy-dark px-4 py-2 flex items-center justify-between border-b border-white/5">
             <div className="flex gap-1.5">
-              <span className="w-3 h-3 rounded-full bg-red-400" />
-              <span className="w-3 h-3 rounded-full bg-yellow-400" />
-              <span className="w-3 h-3 rounded-full bg-green-400" />
+              <span className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
+              <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
+              <span className="w-2.5 h-2.5 rounded-full bg-green-500/80" />
             </div>
+            <div className="flex-1 mx-4 bg-black/20 rounded px-3 py-0.5 text-[10px] text-slate-400 truncate text-center font-mono">
+              localhost:3000/preview
+            </div>
+            <div className="w-10" /> {/* Spacer */}
           </div>
           <div className="bg-white" style={{ minHeight: '300px' }}>
             <iframe
               srcDoc={rendered}
               title={t.previewTitle}
               className="w-full border-0"
-              style={{ minHeight: '300px', height: '60vh', maxHeight: '600px' }}
+              style={{ minHeight: '300px', height: '50vh', maxHeight: '500px' }}
               sandbox="allow-scripts"
             />
           </div>
         </div>
-      )}
+      </ResultCard>
     </>
   )
 }

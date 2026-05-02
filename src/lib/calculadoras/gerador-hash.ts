@@ -6,14 +6,13 @@ export async function gerarHash(texto: string, algoritmo: 'SHA-1' | 'SHA-256' | 
   return hashArray.map(b => b.toString(16).padStart(2, '0')).join('')
 }
 
-// MD5 simplificado (nao usar para seguranca - apenas para checksum/comparacao)
 export function gerarMD5(input: string): string {
   function md5cycle(x: number[], k: number[]) {
     let a = x[0], b = x[1], c = x[2], d = x[3]
-    const ff = (a: number, b: number, c: number, d: number, k: number, s: number, t: number) => { a += ((b & c) | (~b & d)) + k + t; return ((a << s) | (a >>> (32 - s))) + b }
-    const gg = (a: number, b: number, c: number, d: number, k: number, s: number, t: number) => { a += ((b & d) | (c & ~d)) + k + t; return ((a << s) | (a >>> (32 - s))) + b }
-    const hh = (a: number, b: number, c: number, d: number, k: number, s: number, t: number) => { a += (b ^ c ^ d) + k + t; return ((a << s) | (a >>> (32 - s))) + b }
-    const ii = (a: number, b: number, c: number, d: number, k: number, s: number, t: number) => { a += (c ^ (b | ~d)) + k + t; return ((a << s) | (a >>> (32 - s))) + b }
+    const ff = (a: number, b: number, c: number, d: number, k: number, s: number, t: number) => { a = (a + ((b & c) | (~b & d)) + k + t) | 0; return (((a << s) | (a >>> (32 - s))) + b) | 0 }
+    const gg = (a: number, b: number, c: number, d: number, k: number, s: number, t: number) => { a = (a + ((b & d) | (c & ~d)) + k + t) | 0; return (((a << s) | (a >>> (32 - s))) + b) | 0 }
+    const hh = (a: number, b: number, c: number, d: number, k: number, s: number, t: number) => { a = (a + (b ^ c ^ d) + k + t) | 0; return (((a << s) | (a >>> (32 - s))) + b) | 0 }
+    const ii = (a: number, b: number, c: number, d: number, k: number, s: number, t: number) => { a = (a + (c ^ (b | ~d)) + k + t) | 0; return (((a << s) | (a >>> (32 - s))) + b) | 0 }
     a=ff(a,b,c,d,k[0],7,-680876936);d=ff(d,a,b,c,k[1],12,-389564586);c=ff(c,d,a,b,k[2],17,606105819);b=ff(b,c,d,a,k[3],22,-1044525330)
     a=ff(a,b,c,d,k[4],7,-176418897);d=ff(d,a,b,c,k[5],12,1200080426);c=ff(c,d,a,b,k[6],17,-1473231341);b=ff(b,c,d,a,k[7],22,-45705983)
     a=ff(a,b,c,d,k[8],7,1770035416);d=ff(d,a,b,c,k[9],12,-1958414417);c=ff(c,d,a,b,k[10],17,-42063);b=ff(b,c,d,a,k[11],22,-1990404162)
@@ -30,18 +29,18 @@ export function gerarMD5(input: string): string {
     a=ii(a,b,c,d,k[12],6,1700485571);d=ii(d,a,b,c,k[3],10,-1894986606);c=ii(c,d,a,b,k[10],15,-1051523);b=ii(b,c,d,a,k[1],21,-2054922799)
     a=ii(a,b,c,d,k[8],6,1873313359);d=ii(d,a,b,c,k[15],10,-30611744);c=ii(c,d,a,b,k[6],15,-1560198380);b=ii(b,c,d,a,k[13],21,1309151649)
     a=ii(a,b,c,d,k[4],6,-145523070);d=ii(d,a,b,c,k[11],10,-1120210379);c=ii(c,d,a,b,k[2],15,718787259);b=ii(b,c,d,a,k[9],21,-343485551)
-    x[0]=(a+x[0])>>>0;x[1]=(b+x[1])>>>0;x[2]=(c+x[2])>>>0;x[3]=(d+x[3])>>>0
+    x[0]=(a+x[0])|0;x[1]=(b+x[1])|0;x[2]=(c+x[2])|0;x[3]=(d+x[3])|0
   }
   const bytes = Array.from(new TextEncoder().encode(input))
+  const bitLen = bytes.length * 8
   bytes.push(0x80)
   while (bytes.length % 64 !== 56) bytes.push(0)
-  const bitLen = input.length * 8
-  for (let i = 0; i < 8; i++) bytes.push((bitLen >>> (i * 8)) & 0xff)
+  for (let i = 0; i < 8; i++) bytes.push((bitLen / Math.pow(2, i * 8)) & 0xff)
   const state = [0x67452301, 0xefcdab89, 0x98badcfe, 0x10325476]
   for (let i = 0; i < bytes.length; i += 64) {
     const k: number[] = []
     for (let j = 0; j < 16; j++) k.push(bytes[i+j*4] | (bytes[i+j*4+1]<<8) | (bytes[i+j*4+2]<<16) | (bytes[i+j*4+3]<<24))
     md5cycle(state, k)
   }
-  return state.map(s => { const h = s.toString(16).padStart(8,'0'); return h.match(/../g)!.reverse().join('') }).join('')
+  return state.map(s => { const h = (s >>> 0).toString(16).padStart(8,'0'); return h.match(/../g)!.reverse().join('') }).join('')
 }

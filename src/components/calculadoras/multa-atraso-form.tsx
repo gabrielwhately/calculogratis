@@ -114,21 +114,19 @@ export function MultaAtrasoForm() {
         </Button>
       </FormCard>
       
-      {result && (
-        <ResultCard
-          visible={true}
-          title={t.resultTitle}
-          mainValue={formatCurrency(result.valorTotal)}
-          mainLabel={t.resultMainLabel}
-          items={[
-            { label: t.itemValorOriginal, value: formatCurrency(result.valorOriginal) },
-            { label: t.itemDiasAtraso, value: `${result.diasAtraso} ${t.labelDias}` },
-            { label: `${t.itemMulta} (${multaPercent}%)`, value: formatCurrency(result.multa), highlight: true },
-            { label: t.itemJuros, value: formatCurrency(result.juros), highlight: true },
-            { label: t.itemTotal, value: formatCurrency(result.valorTotal), highlight: true },
-          ]}
-        />
-      )}
+      <ResultCard
+        visible={result !== null}
+        title={t.resultTitle}
+        mainValue={result ? formatCurrency(result.valorTotal) : ''}
+        mainLabel={t.resultMainLabel}
+        items={result ? [
+          { label: t.itemValorOriginal, value: formatCurrency(result.valorOriginal) },
+          { label: t.itemDiasAtraso, value: `${result.diasAtraso} ${t.labelDias}` },
+          { label: `${t.itemMulta} (${result.multaPercent}%)`, value: formatCurrency(result.multa), highlight: true },
+          { label: t.itemJuros, value: formatCurrency(result.juros), highlight: true },
+          { label: t.itemTotal, value: formatCurrency(result.valorTotal), highlight: true },
+        ] : []}
+      />
     </>
   )
 }

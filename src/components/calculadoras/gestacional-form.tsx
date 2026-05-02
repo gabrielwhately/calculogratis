@@ -71,21 +71,19 @@ export function GestacionalForm() {
         </Button>
       </FormCard>
       
-      {result && (
-        <ResultCard
-          visible={true}
-          title={t.resultTitle}
-          mainValue={result.idadeGestacional}
-          mainLabel={t.resultMainLabel}
-          items={[
-            { label: t.itemDum, value: formatDate(result.dum) },
-            { label: t.itemTrimestre, value: `${result.trimestre}${t.labelTrimestre}`, highlight: true },
-            { label: t.itemSemanas, value: `${result.semanasCompletas} ${t.labelSemanas}` },
-            { label: t.itemDias, value: `${result.dias} ${t.labelDias}` },
-            { label: t.itemDpp, value: formatDate(result.dataParto), highlight: true },
-          ]}
-        />
-      )}
+      <ResultCard
+        visible={result !== null}
+        title={t.resultTitle}
+        mainValue={result ? result.idadeGestacional : ''}
+        mainLabel={t.resultMainLabel}
+        items={result ? [
+          { label: t.itemDum, value: formatDate(result.dum) },
+          { label: t.itemTrimestre, value: `${result.trimestre}${t.labelTrimestre}`, highlight: true },
+          { label: t.itemSemanas, value: `${result.semanasCompletas} ${t.labelSemanas}` },
+          { label: t.itemDias, value: `${result.dias} ${t.labelDias}` },
+          { label: t.itemDpp, value: formatDate(result.dataParto), highlight: true },
+        ] : []}
+      />
     </>
   )
 }

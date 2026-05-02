@@ -6,6 +6,7 @@ import { Select } from '@/components/ui/select'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { FormCard } from '@/components/ui/form-card'
+import { ResultCard } from '@/components/ui/result-card'
 import { gerarLorem } from '@/lib/calculadoras/gerador-lorem'
 
 const I18N = {
@@ -87,25 +88,30 @@ export function GeradorLoremForm() {
         </Button>
       </FormCard>
 
-      {resultado && (
-        <div className="mt-6 rounded-xl bg-navy dark:bg-gray-800 dark:border dark:border-gray-700 p-6 text-white" aria-live="polite">
-          <div className="flex items-center justify-between mb-3">
-            <div className="flex gap-4 text-sm text-slate-300">
-              <span>{resultado.palavras} {t.labelPalavras}</span>
-              <span>{resultado.caracteres} {t.labelCaracteres}</span>
+      <ResultCard
+        visible={!!resultado}
+        title={t.buttonCalcular}
+        mainValue=""
+        mainLabel=""
+      >
+        <div className="mt-4 pt-4 border-t border-white/20">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex gap-4 text-xs font-medium text-slate-300">
+              <span className="px-2 py-1 rounded bg-white/10">{resultado?.palavras} {t.labelPalavras}</span>
+              <span className="px-2 py-1 rounded bg-white/10">{resultado?.caracteres} {t.labelCaracteres}</span>
             </div>
             <button
               onClick={handleCopiar}
-              className="rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-white hover:bg-blue-600 transition-colors"
+              className="rounded-lg bg-white/10 hover:bg-white/20 px-4 py-2 text-sm font-semibold text-white transition-all border border-white/10"
             >
               {copiado ? t.buttonCopiado : t.buttonCopiar}
             </button>
           </div>
-          <div className="rounded-lg bg-navy-light px-4 py-4 text-sm leading-relaxed whitespace-pre-wrap">
-            {resultado.texto}
+          <div className="rounded-lg bg-black/20 p-4 text-sm leading-relaxed whitespace-pre-wrap text-slate-100 shadow-inner border border-white/5">
+            {resultado?.texto}
           </div>
         </div>
-      )}
+      </ResultCard>
     </>
   )
 }

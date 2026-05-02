@@ -127,23 +127,21 @@ export function HoraExtraForm() {
         </Button>
       </FormCard>
       
-      {result && (
-        <ResultCard 
-          visible={true} 
-          title={t.resultTitle} 
-          mainValue={formatCurrency(result.totalExtras)} 
-          mainLabel={t.resultMainLabel}
-          items={[
-            { label: t.itemValorHoraNormal, value: formatCurrency(result.valorHoraNormal) },
-            { label: t.itemValorHoraExtra50, value: formatCurrency(result.valorHoraExtra50) },
-            { label: t.itemValorHoraExtra100, value: formatCurrency(result.valorHoraExtra100) },
-            { label: t.itemTotalExtras50, value: formatCurrency(result.totalHorasExtras50) },
-            { label: t.itemTotalExtras100, value: formatCurrency(result.totalHorasExtras100) },
-            { label: t.itemAdicionalNoturno, value: formatCurrency(result.totalAdicionalNoturno) },
-            { label: t.itemTotal, value: formatCurrency(result.totalExtras), highlight: true },
-          ]} 
-        />
-      )}
+      <ResultCard 
+        visible={result !== null} 
+        title={t.resultTitle} 
+        mainValue={result ? formatCurrency(result.totalExtras) : ''} 
+        mainLabel={t.resultMainLabel}
+        items={result ? [
+          { label: t.itemValorHoraNormal, value: formatCurrency(result.valorHoraNormal) },
+          { label: t.itemValorHoraExtra50, value: formatCurrency(result.valorHoraExtra50) },
+          { label: t.itemValorHoraExtra100, value: formatCurrency(result.valorHoraExtra100) },
+          { label: t.itemTotalExtras50, value: formatCurrency(result.totalHorasExtras50) },
+          { label: t.itemTotalExtras100, value: formatCurrency(result.totalHorasExtras100) },
+          { label: t.itemAdicionalNoturno, value: formatCurrency(result.totalAdicionalNoturno) },
+          { label: t.itemTotal, value: formatCurrency(result.totalExtras), highlight: true },
+        ] : []} 
+      />
     </>
   )
 }
