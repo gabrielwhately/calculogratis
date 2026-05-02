@@ -32,6 +32,7 @@ const I18N = {
     itemJuros: 'Total de juros',
     itemTotal: 'Total pago',
     itemUltima: 'Última parcela',
+    chartTitle: 'Composição do Pagamento Total',
   },
   es: {
     tabPrice: 'Tabla Price',
@@ -53,6 +54,7 @@ const I18N = {
     itemJuros: 'Total de intereses',
     itemTotal: 'Total pagado',
     itemUltima: 'Última cuota',
+    chartTitle: 'Composición del Pago Total',
   }
 }
 
@@ -135,18 +137,46 @@ export function FinanciamentoForm() {
         </Button>
       </FormCard>
       
-      <ResultCard 
-        visible={result !== null} 
-        title={`${t.resultTitle} ${sistema === 'price' ? 'Price' : 'SAC'}`} 
-        mainValue={result ? formatCurrency(result.parcela) : ''} 
-        mainLabel={sistema === 'price' ? t.labelParcelaFixa : t.labelParcelaInicial}
-        items={result ? [
-          { label: t.itemFinanciado, value: formatCurrency(result.valorFinanciado) }, 
-          { label: t.itemJuros, value: formatCurrency(result.totalJuros), highlight: true }, 
-          { label: t.itemTotal, value: formatCurrency(result.totalPago) },
-          ...(sistema === 'sac' && result.parcelas.length > 0 ? [{ label: t.itemUltima, value: formatCurrency(result.parcelas[result.parcelas.length - 1].parcela) }] : [])
-        ] : []} 
-      />
+      {result && (
+        <ResultCard 
+          visible={true} 
+          title={`${t.resultTitle} ${sistema === 'price' ? 'Price' : 'SAC'}`} 
+          mainValue={formatCurrency(result.parcela)} 
+          mainLabel={sistema === 'price' ? t.labelParcelaFixa : t.labelParcelaInicial}
+          items={[
+            { label: t.itemFinanciado, value: formatCurrency(result.valorFinanciado) }, 
+            { label: t.itemJuros, value: formatCurrency(result.totalJuros), highlight: true }, 
+            { label: t.itemTotal, value: formatCurrency(result.totalPago) },
+            ...(sistema === 'sac' && result.parcelas.length > 0 ? [{ label: t.itemUltima, value: formatCurrency(result.parcelas[result.parcelas.length - 1].parcela) }] : [])
+          ]} 
+        >
+          <div className="mt-6 border-t border-white/10 pt-6">
+            <h4 className="mb-4 text-sm font-medium text-slate-300">{t.chartTitle}</h4>
+            <div className="h-6 w-full flex rounded-full overflow-hidden bg-white/5 border border-white/10">
+              <div 
+                className="h-full bg-blue-600 transition-all duration-1000" 
+                style={{ width: `${(result.valorFinanciado / result.totalPago) * 100}%` }}
+                title={`${t.itemFinanciado}: ${formatCurrency(result.valorFinanciado)}`}
+              />
+              <div 
+                className="h-full bg-indigo-500 transition-all duration-1000 border-l border-white/10" 
+                style={{ width: `${(result.totalJuros / result.totalPago) * 100}%` }}
+                title={`${t.itemJuros}: ${formatCurrency(result.totalJuros)}`}
+              />
+            </div>
+            <div className="mt-4 flex gap-6 text-[10px]">
+              <div className="flex items-center gap-1.5">
+                <div className="h-2 w-2 rounded-full bg-blue-600" />
+                <span className="text-slate-400">{t.itemFinanciado}</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <div className="h-2 w-2 rounded-full bg-indigo-500" />
+                <span className="text-slate-400">{t.itemJuros}</span>
+              </div>
+            </div>
+          </div>
+        </ResultCard>
+      )}
     </>
   )
 }
