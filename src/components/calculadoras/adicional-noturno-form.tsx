@@ -2,9 +2,10 @@
 
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
+import { FormCard } from '@/components/ui/form-card'
+import { ResultCard } from '@/components/ui/result-card'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { ResultCard } from '@/components/ui/result-card'
 import { calcularAdicionalNoturno } from '@/lib/calculadoras/adicional-noturno'
 import { formatCurrency, parseBRNumber, maskCurrency } from '@/lib/formatters'
 
@@ -62,21 +63,58 @@ export function AdicionalNoturnoForm() {
 
   function handleCalcular() {
     const hm = parseInt(horasMensais) || 220
-    setResult(calcularAdicionalNoturno(parseBRNumber(salario), hm > 0 ? hm : 220, parseBRNumber(horasNoturnas), parseInt(percentual) || 20))
+    setResult(calcularAdicionalNoturno(
+      parseBRNumber(salario), 
+      hm > 0 ? hm : 220, 
+      parseBRNumber(horasNoturnas), 
+      parseInt(percentual) || 20
+    ))
   }
 
   const isValid = parseBRNumber(salario) > 0 && parseBRNumber(horasNoturnas) > 0
 
   return (
     <>
-      <div className="rounded-xl border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm">
-        <Input label={t.labelSalario} id="salario" value={salario} onChange={(v) => setSalario(maskCurrency(v))} inputMode="decimal" placeholder={t.placeholderSalario} />
-        <Input label={t.labelJornada} id="jornada" value={horasMensais} onChange={(v) => setHorasMensais(v.replace(/\D/g, ''))} inputMode="numeric" placeholder={t.placeholderJornada} />
-        <Input label={t.labelHorasNoturnas} id="noturnas" value={horasNoturnas} onChange={(v) => setHorasNoturnas(v.replace(/[^\d,]/g, ''))} inputMode="decimal" placeholder={t.placeholderHorasNoturnas} />
-        <Input label={t.labelPercentual} id="percentual" value={percentual} onChange={(v) => setPercentual(v.replace(/\D/g, ''))} inputMode="numeric" placeholder={t.placeholderPercentual} suffix="%" />
-        <Button onClick={handleCalcular} fullWidth disabled={!isValid}>{t.buttonCalcular}</Button>
-      </div>
-      <ResultCard visible={result !== null} title={t.resultTitle} mainValue={result ? formatCurrency(result.totalAdicional) : ''} mainLabel={t.resultMainLabel}
+      <FormCard>
+        <Input 
+          label={t.labelSalario} 
+          value={salario} 
+          onChange={(v) => setSalario(maskCurrency(v))} 
+          inputMode="decimal" 
+          placeholder={t.placeholderSalario} 
+        />
+        <Input 
+          label={t.labelJornada} 
+          value={horasMensais} 
+          onChange={(v) => setHorasMensais(v.replace(/\D/g, ''))} 
+          inputMode="numeric" 
+          placeholder={t.placeholderJornada} 
+        />
+        <Input 
+          label={t.labelHorasNoturnas} 
+          value={horasNoturnas} 
+          onChange={(v) => setHorasNoturnas(v.replace(/[^\d,]/g, ''))} 
+          inputMode="decimal" 
+          placeholder={t.placeholderHorasNoturnas} 
+        />
+        <Input 
+          label={t.labelPercentual} 
+          value={percentual} 
+          onChange={(v) => setPercentual(v.replace(/\D/g, ''))} 
+          inputMode="numeric" 
+          placeholder={t.placeholderPercentual} 
+          suffix="%" 
+        />
+        <Button onClick={handleCalcular} fullWidth disabled={!isValid}>
+          {t.buttonCalcular}
+        </Button>
+      </FormCard>
+
+      <ResultCard 
+        visible={result !== null} 
+        title={t.resultTitle} 
+        mainValue={result ? formatCurrency(result.totalAdicional) : ''} 
+        mainLabel={t.resultMainLabel}
         items={result ? [
           { label: t.itemValorHoraNormal, value: formatCurrency(result.valorHoraNormal) },
           { label: t.itemValorHoraNoturna, value: formatCurrency(result.valorHoraNoturna) },
@@ -84,7 +122,8 @@ export function AdicionalNoturnoForm() {
           { label: t.itemHorasNoturnas, value: `${result.horasNoturnas}h` },
           { label: t.itemHorasReduzidas, value: `${result.horasReduzidas.toFixed(1)}h` },
           { label: t.itemTotalAdicional, value: formatCurrency(result.totalAdicional), highlight: true },
-        ] : []} />
+        ] : []} 
+      />
     </>
   )
 }

@@ -2,6 +2,8 @@
 
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
+import { FormCard } from '@/components/ui/form-card'
+import { ResultCard } from '@/components/ui/result-card'
 import { contarCaracteres } from '@/lib/calculadoras/contador-caracteres'
 
 const I18N = {
@@ -14,6 +16,7 @@ const I18N = {
     labelFrases: 'Frases',
     labelParagrafos: 'Parágrafos',
     labelLinhas: 'Linhas',
+    resTitle: 'Estatísticas do Texto',
   },
   es: {
     labelTexto: 'Escribe o pega tu texto',
@@ -24,6 +27,7 @@ const I18N = {
     labelFrases: 'Frases',
     labelParagrafos: 'Párrafos',
     labelLinhas: 'Líneas',
+    resTitle: 'Estadísticas del Texto',
   }
 }
 
@@ -36,18 +40,9 @@ export function ContadorCaracteresForm() {
 
   const result = contarCaracteres({ texto })
 
-  const stats = [
-    { label: t.labelCaracteres, value: result.caracteres },
-    { label: t.labelSemEspacos, value: result.caracteresSemEspacos },
-    { label: t.labelPalavras, value: result.palavras },
-    { label: t.labelFrases, value: result.frases },
-    { label: t.labelParagrafos, value: result.paragrafos },
-    { label: t.labelLinhas, value: result.linhas },
-  ]
-
   return (
     <>
-      <div className="rounded-xl border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm">
+      <FormCard>
         <div className="mb-4">
           <label htmlFor="texto" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
             {t.labelTexto}
@@ -61,15 +56,21 @@ export function ContadorCaracteresForm() {
             className="w-full rounded-lg border border-slate-300 dark:border-gray-600 px-3 py-2.5 text-slate-800 dark:text-slate-200 bg-white dark:bg-gray-800 outline-none transition-colors focus:border-accent focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900 resize-y"
           />
         </div>
-      </div>
-      <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 gap-4">
-        {stats.map((stat) => (
-          <div key={stat.label} className="rounded-xl bg-navy dark:bg-gray-800 dark:border dark:border-gray-700 p-4 text-center text-white">
-            <p className="text-3xl font-bold">{stat.value}</p>
-            <p className="text-sm text-slate-300 mt-1">{stat.label}</p>
-          </div>
-        ))}
-      </div>
+      </FormCard>
+
+      <ResultCard
+        visible={texto.length > 0}
+        title={t.resTitle}
+        mainValue={String(result.caracteres)}
+        mainLabel={t.labelCaracteres}
+        items={[
+          { label: t.labelSemEspacos, value: String(result.caracteresSemEspacos) },
+          { label: t.labelPalavras, value: String(result.palavras) },
+          { label: t.labelFrases, value: String(result.frases) },
+          { label: t.labelParagrafos, value: String(result.paragrafos) },
+          { label: t.labelLinhas, value: String(result.linhas) },
+        ]}
+      />
     </>
   )
 }

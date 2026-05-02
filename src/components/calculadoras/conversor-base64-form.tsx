@@ -4,6 +4,8 @@ import { useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { Select } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
+import { FormCard } from '@/components/ui/form-card'
+import { ResultCard } from '@/components/ui/result-card'
 import { encodeBase64, decodeBase64 } from '@/lib/calculadoras/conversor-base64'
 
 const I18N = {
@@ -21,6 +23,8 @@ const I18N = {
     labelSaida: 'Saída',
     btnCopiar: 'Copiar',
     btnCopiado: 'Copiado!',
+    resultTitle: 'Resultado da Conversão',
+    resultMainLabel: 'Texto Processado',
   },
   es: {
     labelModo: 'Modo',
@@ -36,6 +40,8 @@ const I18N = {
     labelSaida: 'Salida',
     btnCopiar: 'Copiar',
     btnCopiado: '¡Copiado!',
+    resultTitle: 'Resultado de la Conversión',
+    resultMainLabel: 'Texto Procesado',
   }
 }
 
@@ -47,7 +53,6 @@ export function ConversorBase64Form() {
   const [input, setInput] = useState('')
   const [modo, setModo] = useState('encode')
   const [resultado, setResultado] = useState<{ output: string; valido: boolean; erro?: string; tamanhoOriginal: number; tamanhoConvertido: number } | null>(null)
-  const [copiado, setCopiado] = useState(false)
 
   const modoOptions = [
     { value: 'encode', label: t.modoEncode },
@@ -58,14 +63,6 @@ export function ConversorBase64Form() {
     if (!input.trim()) return
     const res = modo === 'encode' ? encodeBase64(input) : decodeBase64(input)
     setResultado(res)
-    setCopiado(false)
-  }
-
-  function handleCopiar() {
-    if (!resultado?.output) return
-    navigator.clipboard.writeText(resultado.output)
-    setCopiado(true)
-    setTimeout(() => setCopiado(false), 1500)
   }
 
   function formatarTamanho(bytes: number): string {
@@ -73,9 +70,14 @@ export function ConversorBase64Form() {
     return `${(bytes / 1024).toFixed(1)} KB`
   }
 
+  const resultItems = resultado ? [
+    { label: t.labelEntrada, value: formatarTamanho(resultado.tamanhoOriginal) },
+    { label: t.labelSaida, value: formatarTamanho(resultado.tamanhoConvertido) },
+  ] : []
+
   return (
     <>
-      <div className="rounded-xl border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm">
+      <FormCard>
         <Select label={t.labelModo} id="modo" value={modo} onChange={(v) => { setModo(v); setResultado(null) }} options={modoOptions} />
         <div className="mb-4">
           <label htmlFor="base64-input" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
@@ -93,36 +95,27 @@ export function ConversorBase64Form() {
         <Button onClick={handleConverter} fullWidth>
           {modo === 'encode' ? t.btnEncode : t.btnDecode}
         </Button>
-      </div>
+      </FormCard>
 
-      {resultado && (
-        <div className="mt-6 rounded-xl bg-navy dark:bg-gray-800 dark:border dark:border-gray-700 p-6 text-white" aria-live="polite">
-          {resultado.erro ? (
-            <p className="text-red-400 text-sm">{resultado.erro}</p>
-          ) : (
-            <>
-              <div className="flex items-center justify-between mb-3">
-                <div className="flex gap-4 text-sm text-slate-300">
-                  <span>{t.labelEntrada}: {formatarTamanho(resultado.tamanhoOriginal)}</span>
-                  <span>{t.labelSaida}: {formatarTamanho(resultado.tamanhoConvertido)}</span>
-                </div>
-                <button
-                  onClick={handleCopiar}
-                  className="rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-white hover:bg-blue-600 transition-colors"
-                >
-                  {copiado ? t.btnCopiado : t.btnCopiar}
-                </button>
-              </div>
-              <textarea
-                readOnly
-                value={resultado.output}
-                rows={6}
-                className="w-full rounded-lg bg-navy-light px-4 py-3 font-mono text-sm text-white resize-y outline-none"
-              />
-            </>
-          )}
-        </div>
-      )}
+      <ResultCard
+        visible={resultado !== null}
+        title={t.resultTitle}
+        mainValue={resultado?.erro ? 'Erro' : (modo === 'encode' ? 'Base64' : 'Texto')}
+        mainLabel={t.resultMainLabel}
+        items={resultItems}
+      >
+        {resultado && !resultado.erro && (
+          <textarea
+            readOnly
+            value={resultado.output}
+            rows={6}
+            className="mt-4 w-full rounded-lg bg-navy-light px-4 py-3 font-mono text-sm text-white resize-y outline-none border border-white/10"
+          />
+        )}
+        {resultado?.erro && (
+          <p className="mt-4 text-red-400 text-sm">{resultado.erro}</p>
+        )}
+      </ResultCard>
     </>
   )
 }

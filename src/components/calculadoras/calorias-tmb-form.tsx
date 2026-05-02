@@ -2,11 +2,13 @@
 
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
+import { FormCard } from '@/components/ui/form-card'
+import { ResultCard } from '@/components/ui/result-card'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Select } from '@/components/ui/select'
-import { ResultCard } from '@/components/ui/result-card'
 import { calcularTMB } from '@/lib/calculadoras/calorias-tmb'
+import { parseBRNumber, maskNumber } from '@/lib/formatters'
 
 const I18N = {
   pt: {
@@ -80,8 +82,8 @@ export function CaloriasTMBForm() {
   const [result, setResult] = useState<ReturnType<typeof calcularTMB> | null>(null)
 
   function handleCalcular() {
-    const pesoNum = parseFloat(peso.replace(',', '.'))
-    const alturaNum = parseFloat(altura.replace(',', '.'))
+    const pesoNum = parseBRNumber(peso)
+    const alturaNum = parseBRNumber(altura)
     const idadeNum = parseInt(idade) || 0
     if (!pesoNum || !alturaNum || !idadeNum) return
     setResult(calcularTMB({
@@ -97,26 +99,43 @@ export function CaloriasTMBForm() {
 
   return (
     <>
-      <div className="rounded-xl border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm">
-        <Input label={t.labelPeso} id="peso" value={peso} onChange={setPeso} inputMode="decimal" placeholder={t.placeholderPeso} />
-        <Input label={t.labelAltura} id="altura" value={altura} onChange={setAltura} inputMode="decimal" placeholder={t.placeholderAltura} />
-        <Input label={t.labelIdade} id="idade" value={idade} onChange={(v) => setIdade(v.replace(/\D/g, ''))} inputMode="numeric" placeholder={t.placeholderIdade} />
+      <FormCard>
+        <Input 
+          label={t.labelPeso} 
+          value={peso} 
+          onChange={(v) => setPeso(v.replace(/[^\d,]/g, ''))} 
+          inputMode="decimal" 
+          placeholder={t.placeholderPeso} 
+        />
+        <Input 
+          label={t.labelAltura} 
+          value={altura} 
+          onChange={(v) => setAltura(v.replace(/[^\d,]/g, ''))} 
+          inputMode="decimal" 
+          placeholder={t.placeholderAltura} 
+        />
+        <Input 
+          label={t.labelIdade} 
+          value={idade} 
+          onChange={(v) => setIdade(maskNumber(v))} 
+          inputMode="numeric" 
+          placeholder={t.placeholderIdade} 
+        />
         <Select
           label={t.labelSexo}
-          id="sexo"
           value={sexo}
           onChange={(v) => setSexo(v as 'masculino' | 'feminino')}
           options={t.sexoOptions}
         />
         <Select
           label={t.labelAtividade}
-          id="atividade"
           value={atividade}
           onChange={setAtividade}
           options={t.atividadeOptions}
         />
         <Button onClick={handleCalcular} fullWidth disabled={!isValid}>{t.btnCalcular}</Button>
-      </div>
+      </FormCard>
+
       <ResultCard
         visible={result !== null}
         title={t.resTitle}
@@ -124,7 +143,7 @@ export function CaloriasTMBForm() {
         mainLabel={t.resMainLabel}
         items={result ? [
           { label: t.itemSexo, value: result.sexo === 'masculino' ? (isSpanish ? 'Masculino' : 'Masculino') : (isSpanish ? 'Femenino' : 'Feminino') },
-          { label: t.itemAtividade, value: result.atividade },
+          { label: t.itemAtividade, value: t.atividadeOptions.find(o => o.value === String(result.atividade))?.label || String(result.atividade) },
           { label: t.itemTMB, value: `${Math.round(result.tmb)} kcal`, highlight: true },
           { label: t.itemTotal, value: `${Math.round(result.necessidadeDiaria)} kcal`, highlight: true },
         ] : []}

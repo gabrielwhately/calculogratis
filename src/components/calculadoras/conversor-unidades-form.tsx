@@ -5,7 +5,10 @@ import { usePathname } from 'next/navigation'
 import { Input } from '@/components/ui/input'
 import { Select } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
+import { FormCard } from '@/components/ui/form-card'
+import { ResultCard } from '@/components/ui/result-card'
 import { converterUnidade, getUnidades, getNomeUnidade } from '@/lib/calculadoras/conversor-unidades'
+import { parseBRNumber } from '@/lib/formatters'
 
 type Categoria = 'comprimento' | 'peso' | 'temperatura' | 'volume'
 
@@ -17,6 +20,7 @@ const I18N = {
     labelValor: 'Valor',
     btnConverter: 'Converter',
     resultTitle: 'Resultado da conversão',
+    resultMainLabel: 'Valor convertido',
     catComprimento: 'Comprimento',
     catPeso: 'Peso / Massa',
     catTemperatura: 'Temperatura',
@@ -35,6 +39,7 @@ const I18N = {
     labelValor: 'Valor',
     btnConverter: 'Convertir',
     resultTitle: 'Resultado de la conversión',
+    resultMainLabel: 'Valor convertido',
     catComprimento: 'Longitud',
     catPeso: 'Peso / Masa',
     catTemperatura: 'Temperatura',
@@ -76,7 +81,7 @@ export function ConversorUnidadesForm() {
   }
 
   function handleCalcular() {
-    const num = parseFloat(valor.replace(',', '.'))
+    const num = parseBRNumber(valor)
     if (isNaN(num)) return
     setResult(converterUnidade(num, de, para, categoria))
   }
@@ -86,7 +91,7 @@ export function ConversorUnidadesForm() {
     label: t.units[u.value] || u.label
   }))
 
-  const isValid = valor.trim().length > 0 && !isNaN(parseFloat(valor.replace(',', '.')))
+  const isValid = valor.trim().length > 0 && !isNaN(parseBRNumber(valor))
 
   function formatResult(n: number): string {
     if (Math.abs(n) >= 1e9 || (Math.abs(n) < 1e-4 && n !== 0)) {
@@ -96,9 +101,16 @@ export function ConversorUnidadesForm() {
     return s
   }
 
+  const resultItems = result !== null ? [
+    { 
+      label: `${t.units[de] || getNomeUnidade(de)} → ${t.units[para] || getNomeUnidade(para)}`, 
+      value: `${parseBRNumber(valor).toLocaleString(isSpanish ? 'es-ES' : 'pt-BR')} ${de} = ${formatResult(result)} ${para}` 
+    }
+  ] : []
+
   return (
     <>
-      <div className="rounded-xl border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm">
+      <FormCard>
         <Select
           label={t.labelCategoria}
           id="categoria"
@@ -131,18 +143,15 @@ export function ConversorUnidadesForm() {
           placeholder="Ex: 100"
         />
         <Button onClick={handleCalcular} fullWidth disabled={!isValid}>{t.btnConverter}</Button>
-      </div>
+      </FormCard>
 
-      {result !== null && (
-        <div className="mt-6 rounded-xl bg-navy dark:bg-gray-800 dark:border dark:border-gray-700 p-6 text-white" aria-live="polite">
-          <p className="text-sm text-slate-300">{t.resultTitle}</p>
-          <p className="mt-1 text-3xl font-bold font-mono break-all">{formatResult(result)}</p>
-          <p className="mt-1 text-slate-300 text-sm">{t.units[para] || getNomeUnidade(para)}</p>
-          <div className="mt-4 border-t border-white/20 pt-4 text-sm text-slate-300">
-            {parseFloat(valor.replace(',', '.')).toLocaleString(isSpanish ? 'es-ES' : 'pt-BR')} {t.units[de] || getNomeUnidade(de)} = {formatResult(result)} {t.units[para] || getNomeUnidade(para)}
-          </div>
-        </div>
-      )}
+      <ResultCard
+        visible={result !== null}
+        title={t.resultTitle}
+        mainValue={result !== null ? formatResult(result) : ''}
+        mainLabel={t.units[para] || getNomeUnidade(para)}
+        items={resultItems}
+      />
     </>
   )
 }

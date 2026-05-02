@@ -2,11 +2,12 @@
 
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
+import { FormCard } from '@/components/ui/form-card'
+import { ResultCard } from '@/components/ui/result-card'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { ResultCard } from '@/components/ui/result-card'
 import { calcularPintura } from '@/lib/calculadoras/calculadora-pintura'
-import { parseBRNumber } from '@/lib/formatters'
+import { parseBRNumber, maskNumber } from '@/lib/formatters'
 
 const I18N = {
   pt: {
@@ -34,6 +35,7 @@ const I18N = {
     itemLatas09: 'Latas de 0,9L',
     itemGaloes36: 'Galões de 3,6L',
     itemGaloes18: 'Galões de 18L',
+    unitLitros: 'litros',
   },
   es: {
     labelLargura: 'Ancho de la habitación (m)',
@@ -60,6 +62,7 @@ const I18N = {
     itemLatas09: 'Latas de 0,9L',
     itemGaloes36: 'Galones de 3,6L',
     itemGaloes18: 'Galones de 18L',
+    unitLitros: 'litros',
   }
 }
 
@@ -79,8 +82,13 @@ export function CalculadoraPinturaForm() {
 
   function handleCalcular() {
     setResult(calcularPintura(
-      parseBRNumber(largura), parseBRNumber(comprimento), parseBRNumber(peDireito),
-      parseInt(portas) || 1, parseInt(janelas) || 1, parseInt(demaos) || 2, parseBRNumber(rendimento) || 10,
+      parseBRNumber(largura), 
+      parseBRNumber(comprimento), 
+      parseBRNumber(peDireito),
+      parseInt(portas) || 1, 
+      parseInt(janelas) || 1, 
+      parseInt(demaos) || 2, 
+      parseBRNumber(rendimento) || 10,
     ))
   }
 
@@ -88,17 +96,64 @@ export function CalculadoraPinturaForm() {
 
   return (
     <>
-      <div className="rounded-xl border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm">
-        <Input label={t.labelLargura} id="largura" value={largura} onChange={(v) => setLargura(v.replace(/[^\d,]/g, ''))} inputMode="decimal" placeholder={t.placeholderLargura} />
-        <Input label={t.labelComprimento} id="comprimento" value={comprimento} onChange={(v) => setComprimento(v.replace(/[^\d,]/g, ''))} inputMode="decimal" placeholder={t.placeholderComprimento} />
-        <Input label={t.labelPeDireito} id="pe-direito" value={peDireito} onChange={(v) => setPeDireito(v.replace(/[^\d,]/g, ''))} inputMode="decimal" placeholder={t.placeholderPeDireito} />
-        <Input label={t.labelPortas} id="portas" value={portas} onChange={(v) => setPortas(v.replace(/\D/g, ''))} inputMode="numeric" placeholder={t.placeholderPortas} />
-        <Input label={t.labelJanelas} id="janelas" value={janelas} onChange={(v) => setJanelas(v.replace(/\D/g, ''))} inputMode="numeric" placeholder={t.placeholderJanelas} />
-        <Input label={t.labelDemaos} id="demaos" value={demaos} onChange={(v) => setDemaos(v.replace(/\D/g, ''))} inputMode="numeric" placeholder={t.placeholderDemaos} />
-        <Input label={t.labelRendimento} id="rendimento" value={rendimento} onChange={(v) => setRendimento(v.replace(/[^\d,]/g, ''))} inputMode="decimal" placeholder={t.placeholderRendimento} />
+      <FormCard>
+        <Input 
+          label={t.labelLargura} 
+          value={largura} 
+          onChange={(v) => setLargura(v.replace(/[^\d,]/g, ''))} 
+          inputMode="decimal" 
+          placeholder={t.placeholderLargura} 
+        />
+        <Input 
+          label={t.labelComprimento} 
+          value={comprimento} 
+          onChange={(v) => setComprimento(v.replace(/[^\d,]/g, ''))} 
+          inputMode="decimal" 
+          placeholder={t.placeholderComprimento} 
+        />
+        <Input 
+          label={t.labelPeDireito} 
+          value={peDireito} 
+          onChange={(v) => setPeDireito(v.replace(/[^\d,]/g, ''))} 
+          inputMode="decimal" 
+          placeholder={t.placeholderPeDireito} 
+        />
+        <Input 
+          label={t.labelPortas} 
+          value={portas} 
+          onChange={(v) => setPortas(maskNumber(v))} 
+          inputMode="numeric" 
+          placeholder={t.placeholderPortas} 
+        />
+        <Input 
+          label={t.labelJanelas} 
+          value={janelas} 
+          onChange={(v) => setJanelas(maskNumber(v))} 
+          inputMode="numeric" 
+          placeholder={t.placeholderJanelas} 
+        />
+        <Input 
+          label={t.labelDemaos} 
+          value={demaos} 
+          onChange={(v) => setDemaos(maskNumber(v))} 
+          inputMode="numeric" 
+          placeholder={t.placeholderDemaos} 
+        />
+        <Input 
+          label={t.labelRendimento} 
+          value={rendimento} 
+          onChange={(v) => setRendimento(v.replace(/[^\d,]/g, ''))} 
+          inputMode="decimal" 
+          placeholder={t.placeholderRendimento} 
+        />
         <Button onClick={handleCalcular} fullWidth disabled={!isValid}>{t.btnCalcular}</Button>
-      </div>
-      <ResultCard visible={result !== null} title={t.resTitle} mainValue={result ? `${result.litrosNecessarios} litros`.replace('litros', isSpanish ? 'litros' : 'litros') : ''} mainLabel={t.resMainLabel}
+      </FormCard>
+
+      <ResultCard 
+        visible={result !== null} 
+        title={t.resTitle} 
+        mainValue={result ? `${result.litrosNecessarios} ${t.unitLitros}` : ''} 
+        mainLabel={t.resMainLabel}
         items={result ? [
           { label: t.itemAreaTotal, value: `${result.areaTotal.toFixed(1)} m²` },
           { label: t.itemAreaUtil, value: `${result.areaUtil.toFixed(1)} m²` },
@@ -107,7 +162,8 @@ export function CalculadoraPinturaForm() {
           { label: t.itemLatas09, value: `${result.latas09}` },
           { label: t.itemGaloes36, value: `${result.galoes36}` },
           { label: t.itemGaloes18, value: `${result.galoes18}` },
-        ] : []} />
+        ] : []} 
+      />
     </>
   )
 }

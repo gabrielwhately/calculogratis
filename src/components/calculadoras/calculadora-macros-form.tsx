@@ -2,12 +2,13 @@
 
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
+import { FormCard } from '@/components/ui/form-card'
+import { ResultCard } from '@/components/ui/result-card'
 import { Input } from '@/components/ui/input'
 import { Select } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
-import { ResultCard } from '@/components/ui/result-card'
 import { calcularMacros } from '@/lib/calculadoras/calculadora-macros'
-import { parseBRNumber } from '@/lib/formatters'
+import { parseBRNumber, maskNumber } from '@/lib/formatters'
 
 const I18N = {
   pt: {
@@ -60,7 +61,7 @@ const I18N = {
     resTitle: 'Macronutrientes Diarios',
     resMainLabel: 'Calorías diarias recomendadas',
     itemProteinas: 'Proteínas',
-    itemCarboidratos: 'Carbohidratos',
+    itemCarbohidratos: 'Carbohidratos',
     itemGorduras: 'Grasas',
     itemCalProteina: 'Calorías proteína',
     itemCalCarboidrato: 'Calorías carbohidrato',
@@ -86,7 +87,8 @@ const I18N = {
 
 export function CalculadoraMacrosForm() {
   const pathname = usePathname()
-  const t = pathname?.startsWith('/es') ? I18N.es : I18N.pt
+  const isSpanish = pathname?.startsWith('/es')
+  const t = isSpanish ? I18N.es : I18N.pt
 
   const [peso, setPeso] = useState('')
   const [altura, setAltura] = useState('')
@@ -111,16 +113,39 @@ export function CalculadoraMacrosForm() {
 
   return (
     <>
-      <div className="rounded-xl border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm">
-        <Input label={t.labelPeso} id="peso" value={peso} onChange={(v) => setPeso(v.replace(/[^\d,]/g, ''))} inputMode="decimal" placeholder={t.placeholderPeso} />
-        <Input label={t.labelAltura} id="altura" value={altura} onChange={(v) => setAltura(v.replace(/\D/g, ''))} inputMode="numeric" placeholder={t.placeholderAltura} />
-        <Input label={t.labelIdade} id="idade" value={idade} onChange={(v) => setIdade(v.replace(/\D/g, ''))} inputMode="numeric" placeholder={t.placeholderIdade} />
-        <Select label={t.labelSexo} id="sexo" value={sexo} onChange={setSexo} options={t.sexoOptions} />
-        <Select label={t.labelAtividade} id="atividade" value={atividade} onChange={setAtividade} options={t.atividadeOptions} />
-        <Select label={t.labelObjetivo} id="objetivo" value={objetivo} onChange={setObjetivo} options={t.objetivoOptions} />
+      <FormCard>
+        <Input 
+          label={t.labelPeso} 
+          value={peso} 
+          onChange={(v) => setPeso(v.replace(/[^\d,]/g, ''))} 
+          inputMode="decimal" 
+          placeholder={t.placeholderPeso} 
+        />
+        <Input 
+          label={t.labelAltura} 
+          value={altura} 
+          onChange={(v) => setAltura(maskNumber(v))} 
+          inputMode="numeric" 
+          placeholder={t.placeholderAltura} 
+        />
+        <Input 
+          label={t.labelIdade} 
+          value={idade} 
+          onChange={(v) => setIdade(maskNumber(v))} 
+          inputMode="numeric" 
+          placeholder={t.placeholderIdade} 
+        />
+        <Select label={t.labelSexo} value={sexo} onChange={setSexo} options={t.sexoOptions} />
+        <Select label={t.labelAtividade} value={atividade} onChange={setAtividade} options={t.atividadeOptions} />
+        <Select label={t.labelObjetivo} value={objetivo} onChange={setObjetivo} options={t.objetivoOptions} />
         <Button onClick={handleCalcular} fullWidth disabled={!isValid}>{t.btnCalcular}</Button>
-      </div>
-      <ResultCard visible={result !== null} title={t.resTitle} mainValue={result ? `${result.caloriasTotal} kcal` : ''} mainLabel={t.resMainLabel}
+      </FormCard>
+
+      <ResultCard 
+        visible={result !== null} 
+        title={t.resTitle} 
+        mainValue={result ? `${result.caloriasTotal} kcal` : ''} 
+        mainLabel={t.resMainLabel}
         items={result ? [
           { label: t.itemProteinas, value: `${result.proteinas.gramas}g (${result.proteinas.percentual}%)`, highlight: true },
           { label: t.itemCarboidratos, value: `${result.carboidratos.gramas}g (${result.carboidratos.percentual}%)`, highlight: true },
@@ -128,7 +153,8 @@ export function CalculadoraMacrosForm() {
           { label: t.itemCalProteina, value: `${result.proteinas.calorias} kcal` },
           { label: t.itemCalCarboidrato, value: `${result.carboidratos.calorias} kcal` },
           { label: t.itemCalGordura, value: `${result.gorduras.calorias} kcal` },
-        ] : []} />
+        ] : []} 
+      />
     </>
   )
 }

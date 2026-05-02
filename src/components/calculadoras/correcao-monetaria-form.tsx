@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
+import { FormCard } from '@/components/ui/form-card'
 import { ResultCard } from '@/components/ui/result-card'
 import { calcularCorrecaoMonetaria } from '@/lib/calculadoras/correcao-monetaria'
 import { formatCurrency, parseBRNumber, maskCurrency, maskPercent } from '@/lib/formatters'
@@ -77,14 +78,14 @@ export function CorrecaoMonetariaForm() {
 
   return (
     <>
-      <div className="rounded-xl border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm">
+      <FormCard>
         <Input label={t.labelValor} id="valorOriginal" value={valorOriginal} onChange={(v) => setValorOriginal(maskCurrency(v))} inputMode="decimal" placeholder={t.placeholderValor} />
         <Input label={t.labelIndiceIni} id="indiceInicial" value={indiceInicial} onChange={(v) => setIndiceInicial(maskPercent(v))} inputMode="decimal" placeholder={t.placeholderIndiceIni} />
         <Input label={t.labelIndiceFin} id="indiceFinal" value={indiceFinal} onChange={(v) => setIndiceFinal(maskPercent(v))} inputMode="decimal" placeholder={t.placeholderIndiceFin} />
         <Input label={t.labelJuros} id="juros" value={juros} onChange={(v) => setJuros(maskPercent(v))} inputMode="decimal" placeholder={t.placeholderJuros} suffix="%" />
         <Input label={t.labelMeses} id="meses" value={meses} onChange={(v) => setMeses(v.replace(/\D/g, ''))} inputMode="numeric" placeholder={t.placeholderMeses} />
         <Button onClick={handleCalcular} fullWidth disabled={!isValid}>{t.btnCalcular}</Button>
-      </div>
+      </FormCard>
       <ResultCard
         visible={result !== null}
         title={t.resultTitle}

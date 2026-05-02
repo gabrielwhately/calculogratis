@@ -5,6 +5,8 @@ import { usePathname } from 'next/navigation'
 import { Input } from '@/components/ui/input'
 import { Select } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
+import { FormCard } from '@/components/ui/form-card'
+import { ResultCard } from '@/components/ui/result-card'
 import { converterCor } from '@/lib/calculadoras/conversor-cores'
 
 type TipoCor = 'hex' | 'rgb' | 'hsl'
@@ -26,6 +28,7 @@ const I18N = {
     btnConverter: 'Converter',
     invalidValue: 'Formato inválido. Verifique o valor informado.',
     resultTitle: 'Valores da cor',
+    resultMainLabel: 'Visualização da Cor',
     hex: 'HEX (Hexadecimal)',
     rgb: 'RGB',
     hsl: 'HSL',
@@ -39,6 +42,7 @@ const I18N = {
     btnConverter: 'Convertir',
     invalidValue: 'Formato inválido. Verifique el valor informado.',
     resultTitle: 'Valores del color',
+    resultMainLabel: 'Vista previa del color',
     hex: 'HEX (Hexadecimal)',
     rgb: 'RGB',
     hsl: 'HSL',
@@ -85,9 +89,15 @@ export function ConversorCoresForm() {
 
   const isValid = valor.trim().length > 0
 
+  const resultItems = result ? [
+    { label: 'HEX', value: result.hex.toUpperCase() },
+    { label: 'RGB', value: `rgb(${result.r}, ${result.g}, ${result.b})` },
+    { label: 'HSL', value: `hsl(${result.h}, ${result.s}%, ${result.l}%)` },
+  ] : []
+
   return (
     <>
-      <div className="rounded-xl border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm">
+      <FormCard>
         <Select
           label={t.labelTipo}
           id="tipo"
@@ -108,45 +118,39 @@ export function ConversorCoresForm() {
         />
         {erro && <p className="mb-3 text-sm text-red-500">{erro}</p>}
         <Button onClick={handleCalcular} fullWidth disabled={!isValid}>{t.btnConverter}</Button>
-      </div>
+      </FormCard>
 
-      {result && (
-        <div className="mt-6 rounded-xl bg-navy dark:bg-gray-800 dark:border dark:border-gray-700 p-6 text-white" aria-live="polite">
-          <div
-            className="w-full h-20 rounded-lg mb-4 border border-white/20"
-            style={{ backgroundColor: result.hex }}
-          />
-
-          <p className="text-sm text-slate-300 mb-3">{t.resultTitle}</p>
-          <div className="space-y-3">
-            <div className="flex items-center justify-between rounded-lg bg-white/10 px-4 py-3">
-              <span className="text-slate-300 text-sm">HEX</span>
-              <span className="font-mono font-bold text-lg uppercase">{result.hex}</span>
-            </div>
-            <div className="flex items-center justify-between rounded-lg bg-white/10 px-4 py-3">
-              <span className="text-slate-300 text-sm">RGB</span>
-              <span className="font-mono font-bold text-lg">rgb({result.r}, {result.g}, {result.b})</span>
-            </div>
-            <div className="flex items-center justify-between rounded-lg bg-white/10 px-4 py-3">
-              <span className="text-slate-300 text-sm">HSL</span>
-              <span className="font-mono font-bold text-lg">hsl({result.h}, {result.s}%, {result.l}%)</span>
-            </div>
-          </div>
-
-          <div className="mt-4 flex gap-2 border-t border-white/20 pt-4">
-            {['R', 'G', 'B', 'H', 'S', 'L'].map((label, idx) => {
-              const values = [result.r, result.g, result.b, result.h, result.s, result.l]
-              const suffix = idx === 3 ? '°' : (idx > 3 ? '%' : '')
-              return (
-                <div key={label} className="flex-1 text-center">
-                  <p className="text-xs text-slate-400">{label}</p>
-                  <p className="text-lg font-bold">{values[idx]}{suffix}</p>
+      <ResultCard
+        visible={result !== null}
+        title={t.resultTitle}
+        mainValue={result?.hex.toUpperCase() || ''}
+        mainLabel={t.resultMainLabel}
+        items={resultItems}
+      >
+        {result && (
+          <>
+            <div
+              className="mt-4 w-full h-20 rounded-lg border border-white/20"
+              style={{ backgroundColor: result.hex }}
+            />
+            <div className="mt-4 grid grid-cols-3 md:grid-cols-6 gap-2 border-t border-white/20 pt-4">
+              {[
+                { label: 'R', value: result.r },
+                { label: 'G', value: result.g },
+                { label: 'B', value: result.b },
+                { label: 'H', value: `${result.h}°` },
+                { label: 'S', value: `${result.s}%` },
+                { label: 'L', value: `${result.l}%` },
+              ].map((item) => (
+                <div key={item.label} className="text-center">
+                  <p className="text-xs text-slate-400">{item.label}</p>
+                  <p className="text-sm font-bold">{item.value}</p>
                 </div>
-              )
-            })}
-          </div>
-        </div>
-      )}
+              ))}
+            </div>
+          </>
+        )}
+      </ResultCard>
     </>
   )
 }

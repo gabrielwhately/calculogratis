@@ -2,9 +2,10 @@
 
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
+import { FormCard } from '@/components/ui/form-card'
+import { ResultCard } from '@/components/ui/result-card'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { ResultCard } from '@/components/ui/result-card'
 import { calcularCombustivel } from '@/lib/calculadoras/combustivel'
 import { formatCurrency, parseBRNumber, maskCurrency } from '@/lib/formatters'
 
@@ -65,21 +66,55 @@ export function CombustivelForm() {
   const [result, setResult] = useState<ReturnType<typeof calcularCombustivel> | null>(null)
 
   function handleCalcular() {
-    setResult(calcularCombustivel({ distancia: parseBRNumber(distancia), consumo: parseBRNumber(consumo), precoCombustivel: parseBRNumber(preco), pedagios: parseBRNumber(pedagios) }))
+    setResult(calcularCombustivel({ 
+      distancia: parseBRNumber(distancia), 
+      consumo: parseBRNumber(consumo), 
+      precoCombustivel: parseBRNumber(preco), 
+      pedagios: parseBRNumber(pedagios) 
+    }))
   }
 
   const isValid = parseBRNumber(distancia) > 0 && parseBRNumber(consumo) > 0 && parseBRNumber(preco) > 0
 
   return (
     <>
-      <div className="rounded-xl border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm">
-        <Input label={t.labelDistancia} id="distancia" value={distancia} onChange={(v) => setDistancia(v.replace(/[^\d,]/g, ''))} inputMode="decimal" placeholder={t.placeholderDistancia} />
-        <Input label={t.labelConsumo} id="consumo" value={consumo} onChange={(v) => setConsumo(v.replace(/[^\d,]/g, ''))} inputMode="decimal" placeholder={t.placeholderConsumo} />
-        <Input label={t.labelPreco} id="preco" value={preco} onChange={(v) => setPreco(maskCurrency(v))} inputMode="decimal" placeholder={t.placeholderPreco} />
-        <Input label={t.labelPedagios} id="pedagios" value={pedagios} onChange={(v) => setPedagios(maskCurrency(v))} inputMode="decimal" placeholder={t.placeholderPedagios} />
+      <FormCard>
+        <Input 
+          label={t.labelDistancia} 
+          value={distancia} 
+          onChange={(v) => setDistancia(v.replace(/[^\d,]/g, ''))} 
+          inputMode="decimal" 
+          placeholder={t.placeholderDistancia} 
+        />
+        <Input 
+          label={t.labelConsumo} 
+          value={consumo} 
+          onChange={(v) => setConsumo(v.replace(/[^\d,]/g, ''))} 
+          inputMode="decimal" 
+          placeholder={t.placeholderConsumo} 
+        />
+        <Input 
+          label={t.labelPreco} 
+          value={preco} 
+          onChange={(v) => setPreco(maskCurrency(v))} 
+          inputMode="decimal" 
+          placeholder={t.placeholderPreco} 
+        />
+        <Input 
+          label={t.labelPedagios} 
+          value={pedagios} 
+          onChange={(v) => setPedagios(maskCurrency(v))} 
+          inputMode="decimal" 
+          placeholder={t.placeholderPedagios} 
+        />
         <Button onClick={handleCalcular} fullWidth disabled={!isValid}>{t.btnCalcular}</Button>
-      </div>
-      <ResultCard visible={result !== null} title={t.resTitle} mainValue={result ? formatCurrency(result.custoTotal) : ''} mainLabel={t.resMainLabel}
+      </FormCard>
+
+      <ResultCard 
+        visible={result !== null} 
+        title={t.resTitle} 
+        mainValue={result ? formatCurrency(result.custoTotal) : ''} 
+        mainLabel={t.resMainLabel}
         items={result ? [
           { label: t.itemDistancia, value: `${result.distancia.toLocaleString(isSpanish ? 'es-ES' : 'pt-BR')} ${t.unitKm}` },
           { label: t.itemLitros, value: `${result.litrosNecessarios.toFixed(1)} ${t.unitLitros}` },
@@ -87,7 +122,8 @@ export function CombustivelForm() {
           ...(result.pedagios > 0 ? [{ label: t.itemPedagios, value: formatCurrency(result.pedagios) }] : []),
           { label: t.itemCustoTotal, value: formatCurrency(result.custoTotal), highlight: true },
           { label: t.itemCustoKm, value: formatCurrency(result.custoPorKm) },
-        ] : []} />
+        ] : []} 
+      />
     </>
   )
 }
