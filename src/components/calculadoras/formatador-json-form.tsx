@@ -4,6 +4,8 @@ import { useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { Select } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
+import { FormCard } from '@/components/ui/form-card'
+import { ResultCard } from '@/components/ui/result-card'
 import { formatarJSON, minificarJSON } from '@/lib/calculadoras/formatador-json'
 
 const I18N = {
@@ -79,7 +81,7 @@ export function FormatadorJSONForm() {
 
   return (
     <>
-      <div className="rounded-xl border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm">
+      <FormCard>
         <div className="mb-4">
           <label htmlFor="json-input" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
             {t.labelInput}
@@ -104,33 +106,38 @@ export function FormatadorJSONForm() {
           )}
         </div>
         <Button onClick={handleProcessar} fullWidth>{t.btnProcessar}</Button>
-      </div>
+      </FormCard>
 
-      {resultado && (
-        <div className="mt-6 rounded-xl bg-navy dark:bg-gray-800 dark:border dark:border-gray-700 p-6 text-white" aria-live="polite">
-          {resultado.erro ? (
+      <ResultCard
+        visible={!!resultado}
+        title={t.btnProcessar}
+        mainValue=""
+        mainLabel=""
+      >
+        <div className="mt-4 pt-4 border-t border-white/20">
+          {resultado?.erro ? (
             <p className="text-red-400 text-sm font-mono">{resultado.erro}</p>
           ) : (
             <>
               <div className="flex items-center justify-between mb-3">
-                <div className="flex gap-4 text-sm text-slate-300">
-                  <span>{resultado.linhas} {t.itemLinhas}</span>
-                  <span>{formatarTamanho(resultado.tamanho)}</span>
+                <div className="flex gap-4 text-xs text-slate-300">
+                  <span className="px-2 py-1 rounded bg-white/10">{resultado?.linhas} {t.itemLinhas}</span>
+                  <span className="px-2 py-1 rounded bg-white/10">{resultado ? formatarTamanho(resultado.tamanho) : ''}</span>
                 </div>
                 <button
                   onClick={handleCopiar}
-                  className="rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-white hover:bg-blue-600 transition-colors"
+                  className="rounded-lg bg-white/10 px-4 py-2 text-sm hover:bg-white/20 transition-colors border border-white/10"
                 >
                   {copiado ? t.btnCopiado : t.btnCopiar}
                 </button>
               </div>
-              <pre className="rounded-lg bg-navy-light p-4 font-mono text-sm overflow-x-auto max-h-80 overflow-y-auto whitespace-pre-wrap break-all">
-                <code>{resultado.formatado}</code>
+              <pre className="rounded-lg bg-black/20 p-4 font-mono text-xs sm:text-sm overflow-x-auto max-h-80 overflow-y-auto whitespace-pre-wrap break-all shadow-inner border border-white/5">
+                <code>{resultado?.formatado}</code>
               </pre>
             </>
           )}
         </div>
-      )}
+      </ResultCard>
     </>
   )
 }

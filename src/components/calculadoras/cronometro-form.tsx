@@ -98,7 +98,7 @@ export function CronometroForm() {
           <Button 
             onClick={handleIniciarPausar} 
             className="flex-1"
-            variant={rodando ? 'warning' : 'default'}
+            variant={rodando ? 'secondary' : 'primary'}
           >
             {rodando ? t.btnPausar : elapsed > 0 ? t.btnContinuar : t.btnIniciar}
           </Button>

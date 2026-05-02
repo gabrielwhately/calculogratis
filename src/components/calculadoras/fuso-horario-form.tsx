@@ -4,6 +4,8 @@ import { useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { Select } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
+import { FormCard } from '@/components/ui/form-card'
+import { ResultCard } from '@/components/ui/result-card'
 import { converterFuso, FUSOS } from '@/lib/calculadoras/fuso-horario'
 
 const I18N = {
@@ -47,9 +49,15 @@ export function FusoHorarioForm() {
   const origemLabel = FUSOS.find((f) => f.value === fusoOrigem)?.label ?? fusoOrigem
   const destinoLabel = FUSOS.find((f) => f.value === fusoDestino)?.label ?? fusoDestino
 
+  function maskTime(input: string): string {
+    const v = input.replace(/\D/g, '').slice(0, 4)
+    if (v.length <= 2) return v
+    return `${v.slice(0, 2)}:${v.slice(2)}`
+  }
+
   return (
     <>
-      <div className="rounded-xl border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm">
+      <FormCard>
         <div className="mb-4">
           <label htmlFor="hora-input" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
             {t.labelHora}
@@ -58,7 +66,7 @@ export function FusoHorarioForm() {
             id="hora-input"
             type="text"
             value={hora}
-            onChange={(e) => setHora(e.target.value)}
+            onChange={(e) => setHora(maskTime(e.target.value))}
             placeholder={t.placeholderHora}
             maxLength={5}
             className="w-full rounded-lg border border-slate-300 dark:border-gray-600 px-3 py-2.5 text-slate-800 dark:text-slate-200 bg-white dark:bg-gray-800 outline-none transition-colors focus:border-accent focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900"
@@ -81,27 +89,31 @@ export function FusoHorarioForm() {
         <Button onClick={handleConverter} fullWidth disabled={!hora}>
           {t.btnConverter}
         </Button>
-      </div>
+      </FormCard>
 
-      {result && (
-        <div className="mt-6 rounded-xl bg-navy dark:bg-gray-800 dark:border dark:border-gray-700 p-6 text-white" aria-live="polite">
-          <p className="text-sm text-slate-300 mb-4">{t.resTitle}</p>
+      <ResultCard
+        visible={result !== null}
+        title={t.resTitle}
+        mainValue=""
+        mainLabel=""
+      >
+        <div className="mt-4 pt-4 border-t border-white/20">
           <div className="grid grid-cols-2 gap-4 mb-4">
-            <div className="bg-white/10 rounded-lg p-4 text-center">
-              <p className="text-3xl font-bold">{result.horaOrigem}</p>
-              <p className="text-xs text-slate-300 mt-1 truncate">{origemLabel.split('(')[0].trim()}</p>
+            <div className="bg-white/10 rounded-lg p-4 text-center border border-white/5">
+              <p className="text-3xl font-bold">{result?.horaOrigem}</p>
+              <p className="text-[10px] text-slate-300 mt-1 truncate">{origemLabel.split('(')[0].trim()}</p>
             </div>
-            <div className="bg-white/10 rounded-lg p-4 text-center">
-              <p className="text-3xl font-bold">{result.horaDestino}</p>
-              <p className="text-xs text-slate-300 mt-1 truncate">{destinoLabel.split('(')[0].trim()}</p>
+            <div className="bg-white/10 rounded-lg p-4 text-center border border-white/5">
+              <p className="text-3xl font-bold">{result?.horaDestino}</p>
+              <p className="text-[10px] text-slate-300 mt-1 truncate">{destinoLabel.split('(')[0].trim()}</p>
             </div>
           </div>
-          <div className="border-t border-white/20 pt-4 flex justify-between text-sm">
+          <div className="flex justify-between text-sm items-center">
             <span className="text-slate-300">{t.resDiferenca}</span>
-            <span className="font-semibold">{result.diferenca.replace('hours', isSpanish ? 'horas' : 'horas')}</span>
+            <span className="font-semibold bg-white/10 px-2 py-0.5 rounded">{result?.diferenca.replace('hours', 'h').replace('hour', 'h')}</span>
           </div>
         </div>
-      )}
+      </ResultCard>
     </>
   )
 }

@@ -3,18 +3,24 @@
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { Button } from '@/components/ui/button'
+import { FormCard } from '@/components/ui/form-card'
+import { ResultCard } from '@/components/ui/result-card'
 import { gerarCNPJ } from '@/lib/calculadoras/gerador-cnpj'
 
 const I18N = {
   pt: {
     btnGerar: 'Gerar CNPJs',
-    resTitle: 'CNPJs gerados (clique para copiar sem formatação)',
+    resTitle: 'CNPJs gerados',
+    copyHint: 'clique para copiar',
     footer: 'Números gerados aleatoriamente, válidos apenas para testes e desenvolvimento.',
+    labelCopiado: 'Copiado!',
   },
   es: {
     btnGerar: 'Generar CNPJs',
-    resTitle: 'CNPJs generados (clic para copiar sin formato)',
+    resTitle: 'CNPJs generados',
+    copyHint: 'clic para copiar',
     footer: 'Números generados aleatoriamente, válidos solo para pruebas y desarrollo.',
+    labelCopiado: '¡Copiado!',
   }
 }
 
@@ -24,24 +30,47 @@ export function GeradorCNPJForm() {
   const t = isSpanish ? I18N.es : I18N.pt
 
   const [cnpjs, setCnpjs] = useState<string[]>([])
+  const [copiedIndex, setCopiedIndex] = useState<number | null>(null)
+
+  function handleGerar() {
+    setCnpjs(Array.from({ length: 5 }, () => gerarCNPJ()))
+    setCopiedIndex(null)
+  }
+
+  function handleCopiar(cnpj: string, index: number) {
+    navigator.clipboard.writeText(cnpj.replace(/\D/g, ''))
+    setCopiedIndex(index)
+    setTimeout(() => setCopiedIndex(null), 1500)
+  }
 
   return (
     <>
-      <div className="rounded-xl border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm">
-        <Button onClick={() => setCnpjs(Array.from({ length: 5 }, () => gerarCNPJ()))} fullWidth>{t.btnGerar}</Button>
-      </div>
-      {cnpjs.length > 0 && (
-        <div className="mt-6 rounded-xl bg-navy dark:bg-gray-800 dark:border dark:border-gray-700 p-6 text-white" aria-live="polite">
-          <p className="text-sm text-slate-300 mb-3">{t.resTitle}</p>
-          <div className="space-y-2">
-            {cnpjs.map((cnpj, i) => (
-              <button key={i} onClick={() => navigator.clipboard.writeText(cnpj.replace(/\D/g, ''))}
-                className="block w-full rounded-lg bg-white/5 px-4 py-3 text-left font-mono text-lg hover:bg-white/10 transition-colors">{cnpj}</button>
-            ))}
-          </div>
-          <p className="mt-4 text-xs text-slate-400">{t.footer}</p>
+      <FormCard>
+        <Button onClick={handleGerar} fullWidth>{t.btnGerar}</Button>
+      </FormCard>
+
+      <ResultCard
+        visible={cnpjs.length > 0}
+        title={t.resTitle}
+        mainValue=""
+        mainLabel=""
+      >
+        <div className="mt-4 space-y-2 pt-4 border-t border-white/20">
+          {cnpjs.map((cnpj, i) => (
+            <button
+              key={i}
+              onClick={() => handleCopiar(cnpj, i)}
+              className="block w-full rounded-lg bg-white/10 px-4 py-3 text-left font-mono text-sm hover:bg-white/20 transition-all relative border border-white/5 active:scale-[0.99]"
+            >
+              {cnpj}
+              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] text-slate-400 font-normal italic">
+                {copiedIndex === i ? t.labelCopiado : t.copyHint}
+              </span>
+            </button>
+          ))}
+          <p className="mt-4 text-center text-xs text-slate-400">{t.footer}</p>
         </div>
-      )}
+      </ResultCard>
     </>
   )
 }

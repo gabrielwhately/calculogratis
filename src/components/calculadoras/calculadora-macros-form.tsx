@@ -61,7 +61,7 @@ const I18N = {
     resTitle: 'Macronutrientes Diarios',
     resMainLabel: 'Calorías diarias recomendadas',
     itemProteinas: 'Proteínas',
-    itemCarbohidratos: 'Carbohidratos',
+    itemCarboidratos: 'Carbohidratos',
     itemGorduras: 'Grasas',
     itemCalProteina: 'Calorías proteína',
     itemCalCarboidrato: 'Calorías carbohidrato',

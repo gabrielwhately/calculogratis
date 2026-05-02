@@ -4,6 +4,8 @@ import { useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { Select } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
+import { FormCard } from '@/components/ui/form-card'
+import { ResultCard } from '@/components/ui/result-card'
 import { gerarHash, gerarMD5 } from '@/lib/calculadoras/gerador-hash'
 
 type Algoritmo = 'MD5' | 'SHA-1' | 'SHA-256' | 'SHA-384' | 'SHA-512'
@@ -79,7 +81,7 @@ export function GeradorHashForm() {
 
   return (
     <>
-      <div className="rounded-xl border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm">
+      <FormCard>
         <div className="mb-4">
           <label htmlFor="texto-hash" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
             {t.labelTexto}
@@ -103,27 +105,31 @@ export function GeradorHashForm() {
         <Button onClick={handleGerar} fullWidth disabled={!texto || loading}>
           {loading ? t.btnGerando : t.btnGerar}
         </Button>
-      </div>
+      </FormCard>
 
-      {hash && (
-        <div className="mt-6 rounded-xl bg-navy dark:bg-gray-800 dark:border dark:border-gray-700 p-6 text-white" aria-live="polite">
-          <div className="flex items-center justify-between mb-3">
-            <p className="text-sm text-slate-300">{t.resTitle} {algoritmo}</p>
+      <ResultCard
+        visible={!!hash}
+        title={`${t.resTitle} ${algoritmo}`}
+        mainValue=""
+        mainLabel=""
+      >
+        <div className="mt-4 pt-4 border-t border-white/20">
+          <div className="flex justify-end mb-3">
             <button
               onClick={handleCopiar}
-              className="text-xs rounded-lg bg-white/10 hover:bg-white/20 transition-colors px-3 py-1.5"
+              className="text-xs rounded-lg bg-white/10 hover:bg-white/20 transition-colors px-4 py-2 border border-white/10"
             >
               {copiado ? t.btnCopiado : t.btnCopiar}
             </button>
           </div>
-          <p className="font-mono text-sm break-all leading-relaxed text-white bg-white/5 rounded-lg p-4 select-all">
+          <p className="font-mono text-xs sm:text-sm break-all leading-relaxed text-white bg-black/20 rounded-lg p-4 select-all shadow-inner border border-white/5">
             {hash}
           </p>
-          <p className="mt-3 text-xs text-slate-400">
+          <p className="mt-3 text-[10px] text-slate-400 text-center uppercase tracking-wider">
             {hash.length * 4} {t.footerBits} &bull; {hash.length} {t.footerChar}
           </p>
         </div>
-      )}
+      </ResultCard>
     </>
   )
 }

@@ -73,13 +73,13 @@ export function RegraDeTresForm() {
           <Input 
             label={t.labelX} 
             id="x" 
-            value={result ? result.x.toFixed(4).replace('.', ',') : t.placeholderX} 
+            value={result ? result.x.toLocaleString(isSpanish ? 'es-ES' : 'pt-BR', { maximumFractionDigits: 4 }) : t.placeholderX} 
             onChange={() => {}} 
             inputMode="decimal" 
             disabled 
           />
         </div>
-        <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">
+        <p className="mt-2 text-[10px] text-slate-500 dark:text-slate-400 font-mono text-center">
           {tipo === 'direta' ? 'A/B = C/X → X = (B × C) / A' : 'A × B = C × X → X = (A × B) / C'}
         </p>
         <div className="mt-4">
@@ -89,21 +89,19 @@ export function RegraDeTresForm() {
         </div>
       </FormCard>
       
-      {result && (
-        <ResultCard 
-          visible={true} 
-          title={t.resultTitle} 
-          mainValue={result.x.toLocaleString(isSpanish ? 'es-ES' : 'pt-BR', { maximumFractionDigits: 4 })} 
-          mainLabel={t.resultMainLabel}
-          items={[
-            { label: 'A', value: result.a.toLocaleString(isSpanish ? 'es-ES' : 'pt-BR') }, 
-            { label: 'B', value: result.b.toLocaleString(isSpanish ? 'es-ES' : 'pt-BR') }, 
-            { label: 'C', value: result.c.toLocaleString(isSpanish ? 'es-ES' : 'pt-BR') }, 
-            { label: 'X', value: result.x.toLocaleString(isSpanish ? 'es-ES' : 'pt-BR', { maximumFractionDigits: 4 }), highlight: true }, 
-            { label: t.itemTipo, value: result.tipo === 'direta' ? t.options[0].label : t.options[1].label }
-          ]} 
-        />
-      )}
+      <ResultCard 
+        visible={result !== null} 
+        title={t.resultTitle} 
+        mainValue={result ? result.x.toLocaleString(isSpanish ? 'es-ES' : 'pt-BR', { maximumFractionDigits: 4 }) : ''} 
+        mainLabel={t.resultMainLabel}
+        items={result ? [
+          { label: 'A', value: result.a.toLocaleString(isSpanish ? 'es-ES' : 'pt-BR') }, 
+          { label: 'B', value: result.b.toLocaleString(isSpanish ? 'es-ES' : 'pt-BR') }, 
+          { label: 'C', value: result.c.toLocaleString(isSpanish ? 'es-ES' : 'pt-BR') }, 
+          { label: 'X', value: result.x.toLocaleString(isSpanish ? 'es-ES' : 'pt-BR', { maximumFractionDigits: 4 }), highlight: true }, 
+          { label: t.itemTipo, value: result.tipo === 'direta' ? t.options[0].label : t.options[1].label }
+        ] : []} 
+      />
     </>
   )
 }

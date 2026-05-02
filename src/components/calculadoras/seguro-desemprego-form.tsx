@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button'
 import { FormCard } from '@/components/ui/form-card'
 import { ResultCard } from '@/components/ui/result-card'
 import { calcularSeguroDesemprego } from '@/lib/calculadoras/seguro-desemprego'
-import { formatCurrency, parseBRNumber } from '@/lib/formatters'
+import { formatCurrency, parseBRNumber, maskCurrency } from '@/lib/formatters'
 
 const I18N = {
   pt: {
@@ -62,16 +62,14 @@ export function SeguroDesempregoForm() {
   const [solicitacoes, setSolicitacoes] = useState('1')
   const [result, setResult] = useState<ReturnType<typeof calcularSeguroDesemprego> | null>(null)
 
-  const sal1Num = parseBRNumber(sal1)
-  const sal2Num = parseBRNumber(sal2)
-  const sal3Num = parseBRNumber(sal3)
-
   function handleCalcular() {
     setResult(calcularSeguroDesemprego({ 
-      salarios: [sal1Num, sal2Num, sal3Num], 
+      salarios: [parseBRNumber(sal1), parseBRNumber(sal2), parseBRNumber(sal3)], 
       solicitacoes: parseInt(solicitacoes) || 1 
     }))
   }
+
+  const canCalculate = parseBRNumber(sal1) > 0 && parseBRNumber(sal2) > 0 && parseBRNumber(sal3) > 0
 
   return (
     <>
@@ -80,7 +78,7 @@ export function SeguroDesempregoForm() {
           label={t.labelSal1} 
           id="sal1" 
           value={sal1} 
-          onChange={setSal1} 
+          onChange={(v) => setSal1(maskCurrency(v))} 
           inputMode="decimal" 
           placeholder={t.placeholderSal} 
         />
@@ -88,7 +86,7 @@ export function SeguroDesempregoForm() {
           label={t.labelSal2} 
           id="sal2" 
           value={sal2} 
-          onChange={setSal2} 
+          onChange={(v) => setSal2(maskCurrency(v))} 
           inputMode="decimal" 
           placeholder={t.placeholderSal} 
         />
@@ -96,7 +94,7 @@ export function SeguroDesempregoForm() {
           label={t.labelSal3} 
           id="sal3" 
           value={sal3} 
-          onChange={setSal3} 
+          onChange={(v) => setSal3(maskCurrency(v))} 
           inputMode="decimal" 
           placeholder={t.placeholderSal} 
         />
@@ -107,7 +105,7 @@ export function SeguroDesempregoForm() {
           onChange={setSolicitacoes} 
           options={t.options} 
         />
-        <Button onClick={handleCalcular} fullWidth disabled={sal1Num <= 0 || sal2Num <= 0 || sal3Num <= 0}>
+        <Button onClick={handleCalcular} fullWidth disabled={!canCalculate}>
           {t.buttonCalcular}
         </Button>
       </FormCard>

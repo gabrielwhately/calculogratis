@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button'
 import { FormCard } from '@/components/ui/form-card'
 import { ResultCard } from '@/components/ui/result-card'
 import { calcularSalarioLiquido } from '@/lib/calculadoras/salario-liquido'
-import { formatCurrency, formatPercent, parseBRNumber } from '@/lib/formatters'
+import { formatCurrency, formatPercent, parseBRNumber, maskCurrency } from '@/lib/formatters'
 
 const I18N = {
   pt: {
@@ -69,7 +69,7 @@ export function SalarioLiquidoForm() {
           label={t.labelSalario} 
           id="salario" 
           value={salario} 
-          onChange={setSalario} 
+          onChange={(v) => setSalario(maskCurrency(v))} 
           inputMode="decimal" 
           placeholder={t.placeholderSalario} 
         />
@@ -77,7 +77,7 @@ export function SalarioLiquidoForm() {
           label={t.labelDependentes} 
           id="dependentes" 
           value={dependentes} 
-          onChange={setDependentes} 
+          onChange={(v) => setDependentes(v.replace(/\D/g, ''))} 
           inputMode="numeric" 
           placeholder={t.placeholderDependentes} 
         />
@@ -85,7 +85,7 @@ export function SalarioLiquidoForm() {
           label={t.labelDescontos} 
           id="descontos" 
           value={descontos} 
-          onChange={setDescontos} 
+          onChange={(v) => setDescontos(maskCurrency(v))} 
           inputMode="decimal" 
           placeholder={t.placeholderDescontos} 
         />

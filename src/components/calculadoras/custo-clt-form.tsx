@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
+import { FormCard } from '@/components/ui/form-card'
 import { ResultCard } from '@/components/ui/result-card'
 import { calcularCustoCLT } from '@/lib/calculadoras/custo-clt'
 import { formatCurrency, parseBRNumber, maskCurrency } from '@/lib/formatters'
@@ -83,7 +84,7 @@ export function CustoCLTForm() {
 
   return (
     <>
-      <div className="rounded-xl border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm">
+      <FormCard>
         <Input
           label={t.labelSalario}
           id="salarioBruto"
@@ -117,7 +118,7 @@ export function CustoCLTForm() {
           placeholder={t.placeholderPlano}
         />
         <Button onClick={handleCalcular} fullWidth disabled={!isValid}>{t.btnCalcular}</Button>
-      </div>
+      </FormCard>
       <ResultCard
         visible={result !== null}
         title={t.resultTitle}

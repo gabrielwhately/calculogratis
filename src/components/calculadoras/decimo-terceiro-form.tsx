@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
+import { FormCard } from '@/components/ui/form-card'
 import { ResultCard } from '@/components/ui/result-card'
 import { calcularDecimoTerceiro } from '@/lib/calculadoras/decimo-terceiro'
 import { formatCurrency, parseBRNumber, maskCurrency } from '@/lib/formatters'
@@ -73,14 +74,19 @@ export function DecimoTerceiroForm() {
 
   return (
     <>
-      <div className="rounded-xl border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm">
+      <FormCard>
         <Input label={t.labelSalario} id="salario" value={salario} onChange={(v) => setSalario(maskCurrency(v))} inputMode="decimal" placeholder={t.placeholderSalario} />
         <Input label={t.labelMeses} id="meses" value={meses} onChange={(v) => setMeses(v.replace(/\D/g, '').slice(0, 2))} inputMode="numeric" placeholder={t.placeholderMeses} />
         <Input label={t.labelDependentes} id="dependentes" value={dependentes} onChange={(v) => setDependentes(v.replace(/\D/g, ''))} inputMode="numeric" placeholder={t.placeholderDependentes} />
         <Input label={t.labelDeducoes} id="deducoes" value={deducoes} onChange={(v) => setDeducoes(maskCurrency(v))} inputMode="decimal" placeholder={t.placeholderDeducoes} />
         <Button onClick={handleCalcular} fullWidth disabled={parseBRNumber(salario) <= 0}>{t.btnCalcular}</Button>
-      </div>
-      <ResultCard visible={result !== null} title={t.resultTitle} mainValue={result ? formatCurrency(result.valorLiquido) : ''} mainLabel={t.resultMainLabel}
+      </FormCard>
+      
+      <ResultCard 
+        visible={result !== null} 
+        title={t.resultTitle} 
+        mainValue={result ? formatCurrency(result.valorLiquido) : ''} 
+        mainLabel={t.resultMainLabel}
         items={result ? [
           { label: t.itemBruto, value: formatCurrency(result.valorBruto) },
           { label: t.itemMeses, value: `${result.mesesTrabalhados}/12` },
@@ -89,7 +95,8 @@ export function DecimoTerceiroForm() {
           ...(result.deducoes > 0 ? [{ label: t.itemDeducoes, value: `- ${formatCurrency(result.deducoes)}` }] : []),
           { label: t.itemParcela1, value: formatCurrency(result.primeiraParcela) },
           { label: t.itemParcela2, value: formatCurrency(result.segundaParcela), highlight: true },
-        ] : []} />
+        ] : []} 
+      />
     </>
   )
 }
