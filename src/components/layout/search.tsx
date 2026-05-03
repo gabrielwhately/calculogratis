@@ -4,7 +4,7 @@ import { useState, useMemo, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { CALCULADORAS } from '@/lib/constants/calculadoras'
-import { CATEGORIAS_ES } from '@/lib/i18n/calculadoras-es'
+import { CATEGORIAS_ES, CALCULADORAS_ES } from '@/lib/i18n/calculadoras-es'
 
 const I18N = {
   pt: {
@@ -48,12 +48,24 @@ export function Search() {
   const results = useMemo(() => {
     if (!query.trim()) return []
     const q = query.toLowerCase()
-    return CALCULADORAS.filter(c =>
+    return CALCULADORAS.map(c => {
+      if (isSpanish) {
+        const esData = CALCULADORAS_ES[c.slug]
+        const esCat = CATEGORIAS_ES[c.categoriaSlug]
+        return {
+          ...c,
+          nome: esData?.nome ?? c.nome,
+          descricao: esData?.descricao ?? c.descricao,
+          categoria: esCat?.nome ?? c.categoria
+        }
+      }
+      return c
+    }).filter(c =>
       c.nome.toLowerCase().includes(q) ||
       c.descricao.toLowerCase().includes(q) ||
       (c.keywords && c.keywords.toLowerCase().includes(q))
     ).slice(0, 6)
-  }, [query])
+  }, [query, isSpanish])
 
   return (
     <div className="relative">
