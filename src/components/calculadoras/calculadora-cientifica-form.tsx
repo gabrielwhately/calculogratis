@@ -84,7 +84,7 @@ export function CalculadoraCientificaForm() {
             <button
               key={b}
               onClick={() => handleClick(b)}
-              className="p-2 rounded bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 font-mono text-sm"
+              className="p-2 rounded bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 font-mono text-sm transition-colors active:scale-95"
             >
               {b}
             </button>
@@ -95,15 +95,13 @@ export function CalculadoraCientificaForm() {
         </Button>
       </FormCard>
       
-      {result !== null && (
-        <ResultCard
-          visible={true}
-          title={t.resultTitle}
-          mainValue={result.toLocaleString(isSpanish ? 'es-ES' : 'pt-BR', { maximumFractionDigits: 8 })}
-          mainLabel={t.resultMainLabel}
-          items={[]}
-        />
-      )}
+      <ResultCard
+        visible={result !== null}
+        title={t.resultTitle}
+        mainValue={result !== null ? result.toLocaleString(isSpanish ? 'es-ES' : 'pt-BR', { maximumFractionDigits: 8 }) : ''}
+        mainLabel={t.resultMainLabel}
+        items={[]}
+      />
     </>
   )
 }

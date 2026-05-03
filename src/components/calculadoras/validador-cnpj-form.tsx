@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { FormCard } from '@/components/ui/form-card'
+import { ResultCard } from '@/components/ui/result-card'
 import { validarCNPJ } from '@/lib/calculadoras/validador-cnpj'
 
 const I18N = {
@@ -12,15 +13,21 @@ const I18N = {
     labelCnpj: 'CNPJ',
     placeholder: '00.000.000/0000-00',
     buttonCalcular: 'Validar',
+    resultTitle: 'Validação de CNPJ',
     resultValido: 'CNPJ Válido',
     resultInvalido: 'CNPJ Inválido',
+    itemStatus: 'Status',
+    itemFormatado: 'Número formatado',
   },
   es: {
     labelCnpj: 'CNPJ',
     placeholder: '00.000.000/0000-00',
     buttonCalcular: 'Validar',
+    resultTitle: 'Validación de CNPJ',
     resultValido: 'CNPJ Válido',
     resultInvalido: 'CNPJ Inválido',
+    itemStatus: 'Estado',
+    itemFormatado: 'Número formateado',
   }
 }
 
@@ -61,13 +68,24 @@ export function ValidadorCNPJForm() {
         </Button>
       </FormCard>
       
-      {result && (
-        <div className={`mt-6 rounded-xl p-6 text-white ${result.valido ? 'bg-green-600' : 'bg-red-600'}`} aria-live="polite">
-          <p className="text-lg font-bold">{result.valido ? t.resultValido : t.resultInvalido}</p>
-          <p className="mt-1 font-mono text-xl">{result.cnpjFormatado}</p>
-          <p className="mt-2 text-sm opacity-90">{result.motivo}</p>
-        </div>
-      )}
+      <ResultCard
+        visible={result !== null}
+        title={t.resultTitle}
+        mainValue={result ? (result.valido ? t.resultValido : t.resultInvalido) : ''}
+        mainLabel={t.itemStatus}
+        items={result ? [
+          { label: t.itemFormatado, value: result.cnpjFormatado },
+          { label: t.itemStatus, value: result.valido ? 'OK' : 'ERR', highlight: true }
+        ] : []}
+      >
+        {result && (
+          <div className="mt-4 pt-4 border-t border-white/20">
+            <p className={`text-sm font-medium ${result.valido ? 'text-green-400' : 'text-red-400'}`}>
+              {result.motivo}
+            </p>
+          </div>
+        )}
+      </ResultCard>
     </>
   )
 }

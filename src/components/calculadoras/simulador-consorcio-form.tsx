@@ -113,21 +113,21 @@ export function SimuladorConsorcioForm() {
         </Button>
       </FormCard>
       
-      {result && (
-        <ResultCard 
-          visible={true} 
-          title={t.resultTitle} 
-          mainValue={formatCurrency(result.parcela)} 
-          mainLabel={t.resultMainLabel}
-          items={[
-            { label: t.itemValorBem, value: formatCurrency(result.valorBem) },
-            { label: t.itemPrazo, value: `${result.prazoMeses} ${t.labelMeses}` },
-            { label: t.itemTaxaTotal, value: formatCurrency(result.custoAdminTotal) },
-            { label: t.itemFundo, value: formatCurrency(result.fundoReserva) },
-            { label: t.itemTotal, value: formatCurrency(result.totalComTaxas), highlight: true },
-            { label: t.itemCustoAcima, value: formatCurrency(result.totalComTaxas - result.valorBem), highlight: true },
-          ]} 
-        >
+      <ResultCard 
+        visible={result !== null} 
+        title={t.resultTitle} 
+        mainValue={result ? formatCurrency(result.parcela) : ''} 
+        mainLabel={t.resultMainLabel}
+        items={result ? [
+          { label: t.itemValorBem, value: formatCurrency(result.valorBem) },
+          { label: t.itemPrazo, value: `${result.prazoMeses} ${t.labelMeses}` },
+          { label: t.itemTaxaTotal, value: formatCurrency(result.custoAdminTotal) },
+          { label: t.itemFundo, value: formatCurrency(result.fundoReserva) },
+          { label: t.itemTotal, value: formatCurrency(result.totalComTaxas), highlight: true },
+          { label: t.itemCustoAcima, value: formatCurrency(result.totalComTaxas - result.valorBem), highlight: true },
+        ] : []} 
+      >
+        {result && (
           <div className="mt-6 border-t border-white/10 pt-6">
             <h4 className="mb-4 text-sm font-medium text-slate-300">{t.chartTitle}</h4>
             <div className="h-6 w-full flex rounded-full overflow-hidden bg-white/5 border border-white/10">
@@ -162,8 +162,8 @@ export function SimuladorConsorcioForm() {
               </div>
             </div>
           </div>
-        </ResultCard>
-      )}
+        )}
+      </ResultCard>
     </>
   )
 }

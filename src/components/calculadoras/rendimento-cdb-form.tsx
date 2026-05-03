@@ -107,20 +107,20 @@ export function RendimentoCDBForm() {
         <Button onClick={handleCalcular} fullWidth disabled={!isValid}>{t.buttonSimular}</Button>
       </FormCard>
       
-      {result && (
-        <ResultCard 
-          visible={true} 
-          title={t.resultTitle} 
-          mainValue={formatCurrency(result.valorFinalLiquido)} 
-          mainLabel={t.resultMainLabel}
-          items={[
-            { label: t.itemValorInvestido, value: formatCurrency(result.valorInicial) },
-            { label: t.itemRendimentoBruto, value: formatCurrency(result.rendimentoBruto) },
-            { label: t.itemIR, value: `- ${formatCurrency(result.ir)}` },
-            { label: t.itemRendimentoLiquido, value: formatCurrency(result.rendimentoLiquido), highlight: true },
-            { label: t.itemRentabilidadeEfetiva, value: `${result.rentabilidadeEfetiva.toFixed(2)}%` },
-          ]} 
-        >
+      <ResultCard 
+        visible={result !== null} 
+        title={t.resultTitle} 
+        mainValue={result ? formatCurrency(result.valorFinalLiquido) : ''} 
+        mainLabel={t.resultMainLabel}
+        items={result ? [
+          { label: t.itemValorInvestido, value: formatCurrency(result.valorInicial) },
+          { label: t.itemRendimentoBruto, value: formatCurrency(result.rendimentoBruto) },
+          { label: t.itemIR, value: `- ${formatCurrency(result.ir)}` },
+          { label: t.itemRendimentoLiquido, value: formatCurrency(result.rendimentoLiquido), highlight: true },
+          { label: t.itemRentabilidadeEfetiva, value: `${result.rentabilidadeEfetiva.toFixed(2)}%` },
+        ] : []} 
+      >
+        {result && (
           <div className="mt-6 border-t border-white/10 pt-6">
             <h4 className="mb-4 text-sm font-medium text-slate-300">{t.chartTitle}</h4>
             <div className="h-6 w-full flex rounded-full overflow-hidden bg-white/5 border border-white/10">
@@ -155,8 +155,8 @@ export function RendimentoCDBForm() {
               </div>
             </div>
           </div>
-        </ResultCard>
-      )}
+        )}
+      </ResultCard>
     </>
   )
 }

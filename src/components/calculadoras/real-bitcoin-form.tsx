@@ -114,19 +114,17 @@ export function RealBitcoinForm() {
         </Button>
       </FormCard>
       
-      {result && (
-        <ResultCard 
-          visible={true} 
-          title={t.resultTitle} 
-          mainValue={formatResultado(result.valorConvertido)} 
-          mainLabel={labelResultado}
-          items={[
-            { label: t.itemValorOriginal, value: direcao === 'real-btc' ? formatCurrency(result.valorOriginal) : formatBTC(result.valorOriginal) },
-            { label: t.itemCotacao, value: formatCurrency(result.taxa) },
-            { label: labelResultado, value: formatResultado(result.valorConvertido), highlight: true },
-          ]} 
-        />
-      )}
+      <ResultCard 
+        visible={result !== null} 
+        title={t.resultTitle} 
+        mainValue={result ? formatResultado(result.valorConvertido) : ''} 
+        mainLabel={labelResultado}
+        items={result ? [
+          { label: t.itemValorOriginal, value: direcao === 'real-btc' ? formatCurrency(result.valorOriginal) : formatBTC(result.valorOriginal) },
+          { label: t.itemCotacao, value: formatCurrency(result.taxa) },
+          { label: labelResultado, value: formatResultado(result.valorConvertido), highlight: true },
+        ] : []} 
+      />
     </>
   )
 }
