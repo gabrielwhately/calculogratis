@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { CALCULADORAS } from '@/lib/constants/calculadoras'
+import { CATEGORIAS_ES, CALCULADORAS_ES } from '@/lib/i18n/calculadoras-es'
 
 const I18N = {
   pt: {
@@ -55,16 +56,20 @@ export function Footer() {
               {t.popular}
             </h4>
             <ul className="mt-4 space-y-2">
-              {popularCalcs.map((calc) => (
-                <li key={calc.slug}>
-                  <Link 
-                    href={`${prefix}/${calc.categoriaSlug}/${calc.slug}`} 
-                    className="text-sm text-slate-600 dark:text-slate-400 hover:text-accent transition-colors"
-                  >
-                    {calc.nome}
-                  </Link>
-                </li>
-              ))}
+              {popularCalcs.map((calc) => {
+                const esCalc = CALCULADORAS_ES[calc.slug]
+                const esCatSlug = CATEGORIAS_ES[calc.categoriaSlug]?.slug ?? calc.categoriaSlug
+                return (
+                  <li key={calc.slug}>
+                    <Link 
+                      href={`${prefix}/${isSpanish ? esCatSlug : calc.categoriaSlug}/${calc.slug}`} 
+                      className="text-sm text-slate-600 dark:text-slate-400 hover:text-accent transition-colors"
+                    >
+                      {isSpanish ? (esCalc?.nome ?? calc.nome) : calc.nome}
+                    </Link>
+                  </li>
+                )
+              })}
             </ul>
           </div>
 

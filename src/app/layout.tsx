@@ -8,6 +8,7 @@ import { ThemeScript } from '@/components/layout/theme-script'
 import { ThemeProvider } from '@/components/layout/theme-provider'
 import { Analytics } from '@/components/layout/analytics'
 import { ServiceWorkerRegister } from '@/components/layout/sw-register'
+import { SkipToContent } from '@/components/layout/skip-to-content'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'], display: 'swap', preload: true })
@@ -31,9 +32,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className={inter.className}>
         <ThemeProvider>
-          <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:text-white focus:outline-none">
-            Pular para conteúdo principal
-          </a>
+          <SkipToContent />
           <Navbar />
           <main id="main-content" className="min-h-screen pb-20 md:pb-0">
             <PrintHeader />

@@ -20,6 +20,7 @@ const I18N = {
     copy: 'Copiar resultado',
     calculatedAt: 'Calculado em:',
     brand: 'CalculoGratis.com',
+    disclaimer: 'Este cálculo foi gerado em CalculoGratis.com e tem caráter meramente informativo.',
   },
   es: {
     print: 'Imprimir',
@@ -27,6 +28,7 @@ const I18N = {
     copy: 'Copiar resultado',
     calculatedAt: 'Calculado en:',
     brand: 'CalculoGratis.com',
+    disclaimer: 'Este cálculo fue generado en CalculoGratis.com y es puramente informativo.',
   }
 }
 
@@ -137,7 +139,7 @@ export function ResultCard({ title, mainValue, mainLabel, items, visible, childr
       
       {/* Branded print footer */}
       <div className="hidden print:block mt-8 pt-4 border-t border-navy/10 text-center text-[10px] text-slate-400">
-        Este cálculo foi gerado em {t.brand} e tem caráter meramente informativo.
+        {t.disclaimer}
       </div>
     </div>
   )

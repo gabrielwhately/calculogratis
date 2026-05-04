@@ -1,9 +1,8 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { Breadcrumb } from '@/components/layout/breadcrumb'
-import { Card } from '@/components/ui/card'
-import { CATEGORIAS, getCalculadorasByCategoria } from '@/lib/constants/calculadoras'
-import { CATEGORIAS_ES, CALCULADORAS_ES } from '@/lib/i18n/calculadoras-es'
+import { CATEGORIAS } from '@/lib/constants/calculadoras'
+import { CATEGORIAS_ES } from '@/lib/i18n/calculadoras-es'
+import { CategoryLanding } from '@/components/layout/category-landing'
 
 function findCategoriaByEsSlug(esSlug: string) {
   return CATEGORIAS.find(c => CATEGORIAS_ES[c.slug]?.slug === esSlug || c.slug === esSlug)
@@ -32,22 +31,12 @@ export default function CategoriaESPage({ params }: { params: { categoria: strin
   if (!cat) notFound()
   const esData = CATEGORIAS_ES[cat.slug]
   const nome = esData?.nome ?? cat.nome
-  const calculadoras = getCalculadorasByCategoria(cat.slug)
-  const esCatSlug = esData?.slug ?? cat.slug
 
   return (
-    <div className="container-app py-6">
-      <Breadcrumb items={[{ label: 'Inicio', href: '/es' }, { label: `Calculadoras ${nome}` }]} />
-      <h1 className="text-2xl font-bold text-navy dark:text-white md:text-3xl">Calculadoras {nome} Online Gratis</h1>
-      <p className="mt-2 text-slate-600 dark:text-slate-400">{esData?.descricao ?? cat.descricao}</p>
-      <div className="mt-6 grid gap-4 sm:grid-cols-2">
-        {calculadoras.map((calc) => {
-          const esCalc = CALCULADORAS_ES[calc.slug]
-          return (
-            <Card key={calc.slug} title={esCalc?.nome ?? calc.nome} description={esCalc?.descricao ?? calc.descricao} href={`/es/${esCatSlug}/${calc.slug}`} />
-          )
-        })}
-      </div>
-    </div>
+    <CategoryLanding 
+      categoriaNome={nome} 
+      categoriaSlug={cat.slug} 
+      descricao={esData?.descricao ?? cat.descricao} 
+    />
   )
 }

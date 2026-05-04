@@ -1,12 +1,10 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { Breadcrumb } from '@/components/layout/breadcrumb'
-import { AdSlot } from '@/components/layout/ad-slot'
-import { Card } from '@/components/ui/card'
 import { CATEGORIAS, CALCULADORAS, getCalculadorasByCategoria } from '@/lib/constants/calculadoras'
 import { CATEGORIAS_ES, CALCULADORAS_ES } from '@/lib/i18n/calculadoras-es'
-import { calculadoraJsonLd } from '@/lib/seo/jsonld'
+import { CalculatorPage } from '@/components/calculadoras/calculator-page'
 import { FORM_MAP } from '@/components/calculadoras/form-map'
+import { ES_CONTENT_MAP } from '@/components/calculadoras/es-content-map'
 
 function findCategoriaByEsSlug(esSlug: string) {
   return CATEGORIAS.find(c => CATEGORIAS_ES[c.slug]?.slug === esSlug || c.slug === esSlug)
@@ -49,33 +47,20 @@ export default function CalculadoraESPage({ params }: { params: { categoria: str
 
   const esCalc = CALCULADORAS_ES[calc.slug]
   const esCat = CATEGORIAS_ES[cat.slug]
-  const nome = esCalc?.nome ?? calc.nome
-  const catNome = esCat?.nome ?? cat.nome
-  const esCatSlug = esCat?.slug ?? cat.slug
-  const jsonLd = calculadoraJsonLd(calc.slug, 'es')
-  const relacionadas = getCalculadorasByCategoria(cat.slug).filter(c => c.slug !== calc.slug)
-
+  
   const FormComponent = FORM_MAP[calc.slug]
+  const localizedContent = ES_CONTENT_MAP[calc.slug]
 
   return (
-    <div className="container-app py-6">
-      {jsonLd && <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>}
-      <Breadcrumb items={[{ label: 'Inicio', href: '/es' }, { label: catNome, href: `/es/${esCatSlug}` }, { label: `Calculadora de ${nome}` }]} />
-      <h1 className="text-2xl font-bold text-navy dark:text-white md:text-3xl">Calculadora de {nome}</h1>
-      <p className="mt-2 text-slate-600 dark:text-slate-400">{esCalc?.descricao ?? calc.descricao}</p>
-      <div className="mt-6">{FormComponent ? <FormComponent /> : <p className="text-slate-500">Calculadora en desarrollo.</p>}</div>
-      <AdSlot position="after-result" />
-      {relacionadas.length > 0 && (
-        <section className="mt-8">
-          <h2 className="text-xl font-bold text-navy dark:text-white mb-4">Calculadoras Relacionadas</h2>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {relacionadas.map((r) => {
-              const esR = CALCULADORAS_ES[r.slug]
-              return <Card key={r.slug} title={esR?.nome ?? r.nome} description={esR?.descricao ?? r.descricao} href={`/es/${esCatSlug}/${r.slug}`} />
-            })}
-          </div>
-        </section>
-      )}
-    </div>
+    <CalculatorPage
+      slug={calc.slug}
+      categoriaSlug={cat.slug}
+      categoriaNome={esCat?.nome ?? cat.nome}
+      nome={esCalc?.nome ?? calc.nome}
+      descricao={esCalc?.descricao ?? calc.descricao}
+      conteudo={localizedContent || <div className="text-slate-500 italic">Próximamente: información detallada sobre esta calculadora en español.</div>}
+    >
+      {FormComponent ? <FormComponent /> : <p className="text-slate-500">Calculadora en desarrollo.</p>}
+    </CalculatorPage>
   )
 }

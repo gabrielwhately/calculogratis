@@ -34,6 +34,7 @@ export function LanguageSwitcher() {
 
     if (!category) {
       // Fallback for non-calculator pages like /busca or /favoritos
+      // FIX: Ensure we don't duplicate the path when going from ES to PT
       const path = cleanParts.join('/')
       return targetLocale === 'es' ? `/es/${path}` : `/${path}`
     }
@@ -59,6 +60,7 @@ export function LanguageSwitcher() {
         href={ptHref}
         className={`px-2 py-1 rounded transition-colors ${!isSpanish ? 'bg-accent text-white' : 'text-slate-600 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white'}`}
         hrefLang="pt-BR"
+        aria-label="Português"
       >
         PT
       </Link>
@@ -66,6 +68,7 @@ export function LanguageSwitcher() {
         href={esHref}
         className={`px-2 py-1 rounded transition-colors ${isSpanish ? 'bg-accent text-white' : 'text-slate-600 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white'}`}
         hrefLang="es"
+        aria-label="Español"
       >
         ES
       </Link>

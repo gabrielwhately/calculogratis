@@ -9,10 +9,24 @@ import { Search } from './search'
 import { ThemeToggle } from './theme-toggle'
 import { LanguageSwitcher } from './language-switcher'
 
+const I18N = {
+  pt: {
+    navLabel: 'Navegação por categorias',
+    menuLabel: 'Menu',
+    skipToContent: 'Pular para conteúdo principal',
+  },
+  es: {
+    navLabel: 'Navegación por categorías',
+    menuLabel: 'Menú',
+    skipToContent: 'Saltar al contenido principal',
+  }
+}
+
 export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
   const pathname = usePathname()
   const isSpanish = pathname?.startsWith('/es')
+  const t = isSpanish ? I18N.es : I18N.pt
 
   const handleEscape = useCallback((e: KeyboardEvent) => {
     if (e.key === 'Escape' && menuOpen) setMenuOpen(false)
@@ -30,7 +44,7 @@ export function Navbar() {
           Calculo<span className="text-accent">Gratis</span>
         </Link>
         
-        <nav className="hidden md:flex items-center gap-6" aria-label="Navegação por categorias">
+        <nav className="hidden md:flex items-center gap-6" aria-label={t.navLabel}>
           {CATEGORIAS.map((cat) => {
             const esData = CATEGORIAS_ES[cat.slug]
             const href = isSpanish 
@@ -54,7 +68,7 @@ export function Navbar() {
           <button 
             onClick={() => setMenuOpen(!menuOpen)} 
             className="p-3 text-slate-300 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-inset rounded-lg" 
-            aria-label="Menu" 
+            aria-label={t.menuLabel} 
             aria-expanded={menuOpen}
           >
             <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -66,7 +80,7 @@ export function Navbar() {
       </div>
 
       {menuOpen && (
-        <nav className="md:hidden border-t border-navy-light bg-navy px-4 pb-4" aria-label="Navegação por categorias">
+        <nav className="md:hidden border-t border-navy-light bg-navy px-4 pb-4" aria-label={t.navLabel}>
           {CATEGORIAS.map((cat) => {
             const esData = CATEGORIAS_ES[cat.slug]
             const href = isSpanish 
