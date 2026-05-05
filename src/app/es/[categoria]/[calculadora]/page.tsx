@@ -5,6 +5,7 @@ import { CATEGORIAS_ES, CALCULADORAS_ES } from '@/lib/i18n/calculadoras-es'
 import { CalculatorPage } from '@/components/calculadoras/calculator-page'
 import { FORM_MAP } from '@/components/calculadoras/form-map'
 import { ES_CONTENT_MAP } from '@/components/calculadoras/es-content-map'
+import { BRAND_URL } from '@/lib/constants/branding'
 
 function findCategoriaByEsSlug(esSlug: string) {
   return CATEGORIAS.find(c => CATEGORIAS_ES[c.slug]?.slug === esSlug || c.slug === esSlug)
@@ -34,8 +35,8 @@ export function generateMetadata({ params }: { params: { categoria: string; calc
     title: `Calculadora de ${nome} Online Gratis 2026`,
     description: desc,
     keywords: esCalc?.keywords ?? calc.keywords,
-    openGraph: { title: `Calculadora de ${nome} Online Gratis 2026 | Cálculo Gratis`, description: desc, url: `https://calculogratis.com/es/${esCatSlug}/${calc.slug}`, type: 'website' },
-    alternates: { canonical: `https://calculogratis.com/es/${esCatSlug}/${calc.slug}`, languages: { 'pt-BR': `https://calculogratis.com/${calc.categoriaSlug}/${calc.slug}` } },
+    openGraph: { title: `Calculadora de ${nome} Online Gratis 2026 | Cálculo Gratis`, description: desc, url: `${BRAND_URL}/es/${esCatSlug}/${calc.slug}`, type: 'website' },
+    alternates: { canonical: `${BRAND_URL}/es/${esCatSlug}/${calc.slug}`, languages: { 'pt-BR': `${BRAND_URL}/${calc.categoriaSlug}/${calc.slug}` } },
   }
 }
 

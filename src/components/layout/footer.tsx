@@ -5,6 +5,8 @@ import { usePathname } from 'next/navigation'
 import { CALCULADORAS } from '@/lib/constants/calculadoras'
 import { CATEGORIAS_ES, CALCULADORAS_ES } from '@/lib/i18n/calculadoras-es'
 
+import { BRAND_DOMAIN } from '@/lib/constants/branding'
+
 const I18N = {
   pt: {
     description: 'A maior plataforma de calculadoras e simuladores online 100% grátis do Brasil. Resultados precisos e instantâneos conforme a legislação atualizada.',
@@ -14,7 +16,7 @@ const I18N = {
     privacy: 'Privacidade',
     contact: 'Contato',
     request: 'Sugerir Calculadora',
-    copy: 'calculogratis.com',
+    copy: BRAND_DOMAIN,
   },
   es: {
     description: 'La mayor plataforma de calculadoras y simuladores online 100% gratis. Resultados precisos e instantáneos según la legislación actualizada.',
@@ -24,7 +26,7 @@ const I18N = {
     privacy: 'Privacidad',
     contact: 'Contacto',
     request: 'Sugerir Calculadora',
-    copy: 'calculogratis.com',
+    copy: BRAND_DOMAIN,
   }
 }
 
@@ -89,7 +91,7 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <a href="mailto:contato@calculogratis.com" className="text-sm text-slate-600 dark:text-slate-400 hover:text-accent transition-colors">
+                <a href={`mailto:contato@${BRAND_DOMAIN}`} className="text-sm text-slate-600 dark:text-slate-400 hover:text-accent transition-colors">
                   {t.request}
                 </a>
               </li>

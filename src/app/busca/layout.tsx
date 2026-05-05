@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { BRAND_URL } from '@/lib/constants/branding'
 
 export const metadata: Metadata = {
   title: 'Buscar Calculadora',
@@ -6,10 +7,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Buscar Calculadora | Cálculo Grátis',
     description: 'Encontre a calculadora ou simulador ideal entre mais de 50 ferramentas gratuitas.',
-    url: 'https://calculogratis.com/busca',
+    url: `${BRAND_URL}/busca`,
     type: 'website',
   },
-  alternates: { canonical: 'https://calculogratis.com/busca' },
+  alternates: { canonical: `${BRAND_URL}/busca` },
 }
 
 export default function BuscaLayout({ children }: { children: React.ReactNode }) {

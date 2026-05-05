@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { BRAND_URL } from '@/lib/constants/branding'
 
 interface BreadcrumbItem { label: string; href?: string }
 
@@ -8,7 +9,7 @@ export function Breadcrumb({ items }: { items: BreadcrumbItem[] }) {
     '@type': 'BreadcrumbList',
     itemListElement: items.map((item, i) => ({
       '@type': 'ListItem', position: i + 1, name: item.label,
-      ...(item.href ? { item: `https://calculogratis.com${item.href}` } : {}),
+      ...(item.href ? { item: `${BRAND_URL}${item.href}` } : {}),
     })),
   }
 

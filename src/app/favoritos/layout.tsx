@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { BRAND_URL } from '@/lib/constants/branding'
 
 export const metadata: Metadata = {
   title: 'Favoritos',
@@ -6,10 +7,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Favoritos | Cálculo Grátis',
     description: 'Suas calculadoras favoritas salvas para acesso rápido.',
-    url: 'https://calculogratis.com/favoritos',
+    url: `${BRAND_URL}/favoritos`,
     type: 'website',
   },
-  alternates: { canonical: 'https://calculogratis.com/favoritos' },
+  alternates: { canonical: `${BRAND_URL}/favoritos` },
 }
 
 export default function FavoritosLayout({ children }: { children: React.ReactNode }) {

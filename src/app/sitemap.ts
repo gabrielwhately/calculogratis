@@ -1,9 +1,10 @@
 import type { MetadataRoute } from 'next'
 import { CALCULADORAS, CATEGORIAS } from '@/lib/constants/calculadoras'
 import { CATEGORIAS_ES } from '@/lib/i18n/calculadoras-es'
+import { BRAND_URL } from '@/lib/constants/branding'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://calculogratis.com'
+  const baseUrl = BRAND_URL
   const lastModified = new Date()
 
   const ptRoutes: MetadataRoute.Sitemap = [
