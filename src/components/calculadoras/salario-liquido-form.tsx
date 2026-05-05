@@ -17,6 +17,9 @@ const I18N = {
     placeholderSalario: 'Ex: 5.000,00',
     placeholderDependentes: '0',
     placeholderDescontos: 'Ex: 200,00',
+    infoSalario: 'O seu salário total antes de qualquer desconto (como INSS ou IRRF).',
+    infoDependentes: 'Pessoas que dependem financeiramente de você (filhos, cônjuge). Cada dependente gera uma dedução no cálculo do IRRF.',
+    infoDescontos: 'Informe outros descontos mensais, como vale-transporte, plano de saúde ou pensão alimentícia.',
     buttonCalcular: 'Calcular',
     resultTitle: 'Salário Líquido',
     resultMainLabel: 'Valor líquido mensal',
@@ -33,6 +36,9 @@ const I18N = {
     placeholderSalario: 'Ej: 5.000,00',
     placeholderDependentes: '0',
     placeholderDescontos: 'Ej: 200,00',
+    infoSalario: 'Su salario total antes de cualquier descuento (como Seguridad Social o Impuesto de Renta).',
+    infoDependentes: 'Personas que dependen financieramente de usted (hijos, cónyuge). Cada dependiente genera una deducción en el cálculo del impuesto.',
+    infoDescontos: 'Informe otros descuentos mensuales, como transporte, seguro médico o pensión alimenticia.',
     buttonCalcular: 'Calcular',
     resultTitle: 'Salario Neto',
     resultMainLabel: 'Valor neto mensual',
@@ -72,6 +78,7 @@ export function SalarioLiquidoForm() {
           onChange={(v) => setSalario(maskCurrency(v))} 
           inputMode="decimal" 
           placeholder={t.placeholderSalario} 
+          info={t.infoSalario}
         />
         <Input 
           label={t.labelDependentes} 
@@ -80,6 +87,7 @@ export function SalarioLiquidoForm() {
           onChange={(v) => setDependentes(v.replace(/\D/g, ''))} 
           inputMode="numeric" 
           placeholder={t.placeholderDependentes} 
+          info={t.infoDependentes}
         />
         <Input 
           label={t.labelDescontos} 
@@ -88,6 +96,7 @@ export function SalarioLiquidoForm() {
           onChange={(v) => setDescontos(maskCurrency(v))} 
           inputMode="decimal" 
           placeholder={t.placeholderDescontos} 
+          info={t.infoDescontos}
         />
         <Button onClick={handleCalcular} fullWidth disabled={parseBRNumber(salario) <= 0}>
           {t.buttonCalcular}

@@ -9,16 +9,17 @@ import { ThemeProvider } from '@/components/layout/theme-provider'
 import { Analytics } from '@/components/layout/analytics'
 import { ServiceWorkerRegister } from '@/components/layout/sw-register'
 import { SkipToContent } from '@/components/layout/skip-to-content'
+import { BRAND_NAME, BRAND_URL, BRAND_TAGLINE } from '@/lib/constants/branding'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'], display: 'swap', preload: true })
 
 export const metadata: Metadata = {
-  title: { default: 'Cálculo Grátis — Calculadoras e Simuladores Online', template: '%s | Cálculo Grátis' },
+  title: { default: `${BRAND_NAME} — ${BRAND_TAGLINE}`, template: `%s | ${BRAND_NAME}` },
   description: 'Calculadoras e simuladores online grátis: rescisão trabalhista, salário líquido, juros compostos, financiamento, IMC, aposentadoria e mais de 50 ferramentas. Sem cadastro, resultados instantâneos.',
-  metadataBase: new URL('https://calculogratis.com'),
+  metadataBase: new URL(BRAND_URL),
   keywords: 'calculadora online, simulador online, calculadora grátis, ferramentas online, cálculos trabalhistas, cálculos financeiros',
-  openGraph: { siteName: 'Cálculo Grátis', locale: 'pt_BR', type: 'website' },
+  openGraph: { siteName: BRAND_NAME, locale: 'pt_BR', type: 'website' },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

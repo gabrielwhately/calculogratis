@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
+import { BRAND_DOMAIN, BRAND_URL } from '@/lib/constants/branding'
 
 interface ResultItem { label: string; value: string; highlight?: boolean }
 interface ResultCardProps { 
@@ -19,16 +20,16 @@ const I18N = {
     shareWhatsApp: 'Compartilhar no WhatsApp',
     copy: 'Copiar resultado',
     calculatedAt: 'Calculado em:',
-    brand: 'CalculoGratis.com',
-    disclaimer: 'Este cálculo foi gerado em CalculoGratis.com e tem caráter meramente informativo.',
+    brand: BRAND_DOMAIN,
+    disclaimer: `Este cálculo foi gerado em ${BRAND_DOMAIN} e tem caráter meramente informativo.`,
   },
   es: {
     print: 'Imprimir',
     shareWhatsApp: 'Compartir por WhatsApp',
     copy: 'Copiar resultado',
     calculatedAt: 'Calculado en:',
-    brand: 'CalculoGratis.com',
-    disclaimer: 'Este cálculo fue generado en CalculoGratis.com y es puramente informativo.',
+    brand: BRAND_DOMAIN,
+    disclaimer: `Este cálculo fue generado en ${BRAND_DOMAIN} y es puramente informativo.`,
   }
 }
 
@@ -51,7 +52,7 @@ export function ResultCard({ title, mainValue, mainLabel, items, visible, childr
   if (!visible) return null
 
   const getResultText = () => {
-    return `${title}\n${mainLabel}: ${mainValue}\n\n${items?.map(i => `${i.label}: ${i.value}`).join('\n')}\n\n${t.calculatedAt} https://calculo.gratis`
+    return `${title}\n${mainLabel}: ${mainValue}\n\n${items?.map(i => `${i.label}: ${i.value}`).join('\n')}\n\n${t.calculatedAt} ${BRAND_URL}`
   }
 
   const handleCopy = () => {

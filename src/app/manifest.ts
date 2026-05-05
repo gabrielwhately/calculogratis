@@ -1,10 +1,11 @@
 import type { MetadataRoute } from 'next'
+import { BRAND_NAME, BRAND_TAGLINE } from '@/lib/constants/branding'
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Calculo Gratis',
+    name: BRAND_NAME,
     short_name: 'CalcGratis',
-    description: 'Calculadoras e simuladores online gratis',
+    description: BRAND_TAGLINE,
     start_url: '/',
     display: 'standalone',
     background_color: '#ffffff',

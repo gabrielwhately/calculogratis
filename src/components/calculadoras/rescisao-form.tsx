@@ -19,6 +19,8 @@ const I18N = {
     labelFGTS: 'Saldo FGTS (R$)',
     labelDependentes: 'Dependentes',
     placeholderData: 'Ex: 01/01/2020',
+    infoFGTS: 'O saldo total acumulado na sua conta do FGTS durante este contrato.',
+    infoDependentes: 'Número de dependentes para fins de dedução do IRRF.',
     errorDataInvalida: 'Data inválida',
     errorRangeInvalido: 'A demissão deve ser após a admissão',
     buttonCalcular: 'Calcular Rescisão',
@@ -48,6 +50,8 @@ const I18N = {
     labelFGTS: 'Saldo FGTS',
     labelDependentes: 'Dependientes',
     placeholderData: 'Ej: 01/01/2020',
+    infoFGTS: 'El saldo total acumulado en su cuenta de fondo de garantía durante este contrato.',
+    infoDependentes: 'Número de dependientes para fines de deducción de impuesto.',
     errorDataInvalida: 'Fecha inválida',
     errorRangeInvalido: 'El egreso debe ser después del ingreso',
     buttonCalcular: 'Calcular Liquidación',
@@ -135,8 +139,8 @@ export function RescisaoForm() {
           placeholder={t.placeholderData}
           error={!isDateDemValid ? t.errorDataInvalida : !isRangeValid ? t.errorRangeInvalido : ''}
         />
-        <Input label={t.labelFGTS} id="fgts" value={fgts} onChange={(v) => setFgts(maskCurrency(v))} inputMode="decimal" placeholder="Ex: 15.000,00" />
-        <Input label={t.labelDependentes} id="dependentes" value={dependentes} onChange={(v) => setDependentes(v.replace(/\D/g, ''))} inputMode="numeric" placeholder="0" />
+        <Input label={t.labelFGTS} id="fgts" value={fgts} onChange={(v) => setFgts(maskCurrency(v))} inputMode="decimal" placeholder="Ex: 15.000,00" info={t.infoFGTS} />
+        <Input label={t.labelDependentes} id="dependentes" value={dependentes} onChange={(v) => setDependentes(v.replace(/\D/g, ''))} inputMode="numeric" placeholder="0" info={t.infoDependentes} />
         <Button onClick={handleCalcular} fullWidth disabled={!canCalculate}>{t.buttonCalcular}</Button>
       </FormCard>
       <ResultCard visible={result !== null} title={t.resultTitle} mainValue={result ? formatCurrency(result.total) : ''} mainLabel={t.resultMainLabel}

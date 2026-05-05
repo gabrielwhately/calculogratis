@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { FormCard } from '@/components/ui/form-card'
 import { ResultCard } from '@/components/ui/result-card'
+import { Tooltip } from '@/components/ui/tooltip'
 import { calcularFinanciamentoPrice, calcularFinanciamentoSAC } from '@/lib/calculadoras/financiamento'
 import { formatCurrency, parseBRNumber, maskCurrency, maskPercent } from '@/lib/formatters'
 
@@ -24,6 +25,9 @@ const I18N = {
     placeholderTaxa: 'Ex: 10,5',
     placeholderPrazo: 'Ex: 360',
     suffixTaxa: '% a.a.',
+    infoTaxa: 'Informe a taxa de juros nominal anual contratada.',
+    infoPrice: 'Tabela Price: parcelas fixas do início ao fim. Ideal para quem quer previsibilidade no orçamento.',
+    infoSac: 'Tabela SAC: parcelas que começam mais altas e diminuem ao longo do tempo. Reduz o custo total de juros.',
     buttonSimular: 'Simular',
     resultTitle: 'Financiamento',
     labelParcelaFixa: 'Parcela fixa',
@@ -45,6 +49,9 @@ const I18N = {
     placeholderTaxa: 'Ej: 10,5',
     placeholderPrazo: 'Ej: 360',
     suffixTaxa: '% a.a.',
+    infoTaxa: 'Ingrese la tasa de interés nominal anual contratada.',
+    infoPrice: 'Tabla Price: cuotas fijas de principio a fin. Ideal para quienes buscan previsibilidad en su presupuesto.',
+    infoSac: 'Tabla SAC: cuotas que comienzan más altas y disminuyen con el tiempo. Reduce el costo total de intereses.',
     buttonSimular: 'Simular',
     resultTitle: 'Financiamiento',
     labelParcelaFixa: 'Cuota fija',
@@ -83,20 +90,31 @@ export function FinanciamentoForm() {
   return (
     <>
       <FormCard>
-        <div className="mb-4 flex rounded-lg bg-slate-100 dark:bg-gray-700 p-1">
-          <button 
-            onClick={() => { setSistema('price'); setResult(null) }} 
-            className={`flex-1 rounded-md py-2 text-sm font-medium transition-all ${sistema === 'price' ? 'bg-white dark:bg-gray-600 text-navy dark:text-white shadow-sm' : 'text-slate-600 dark:text-gray-400'}`}
-          >
-            {t.tabPrice}
-          </button>
-          <button 
-            onClick={() => { setSistema('sac'); setResult(null) }} 
-            className={`flex-1 rounded-md py-2 text-sm font-medium transition-all ${sistema === 'sac' ? 'bg-white dark:bg-gray-600 text-navy dark:text-white shadow-sm' : 'text-slate-600 dark:text-gray-400'}`}
-          >
-            {t.tabSac}
-          </button>
+        <div className="mb-6">
+          <div className="flex items-center gap-1.5 mb-2">
+            <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Sistema de Amortização</span>
+            <Tooltip content={sistema === 'price' ? t.infoPrice : t.infoSac}>
+              <svg className="h-3.5 w-3.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-help transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </Tooltip>
+          </div>
+          <div className="flex rounded-lg bg-slate-100 dark:bg-gray-700 p-1">
+            <button 
+              onClick={() => { setSistema('price'); setResult(null) }} 
+              className={`flex-1 rounded-md py-2 text-sm font-medium transition-all ${sistema === 'price' ? 'bg-white dark:bg-gray-600 text-navy dark:text-white shadow-sm' : 'text-slate-600 dark:text-gray-400'}`}
+            >
+              {t.tabPrice}
+            </button>
+            <button 
+              onClick={() => { setSistema('sac'); setResult(null) }} 
+              className={`flex-1 rounded-md py-2 text-sm font-medium transition-all ${sistema === 'sac' ? 'bg-white dark:bg-gray-600 text-navy dark:text-white shadow-sm' : 'text-slate-600 dark:text-gray-400'}`}
+            >
+              {t.tabSac}
+            </button>
+          </div>
         </div>
+
         <Input 
           label={t.labelValor} 
           id="valor" 
@@ -120,7 +138,8 @@ export function FinanciamentoForm() {
           onChange={(v) => setTaxa(maskPercent(v))} 
           inputMode="decimal" 
           placeholder={t.placeholderTaxa} 
-          suffix={t.suffixTaxa} 
+          suffix={t.suffixTaxa}
+          info={t.infoTaxa}
         />
         <Input 
           label={t.labelPrazo} 

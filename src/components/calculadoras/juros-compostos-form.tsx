@@ -19,6 +19,9 @@ const I18N = {
     placeholderAporte: 'Ex: 500,00',
     placeholderTaxa: 'Ex: 1,0',
     placeholderPeriodo: 'Ex: 24',
+    infoCapital: 'O valor que você já tem para começar o investimento.',
+    infoAporte: 'O valor que você pretende investir todos os meses.',
+    infoTaxa: 'A rentabilidade mensal estimada do seu investimento.',
     buttonCalcular: 'Calcular',
     resultTitle: 'Resultado',
     resultMainLabel: 'Montante final',
@@ -42,6 +45,9 @@ const I18N = {
     placeholderAporte: 'Ej: 500,00',
     placeholderTaxa: 'Ej: 1,0',
     placeholderPeriodo: 'Ej: 24',
+    infoCapital: 'El valor que ya tienes para comenzar la inversión.',
+    infoAporte: 'El valor que pretendes invertir todos los meses.',
+    infoTaxa: 'La rentabilidad mensual estimada de tu inversión.',
     buttonCalcular: 'Calcular',
     resultTitle: 'Resultado',
     resultMainLabel: 'Monto final',
@@ -90,6 +96,7 @@ export function JurosCompostosForm() {
           onChange={(v) => setCapital(maskCurrency(v))}
           inputMode="decimal"
           placeholder={t.placeholderCapital}
+          info={t.infoCapital}
         />
         <Input
           label={t.labelAporte}
@@ -98,6 +105,7 @@ export function JurosCompostosForm() {
           onChange={(v) => setAporte(maskCurrency(v))}
           inputMode="decimal"
           placeholder={t.placeholderAporte}
+          info={t.infoAporte}
         />
         <Input
           label={t.labelTaxa}
@@ -107,6 +115,7 @@ export function JurosCompostosForm() {
           inputMode="decimal"
           placeholder={t.placeholderTaxa}
           suffix="%"
+          info={t.infoTaxa}
         />
         <Input
           label={t.labelPeriodo}
