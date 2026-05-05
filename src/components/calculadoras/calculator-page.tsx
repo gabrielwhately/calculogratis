@@ -9,6 +9,9 @@ import { getCalculadorasByCategoria } from '@/lib/constants/calculadoras'
 import { toggleFavorite, isFavorite } from '@/lib/favorites'
 import { CATEGORIAS_ES, CALCULADORAS_ES } from '@/lib/i18n/calculadoras-es'
 import { calculadoraJsonLd, faqJsonLd } from '@/lib/seo/jsonld'
+import { trackCalculadoraEvent } from '@/components/layout/analytics'
+import { BRAND_DOMAIN } from '@/lib/constants/branding'
+import { CalculatorIcon, HeartIcon } from '@/components/ui/icons'
 
 interface FAQ { question: string; answer: string }
 
@@ -31,7 +34,7 @@ const I18N = {
     calculadorasRelacionadas: 'Calculadoras Relacionadas',
     adicionarFavoritos: 'Adicionar aos favoritos',
     removerFavoritos: 'Remover dos favoritos',
-    brand: 'CalculoGratis.com',
+    brand: BRAND_DOMAIN,
   },
   es: {
     inicio: 'Inicio',
@@ -40,7 +43,7 @@ const I18N = {
     calculadorasRelacionadas: 'Calculadoras Relacionadas',
     adicionarFavoritos: 'Añadir a favoritos',
     removerFavoritos: 'Eliminar de favoritos',
-    brand: 'CalculoGratis.com',
+    brand: BRAND_DOMAIN,
   }
 }
 
@@ -56,8 +59,10 @@ export function CalculatorPage({ slug, categoriaSlug, categoriaNome, nome, descr
   }, [slug])
 
   const handleToggleFavorite = () => {
+    const newVal = !favorito
     toggleFavorite(slug)
-    setFavorito(!favorito)
+    setFavorito(newVal)
+    trackCalculadoraEvent(newVal ? 'add_favorite' : 'remove_favorite', slug)
   }
 
   const jsonLd = calculadoraJsonLd(slug, isSpanish ? 'es' : 'pt')
@@ -88,9 +93,7 @@ export function CalculatorPage({ slug, categoriaSlug, categoriaNome, nome, descr
           aria-label={favorito ? t.removerFavoritos : t.adicionarFavoritos}
           title={favorito ? t.removerFavoritos : t.adicionarFavoritos}
         >
-          <svg className="h-6 w-6" fill={favorito ? "currentColor" : "none"} viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-          </svg>
+          <HeartIcon className="h-6 w-6" fill={favorito ? "currentColor" : "none"} />
         </button>
       </div>
 
@@ -136,7 +139,8 @@ export function CalculatorPage({ slug, categoriaSlug, categoriaNome, nome, descr
                   key={calc.slug} 
                   title={isSpanish ? (esCalc?.nome ?? calc.nome) : calc.nome} 
                   description={isSpanish ? (esCalc?.descricao ?? calc.descricao) : calc.descricao} 
-                  href={isSpanish ? `/es/${esCat?.slug ?? calc.categoriaSlug}/${calc.slug}` : `/${calc.categoriaSlug}/${calc.slug}`} 
+                  href={isSpanish ? `/es/${esCat?.slug ?? calc.categoriaSlug}/${calc.slug}` : `/${calc.categoriaSlug}/${calc.slug}`}
+                  icon={<CalculatorIcon className="h-5 w-5" />}
                 />
               )
             })}

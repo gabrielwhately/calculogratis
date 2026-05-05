@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import { BRAND_DOMAIN, BRAND_URL } from '@/lib/constants/branding'
+import { trackCalculadoraEvent } from '@/components/layout/analytics'
+import { useToast } from './toast'
 
 interface ResultItem { label: string; value: string; highlight?: boolean }
 interface ResultCardProps { 
@@ -19,6 +21,7 @@ const I18N = {
     print: 'Imprimir',
     shareWhatsApp: 'Compartilhar no WhatsApp',
     copy: 'Copiar resultado',
+    copySuccess: 'Resultado copiado!',
     calculatedAt: 'Calculado em:',
     brand: BRAND_DOMAIN,
     disclaimer: `Este cálculo foi gerado em ${BRAND_DOMAIN} e tem caráter meramente informativo.`,
@@ -27,6 +30,7 @@ const I18N = {
     print: 'Imprimir',
     shareWhatsApp: 'Compartir por WhatsApp',
     copy: 'Copiar resultado',
+    copySuccess: '¡Resultado copiado!',
     calculatedAt: 'Calculado en:',
     brand: BRAND_DOMAIN,
     disclaimer: `Este cálculo fue generado en ${BRAND_DOMAIN} y es puramente informativo.`,
@@ -37,17 +41,22 @@ export function ResultCard({ title, mainValue, mainLabel, items, visible, childr
   const pathname = usePathname()
   const isSpanish = pathname?.startsWith('/es')
   const t = isSpanish ? I18N.es : I18N.pt
+  const { showToast } = useToast()
 
   const [copied, setCopied] = useState(false)
   const [animate, setAnimate] = useState(false)
+
+  // Extract slug from pathname for tracking
+  const slug = pathname?.split('/').pop() || 'unknown'
 
   useEffect(() => {
     if (visible) {
       setAnimate(true)
       const timer = setTimeout(() => setAnimate(false), 600)
+      trackCalculadoraEvent('calculate', slug)
       return () => clearTimeout(timer)
     }
-  }, [visible, mainValue])
+  }, [visible, mainValue, slug])
 
   if (!visible) return null
 
@@ -58,16 +67,20 @@ export function ResultCard({ title, mainValue, mainLabel, items, visible, childr
   const handleCopy = () => {
     navigator.clipboard.writeText(getResultText())
     setCopied(true)
+    showToast(t.copySuccess, 'success')
     setTimeout(() => setCopied(false), 2000)
+    trackCalculadoraEvent('copy_result', slug)
   }
 
   const handleWhatsApp = () => {
     const text = encodeURIComponent(getResultText())
     window.open(`https://wa.me/?text=${text}`, '_blank')
+    trackCalculadoraEvent('share_whatsapp', slug)
   }
 
   const handlePrint = () => {
     window.print()
+    trackCalculadoraEvent('print_result', slug)
   }
 
   return (

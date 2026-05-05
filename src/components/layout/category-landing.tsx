@@ -5,6 +5,7 @@ import { Breadcrumb } from '@/components/layout/breadcrumb'
 import { Card } from '@/components/ui/card'
 import { getCalculadorasByCategoria } from '@/lib/constants/calculadoras'
 import { CATEGORIAS_ES, CALCULADORAS_ES } from '@/lib/i18n/calculadoras-es'
+import { CalculatorIcon } from '@/components/ui/icons'
 
 interface CategoryLandingProps { 
   categoriaNome: string; 
@@ -56,7 +57,8 @@ export function CategoryLanding({ categoriaNome, categoriaSlug, descricao, conte
               key={calc.slug} 
               title={isSpanish ? (esCalc?.nome ?? calc.nome) : calc.nome} 
               description={isSpanish ? (esCalc?.descricao ?? calc.descricao) : calc.descricao} 
-              href={isSpanish ? `/es/${esCat?.slug ?? calc.categoriaSlug}/${calc.slug}` : `/${calc.categoriaSlug}/${calc.slug}`} 
+              href={isSpanish ? `/es/${esCat?.slug ?? calc.categoriaSlug}/${calc.slug}` : `/${calc.categoriaSlug}/${calc.slug}`}
+              icon={<CalculatorIcon className="h-5 w-5" />}
             />
           )
         })}

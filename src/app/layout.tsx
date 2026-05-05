@@ -9,6 +9,7 @@ import { ThemeProvider } from '@/components/layout/theme-provider'
 import { Analytics } from '@/components/layout/analytics'
 import { ServiceWorkerRegister } from '@/components/layout/sw-register'
 import { SkipToContent } from '@/components/layout/skip-to-content'
+import { ToastProvider } from '@/components/ui/toast'
 import { BRAND_NAME, BRAND_URL, BRAND_TAGLINE } from '@/lib/constants/branding'
 import './globals.css'
 
@@ -33,16 +34,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className={inter.className}>
         <ThemeProvider>
-          <SkipToContent />
-          <Navbar />
-          <main id="main-content" className="min-h-screen pb-20 md:pb-0">
-            <PrintHeader />
-            {children}
-          </main>
-          <Footer />
-          <BottomNav />
-          <Analytics />
-          <ServiceWorkerRegister />
+          <ToastProvider>
+            <SkipToContent />
+            <Navbar />
+            <main id="main-content" className="min-h-screen pb-20 md:pb-0">
+              <PrintHeader />
+              {children}
+            </main>
+            <Footer />
+            <BottomNav />
+            <Analytics />
+            <ServiceWorkerRegister />
+          </ToastProvider>
         </ThemeProvider>
       </body>
     </html>
