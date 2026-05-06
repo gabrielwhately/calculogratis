@@ -12,7 +12,7 @@ const config: Config = {
     extend: {
       colors: {
         navy: { DEFAULT: '#1a2332', light: '#2a3a4f', dark: '#111827' },
-        accent: '#3b82f6',
+        accent: '#2563eb',
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],

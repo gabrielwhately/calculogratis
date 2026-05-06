@@ -83,5 +83,54 @@ export const ES_CONTENT_MAP: Record<string, React.ReactNode> = {
       <p>Con las reglas actuales de la previsión social, es fundamental planificar con antelación. Las reglas varían según la edad, el tiempo de contribución y el tipo de transición.</p>
       <p>Calcula cuánto tiempo te falta para jubilarte y obtén una estimación del valor de tu beneficio futuro.</p>
     </>
+  ),
+  'juros-simples': (
+    <>
+      <h2>¿Qué son los intereses simples?</h2>
+      <p>El interés simple es el beneficio que produce un capital prestado, el cual se calcula siempre sobre el monto original. A diferencia del interés compuesto, los intereses ganados no se suman al capital para generar nuevos intereses.</p>
+      <p>Es ideal para cálculos rápidos de préstamos a corto plazo o inversiones donde el rendimiento se retira periódicamente.</p>
+    </>
+  ),
+  'emprestimo': (
+    <>
+      <h2>Simulador de Préstamos Personales</h2>
+      <p>Antes de contratar un crédito, es vital conocer el costo real. Nuestra calculadora te ayuda a entender el valor de las cuotas mensuales y el monto total que habrás pagado al final del contrato.</p>
+      <p>Ten en cuenta siempre el <strong>CET (Costo Efectivo Total)</strong>, que incluye no solo los intereses, sino también tasas y seguros bancarios.</p>
+    </>
+  ),
+  'simulador-investimentos': (
+    <>
+      <h2>Simulador de Inversiones</h2>
+      <p>Proyecta el crecimiento de tu dinero en diferentes escenarios. Compara el rendimiento de renta fija (como CDB o Tesoro) frente a otras opciones.</p>
+      <p>Considera la inflación y los impuestos para descubrir cuál es la rentabilidad real de tu inversión a medio y largo plazo.</p>
+    </>
+  ),
+  'peso-ideal': (
+    <>
+      <h2>Cómo descubrir tu peso saludable</h2>
+      <p>El peso ideal varía para cada persona según su estatura, edad y complexión física. Nuestra herramienta utiliza fórmulas científicas reconocidas (como Devine y Robinson) para ofrecerte un rango de peso saludable.</p>
+      <p>Recuerda que estas métricas son referenciales y siempre es recomendable consultar con un profesional de la salud o nutrición.</p>
+    </>
+  ),
+  'calorias-tmb': (
+    <>
+      <h2>Calculadora de TMB y Calorías Diarias</h2>
+      <p>La Tasa Metabólica Basal (TMB) es la cantidad mínima de energía que tu cuerpo necesita para funcionar en reposo. Conocer este valor es el primer paso para planificar una dieta efectiva.</p>
+      <p>Dependiendo de tu nivel de actividad física, nuestra calculadora estima cuántas calorías debes consumir diariamente para mantener, perder o ganar peso.</p>
+    </>
+  ),
+  'porcentagem': (
+    <>
+      <h2>Cálculos de Porcentaje Rápidos</h2>
+      <p>El porcentaje es una de las herramientas matemáticas más usadas en el día a día: desde calcular descuentos en tiendas hasta aumentos salariales o variaciones en inversiones.</p>
+      <p>Usa nuestras tres modalidades: cuánto es X% de un valor, qué porcentaje representa A de B, y el porcentaje de aumento o descuento entre dos valores.</p>
+    </>
+  ),
+  'regra-de-tres': (
+    <>
+      <h2>Regla de Tres Simple</h2>
+      <p>La regla de tres es un método para resolver problemas de proporcionalidad entre tres valores conocidos y una incógnita. Puede ser directa (cuando una magnitud aumenta, la otra también) o inversa.</p>
+      <p>Nuestra herramienta resuelve ambos casos automáticamente, ahorrándote tiempo y evitando errores de cálculo manual.</p>
+    </>
   )
 }
