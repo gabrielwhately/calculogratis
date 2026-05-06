@@ -29,9 +29,20 @@ const ARTIGOS = [
     excerpt: 'Entenda o que o seu Índice de Massa Corporal diz sobre sua saúde e quais são os limites de cada categoria.',
     date: '25 Abr 2026',
     category: 'Saúde'
+    },
+    {
+    title: 'SAC ou Price: Qual a melhor tabela de financiamento?',
+    excerpt: 'Descubra as diferenças entre os sistemas de amortização e qual deles faz você pagar menos juros no longo prazo.',
+    date: '20 Abr 2026',
+    category: 'Financeiro'
+    },
+    {
+    title: 'Seguro Desemprego 2026: Quem tem direito e como calcular?',
+    excerpt: 'Guia atualizado sobre as novas regras, prazos e valores das parcelas do seguro desemprego.',
+    date: '15 Abr 2026',
+    category: 'Trabalhista'
     }
     ]
-
 
 export default function ArticlesPage() {
   return (

@@ -22,6 +22,7 @@ This document summarizes the marketing and SEO readiness of `calculogratis` as v
 ## 4. Marketing Roadmap (CALAA-49 Complete)
 - [x] **Launch Plan**: Comprehensive SEO, WhatsApp, and Ad strategy documented in `docs/MARKETING_LAUNCH_PLAN.md`.
 - [x] **Embed Widgets**: Create lightweight versions of calculators for partners (Week 3 Strategy - Done).
+- [x] **Backlink Outreach**: Outreach templates for HR and Financial blogs drafted in `docs/OUTREACH_TEMPLATES.md` (Ready).
 - [x] **Newsletter**: Integrate lead capture and weekly tips (Week 4 Strategy - Done).
 - [x] **Personalization**: Saved results and history feature implemented for user retention (Done).
 - [x] **Content Engine**: Start publishing 2 articles/week following the Tier 1 keyword map (Structure and initial articles ready).
