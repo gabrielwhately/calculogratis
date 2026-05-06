@@ -35,8 +35,8 @@ export function trackCalculadoraEvent(action: string, calculadora: string, value
   })
 }
 
-export function trackEvent(action: string, params: Record<string, any>) {
+export function trackEvent(action: string, params: Record<string, string | number | boolean | undefined>) {
   if (typeof window !== 'undefined' && 'gtag' in window) {
-    ;(window as any).gtag('event', action, params)
+    ;(window as unknown as { gtag: (type: string, action: string, params: Record<string, string | number | boolean | undefined>) => void }).gtag('event', action, params)
   }
 }

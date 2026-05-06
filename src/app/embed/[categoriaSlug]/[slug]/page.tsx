@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation'
-import { getCalculadora } from '@/lib/constants/calculadoras'
+import { getCalculadora, CALCULADORAS } from '@/lib/constants/calculadoras'
 import { FormMap } from '@/components/calculadoras/form-map'
 
 interface EmbedPageProps {
@@ -7,6 +7,13 @@ interface EmbedPageProps {
     categoriaSlug: string
     slug: string
   }
+}
+
+export function generateStaticParams() {
+  return CALCULADORAS.map((calc) => ({
+    categoriaSlug: calc.categoriaSlug,
+    slug: calc.slug,
+  }))
 }
 
 export default function EmbedPage({ params }: EmbedPageProps) {

@@ -130,3 +130,5 @@ export const FORM_MAP: Record<string, ComponentType> = {
   'frequencia-cardiaca': FrequenciaCardiacaForm,
   'calculadora-pintura': CalculadoraPinturaForm,
 }
+
+export const FormMap = FORM_MAP

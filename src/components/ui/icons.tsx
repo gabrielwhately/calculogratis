@@ -39,4 +39,18 @@ export const Icons = {
       <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
     </svg>
   ),
+  Calculator: (props: React.SVGProps<SVGSVGElement>) => (
+    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} {...props}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+    </svg>
+  ),
 }
+
+export const BriefcaseIcon = Icons.Briefcase
+export const BanknotesIcon = Icons.Banknotes
+export const ChartBarIcon = Icons.ChartBar
+export const HomeIcon = Icons.Home
+export const HeartIcon = Icons.Heart
+export const ClockIcon = Icons.Clock
+export const UserIcon = Icons.User
+export const CalculatorIcon = Icons.Calculator
