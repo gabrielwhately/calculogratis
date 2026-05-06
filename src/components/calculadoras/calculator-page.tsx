@@ -10,8 +10,9 @@ import { toggleFavorite, isFavorite } from '@/lib/favorites'
 import { CATEGORIAS_ES, CALCULADORAS_ES } from '@/lib/i18n/calculadoras-es'
 import { calculadoraJsonLd, faqJsonLd } from '@/lib/seo/jsonld'
 import { trackCalculadoraEvent } from '@/components/layout/analytics'
-import { BRAND_DOMAIN } from '@/lib/constants/branding'
-import { CalculatorIcon, HeartIcon } from '@/components/ui/icons'
+import { BRAND_DOMAIN, BRAND_URL } from '@/lib/constants/branding'
+import { CalculatorIcon, HeartIcon, CodeIcon, CopyIcon } from '@/components/ui/icons'
+import { useToast } from '@/components/ui/toast'
 
 interface FAQ { question: string; answer: string }
 
@@ -34,6 +35,9 @@ const I18N = {
     calculadorasRelacionadas: 'Calculadoras Relacionadas',
     adicionarFavoritos: 'Adicionar aos favoritos',
     removerFavoritos: 'Remover dos favoritos',
+    incorporar: 'Incorporar no seu site',
+    copiarCodigo: 'Copiar código',
+    codigoCopiado: 'Código copiado!',
     brand: BRAND_DOMAIN,
   },
   es: {
@@ -43,6 +47,9 @@ const I18N = {
     calculadorasRelacionadas: 'Calculadoras Relacionadas',
     adicionarFavoritos: 'Añadir a favoritos',
     removerFavoritos: 'Eliminar de favoritos',
+    incorporar: 'Insertar en su sitio',
+    copiarCodigo: 'Copiar código',
+    codigoCopiado: '¡Código copiado!',
     brand: BRAND_DOMAIN,
   }
 }
@@ -51,8 +58,11 @@ export function CalculatorPage({ slug, categoriaSlug, categoriaNome, nome, descr
   const pathname = usePathname()
   const isSpanish = pathname?.startsWith('/es')
   const t = isSpanish ? I18N.es : I18N.pt
+  const { showToast } = useToast()
 
   const [favorito, setFavorito] = useState(false)
+  const [showEmbed, setShowEmbed] = useState(false)
+  const [embedCopiado, setEmbedCopiado] = useState(false)
 
   useEffect(() => {
     setFavorito(isFavorite(slug))
@@ -63,6 +73,15 @@ export function CalculatorPage({ slug, categoriaSlug, categoriaNome, nome, descr
     toggleFavorite(slug)
     setFavorito(newVal)
     trackCalculadoraEvent(newVal ? 'add_favorite' : 'remove_favorite', slug)
+  }
+
+  const handleCopyEmbed = () => {
+    const code = `<iframe src="${BRAND_URL}/embed/${categoriaSlug}/${slug}" width="100%" height="600" frameborder="0"></iframe>`
+    navigator.clipboard.writeText(code)
+    setEmbedCopiado(true)
+    showToast(t.codigoCopiado, 'success')
+    setTimeout(() => setEmbedCopiado(false), 2000)
+    trackCalculadoraEvent('copy_embed', slug)
   }
 
   const jsonLd = calculadoraJsonLd(slug, isSpanish ? 'es' : 'pt')
@@ -83,19 +102,51 @@ export function CalculatorPage({ slug, categoriaSlug, categoriaNome, nome, descr
 
       <div className="flex items-center justify-between gap-4">
         <h1 className="text-2xl font-bold text-navy dark:text-white md:text-3xl print:text-navy">{t.calculadoraDe} {nome}</h1>
-        <button
-          onClick={handleToggleFavorite}
-          className={`p-2.5 rounded-full border transition-all active:scale-90 flex items-center justify-center print:hidden ${
-            favorito 
-              ? 'bg-red-50 border-red-200 text-red-500 dark:bg-red-900/20 dark:border-red-800' 
-              : 'bg-white border-slate-200 text-slate-400 hover:text-slate-600 dark:bg-slate-800 dark:border-gray-700'
-          }`}
-          aria-label={favorito ? t.removerFavoritos : t.adicionarFavoritos}
-          title={favorito ? t.removerFavoritos : t.adicionarFavoritos}
-        >
-          <HeartIcon className="h-6 w-6" fill={favorito ? "currentColor" : "none"} />
-        </button>
+        <div className="flex gap-2 print:hidden">
+          <button
+            onClick={() => setShowEmbed(!showEmbed)}
+            className={`p-2.5 rounded-full border transition-all active:scale-90 flex items-center justify-center ${
+              showEmbed 
+                ? 'bg-accent border-accent text-white shadow-lg shadow-accent/20' 
+                : 'bg-white border-slate-200 text-slate-400 hover:text-slate-600 dark:bg-slate-800 dark:border-gray-700'
+            }`}
+            aria-label={t.incorporar}
+            title={t.incorporar}
+          >
+            <CodeIcon className="h-6 w-6" />
+          </button>
+          <button
+            onClick={handleToggleFavorite}
+            className={`p-2.5 rounded-full border transition-all active:scale-90 flex items-center justify-center ${
+              favorito 
+                ? 'bg-red-50 border-red-200 text-red-500 dark:bg-red-900/20 dark:border-red-800' 
+                : 'bg-white border-slate-200 text-slate-400 hover:text-slate-600 dark:bg-slate-800 dark:border-gray-700'
+            }`}
+            aria-label={favorito ? t.removerFavoritos : t.adicionarFavoritos}
+            title={favorito ? t.removerFavoritos : t.adicionarFavoritos}
+          >
+            <HeartIcon className="h-6 w-6" fill={favorito ? "currentColor" : "none"} />
+          </button>
+        </div>
       </div>
+
+      {showEmbed && (
+        <div className="mt-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 print:hidden animate-in fade-in slide-in-from-top-2 duration-200">
+          <div className="flex items-center justify-between mb-2">
+            <h3 className="text-xs font-bold text-navy dark:text-white uppercase tracking-wider">{t.incorporar}</h3>
+            <button 
+              onClick={handleCopyEmbed}
+              className="flex items-center gap-1.5 text-xs font-bold text-accent hover:underline"
+            >
+              <CopyIcon className="h-3.5 w-3.5" />
+              {embedCopiado ? t.codigoCopiado : t.copiarCodigo}
+            </button>
+          </div>
+          <code className="block p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-[10px] text-slate-600 dark:text-slate-400 break-all overflow-hidden font-mono">
+            {`<iframe src="${BRAND_URL}/embed/${categoriaSlug}/${slug}" width="100%" height="600" frameborder="0"></iframe>`}
+          </code>
+        </div>
+      )}
 
       <p className="mt-2 text-slate-600 dark:text-slate-400 print:hidden">{descricao}</p>
       <div className="mt-6 print:mt-4">{children}</div>

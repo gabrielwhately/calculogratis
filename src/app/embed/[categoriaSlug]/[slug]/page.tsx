@@ -1,6 +1,6 @@
-import { notFound } from 'next/navigation'
-import { getCalculadora, CALCULADORAS } from '@/lib/constants/calculadoras'
-import { FormMap } from '@/components/calculadoras/form-map'
+import { notFound } from "next/navigation"
+import { getCalculadora, CALCULADORAS } from "@/lib/constants/calculadoras"
+import { FORM_MAP } from "@/components/calculadoras/form-map"
 
 interface EmbedPageProps {
   params: {
@@ -24,7 +24,7 @@ export default function EmbedPage({ params }: EmbedPageProps) {
     notFound()
   }
 
-  const FormComponent = FormMap[slug as keyof typeof FormMap]
+  const FormComponent = FORM_MAP[slug as keyof typeof FORM_MAP]
 
   if (!FormComponent) {
     return (
