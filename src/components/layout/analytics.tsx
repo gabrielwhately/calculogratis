@@ -28,12 +28,15 @@ export function Analytics() {
 }
 
 export function trackCalculadoraEvent(action: string, calculadora: string, value?: number) {
+  trackEvent(action, {
+    event_category: 'calculadora',
+    event_label: calculadora,
+    value,
+  })
+}
+
+export function trackEvent(action: string, params: Record<string, any>) {
   if (typeof window !== 'undefined' && 'gtag' in window) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ;(window as any).gtag('event', action, {
-      event_category: 'calculadora',
-      event_label: calculadora,
-      value,
-    })
+    ;(window as any).gtag('event', action, params)
   }
 }

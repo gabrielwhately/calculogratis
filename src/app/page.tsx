@@ -1,7 +1,7 @@
-import Link from "next/link"
-import { CATEGORIAS, CALCULADORAS } from "@/lib/constants/calculadoras"
-import { Newsletter } from "@/components/layout/newsletter"
-import { Icons } from "@/components/ui/icons"
+import Link from 'next/link'
+import { CATEGORIAS, CALCULADORAS } from '@/lib/constants/calculadoras'
+import { Newsletter } from '@/components/layout/newsletter'
+import { Icons } from '@/components/ui/icons'
 
 const CATEGORY_ICONS: Record<string, React.ReactNode> = {
   briefcase: (
@@ -17,7 +17,7 @@ const CATEGORY_ICONS: Record<string, React.ReactNode> = {
       <path strokeLinecap="round" d="M6 7v10M18 7v10" />
     </svg>
   ),
-  "shield-check": (
+  'shield-check': (
     <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8} aria-hidden="true">
       <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
     </svg>
@@ -51,25 +51,25 @@ const CATEGORY_ICONS: Record<string, React.ReactNode> = {
 }
 
 const CATEGORY_COLORS: Record<string, { bg: string; icon: string; border: string }> = {
-  blue:   { bg: "bg-blue-50 dark:bg-blue-500/10",   icon: "text-blue-600 dark:text-blue-400",   border: "border-blue-100 hover:border-blue-300 dark:border-blue-500/20 dark:hover:border-blue-500/50" },
-  green:  { bg: "bg-green-50 dark:bg-green-500/10",  icon: "text-green-600 dark:text-green-400",  border: "border-green-100 hover:border-green-300 dark:border-green-500/20 dark:hover:border-green-500/50" },
-  purple: { bg: "bg-purple-50 dark:bg-purple-500/10", icon: "text-purple-600 dark:text-purple-400", border: "border-purple-100 hover:border-purple-300 dark:border-purple-500/20 dark:hover:border-purple-500/50" },
-  red:    { bg: "bg-red-50 dark:bg-red-500/10",    icon: "text-red-600 dark:text-red-400",    border: "border-red-100 hover:border-red-300 dark:border-red-500/20 dark:hover:border-red-500/50" },
-  indigo: { bg: "bg-indigo-50 dark:bg-indigo-500/10", icon: "text-indigo-600 dark:text-indigo-400", border: "border-indigo-100 hover:border-indigo-300 dark:border-indigo-500/20 dark:hover:border-indigo-500/50" },
-  amber:  { bg: "bg-amber-50 dark:bg-amber-500/10",  icon: "text-amber-600 dark:text-amber-400",  border: "border-amber-100 hover:border-amber-300 dark:border-amber-500/20 dark:hover:border-amber-500/50" },
-  teal:   { bg: "bg-teal-50 dark:bg-teal-500/10",   icon: "text-teal-600 dark:text-teal-400",   border: "border-teal-100 hover:border-teal-300 dark:border-teal-500/20 dark:hover:border-teal-500/50" },
-  orange: { bg: "bg-orange-50 dark:bg-orange-500/10", icon: "text-orange-600 dark:text-orange-400", border: "border-orange-100 hover:border-orange-300 dark:border-orange-500/20 dark:hover:border-orange-500/50" },
+  blue:   { bg: 'bg-blue-50 dark:bg-blue-500/10',   icon: 'text-blue-600 dark:text-blue-400',   border: 'border-blue-100 hover:border-blue-300 dark:border-blue-500/20 dark:hover:border-blue-500/50' },
+  green:  { bg: 'bg-green-50 dark:bg-green-500/10',  icon: 'text-green-600 dark:text-green-400',  border: 'border-green-100 hover:border-green-300 dark:border-green-500/20 dark:hover:border-green-500/50' },
+  purple: { bg: 'bg-purple-50 dark:bg-purple-500/10', icon: 'text-purple-600 dark:text-purple-400', border: 'border-purple-100 hover:border-purple-300 dark:border-purple-500/20 dark:hover:border-purple-500/50' },
+  red:    { bg: 'bg-red-50 dark:bg-red-500/10',    icon: 'text-red-600 dark:text-red-400',    border: 'border-red-100 hover:border-red-300 dark:border-red-500/20 dark:hover:border-red-500/50' },
+  indigo: { bg: 'bg-indigo-50 dark:bg-indigo-500/10', icon: 'text-indigo-600 dark:text-indigo-400', border: 'border-indigo-100 hover:border-indigo-300 dark:border-indigo-500/20 dark:hover:border-indigo-500/50' },
+  amber:  { bg: 'bg-amber-50 dark:bg-amber-500/10',  icon: 'text-amber-600 dark:text-amber-400',  border: 'border-amber-100 hover:border-amber-300 dark:border-amber-500/20 dark:hover:border-amber-500/50' },
+  teal:   { bg: 'bg-teal-50 dark:bg-teal-500/10',   icon: 'text-teal-600 dark:text-teal-400',   border: 'border-teal-100 hover:border-teal-300 dark:border-teal-500/20 dark:hover:border-teal-500/50' },
+  orange: { bg: 'bg-orange-50 dark:bg-orange-500/10', icon: 'text-orange-600 dark:text-orange-400', border: 'border-orange-100 hover:border-orange-300 dark:border-orange-500/20 dark:hover:border-orange-500/50' },
 }
 
-const POPULARES = new Set(["rescisao", "salario-liquido", "juros-compostos", "financiamento", "imc", "hora-extra"])
+const POPULARES = new Set(['rescisao', 'salario-liquido', 'juros-compostos', 'financiamento', 'imc', 'hora-extra'])
 
 const POPULAR_ICONS: Record<string, React.ElementType> = {
-  "rescisao": Icons.Briefcase,
-  "salario-liquido": Icons.Banknotes,
-  "juros-compostos": Icons.ChartBar,
-  "financiamento": Icons.Home,
-  "imc": Icons.Heart,
-  "hora-extra": Icons.Clock,
+  'rescisao': Icons.Briefcase,
+  'salario-liquido': Icons.Banknotes,
+  'juros-compostos': Icons.ChartBar,
+  'financiamento': Icons.Home,
+  'imc': Icons.Heart,
+  'hora-extra': Icons.Clock,
 }
 
 const calculadorasPopulares = CALCULADORAS.filter(c => POPULARES.has(c.slug))
@@ -153,7 +153,38 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Newsletter */}
       <Newsletter />
+
+      {/* Personalization */}
+      <section className="grid gap-6 md:grid-cols-2">
+        <Link href="/favoritos" className="group p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 hover:border-red-200 dark:hover:border-red-900/30 transition-all shadow-sm">
+          <div className="flex items-center gap-4 mb-3">
+            <div className="p-3 rounded-xl bg-red-50 dark:bg-red-900/20 text-red-500 group-hover:scale-110 transition-transform">
+              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+              </svg>
+            </div>
+            <div>
+              <h3 className="font-bold text-navy dark:text-white group-hover:text-red-500 transition-colors">Minhas Calculadoras</h3>
+              <p className="text-xs text-slate-500">Acesse rapidamente as ferramentas que você favoritou.</p>
+            </div>
+          </div>
+        </Link>
+        <Link href="/historico" className="group p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 hover:border-blue-200 dark:hover:border-blue-900/30 transition-all shadow-sm">
+          <div className="flex items-center gap-4 mb-3">
+            <div className="p-3 rounded-xl bg-blue-50 dark:bg-blue-900/20 text-blue-500 group-hover:scale-110 transition-transform">
+              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div>
+              <h3 className="font-bold text-navy dark:text-white group-hover:text-blue-500 transition-colors">Histórico de Cálculos</h3>
+              <p className="text-xs text-slate-500">Recupere resultados de simulações que você salvou.</p>
+            </div>
+          </div>
+        </Link>
+      </section>
 
       {/* All calculators */}
       <section>

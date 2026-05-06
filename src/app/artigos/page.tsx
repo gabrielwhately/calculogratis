@@ -16,15 +16,22 @@ const ARTIGOS = [
     title: "Juros Compostos: O segredo da riqueza",
     excerpt: "Entenda como o tempo trabalha a seu favor nos investimentos.",
     date: "02 Mai 2026",
-    category: "Financeiro"
-  },
-  {
-    title: "Guia do Salário Líquido: Para onde vai seu dinheiro?",
-    excerpt: "Tudo sobre descontos de INSS e IRRF na folha de pagamento.",
-    date: "28 Abr 2026",
-    category: "Trabalhista"
-  }
-]
+    category: 'Financeiro'
+    },
+    {
+    title: 'Guia do Salário Líquido: Para onde vai seu dinheiro?',
+    excerpt: 'Tudo sobre descontos de INSS e IRRF na folha de pagamento.',
+    date: '28 Abr 2026',
+    category: 'Trabalhista'
+    },
+    {
+    title: 'IMC: Como interpretar seus resultados',
+    excerpt: 'Entenda o que o seu Índice de Massa Corporal diz sobre sua saúde e quais são os limites de cada categoria.',
+    date: '25 Abr 2026',
+    category: 'Saúde'
+    }
+    ]
+
 
 export default function ArticlesPage() {
   return (

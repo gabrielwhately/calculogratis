@@ -23,6 +23,7 @@ This document summarizes the marketing and SEO readiness of `calculogratis` as v
 - [x] **Launch Plan**: Comprehensive SEO, WhatsApp, and Ad strategy documented in `docs/MARKETING_LAUNCH_PLAN.md`.
 - [x] **Embed Widgets**: Create lightweight versions of calculators for partners (Week 3 Strategy - Done).
 - [x] **Newsletter**: Integrate lead capture and weekly tips (Week 4 Strategy - Done).
+- [x] **Personalization**: Saved results and history feature implemented for user retention (Done).
 - [x] **Content Engine**: Start publishing 2 articles/week following the Tier 1 keyword map (Structure and initial articles ready).
 
 ## 5. Deployment Blocker

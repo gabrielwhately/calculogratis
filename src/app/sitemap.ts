@@ -9,6 +9,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const ptRoutes: MetadataRoute.Sitemap = [
     { url: baseUrl, lastModified, changeFrequency: 'monthly', priority: 1 },
+    { url: `${baseUrl}/artigos`, lastModified, changeFrequency: 'weekly', priority: 0.8 },
+    { url: `${baseUrl}/favoritos`, lastModified, changeFrequency: 'monthly', priority: 0.5 },
+    { url: `${baseUrl}/historico`, lastModified, changeFrequency: 'monthly', priority: 0.5 },
     ...CATEGORIAS.map((cat) => ({
       url: `${baseUrl}/${cat.slug}`,
       lastModified,

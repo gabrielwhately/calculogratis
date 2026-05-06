@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
+import { trackEvent } from '@/components/layout/analytics'
 
 const I18N = {
   pt: {
@@ -35,6 +36,12 @@ export function Newsletter() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     setStatus('loading')
+    
+    trackEvent('newsletter_signup', {
+      event_category: 'retention',
+      event_label: isSpanish ? 'home_page_es' : 'home_page_pt'
+    })
+
     // Simulating API call
     setTimeout(() => {
       setStatus('success')

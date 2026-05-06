@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation'
 import { BRAND_DOMAIN, BRAND_URL } from '@/lib/constants/branding'
 import { trackCalculadoraEvent } from '@/components/layout/analytics'
 import { useToast } from './toast'
+import { saveResult } from '@/lib/saved-results'
 
 interface ResultItem { label: string; value: string; highlight?: boolean }
 interface ResultCardProps { 
@@ -25,6 +26,8 @@ const I18N = {
     calculatedAt: 'Calculado em:',
     brand: BRAND_DOMAIN,
     disclaimer: `Este cálculo foi gerado em ${BRAND_DOMAIN} e tem caráter meramente informativo.`,
+    save: 'Salvar cálculo',
+    saveSuccess: 'Cálculo salvo no seu histórico!',
   },
   es: {
     print: 'Imprimir',
@@ -34,6 +37,8 @@ const I18N = {
     calculatedAt: 'Calculado en:',
     brand: BRAND_DOMAIN,
     disclaimer: `Este cálculo fue generado en ${BRAND_DOMAIN} y es puramente informativo.`,
+    save: 'Guardar cálculo',
+    saveSuccess: '¡Cálculo guardado en su historial!',
   }
 }
 
@@ -44,6 +49,7 @@ export function ResultCard({ title, mainValue, mainLabel, items, visible, childr
   const { showToast } = useToast()
 
   const [copied, setCopied] = useState(false)
+  const [saved, setSaved] = useState(false)
   const [animate, setAnimate] = useState(false)
 
   // Extract slug from pathname for tracking
@@ -52,6 +58,7 @@ export function ResultCard({ title, mainValue, mainLabel, items, visible, childr
   useEffect(() => {
     if (visible) {
       setAnimate(true)
+      setSaved(false)
       const timer = setTimeout(() => setAnimate(false), 600)
       trackCalculadoraEvent('calculate', slug)
       return () => clearTimeout(timer)
@@ -79,6 +86,19 @@ export function ResultCard({ title, mainValue, mainLabel, items, visible, childr
     showToast(t.copySuccess, 'success')
     setTimeout(() => setCopied(false), 2000)
     trackCalculadoraEvent('copy_result', slug)
+  }
+
+  const handleSave = () => {
+    saveResult({
+      slug,
+      title,
+      mainValue,
+      mainLabel,
+      items: items || []
+    })
+    setSaved(true)
+    showToast(t.saveSuccess, 'success')
+    trackCalculadoraEvent('save_result', slug)
   }
 
   const handleWhatsApp = () => {
@@ -119,6 +139,23 @@ export function ResultCard({ title, mainValue, mainLabel, items, visible, childr
             <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M6.72 13.844l.445-4.461m9.12 4.461l-.445-4.461M8.946 20.125l.43-.448a1.2 1.2 0 011.613-.09l.867.66a1.2 1.2 0 001.412 0l.867-.66a1.2 1.2 0 011.613.09l.43.448m-8.23-2.106c.472.111.96.18 1.459.208a22.45 22.45 0 002.73 0c.498-.028.987-.097 1.459-.208m-4.958-3.123v-.045a1.608 1.201 0 011.608-1.201h4.425c.888 0 1.608.538 1.608 1.201v.045m-6.15-6.113V6.9c0-1.05.847-1.9 1.892-1.9h2.516c1.045 0 1.892.85 1.892 1.9v2.113" />
             </svg>
+          </button>
+          <button
+            onClick={handleSave}
+            disabled={saved}
+            className={`p-2 rounded-lg transition-all active:scale-95 ${saved ? 'bg-accent/20 text-accent' : 'bg-white/10 hover:bg-accent/20 text-slate-300 hover:text-accent'}`}
+            aria-label={t.save}
+            title={t.save}
+          >
+            {saved ? (
+              <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+              </svg>
+            ) : (
+              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+              </svg>
+            )}
           </button>
           <button
             onClick={handleWhatsApp}
