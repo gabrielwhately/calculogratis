@@ -1,8 +1,34 @@
 'use client'
 
 import { useState } from 'react'
+import { usePathname } from 'next/navigation'
+
+const I18N = {
+  pt: {
+    title: 'Dicas Financeiras e Trabalhistas no seu E-mail',
+    description: 'Receba semanalmente as atualizações das tabelas de 2026, novas ferramentas e dicas para cuidar do seu bolso.',
+    success: 'Inscrição realizada com sucesso! Verifique sua caixa de entrada.',
+    placeholder: 'Seu melhor e-mail',
+    button: 'Quero Receber',
+    loading: 'Enviando...',
+    footer: '100% Grátis · Sem Spam · Cancele a qualquer momento',
+  },
+  es: {
+    title: 'Consejos Financieros y Laborales en su E-mail',
+    description: 'Reciba semanalmente las actualizaciones de las tablas de 2026, nuevas herramientas y consejos para cuidar su bolsillo.',
+    success: '¡Inscripción realizada con éxito! Verifique su bandeja de entrada.',
+    placeholder: 'Su mejor e-mail',
+    button: 'Quiero Recibir',
+    loading: 'Enviando...',
+    footer: '100% Gratis · Sin Spam · Cancele en cualquier momento',
+  }
+}
 
 export function Newsletter() {
+  const pathname = usePathname()
+  const isSpanish = pathname?.startsWith('/es')
+  const t = isSpanish ? I18N.es : I18N.pt
+
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
 
@@ -22,9 +48,9 @@ export function Newsletter() {
       <div className="absolute bottom-0 left-0 -mb-8 -ml-8 h-32 w-32 rounded-full bg-blue-500/20 blur-3xl"></div>
       
       <div className="relative z-10 max-w-2xl">
-        <h2 className="text-2xl font-bold mb-2">Dicas Financeiras e Trabalhistas no seu E-mail</h2>
+        <h2 className="text-2xl font-bold mb-2">{t.title}</h2>
         <p className="text-slate-300 mb-6">
-          Receba semanalmente as atualizações das tabelas de 2026, novas ferramentas e dicas para cuidar do seu bolso.
+          {t.description}
         </p>
 
         {status === 'success' ? (
@@ -32,13 +58,13 @@ export function Newsletter() {
             <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            <span>Inscrição realizada com sucesso! Verifique sua caixa de entrada.</span>
+            <span>{t.success}</span>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
             <input
               type="email"
-              placeholder="Seu melhor e-mail"
+              placeholder={t.placeholder}
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -47,14 +73,14 @@ export function Newsletter() {
             <button
               type="submit"
               disabled={status === 'loading'}
-              className="px-6 py-3 bg-accent hover:bg-accent-hover text-navy font-bold rounded-xl transition-all active:scale-95 disabled:opacity-50"
+              className="px-6 py-3 bg-accent hover:bg-blue-700 text-white font-bold rounded-xl transition-all active:scale-95 disabled:opacity-50"
             >
-              {status === 'loading' ? 'Enviando...' : 'Quero Receber'}
+              {status === 'loading' ? t.loading : t.button}
             </button>
           </form>
         )}
         <p className="mt-4 text-[10px] text-slate-400 uppercase tracking-widest font-semibold">
-          100% Grátis · Sem Spam · Cancele a qualquer momento
+          {t.footer}
         </p>
       </div>
     </section>

@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { CATEGORIAS, CALCULADORAS } from "@/lib/constants/calculadoras"
 import { Newsletter } from "@/components/layout/newsletter"
+import { Icons } from "@/components/ui/icons"
 
 const CATEGORY_ICONS: Record<string, React.ReactNode> = {
   briefcase: (
@@ -61,11 +62,22 @@ const CATEGORY_COLORS: Record<string, { bg: string; icon: string; border: string
 }
 
 const POPULARES = new Set(["rescisao", "salario-liquido", "juros-compostos", "financiamento", "imc", "hora-extra"])
+
+const POPULAR_ICONS: Record<string, React.ElementType> = {
+  "rescisao": Icons.Briefcase,
+  "salario-liquido": Icons.Banknotes,
+  "juros-compostos": Icons.ChartBar,
+  "financiamento": Icons.Home,
+  "imc": Icons.Heart,
+  "hora-extra": Icons.Clock,
+}
+
 const calculadorasPopulares = CALCULADORAS.filter(c => POPULARES.has(c.slug))
 
 export default function Home() {
   return (
     <div className="container-app py-8 space-y-12">
+      {/* Hero */}
       <section className="text-center py-4">
         <div className="inline-flex items-center gap-2 bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400 text-xs font-semibold px-3 py-1 rounded-full mb-4">
           <svg className="h-3 w-3" fill="currentColor" viewBox="0 0 8 8"><circle cx="4" cy="4" r="3"/></svg>
@@ -79,6 +91,7 @@ export default function Home() {
         </p>
       </section>
 
+      {/* Categories */}
       <section id="categorias">
         <h2 className="text-lg font-bold text-navy dark:text-white mb-4 flex items-center gap-2">
           <svg className="h-4 w-4 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -110,6 +123,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Popular */}
       <section>
         <h2 className="text-lg font-bold text-navy dark:text-white mb-4 flex items-center gap-2">
           <svg className="h-4 w-4 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -118,28 +132,30 @@ export default function Home() {
           Mais Usadas
         </h2>
         <div className="grid gap-3 sm:grid-cols-2">
-          {calculadorasPopulares.map((calc) => (
-            <Link
-              key={calc.slug}
-              href={`/${calc.categoriaSlug}/${calc.slug}`}
-              className="group flex items-center gap-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-4 shadow-sm transition-all hover:border-accent hover:shadow-md"
-            >
-              <div className="shrink-0 flex h-9 w-9 items-center justify-center rounded-lg bg-slate-50 dark:bg-slate-700/50 text-slate-400 group-hover:bg-blue-50 dark:group-hover:bg-blue-500/10 group-hover:text-accent transition-colors">
-                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                </svg>
-              </div>
-              <div className="min-w-0">
-                <h3 className="font-semibold text-navy dark:text-white group-hover:text-accent transition-colors text-sm truncate">{calc.nome}</h3>
-                <p className="text-xs text-slate-600 dark:text-slate-400 line-clamp-1">{calc.descricao}</p>
-              </div>
-            </Link>
-          ))}
+          {calculadorasPopulares.map((calc) => {
+            const Icon = POPULAR_ICONS[calc.slug] || Icons.Briefcase
+            return (
+              <Link
+                key={calc.slug}
+                href={`/${calc.categoriaSlug}/${calc.slug}`}
+                className="group flex items-center gap-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-4 shadow-sm transition-all hover:border-accent hover:shadow-md"
+              >
+                <div className="shrink-0 flex h-9 w-9 items-center justify-center rounded-lg bg-slate-50 dark:bg-slate-700/50 text-slate-400 group-hover:bg-blue-50 dark:group-hover:bg-blue-500/10 group-hover:text-accent transition-colors">
+                  <Icon className="h-4 w-4" />
+                </div>
+                <div className="min-w-0">
+                  <h3 className="font-semibold text-navy dark:text-white group-hover:text-accent transition-colors text-sm truncate">{calc.nome}</h3>
+                  <p className="text-xs text-slate-600 dark:text-slate-400 line-clamp-1">{calc.descricao}</p>
+                </div>
+              </Link>
+            )
+          })}
         </div>
       </section>
 
       <Newsletter />
 
+      {/* All calculators */}
       <section>
         <h2 className="text-lg font-bold text-navy dark:text-white mb-4 flex items-center gap-2">
           <svg className="h-4 w-4 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
