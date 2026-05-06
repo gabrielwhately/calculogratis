@@ -30,7 +30,8 @@ export function converterFuso(hora: string, fusoOrigem: string, fusoDestino: str
   const horaDestino = new Intl.DateTimeFormat('pt-BR', { ...formatOpts, timeZone: fusoDestino }).format(now)
 
   const getOffset = (tz: string) => { const d = new Date(); const s = d.toLocaleString('en-US', { timeZone: tz }); return (d.getTime() - new Date(s).getTime()) / 3600000 }
-  const diff = getOffset(fusoDestino) - getOffset(fusoOrigem)
+  let diff = getOffset(fusoDestino) - getOffset(fusoOrigem)
+  if (Math.abs(diff) < 0.01) diff = 0
   const sign = diff >= 0 ? '+' : ''
   return { horaOrigem, horaDestino, diferenca: `${sign}${diff.toFixed(1)}h` }
 }

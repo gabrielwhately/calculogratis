@@ -9,7 +9,7 @@
  *   ./github-safe.js pr create --title "Title" --body "Complex body"
  */
 
-import { execSync } from 'child_process';
+import { spawnSync } from 'child_process';
 import { writeFileSync, unlinkSync } from 'fs';
 import { tmpdir } from 'os';
 import { join } from 'path';
@@ -76,11 +76,10 @@ if ((command === 'issue' || command === 'pr') &&
         newArgs[bodyIndex + 1] = tmpFile;
       }
       
-      // Execute safely
-      const ghCommand = `gh ${command} ${subcommand} ${newArgs.join(' ')}`;
-      console.log(`Executing: ${ghCommand}`);
+      // Execute safely using spawnSync (no shell interpretation)
+      console.log(`Executing: gh ${command} ${subcommand} ${newArgs.join(' ')}`);
       
-      const result = execSync(ghCommand, { 
+      spawnSync('gh', [command, subcommand, ...newArgs], { 
         stdio: 'inherit',
         timeout: 30000 // 30 second timeout
       });
@@ -97,10 +96,10 @@ if ((command === 'issue' || command === 'pr') &&
       }
     }
   } else {
-    // No body content, execute normally
-    execSync(`gh ${args.join(' ')}`, { stdio: 'inherit' });
+    // No body content, execute normally using spawnSync
+    spawnSync('gh', args, { stdio: 'inherit' });
   }
 } else {
-  // Other commands, execute normally
-  execSync(`gh ${args.join(' ')}`, { stdio: 'inherit' });
+  // Other commands, execute normally using spawnSync
+  spawnSync('gh', args, { stdio: 'inherit' });
 }

@@ -8,7 +8,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const { execSync } = require('child_process');
+const { execSync, spawnSync } = require('child_process');
 
 // Configuration
 const CONFIG = {
@@ -50,8 +50,12 @@ function getUserInfo() {
   let modelName = 'Opus 4.5';
 
   try {
-    name = execSync('git config user.name 2>/dev/null || echo "user"', { encoding: 'utf-8' }).trim();
-    gitBranch = execSync('git branch --show-current 2>/dev/null || echo ""', { encoding: 'utf-8' }).trim();
+    const nameProc = spawnSync('git', ['config', 'user.name'], { encoding: 'utf-8' });
+    name = nameProc.stdout ? nameProc.stdout.trim() : 'user';
+    if (!name) name = 'user';
+    
+    const branchProc = spawnSync('git', ['branch', '--show-current'], { encoding: 'utf-8' });
+    gitBranch = branchProc.stdout ? branchProc.stdout.trim() : '';
   } catch (e) {
     // Ignore errors
   }
@@ -172,8 +176,8 @@ function getSwarmStatus() {
   let coordinationActive = false;
 
   try {
-    const ps = execSync('ps aux 2>/dev/null | grep -c agentic-flow || echo "0"', { encoding: 'utf-8' });
-    activeAgents = Math.max(0, parseInt(ps.trim()) - 1);
+    const ps = spawnSync('sh', ['-c', 'ps aux 2>/dev/null | grep -c agentic-flow || echo "0"'], { encoding: 'utf-8' });
+    activeAgents = Math.max(0, parseInt(ps.stdout.trim()) - 1);
     coordinationActive = activeAgents > 0;
   } catch (e) {
     // Ignore errors
@@ -192,8 +196,8 @@ function getSystemMetrics() {
   let subAgents = 0;
 
   try {
-    const mem = execSync('ps aux | grep -E "(node|agentic|claude)" | grep -v grep | awk \'{sum += \$6} END {print int(sum/1024)}\'', { encoding: 'utf-8' });
-    memoryMB = parseInt(mem.trim()) || 0;
+    const mem = spawnSync('sh', ['-c', 'ps aux | grep -E "(node|agentic|claude)" | grep -v grep | awk \'{sum += $6} END {print int(sum/1024)}\''], { encoding: 'utf-8' });
+    memoryMB = parseInt(mem.stdout.trim()) || 0;
   } catch (e) {
     // Fallback
     memoryMB = Math.floor(process.memoryUsage().heapUsed / 1024 / 1024);
@@ -210,8 +214,8 @@ function getSystemMetrics() {
 
   // Count active sub-agents from process list
   try {
-    const agents = execSync('ps aux 2>/dev/null | grep -c "claude-flow.*agent" || echo "0"', { encoding: 'utf-8' });
-    subAgents = Math.max(0, parseInt(agents.trim()) - 1);
+    const agents = spawnSync('sh', ['-c', 'ps aux 2>/dev/null | grep -c "claude-flow.*agent" || echo "0"'], { encoding: 'utf-8' });
+    subAgents = Math.max(0, parseInt(agents.stdout.trim()) - 1);
   } catch (e) {
     // Ignore
   }
