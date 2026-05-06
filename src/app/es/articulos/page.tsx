@@ -33,17 +33,33 @@ const ARTICULOS = [
   },
   {
     title: "IMC: Cómo interpretar sus resultados",
-    excerpt: "Entienda lo que su Índice de Masa Corporal dice sobre su salud y cuáles son los límites de cada categoría.",
+    excerpt: "Entienda lo que su Índice de Massa Corporal dice sobre su salud y cuáles son los límites de cada categoría.",
     date: "25 Abr 2026",
     category: "Salud",
     readTime: "3 min",
     tags: ["Salud", "IMC"]
+  },
+  {
+    title: "¿SAC o Price: Cuál es la mejor tabla de financiamiento?",
+    excerpt: "Descubra las diferencias entre los sistemas de amortización y cuál de ellos le hace pagar menos intereses a largo plazo.",
+    date: "20 Abr 2026",
+    category: "Financiero",
+    readTime: "7 min",
+    tags: ["Financiamiento", "SAC", "Price"]
+  },
+  {
+    title: "Seguro de Desempleo 2026: ¿Quién tiene derecho y cómo calcular?",
+    excerpt: "Guía actualizada sobre las nuevas reglas, plazos y valores de las cuotas del seguro de desempleo.",
+    date: "15 Abr 2026",
+    category: "Laboral",
+    readTime: "5 min",
+    tags: ["Seguro Desempleo", "Derechos"]
   }
 ]
 
 export default function ArticlesPageES() {
   return (
-    <div className="container-app py-8 space-y-8">
+    <div className="container-app py-8 space-y-12">
       <section className="text-center py-8">
         <h1 className="text-4xl font-bold text-navy dark:text-white md:text-5xl tracking-tight">
           Artículos y <span className="text-accent">Consejos</span>
@@ -53,7 +69,7 @@ export default function ArticlesPageES() {
         </p>
       </section>
 
-      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-2">
+      <div className="grid gap-8 md:grid-cols-2">
         {ARTICULOS.map((art, i) => (
           <article key={i} className="group flex flex-col bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden hover:shadow-xl hover:border-accent/30 transition-all duration-300">
             <div className="p-8">
