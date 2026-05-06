@@ -16,6 +16,7 @@ const I18N = {
     privacy: 'Privacidade',
     contact: 'Contato',
     request: 'Sugerir Calculadora',
+    articles: 'Artigos e Dicas',
     copy: BRAND_DOMAIN,
   },
   es: {
@@ -26,6 +27,7 @@ const I18N = {
     privacy: 'Privacidad',
     contact: 'Contacto',
     request: 'Sugerir Calculadora',
+    articles: 'Artículos y Consejos',
     copy: BRAND_DOMAIN,
   }
 }
@@ -80,6 +82,11 @@ export function Footer() {
               {t.links}
             </h4>
             <ul className="mt-4 space-y-2">
+              <li>
+                <Link href={isSpanish ? '/es/articulos' : '/artigos'} className="text-sm text-slate-600 dark:text-slate-400 hover:text-accent transition-colors font-semibold text-accent">
+                  {t.articles}
+                </Link>
+              </li>
               <li>
                 <Link href={`${prefix}/busca`} className="text-sm text-slate-600 dark:text-slate-400 hover:text-accent transition-colors">
                   {isSpanish ? 'Buscar' : 'Busca'}

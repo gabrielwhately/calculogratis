@@ -1,0 +1,113 @@
+{
+  "vulnerabilities": [
+    {
+      "severity": "high",
+      "file": ".claude/helpers/github-safe.js",
+      "line": 80,
+      "type": "Command Injection",
+      "description": "User-controlled arguments are joined into a shell command without proper escaping. The pattern newArgs.join(' ') can be exploited with shell metacharacters (;, |, &&, $(), etc.).",
+      "vulnerable_code": "const ghCommand = `gh ${command} ${subcommand} ${newArgs.join(' ')}`;",
+      "risk": "Remote Code Execution (RCE) on the developer's machine",
+      "mitigation": "Use execFileSync instead of execSync; use array arguments instead of string interpolation"
+    },
+    {
+      "severity": "high",
+      "file": ".claude/helpers/github-safe.js",
+      "line": 101,
+      "type": "Command Injection",
+      "description": "Direct use of args without escaping in fallback execSync call.",
+      "vulnerable_code": "execSync(`gh ${args.join(' ')}`, { stdio: 'inherit' });",
+      "risk": "Remote Code Execution (RCE)",
+      "mitigation": "Use execFileSync with array arguments"
+    },
+    {
+      "severity": "high",
+      "file": ".claude/helpers/github-safe.js",
+      "line": 105,
+      "type": "Command Injection",
+      "description": "Same vulnerability as line 101 in the else branch.",
+      "vulnerable_code": "execSync(`gh ${args.join(' ')}`, { stdio: 'inherit' });",
+      "risk": "Remote Code Execution (RCE)",
+      "mitigation": "Use execFileSync with array arguments"
+    },
+    {
+      "severity": "medium",
+      "file": ".claude/helpers/statusline.js",
+      "line": 53,
+      "type": "Unsafe Command Execution",
+      "description": "Uses execSync with hardcoded shell command. If git repository contains malicious config, could be exploited.",
+      "vulnerable_code": "name = execSync('git config user.name 2>/dev/null || echo \"user\"', { encoding: 'utf-8' }).trim();",
+      "risk": "Potential code execution if git config is malicious",
+      "mitigation": "Use execFileSync: execFileSync('git', ['config', 'user.name'])"
+    },
+    {
+      "severity": "medium",
+      "file": ".claude/helpers/statusline.js",
+      "line": 54,
+      "type": "Unsafe Command Execution",
+      "description": "Same as line 53 for git branch command.",
+      "vulnerable_code": "gitBranch = execSync('git branch --show-current 2>/dev/null || echo \"\"', { encoding: 'utf-8' }).trim();",
+      "risk": "Potential code execution if git config is malicious",
+      "mitigation": "Use execFileSync: execFileSync('git', ['branch', '--show-current'])"
+    },
+    {
+      "severity": "low",
+      "file": ".claude/helpers/memory.js",
+      "line": 43,
+      "type": "Insufficient Input Validation",
+      "description": "The set command accepts arbitrary keys without validation. Attacker could pollute memory namespace.",
+      "risk": "Data integrity issues in local memory storage",
+      "mitigation": "Implement whitelist of allowed keys or validate key format"
+    },
+    {
+      "severity": "low",
+      "file": ".claude/helpers/session.js",
+      "line": 96,
+      "type": "Insufficient Input Validation",
+      "description": "The update command accepts arbitrary keys without validation.",
+      "risk": "Session context pollution",
+      "mitigation": "Validate key format or implement whitelist of allowed keys"
+    }
+  ],
+  "summary": {
+    "total_vulnerabilities": 7,
+    "critical": 0,
+    "high": 3,
+    "medium": 2,
+    "low": 2,
+    "riskScore": 62
+  },
+  "findings": {
+    "hardcoded_secrets": "PASS - No hardcoded API keys, passwords, or credentials found",
+    "sql_injection": "PASS - No SQL operations found (static SSG application)",
+    "xss_vulnerabilities": "PASS - Safe use of React/Next.js with proper input handling",
+    "authentication": "PASS - No authentication system; calculator-only application",
+    "dependencies": "MONITOR - Next.js 14.2.35 should be monitored; run npm audit regularly",
+    "command_injection": "FAIL - Critical vulnerabilities in .claude/helpers/ scripts",
+    "input_validation": "LOW - Limited to local files, minimal impact"
+  },
+  "recommendations": [
+    {
+      "priority": 1,
+      "action": "Fix command injection in github-safe.js",
+      "impact": "CRITICAL"
+    },
+    {
+      "priority": 2,
+      "action": "Fix unsafe execSync in statusline.js",
+      "impact": "HIGH"
+    },
+    {
+      "priority": 3,
+      "action": "Add input validation to memory.js and session.js",
+      "impact": "MEDIUM"
+    },
+    {
+      "priority": 4,
+      "action": "Run npm audit and fix dependency vulnerabilities",
+      "impact": "MEDIUM"
+    }
+  ],
+  "audit_date": "2026-05-06",
+  "app_type": "Next.js Static Site Generator - Calculator Application"
+}
