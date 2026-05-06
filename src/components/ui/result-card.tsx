@@ -61,7 +61,16 @@ export function ResultCard({ title, mainValue, mainLabel, items, visible, childr
   if (!visible) return null
 
   const getResultText = () => {
-    return `${title}\n${mainLabel}: ${mainValue}\n\n${items?.map(i => `${i.label}: ${i.value}`).join('\n')}\n\n${t.calculatedAt} ${BRAND_URL}`
+    const emoji = '📊'
+    const footer = isSpanish 
+      ? `Simula el tuyo en: ${BRAND_URL}` 
+      : `Simule o seu em: ${BRAND_URL}`
+    
+    const itemsText = items && items.length > 0 
+      ? `\n${items.map(i => `• ${i.label}: ${i.value}`).join('\n')}`
+      : ''
+
+    return `${emoji} *${title}*\n\n${mainLabel}: *${mainValue}*${itemsText}\n\n${footer}`
   }
 
   const handleCopy = () => {
@@ -149,6 +158,14 @@ export function ResultCard({ title, mainValue, mainLabel, items, visible, childr
           ))}
         </div>
       )}
+      
+      {/* Viral loop */}
+      <div className="mt-6 pt-4 border-t border-white/10 text-center print:hidden">
+        <p className="text-xs text-slate-400">
+          {isSpanish ? '¿Te gustó? Ayuda a um amigo compartiendo este resultado.' : 'Gostou? Ajude um amigo compartilhando este resultado.'}
+        </p>
+      </div>
+
       {children}
       
       {/* Branded print footer */}

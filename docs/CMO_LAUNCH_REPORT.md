@@ -16,7 +16,9 @@ Calculo Gratis is 100% technically and marketing-ready for production launch. Al
 - **Accessibility**: 100% semantic HTML and WCAG AA contrast compliance verified by the UX audit.
 
 ## 3. Growth & Viral Features
-- **Social Sharing**: One-click WhatsApp sharing and Result Copy features implemented in all calculator forms.
+- **Social Sharing**: Optimized WhatsApp sharing with emojis and better formatting.
+- **Viral Loop**: Implemented "Help a friend" call-to-action on all result cards to drive organic sharing.
+- **Social Media Assets**: Created `docs/SOCIAL_MEDIA_TEMPLATES.md` for TikTok/Reels content creation.
 - **Embed Widgets**: Lightweight `/embed` routes created for all tools, enabling partners to host our calculators.
 - **Newsletter**: Lead capture system integrated on the home page for user retention.
 - **Branded Print**: Customized headers/footers for all print outputs ensure brand recall even on offline/PDF usage.
