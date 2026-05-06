@@ -1,0 +1,56 @@
+{
+  "campaigns": [
+    {
+      "name": "Labor_PT_Search",
+      "budget_daily": "50.00",
+      "target_cpa": "2.00",
+      "ad_groups": [
+        {
+          "name": "Rescisao",
+          "keywords": [
+            "calculadora rescisão",
+            "cálculo trabalhista",
+            "direitos rescisão",
+            "simulador rescisão 2026"
+          ],
+          "headlines": [
+            "Calculadora de Rescisão 2026",
+            "Calcule seus Direitos Grátis",
+            "Simulador de Rescisão Online"
+          ],
+          "descriptions": [
+            "Saiba exatamente quanto você deve receber na sua saída. 100% grátis e atualizado com as regras de 2026.",
+            "Cálculo instantâneo de FGTS, multa de 40%, aviso prévio e férias proporcionais. Sem cadastro."
+          ],
+          "final_url": "https://calculo.gratis/trabalhista/rescisao"
+        }
+      ]
+    },
+    {
+      "name": "Financial_PT_Search",
+      "budget_daily": "30.00",
+      "target_cpa": "1.50",
+      "ad_groups": [
+        {
+          "name": "JurosCompostos",
+          "keywords": [
+            "simulador juros compostos",
+            "calculadora investimentos",
+            "quanto rende meu dinheiro",
+            "juros sobre juros simulador"
+          ],
+          "headlines": [
+            "Simulador de Juros Compostos",
+            "Planeje sua Independência",
+            "Calculadora de Investimentos"
+          ],
+          "descriptions": [
+            "Veja o poder do tempo sobre o seu dinheiro. Simule aportes mensais e taxas de rentabilidade grátis.",
+            "Compare diferentes cenários de investimento e descubra como alcançar seus objetivos financeiros."
+          ],
+          "final_url": "https://calculo.gratis/financeiro/juros-compostos"
+        }
+      ]
+    }
+  ]
+}
