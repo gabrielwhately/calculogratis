@@ -141,6 +141,9 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Newsletter */}
+      <Newsletter />
+
       {/* All calculators */}
       <section>
         <h2 className="text-lg font-bold text-navy dark:text-white mb-4 flex items-center gap-2">
@@ -164,5 +167,8 @@ export default function Home() {
         </div>
       </section>
     </div>
+  )
+}
+</div>
   )
 }

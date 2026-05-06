@@ -1,0 +1,24 @@
+{
+  "kind": "request_confirmation",
+  "idempotencyKey": "confirmation:61cf9b5f-a9a6-4f20-988b-a31459058913:plan:633160d9-7193-45d3-b273-041da0bec805",
+  "title": "Aprovação do Plano de Conteúdo e SEO",
+  "continuationPolicy": "wake_assignee",
+  "payload": {
+    "version": 1,
+    "prompt": "Aceita este plano de revisão?",
+    "acceptLabel": "Aceitar plano",
+    "rejectLabel": "Solicitar alterações",
+    "rejectRequiresReason": true,
+    "rejectReasonLabel": "O que precisa mudar?",
+    "detailsMarkdown": "Revise o documento de plano atualizado com as melhorias de acentuação e SEO antes de aceitar.",
+    "supersedeOnUserComment": true,
+    "target": {
+      "type": "issue_document",
+      "issueId": "61cf9b5f-a9a6-4f20-988b-a31459058913",
+      "documentId": "84d07b19-903b-45e9-9c2e-7d3e06efce6c",
+      "key": "plan",
+      "revisionId": "633160d9-7193-45d3-b273-041da0bec805",
+      "revisionNumber": 1
+    }
+  }
+}
