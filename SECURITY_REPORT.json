@@ -1,0 +1,116 @@
+{
+  "vulnerabilities": [
+    {
+      "severity": "high",
+      "file": ".claude/helpers/github-safe.js",
+      "line": 80,
+      "description": "Command Injection vulnerability: User-controlled arguments are concatenated directly into a shell command passed to execSync without proper escaping. The 'newArgs.join(' ')' on line 80 allows injection of shell metacharacters. An attacker could inject arbitrary shell commands through the command/subcommand parameters.",
+      "cwe": "CWE-78",
+      "recommendation": "Use array form of execSync instead of shell string, or properly escape shell arguments using a library like 'shell-escape'"
+    },
+    {
+      "severity": "high",
+      "file": ".claude/helpers/github-safe.js",
+      "line": 101,
+      "description": "Command Injection vulnerability: Similar issue at line 101 where args are joined without escaping before being passed to execSync: execSync(`gh ${args.join(' ')}`, ...)",
+      "cwe": "CWE-78",
+      "recommendation": "Use the array form of execSync: execSync(['gh', ...args]) instead of template literals with string concatenation"
+    },
+    {
+      "severity": "medium",
+      "file": ".claude/helpers/github-safe.js",
+      "line": 105,
+      "description": "Command Injection vulnerability: Line 105 also constructs a shell command string without proper escaping: execSync(`gh ${args.join(' ')}`, ...)",
+      "cwe": "CWE-78",
+      "recommendation": "Use execSync with array arguments for safer command execution"
+    },
+    {
+      "severity": "medium",
+      "file": ".claude/helpers/statusline.js",
+      "line": 53,
+      "description": "Potential command injection risk: execSync with shell command string. While the git config commands are internal and not user-controlled, the pattern of using shell strings with execSync is risky. Using stderr redirection (2>/dev/null) suggests awareness of output handling but the fundamental approach is still vulnerable.",
+      "cwe": "CWE-78",
+      "recommendation": "Use child_process.execFileSync or execSync with array arguments instead of shell strings"
+    }
+  ],
+  "riskScore": 35,
+  "categoryBreakdown": {
+    "command_injection": 3,
+    "hardcoded_secrets": 0,
+    "sql_injection": 0,
+    "xss": 0,
+    "insecure_dependencies": 0,
+    "authentication": 0
+  },
+  "findings": {
+    "hardcoded_secrets": {
+      "status": "PASS",
+      "details": "No hardcoded API keys, passwords, or credentials found in source code. No .env files detected in repository."
+    },
+    "sql_injection": {
+      "status": "PASS",
+      "details": "No SQL queries or database interactions found in the provided source code. Application is a static calculator site with no backend database."
+    },
+    "xss_vulnerabilities": {
+      "status": "PASS",
+      "details": "No dangerouslySetInnerHTML, eval, or innerHTML patterns detected. React/Next.js components properly escape user input by default."
+    },
+    "insecure_dependencies": {
+      "status": "PASS",
+      "details": "All dependencies in package.json appear legitimate and well-maintained. No obviously vulnerable packages detected. Latest available versions recommended for next update cycle."
+    },
+    "authentication_authorization": {
+      "status": "PASS",
+      "details": "No authentication or authorization systems implemented. Application is a public calculator with no user accounts or protected resources."
+    }
+  },
+  "recommendations": [
+    {
+      "priority": "CRITICAL",
+      "action": "Fix command injection in github-safe.js",
+      "details": "Replace all execSync shell string patterns with array-based arguments. Do not use shell=true or string templates. Example: Use execFileSync('gh', [command, subcommand, ...newArgs]) instead of execSync(`gh ${command} ${subcommand} ...`)"
+    },
+    {
+      "priority": "HIGH",
+      "action": "Add input validation and sanitization",
+      "details": "Even with array-based execSync, validate that command and subcommand match whitelisted values to prevent unexpected execution paths."
+    },
+    {
+      "priority": "MEDIUM",
+      "action": "Refactor helper scripts",
+      "details": "Consider using existing libraries (gh CLI directly, or npm gh package) instead of shell execution where possible."
+    },
+    {
+      "priority": "MEDIUM",
+      "action": "Dependencies update",
+      "details": "Plan regular updates for Next.js, React, and other dependencies. Current versions are from early 2024."
+    },
+    {
+      "priority": "LOW",
+      "action": "CSP Headers",
+      "details": "Implement Content Security Policy headers in next.config.js to provide defense-in-depth against any potential XSS issues."
+    },
+    {
+      "priority": "LOW",
+      "action": "HTTPS enforcement",
+      "details": "Ensure domain migration to calculo.gratis enforces HTTPS and implements HSTS headers."
+    }
+  ],
+  "secure_patterns_found": [
+    "No eval() usage",
+    "No dynamic require()",
+    "Proper use of Next.js Link component (prevents open redirect)",
+    "File-based storage with proper path joining (prevents directory traversal)",
+    "Proper HTML escaping through React/JSX",
+    "No inline event handlers with user input",
+    "Static site generation (reduced attack surface)"
+  ],
+  "summary": {
+    "total_vulnerabilities": 3,
+    "critical": 0,
+    "high": 2,
+    "medium": 2,
+    "low": 0,
+    "overall_assessment": "The main application code is secure. Security risks are isolated to helper scripts in the .claude directory which use unsafe command execution patterns. These helpers appear to be development/build tools rather than production code, but should still be fixed. The calculator application itself follows secure coding practices for a static site with no backend or user authentication."
+  }
+}

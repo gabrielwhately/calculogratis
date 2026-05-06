@@ -121,37 +121,37 @@ export function RendimentoCDBForm() {
         ] : []} 
       >
         {result && (
-          <div className="mt-6 border-t border-white/10 pt-6">
-            <h4 className="mb-4 text-sm font-medium text-slate-300">{t.chartTitle}</h4>
+          <div className="mt-6 border-t border-white/10 print:border-navy/10 pt-6">
+            <h4 className="mb-4 text-sm font-medium text-slate-300 print:text-navy">{t.chartTitle}</h4>
             <div className="h-6 w-full flex rounded-full overflow-hidden bg-white/5 border border-white/10">
               <div 
-                className="h-full bg-blue-600 transition-all duration-1000" 
+                className="h-full bg-blue-600 print:bg-blue-600 transition-all duration-1000" 
                 style={{ width: `${(result.valorInicial / (result.valorInicial + result.rendimentoBruto)) * 100}%` }}
                 title={`${t.itemValorInvestido}: ${formatCurrency(result.valorInicial)}`}
               />
               <div 
-                className="h-full bg-green-500 transition-all duration-1000 border-l border-white/10" 
+                className="h-full bg-green-500 print:bg-green-300 transition-all duration-1000 border-l border-white/10" 
                 style={{ width: `${(result.rendimentoLiquido / (result.valorInicial + result.rendimentoBruto)) * 100}%` }}
                 title={`${t.itemRendimentoLiquido}: ${formatCurrency(result.rendimentoLiquido)}`}
               />
               <div 
-                className="h-full bg-red-400 transition-all duration-1000 border-l border-white/10" 
+                className="h-full bg-red-400 print:bg-red-200 transition-all duration-1000 border-l border-white/10" 
                 style={{ width: `${(result.ir / (result.valorInicial + result.rendimentoBruto)) * 100}%` }}
                 title={`${t.itemIR}: ${formatCurrency(result.ir)}`}
               />
             </div>
             <div className="mt-4 grid grid-cols-2 gap-y-2 gap-x-4 text-[10px]">
               <div className="flex items-center gap-1.5">
-                <div className="h-2 w-2 rounded-full bg-blue-600" />
-                <span className="text-slate-400">{t.itemValorInvestido}</span>
+                <div className="h-2 w-2 rounded-full bg-blue-600 print:bg-blue-600" />
+                <span className="text-slate-400 print:text-slate-600">{t.itemValorInvestido}</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <div className="h-2 w-2 rounded-full bg-green-500" />
-                <span className="text-slate-400">{t.itemRendimentoLiquido}</span>
+                <div className="h-2 w-2 rounded-full bg-green-500 print:bg-green-300" />
+                <span className="text-slate-400 print:text-slate-600">{t.itemRendimentoLiquido}</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <div className="h-2 w-2 rounded-full bg-red-400" />
-                <span className="text-slate-400">{t.itemIR}</span>
+                <div className="h-2 w-2 rounded-full bg-red-400 print:bg-red-200" />
+                <span className="text-slate-400 print:text-slate-600">{t.itemIR}</span>
               </div>
             </div>
           </div>

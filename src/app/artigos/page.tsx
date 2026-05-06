@@ -1,29 +1,28 @@
-import Link from 'next/link'
-import { BRAND_NAME } from '@/lib/constants/branding'
+import Link from "next/link"
 
 export const metadata = {
-  title: 'Artigos e Dicas Financeiras',
-  description: 'Aprenda a cuidar do seu dinheiro com nossos guias sobre rescisão, investimentos, impostos e muito mais.',
+  title: "Artigos e Dicas Financeiras",
+  description: "Aprenda a cuidar do seu dinheiro com nossos guias sobre rescisão, investimentos, impostos e muito mais.",
 }
 
 const ARTIGOS = [
   {
-    title: 'Como calcular sua rescisão em 2026',
-    excerpt: 'Guia completo sobre verbas rescisórias, aviso prévio e multa do FGTS.',
-    date: '04 Mai 2026',
-    category: 'Trabalhista'
+    title: "Como calcular sua rescisão em 2026",
+    excerpt: "Guia completo sobre verbas rescisórias, aviso prévio e multa do FGTS.",
+    date: "04 Mai 2026",
+    category: "Trabalhista"
   },
   {
-    title: 'Juros Compostos: O segredo da riqueza',
-    excerpt: 'Entenda como o tempo trabalha a seu favor nos investimentos.',
-    date: '02 Mai 2026',
-    category: 'Financeiro'
+    title: "Juros Compostos: O segredo da riqueza",
+    excerpt: "Entenda como o tempo trabalha a seu favor nos investimentos.",
+    date: "02 Mai 2026",
+    category: "Financeiro"
   },
   {
-    title: 'Guia do Salário Líquido: Para onde vai seu dinheiro?',
-    excerpt: 'Tudo sobre descontos de INSS e IRRF na folha de pagamento.',
-    date: '28 Abr 2026',
-    category: 'Trabalhista'
+    title: "Guia do Salário Líquido: Para onde vai seu dinheiro?",
+    excerpt: "Tudo sobre descontos de INSS e IRRF na folha de pagamento.",
+    date: "28 Abr 2026",
+    category: "Trabalhista"
   }
 ]
 

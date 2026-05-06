@@ -1,5 +1,6 @@
-import Link from 'next/link'
-import { CATEGORIAS, CALCULADORAS } from '@/lib/constants/calculadoras'
+import Link from "next/link"
+import { CATEGORIAS, CALCULADORAS } from "@/lib/constants/calculadoras"
+import { Newsletter } from "@/components/layout/newsletter"
 
 const CATEGORY_ICONS: Record<string, React.ReactNode> = {
   briefcase: (
@@ -15,7 +16,7 @@ const CATEGORY_ICONS: Record<string, React.ReactNode> = {
       <path strokeLinecap="round" d="M6 7v10M18 7v10" />
     </svg>
   ),
-  'shield-check': (
+  "shield-check": (
     <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8} aria-hidden="true">
       <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
     </svg>
@@ -49,24 +50,22 @@ const CATEGORY_ICONS: Record<string, React.ReactNode> = {
 }
 
 const CATEGORY_COLORS: Record<string, { bg: string; icon: string; border: string }> = {
-  blue:   { bg: 'bg-blue-50 dark:bg-blue-500/10',   icon: 'text-blue-600 dark:text-blue-400',   border: 'border-blue-100 hover:border-blue-300 dark:border-blue-500/20 dark:hover:border-blue-500/50' },
-  green:  { bg: 'bg-green-50 dark:bg-green-500/10',  icon: 'text-green-600 dark:text-green-400',  border: 'border-green-100 hover:border-green-300 dark:border-green-500/20 dark:hover:border-green-500/50' },
-  purple: { bg: 'bg-purple-50 dark:bg-purple-500/10', icon: 'text-purple-600 dark:text-purple-400', border: 'border-purple-100 hover:border-purple-300 dark:border-purple-500/20 dark:hover:border-purple-500/50' },
-  red:    { bg: 'bg-red-50 dark:bg-red-500/10',    icon: 'text-red-600 dark:text-red-400',    border: 'border-red-100 hover:border-red-300 dark:border-red-500/20 dark:hover:border-red-500/50' },
-  indigo: { bg: 'bg-indigo-50 dark:bg-indigo-500/10', icon: 'text-indigo-600 dark:text-indigo-400', border: 'border-indigo-100 hover:border-indigo-300 dark:border-indigo-500/20 dark:hover:border-indigo-500/50' },
-  amber:  { bg: 'bg-amber-50 dark:bg-amber-500/10',  icon: 'text-amber-600 dark:text-amber-400',  border: 'border-amber-100 hover:border-amber-300 dark:border-amber-500/20 dark:hover:border-amber-500/50' },
-  teal:   { bg: 'bg-teal-50 dark:bg-teal-500/10',   icon: 'text-teal-600 dark:text-teal-400',   border: 'border-teal-100 hover:border-teal-300 dark:border-teal-500/20 dark:hover:border-teal-500/50' },
-  orange: { bg: 'bg-orange-50 dark:bg-orange-500/10', icon: 'text-orange-600 dark:text-orange-400', border: 'border-orange-100 hover:border-orange-300 dark:border-orange-500/20 dark:hover:border-orange-500/50' },
+  blue:   { bg: "bg-blue-50 dark:bg-blue-500/10",   icon: "text-blue-600 dark:text-blue-400",   border: "border-blue-100 hover:border-blue-300 dark:border-blue-500/20 dark:hover:border-blue-500/50" },
+  green:  { bg: "bg-green-50 dark:bg-green-500/10",  icon: "text-green-600 dark:text-green-400",  border: "border-green-100 hover:border-green-300 dark:border-green-500/20 dark:hover:border-green-500/50" },
+  purple: { bg: "bg-purple-50 dark:bg-purple-500/10", icon: "text-purple-600 dark:text-purple-400", border: "border-purple-100 hover:border-purple-300 dark:border-purple-500/20 dark:hover:border-purple-500/50" },
+  red:    { bg: "bg-red-50 dark:bg-red-500/10",    icon: "text-red-600 dark:text-red-400",    border: "border-red-100 hover:border-red-300 dark:border-red-500/20 dark:hover:border-red-500/50" },
+  indigo: { bg: "bg-indigo-50 dark:bg-indigo-500/10", icon: "text-indigo-600 dark:text-indigo-400", border: "border-indigo-100 hover:border-indigo-300 dark:border-indigo-500/20 dark:hover:border-indigo-500/50" },
+  amber:  { bg: "bg-amber-50 dark:bg-amber-500/10",  icon: "text-amber-600 dark:text-amber-400",  border: "border-amber-100 hover:border-amber-300 dark:border-amber-500/20 dark:hover:border-amber-500/50" },
+  teal:   { bg: "bg-teal-50 dark:bg-teal-500/10",   icon: "text-teal-600 dark:text-teal-400",   border: "border-teal-100 hover:border-teal-300 dark:border-teal-500/20 dark:hover:border-teal-500/50" },
+  orange: { bg: "bg-orange-50 dark:bg-orange-500/10", icon: "text-orange-600 dark:text-orange-400", border: "border-orange-100 hover:border-orange-300 dark:border-orange-500/20 dark:hover:border-orange-500/50" },
 }
 
-const POPULARES = new Set(['rescisao', 'salario-liquido', 'juros-compostos', 'financiamento', 'imc', 'hora-extra'])
+const POPULARES = new Set(["rescisao", "salario-liquido", "juros-compostos", "financiamento", "imc", "hora-extra"])
 const calculadorasPopulares = CALCULADORAS.filter(c => POPULARES.has(c.slug))
 
 export default function Home() {
-
   return (
     <div className="container-app py-8 space-y-12">
-      {/* Hero */}
       <section className="text-center py-4">
         <div className="inline-flex items-center gap-2 bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400 text-xs font-semibold px-3 py-1 rounded-full mb-4">
           <svg className="h-3 w-3" fill="currentColor" viewBox="0 0 8 8"><circle cx="4" cy="4" r="3"/></svg>
@@ -80,7 +79,6 @@ export default function Home() {
         </p>
       </section>
 
-      {/* Categories */}
       <section id="categorias">
         <h2 className="text-lg font-bold text-navy dark:text-white mb-4 flex items-center gap-2">
           <svg className="h-4 w-4 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -112,7 +110,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Popular */}
       <section>
         <h2 className="text-lg font-bold text-navy dark:text-white mb-4 flex items-center gap-2">
           <svg className="h-4 w-4 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -141,10 +138,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Newsletter */}
       <Newsletter />
 
-      {/* All calculators */}
       <section>
         <h2 className="text-lg font-bold text-navy dark:text-white mb-4 flex items-center gap-2">
           <svg className="h-4 w-4 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -167,8 +162,5 @@ export default function Home() {
         </div>
       </section>
     </div>
-  )
-}
-</div>
   )
 }

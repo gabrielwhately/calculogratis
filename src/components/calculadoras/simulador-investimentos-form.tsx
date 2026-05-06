@@ -132,8 +132,8 @@ export function SimuladorInvestimentosForm() {
         ] : []}
       >
         {result && result.evolucao.length > 0 && (
-          <div className="mt-6 border-t border-white/10 pt-6">
-            <h4 className="mb-4 text-sm font-medium text-slate-300">{t.chartTitle}</h4>
+          <div className="mt-6 border-t border-white/10 print:border-navy/10 pt-6">
+            <h4 className="mb-4 text-sm font-medium text-slate-300 print:text-navy">{t.chartTitle}</h4>
             <div className="flex h-40 items-end gap-1 px-1" tabIndex={0} role="img" aria-label={t.chartTitle}>
               {result.evolucao.filter((_, i) => {
                 const total = result.evolucao.length
@@ -156,27 +156,27 @@ export function SimuladorInvestimentosForm() {
 
                     <div className="flex w-full flex-col-reverse items-center h-28 relative">
                        <div 
-                        className="w-full bg-blue-500 rounded-t-sm group-hover:bg-blue-400 transition-colors" 
+                        className="w-full bg-blue-500 print:bg-blue-300 rounded-t-sm group-hover:bg-blue-400 transition-colors" 
                         style={{ height: `${totalHeight}%` }}
                       />
                       <div 
-                        className="absolute bottom-0 w-full bg-blue-700 rounded-t-sm z-10 pointer-events-none" 
+                        className="absolute bottom-0 w-full bg-blue-700 print:bg-blue-600 rounded-t-sm z-10 pointer-events-none" 
                         style={{ height: `${investedHeight}%` }}
                       />
                     </div>
-                    <span className="mt-2 text-[8px] text-slate-500 font-mono">{m.mes}</span>
+                    <span className="mt-2 text-[8px] text-slate-500 print:text-navy font-mono">{m.mes}</span>
                   </div>
                 )
               })}
             </div>
-            <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-[10px] border-t border-white/5 pt-4">
+            <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-[10px] border-t border-white/5 print:border-navy/5 pt-4">
               <div className="flex items-center gap-1.5">
-                <div className="h-3 w-3 rounded bg-blue-700" />
-                <span className="text-slate-400">{t.chartLegendInvested}</span>
+                <div className="h-3 w-3 rounded bg-blue-700 print:bg-blue-600" />
+                <span className="text-slate-400 print:text-slate-600">{t.chartLegendInvested}</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <div className="h-3 w-3 rounded bg-blue-500" />
-                <span className="text-slate-400">{t.chartLegendJuros}</span>
+                <div className="h-3 w-3 rounded bg-blue-500 print:bg-blue-300" />
+                <span className="text-slate-400 print:text-slate-600">{t.chartLegendJuros}</span>
               </div>
             </div>
           </div>

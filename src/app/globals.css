@@ -18,3 +18,10 @@
     @apply mx-auto max-w-3xl px-4;
   }
 }
+
+@media print {
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
