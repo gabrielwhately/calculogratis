@@ -23,7 +23,7 @@ const I18N = {
     description: 'La mayor plataforma de calculadoras y simuladores online 100% gratis. Resultados precisos e instantáneos según la legislación actualizada.',
     popular: 'Populares',
     links: 'Enlaces Útiles',
-    terms: 'Términos de Uso',
+    terms: 'Condiciones de Uso',
     privacy: 'Privacidad',
     contact: 'Contacto',
     request: 'Sugerir Calculadora',
@@ -99,7 +99,7 @@ export function Footer() {
               </li>
               <li>
                 <Link href={`${prefix}/historico`} className="text-sm text-slate-600 dark:text-slate-400 hover:text-accent transition-colors">
-                  {isSpanish ? 'Historial de Cálculos' : 'Histórico de Cálculos'}
+                  {isSpanish ? 'Historial' : 'Histórico'}
                 </Link>
               </li>
               <li>
@@ -116,10 +116,14 @@ export function Footer() {
             </h4>
             <ul className="mt-4 space-y-2">
               <li>
-                <span className="text-sm text-slate-400 cursor-not-allowed">{t.terms}</span>
+                <Link href={isSpanish ? '/es/condiciones' : '/termos'} className="text-sm text-slate-600 dark:text-slate-400 hover:text-accent transition-colors">
+                  {t.terms}
+                </Link>
               </li>
               <li>
-                <span className="text-sm text-slate-400 cursor-not-allowed">{t.privacy}</span>
+                <Link href={isSpanish ? '/es/privacidad' : '/privacidade'} className="text-sm text-slate-600 dark:text-slate-400 hover:text-accent transition-colors">
+                  {t.privacy}
+                </Link>
               </li>
             </ul>
           </div>
