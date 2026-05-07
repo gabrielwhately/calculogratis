@@ -2,12 +2,12 @@
 
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, Suspense } from 'react'
 import { getCalculadora } from '@/lib/constants/calculadoras'
 import { CALCULADORAS_ES } from '@/lib/i18n/calculadoras-es'
 import { BRAND_URL } from '@/lib/constants/branding'
 
-export default function WidgetConfigSpanishPage() {
+function WidgetConfigSpanishContent() {
   const searchParams = useSearchParams()
   const slug = searchParams.get('slug') || 'rescisao'
   const calculadora = getCalculadora(slug)
@@ -77,7 +77,7 @@ export default function WidgetConfigSpanishPage() {
 
           <section className="bg-slate-900 p-6 rounded-2xl shadow-xl text-slate-300">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-sm font-bold uppercase tracking-wider text-slate-500">Código de Integración</h2>
+              <h2 className="text-sm font-bold uppercase tracking-wider text-slate-500">Código de Integração</h2>
               <button 
                 onClick={copyToClipboard}
                 className="text-xs font-bold text-accent hover:text-white transition-colors"
@@ -111,5 +111,13 @@ export default function WidgetConfigSpanishPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function WidgetConfigSpanishPage() {
+  return (
+    <Suspense fallback={<div className="container-app py-12 text-center">Cargando configurador...</div>}>
+      <WidgetConfigSpanishContent />
+    </Suspense>
   )
 }
