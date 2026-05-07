@@ -156,6 +156,36 @@ export default function HomeES() {
 
       <Newsletter />
 
+      {/* Personalization */}
+      <section className="grid gap-6 md:grid-cols-2">
+        <Link href="/es/favoritos" className="group p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 hover:border-red-200 dark:hover:border-red-900/30 transition-all shadow-sm">
+          <div className="flex items-center gap-4 mb-3">
+            <div className="p-3 rounded-xl bg-red-50 dark:bg-red-900/20 text-red-500 group-hover:scale-110 transition-transform">
+              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+              </svg>
+            </div>
+            <div>
+              <h3 className="font-bold text-navy dark:text-white group-hover:text-red-500 transition-colors">Mis Calculadoras</h3>
+              <p className="text-xs text-slate-500">Accede rápidamente a las herramientas que has marcado como favoritas.</p>
+            </div>
+          </div>
+        </Link>
+        <Link href="/es/historico" className="group p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 hover:border-blue-200 dark:hover:border-blue-900/30 transition-all shadow-sm">
+          <div className="flex items-center gap-4 mb-3">
+            <div className="p-3 rounded-xl bg-blue-50 dark:bg-blue-900/20 text-blue-500 group-hover:scale-110 transition-transform">
+              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div>
+              <h3 className="font-bold text-navy dark:text-white group-hover:text-blue-500 transition-colors">Historial de Cálculos</h3>
+              <p className="text-xs text-slate-500">Recupera los resultados de las simulaciones que has guardado.</p>
+            </div>
+          </div>
+        </Link>
+      </section>
+
       <section>
         <h2 className="text-lg font-bold text-navy dark:text-white mb-4 flex items-center gap-2">
           <svg className="h-4 w-4 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>

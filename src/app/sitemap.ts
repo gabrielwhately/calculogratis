@@ -10,6 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const ptRoutes: MetadataRoute.Sitemap = [
     { url: baseUrl, lastModified, changeFrequency: 'monthly', priority: 1 },
     { url: `${baseUrl}/artigos`, lastModified, changeFrequency: 'weekly', priority: 0.8 },
+    { url: `${baseUrl}/widgets`, lastModified, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${baseUrl}/favoritos`, lastModified, changeFrequency: 'monthly', priority: 0.5 },
     { url: `${baseUrl}/historico`, lastModified, changeFrequency: 'monthly', priority: 0.5 },
     ...CATEGORIAS.map((cat) => ({
@@ -28,6 +29,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const esRoutes: MetadataRoute.Sitemap = [
     { url: `${baseUrl}/es`, lastModified, changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${baseUrl}/es/artigos`, lastModified, changeFrequency: 'weekly', priority: 0.7 },
+    { url: `${baseUrl}/es/widgets`, lastModified, changeFrequency: 'monthly', priority: 0.6 },
     ...CATEGORIAS.map((cat) => ({
       url: `${baseUrl}/es/${CATEGORIAS_ES[cat.slug]?.slug ?? cat.slug}`,
       lastModified,
