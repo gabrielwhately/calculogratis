@@ -36,6 +36,11 @@ const I18N = {
     itemJuros: 'Total de juros',
     itemTotal: 'Total pago',
     itemUltima: 'Última parcela',
+    chartTitle: 'Evolução da Dívida',
+    chartLegendSaldo: 'Saldo Deudor',
+    chartLegendJuros: 'Juros Acumulados',
+    month: 'Mês',
+    total: 'Total',
   },
   es: {
     tabPrice: 'Tabla Price',
@@ -60,6 +65,11 @@ const I18N = {
     itemJuros: 'Total de intereses',
     itemTotal: 'Total pagado',
     itemUltima: 'Última cuota',
+    chartTitle: 'Evolución de la Deuda',
+    chartLegendSaldo: 'Saldo Deudor',
+    chartLegendJuros: 'Intereses Acumulados',
+    month: 'Mes',
+    total: 'Total',
   }
 }
 
@@ -145,7 +155,7 @@ export function FinanciamentoForm() {
           label={t.labelPrazo} 
           id="prazo" 
           value={prazo} 
-          onChange={(v) => setPrazo(v.replace(/\D/g, ''))} 
+          onChange={(v) => setPrazo(v.replace(/\\D/g, ''))} 
           inputMode="numeric" 
           placeholder={t.placeholderPrazo} 
         />
@@ -157,7 +167,7 @@ export function FinanciamentoForm() {
       <ResultCard 
         visible={result !== null} 
         title={`${t.resultTitle} ${sistema === 'price' ? 'Price' : 'SAC'}`} 
-        mainValue={result ? formatCurrency(result.parcela) : ''} 
+        mainValue={result ? formatCurrency(result.parcela) : '' } 
         mainLabel={sistema === 'price' ? t.labelParcelaFixa : t.labelParcelaInicial}
         items={result ? [
           { label: t.itemFinanciado, value: formatCurrency(result.valorFinanciado) }, 
@@ -165,7 +175,48 @@ export function FinanciamentoForm() {
           { label: t.itemTotal, value: formatCurrency(result.totalPago) },
           ...(sistema === 'sac' && result.parcelas.length > 0 ? [{ label: t.itemUltima, value: formatCurrency(result.parcelas[result.parcelas.length - 1].parcela) }] : [])
         ] : []} 
-      />
+      >
+        {result && result.parcelas.length > 0 && (
+          <div className="mt-6 border-t border-white/10 print:border-navy/10 pt-6">
+            <h4 className="mb-4 text-sm font-medium text-slate-300 print:text-navy">{t.chartTitle}</h4>
+            <div className="flex h-40 items-end gap-1 px-1" tabIndex={0} role="img" aria-label={t.chartTitle}>
+              {result.parcelas.filter((_, i) => {
+                const total = result.parcelas.length
+                const step = Math.max(1, Math.floor(total / 15))
+                return i % step === 0 || i === total - 1
+              }).map((p) => {
+                const maxVal = result.valorFinanciado
+                const saldoHeight = (p.saldoDevedor / maxVal) * 100
+                
+                return (
+                  <div key={p.numero} className="relative flex flex-1 flex-col items-center group cursor-pointer">
+                    {/* Tooltip */}
+                    <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 bg-navy-dark border border-white/20 rounded-lg p-2 text-[10px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity z-20 pointer-events-none shadow-xl">
+                      <p className="font-bold border-b border-white/10 pb-1 mb-1">{t.month} {p.numero}</p>
+                      <p className="text-blue-400">{t.chartLegendSaldo}: {formatCurrency(p.saldoDevedor)}</p>
+                      <p className="font-bold mt-1 pt-1 border-t border-white/10">Parcela: {formatCurrency(p.parcela)}</p>
+                    </div>
+
+                    <div className="flex w-full flex-col-reverse items-center h-28 relative">
+                       <div 
+                        className="w-full bg-blue-500 print:bg-blue-300 rounded-t-sm group-hover:bg-blue-400 transition-colors" 
+                        style={{ height: `${saldoHeight}%` }}
+                      />
+                    </div>
+                    <span className="mt-2 text-[8px] text-slate-500 print:text-navy font-mono">{p.numero}</span>
+                  </div>
+                )
+              })}
+            </div>
+            <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-[10px] border-t border-white/5 print:border-navy/5 pt-4">
+              <div className="flex items-center gap-1.5">
+                <div className="h-3 w-3 rounded bg-blue-500 print:bg-blue-300" />
+                <span className="text-slate-400 print:text-slate-600">{t.chartLegendSaldo}</span>
+              </div>
+            </div>
+          </div>
+        )}
+      </ResultCard>
     </>
   )
 }
