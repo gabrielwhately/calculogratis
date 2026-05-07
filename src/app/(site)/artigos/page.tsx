@@ -8,6 +8,7 @@ export const metadata: Metadata = {
 
 const ARTIGOS = [
   {
+    slug: "rescisao-2026",
     title: "Como calcular sua rescisão em 2026",
     excerpt: "Guia completo sobre verbas rescisórias, aviso prévio e multa do FGTS.",
     date: "04 Mai 2026",
@@ -16,6 +17,7 @@ const ARTIGOS = [
     tags: ["Rescisão", "FGTS", "CLT"]
   },
   {
+    slug: "juros-compostos",
     title: "Juros Compostos: O segredo da riqueza",
     excerpt: "Entenda como o tempo trabalha a seu favor nos investimentos.",
     date: "02 Mai 2026",
@@ -24,6 +26,7 @@ const ARTIGOS = [
     tags: ["Investimentos", "Juros"]
   },
   {
+    slug: "salario-liquido",
     title: "Guia do Salário Líquido: Para onde vai seu dinheiro?",
     excerpt: "Tudo sobre descontos de INSS e IRRF na folha de pagamento.",
     date: "28 Abr 2026",
@@ -32,6 +35,7 @@ const ARTIGOS = [
     tags: ["Salário", "Impostos"]
   },
   {
+    slug: "imc-saude",
     title: "IMC: Como interpretar seus resultados",
     excerpt: "Entenda o que o seu Índice de Massa Corporal diz sobre sua saúde e quais são os limites de cada categoria.",
     date: "25 Abr 2026",
@@ -40,6 +44,7 @@ const ARTIGOS = [
     tags: ["Saúde", "IMC"]
   },
   {
+    slug: "sac-vs-price",
     title: "SAC ou Price: Qual a melhor tabela de financiamento?",
     excerpt: "Descubra as diferenças entre os sistemas de amortização e qual deles faz você pagar menos juros no longo prazo.",
     date: "20 Abr 2026",
@@ -48,6 +53,7 @@ const ARTIGOS = [
     tags: ["Financiamento", "SAC", "Price"]
   },
   {
+    slug: "seguro-desemprego",
     title: "Seguro Desemprego 2026: Quem tem direito e como calcular?",
     excerpt: "Guia atualizado sobre as novas regras, prazos e valores das parcelas do seguro desemprego.",
     date: "15 Abr 2026",
@@ -96,7 +102,7 @@ export default function ArticlesPage() {
                 ))}
               </div>
 
-              <Link href="#" className="mt-auto inline-flex items-center gap-2 text-accent font-bold group-hover:translate-x-1 transition-transform">
+              <Link href={`/artigos/${art.slug}`} className="mt-auto inline-flex items-center gap-2 text-accent font-bold group-hover:translate-x-1 transition-transform">
                 Ler guia completo
                 <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />

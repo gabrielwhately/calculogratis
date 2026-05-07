@@ -156,8 +156,8 @@ export default function HomeES() {
 
       <Newsletter />
 
-      {/* Personalization */}
-      <section className="grid gap-6 md:grid-cols-2">
+      {/* Personalization & B2B */}
+      <section className="grid gap-6 md:grid-cols-3">
         <Link href="/es/favoritos" className="group p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 hover:border-red-200 dark:hover:border-red-900/30 transition-all shadow-sm">
           <div className="flex items-center gap-4 mb-3">
             <div className="p-3 rounded-xl bg-red-50 dark:bg-red-900/20 text-red-500 group-hover:scale-110 transition-transform">
@@ -167,7 +167,7 @@ export default function HomeES() {
             </div>
             <div>
               <h3 className="font-bold text-navy dark:text-white group-hover:text-red-500 transition-colors">Mis Calculadoras</h3>
-              <p className="text-xs text-slate-500">Accede rápidamente a las herramientas que has marcado como favoritas.</p>
+              <p className="text-xs text-slate-500">Herramientas que has marcado como favoritas.</p>
             </div>
           </div>
         </Link>
@@ -179,8 +179,21 @@ export default function HomeES() {
               </svg>
             </div>
             <div>
-              <h3 className="font-bold text-navy dark:text-white group-hover:text-blue-500 transition-colors">Historial de Cálculos</h3>
-              <p className="text-xs text-slate-500">Recupera los resultados de las simulaciones que has guardado.</p>
+              <h3 className="font-bold text-navy dark:text-white group-hover:text-blue-500 transition-colors">Historial</h3>
+              <p className="text-xs text-slate-500">Resultados que has guardado.</p>
+            </div>
+          </div>
+        </Link>
+        <Link href="/es/widgets" className="group p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 hover:border-accent/30 transition-all shadow-sm">
+          <div className="flex items-center gap-4 mb-3">
+            <div className="p-3 rounded-xl bg-accent/10 text-accent group-hover:scale-110 transition-transform">
+              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <div>
+              <h3 className="font-bold text-navy dark:text-white group-hover:text-accent transition-colors">Para Socios</h3>
+              <p className="text-xs text-slate-500">Calculadoras para su sitio web.</p>
             </div>
           </div>
         </Link>

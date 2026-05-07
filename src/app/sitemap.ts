@@ -13,6 +13,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/widgets`, lastModified, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${baseUrl}/favoritos`, lastModified, changeFrequency: 'monthly', priority: 0.5 },
     { url: `${baseUrl}/historico`, lastModified, changeFrequency: 'monthly', priority: 0.5 },
+    ...[
+      'rescisao-2026', 'juros-compostos', 'salario-liquido', 'imc-saude', 'sac-vs-price', 'seguro-desempleo'
+    ].map(slug => ({
+      url: `${baseUrl}/artigos/${slug}`,
+      lastModified,
+      changeFrequency: 'weekly' as const,
+      priority: 0.7
+    })),
     ...CATEGORIAS.map((cat) => ({
       url: `${baseUrl}/${cat.slug}`,
       lastModified,
@@ -31,6 +39,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/es`, lastModified, changeFrequency: 'monthly', priority: 0.9 },
     { url: `${baseUrl}/es/artigos`, lastModified, changeFrequency: 'weekly', priority: 0.7 },
     { url: `${baseUrl}/es/widgets`, lastModified, changeFrequency: 'monthly', priority: 0.6 },
+    ...[
+      'liquidacion-2026', 'interes-compuesto', 'salario-neto', 'imc-salud', 'sac-o-frances', 'seguro-desempleo'
+    ].map(slug => ({
+      url: `${baseUrl}/es/artigos/${slug}`,
+      lastModified,
+      changeFrequency: 'weekly' as const,
+      priority: 0.6
+    })),
     ...CATEGORIAS.map((cat) => ({
       url: `${baseUrl}/es/${CATEGORIAS_ES[cat.slug]?.slug ?? cat.slug}`,
       lastModified,
