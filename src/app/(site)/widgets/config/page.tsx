@@ -2,11 +2,11 @@
 
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, Suspense } from 'react'
 import { getCalculadora } from '@/lib/constants/calculadoras'
 import { BRAND_URL } from '@/lib/constants/branding'
 
-export default function WidgetConfigPage() {
+function WidgetConfigContent() {
   const searchParams = useSearchParams()
   const slug = searchParams.get('slug') || 'rescisao'
   const calculadora = getCalculadora(slug)
@@ -109,5 +109,13 @@ export default function WidgetConfigPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function WidgetConfigPage() {
+  return (
+    <Suspense fallback={<div className="container-app py-12 text-center">Carregando configurador...</div>}>
+      <WidgetConfigContent />
+    </Suspense>
   )
 }

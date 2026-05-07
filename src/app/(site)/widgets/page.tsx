@@ -8,9 +8,6 @@ export const metadata = {
 }
 
 export default function WidgetsPage() {
-  // Select a few popular ones for preview
-  const featured = CALCULADORAS.filter(c => ['rescisao', 'juros-compostos', 'imc'].includes(c.slug))
-
   return (
     <div className="container-app py-12 space-y-16">
       <section className="text-center max-w-3xl mx-auto">
