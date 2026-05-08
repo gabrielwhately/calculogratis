@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
+import { trackCalculadoraEvent } from '@/components/layout/analytics'
 import { Select } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
 import { FormCard } from '@/components/ui/form-card'
@@ -60,6 +61,8 @@ export function FormatadorJSONForm() {
 
   function handleProcessar() {
     if (!input.trim()) return
+    const slug = pathname?.split('/').pop() || ''
+    trackCalculadoraEvent('calculate', slug)
     const res = acao === 'minificar'
       ? minificarJSON(input)
       : formatarJSON(input, parseInt(espacos))

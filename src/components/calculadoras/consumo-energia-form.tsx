@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
+import { trackCalculadoraEvent } from '@/components/layout/analytics'
 import { FormCard } from '@/components/ui/form-card'
 import { ResultCard } from '@/components/ui/result-card'
 import { Input } from '@/components/ui/input'
@@ -58,6 +59,8 @@ export function ConsumoEnergiaForm() {
   const [result, setResult] = useState<ReturnType<typeof calcularConsumoAparelho> | null>(null)
 
   function handleCalcular() {
+    const slug = pathname?.split('/').pop() || ''
+    trackCalculadoraEvent('calculate', slug)
     setResult(calcularConsumoAparelho(
       parseBRNumber(potencia),
       parseBRNumber(horas),

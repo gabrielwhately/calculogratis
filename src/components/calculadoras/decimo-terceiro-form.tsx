@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
+import { trackCalculadoraEvent } from '@/components/layout/analytics'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { FormCard } from '@/components/ui/form-card'
@@ -64,6 +65,8 @@ export function DecimoTerceiroForm() {
   const [result, setResult] = useState<ReturnType<typeof calcularDecimoTerceiro> | null>(null)
 
   function handleCalcular() {
+    const slug = pathname?.split('/').pop() || ''
+    trackCalculadoraEvent('calculate', slug)
     setResult(calcularDecimoTerceiro({ 
       salarioBruto: parseBRNumber(salario), 
       mesesTrabalhados: parseInt(meses) || 12, 

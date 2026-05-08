@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
+import { trackCalculadoraEvent } from '@/components/layout/analytics'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { FormCard } from '@/components/ui/form-card'
@@ -76,6 +77,8 @@ export function JurosCompostosForm() {
   const [result, setResult] = useState<ReturnType<typeof calcularJurosCompostos> | null>(null)
 
   function handleCalcular() {
+    const slug = pathname?.split('/').pop() || ''
+    trackCalculadoraEvent('calculate', slug)
     setResult(calcularJurosCompostos({
       capital: parseBRNumber(capital),
       taxaMensal: parseBRNumber(taxa),

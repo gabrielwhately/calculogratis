@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
+import { trackCalculadoraEvent } from '@/components/layout/analytics'
 import { Select } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
 import { FormCard } from '@/components/ui/form-card'
@@ -57,6 +58,8 @@ export function GeradorHashForm() {
   const [loading, setLoading] = useState(false)
 
   async function handleGerar() {
+    const slug = pathname?.split('/').pop() || ''
+    trackCalculadoraEvent('calculate', slug)
     if (!texto) return
     setLoading(true)
     try {

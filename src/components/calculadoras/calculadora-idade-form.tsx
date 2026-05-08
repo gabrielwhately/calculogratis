@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
+import { trackCalculadoraEvent } from '@/components/layout/analytics'
 import { FormCard } from '@/components/ui/form-card'
 import { ResultCard } from '@/components/ui/result-card'
 import { Input } from '@/components/ui/input'
@@ -51,6 +52,8 @@ export function CalculadoraIdadeForm() {
   const [result, setResult] = useState<ReturnType<typeof calcularIdade> | null>(null)
 
   function handleCalcular() {
+    const slug = pathname?.split('/').pop() || ''
+    trackCalculadoraEvent('calculate', slug)
     if (!dataNascimento) return
     const data = new Date(dataNascimento + 'T00:00:00')
     if (isNaN(data.getTime())) return

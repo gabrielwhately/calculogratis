@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
+import { trackCalculadoraEvent } from '@/components/layout/analytics'
 import { Input } from '@/components/ui/input'
 import { Select } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
@@ -63,6 +64,8 @@ export function SeguroDesempregoForm() {
   const [result, setResult] = useState<ReturnType<typeof calcularSeguroDesemprego> | null>(null)
 
   function handleCalcular() {
+    const slug = pathname?.split('/').pop() || ''
+    trackCalculadoraEvent('calculate', slug)
     setResult(calcularSeguroDesemprego({ 
       salarios: [parseBRNumber(sal1), parseBRNumber(sal2), parseBRNumber(sal3)], 
       solicitacoes: parseInt(solicitacoes) || 1 

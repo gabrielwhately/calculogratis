@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
+import { trackCalculadoraEvent } from '@/components/layout/analytics'
 import { Select } from '@/components/ui/select'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
@@ -71,6 +72,8 @@ export function ConversorTaxasForm() {
   const [result, setResult] = useState<{ mensal: number; anual: number; diaria: number } | null>(null)
 
   function handleCalcular() {
+    const slug = pathname?.split('/').pop() || ''
+    trackCalculadoraEvent('calculate', slug)
     const valor = parseBRNumber(taxa)
     if (tipo === 'mensal-anual') setResult(converterTaxaMensalParaAnual(valor))
     else if (tipo === 'anual-mensal') setResult(converterTaxaAnualParaMensal(valor))

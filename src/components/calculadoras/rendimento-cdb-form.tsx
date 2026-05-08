@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
+import { trackCalculadoraEvent } from '@/components/layout/analytics'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { FormCard } from '@/components/ui/form-card'
@@ -62,6 +63,8 @@ export function RendimentoCDBForm() {
   const [result, setResult] = useState<ReturnType<typeof calcularRendimentoCDB> | null>(null)
 
   function handleCalcular() {
+    const slug = pathname?.split('/').pop() || ''
+    trackCalculadoraEvent('calculate', slug)
     setResult(calcularRendimentoCDB(parseBRNumber(valor), parseBRNumber(taxaCDI), parseBRNumber(percentualCDI), parseInt(prazo) || 12))
   }
 

@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
+import { trackCalculadoraEvent } from '@/components/layout/analytics'
 import { Button } from '@/components/ui/button'
 import { FormCard } from '@/components/ui/form-card'
 import { ResultCard } from '@/components/ui/result-card'
@@ -45,6 +46,8 @@ export function GeradorQRCodeForm() {
   const [carregando, setCarregando] = useState(false)
 
   async function handleGerar() {
+    const slug = pathname?.split('/').pop() || ''
+    trackCalculadoraEvent('calculate', slug)
     if (!texto.trim()) {
       setErro(t.errorEmpty)
       return

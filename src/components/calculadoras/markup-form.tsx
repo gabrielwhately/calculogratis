@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
+import { trackCalculadoraEvent } from '@/components/layout/analytics'
 import { Input } from '@/components/ui/input'
 import { Select } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
@@ -78,6 +79,8 @@ export function MarkupForm() {
   const [result, setResult] = useState<ReturnType<typeof calcularMarkup> | null>(null)
 
   function handleCalcular() {
+    const slug = pathname?.split('/').pop() || ''
+    trackCalculadoraEvent('calculate', slug)
     const c = parseBRNumber(custo)
     const v = parseBRNumber(valor2)
     if (modo === 'markup') setResult(calcularMarkup(c, v))

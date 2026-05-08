@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
+import { trackCalculadoraEvent } from '@/components/layout/analytics'
 import { Button } from '@/components/ui/button'
 import { FormCard } from '@/components/ui/form-card'
 import { ResultCard } from '@/components/ui/result-card'
@@ -65,6 +66,8 @@ export function PreviewHtmlForm() {
   const [mostrar, setMostrar] = useState(false)
 
   function handleRenderizar() {
+    const slug = pathname?.split('/').pop() || ''
+    trackCalculadoraEvent('calculate', slug)
     setRendered(html)
     setMostrar(true)
   }
@@ -76,6 +79,7 @@ export function PreviewHtmlForm() {
   }
 
   const charCount = html.length
+
 
   return (
     <>

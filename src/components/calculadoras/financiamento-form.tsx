@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import { FormCard } from '@/components/ui/form-card'
 import { ResultCard } from '@/components/ui/result-card'
 import { Tooltip } from '@/components/ui/tooltip'
+import { trackCalculadoraEvent } from '@/components/layout/analytics'
 import { calcularFinanciamentoPrice, calcularFinanciamentoSAC } from '@/lib/calculadoras/financiamento'
 import { formatCurrency, parseBRNumber, maskCurrency, maskPercent } from '@/lib/formatters'
 
@@ -86,6 +87,8 @@ export function FinanciamentoForm() {
   const [result, setResult] = useState<ReturnType<typeof calcularFinanciamentoPrice> | null>(null)
 
   function handleCalcular() {
+    const slug = pathname?.split('/').pop() || ''
+    trackCalculadoraEvent('calculate', slug)
     const input = { 
       valorImovel: parseBRNumber(valor), 
       entrada: parseBRNumber(entrada), 

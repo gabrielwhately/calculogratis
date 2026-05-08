@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
+import { trackCalculadoraEvent } from '@/components/layout/analytics'
 import { Button } from '@/components/ui/button'
 import { FormCard } from '@/components/ui/form-card'
 import { ResultCard } from '@/components/ui/result-card'
@@ -33,6 +34,8 @@ export function GeradorCPFForm() {
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null)
 
   function handleGerar() {
+    const slug = pathname?.split('/').pop() || ''
+    trackCalculadoraEvent('calculate', slug)
     setCpfs(Array.from({ length: 5 }, () => gerarCPF()))
     setCopiedIndex(null)
   }

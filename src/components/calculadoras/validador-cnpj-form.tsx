@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
+import { trackCalculadoraEvent } from '@/components/layout/analytics'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { FormCard } from '@/components/ui/form-card'
@@ -49,6 +50,8 @@ export function ValidadorCNPJForm() {
   const [result, setResult] = useState<ReturnType<typeof validarCNPJ> | null>(null)
 
   function handleValidar() {
+    const slug = pathname?.split('/').pop() || ''
+    trackCalculadoraEvent('calculate', slug)
     setResult(validarCNPJ(cnpj))
   }
 

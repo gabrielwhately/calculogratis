@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
+import { trackCalculadoraEvent } from '@/components/layout/analytics'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { FormCard } from '@/components/ui/form-card'
@@ -57,6 +58,8 @@ export function GeradorMetaTagsForm() {
   const [copiado, setCopiado] = useState(false)
 
   function handleGerar() {
+    const slug = pathname?.split('/').pop() || ''
+    trackCalculadoraEvent('calculate', slug)
     setResultado(gerarMetaTags({ title, description, url, imageUrl, siteName }))
     setCopiado(false)
   }

@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
+import { trackCalculadoraEvent } from '@/components/layout/analytics'
 import { Select } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
 import { FormCard } from '@/components/ui/form-card'
@@ -47,6 +48,8 @@ export function GeradorUUIDForm() {
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null)
 
   function handleGerar() {
+    const slug = pathname?.split('/').pop() || ''
+    trackCalculadoraEvent('calculate', slug)
     setUuids(gerarMultiplosUUID(parseInt(quantidade)))
     setCopiedIndex(null)
   }

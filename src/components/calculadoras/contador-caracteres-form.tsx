@@ -1,7 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
+import { trackCalculadoraEvent } from '@/components/layout/analytics'
 import { FormCard } from '@/components/ui/form-card'
 import { ResultCard } from '@/components/ui/result-card'
 import { contarCaracteres } from '@/lib/calculadoras/contador-caracteres'
@@ -35,10 +36,20 @@ export function ContadorCaracteresForm() {
   const pathname = usePathname()
   const isSpanish = pathname?.startsWith('/es')
   const t = isSpanish ? I18N.es : I18N.pt
+  const [hasTracked, setHasTracked] = useState(false)
 
   const [texto, setTexto] = useState('')
 
   const result = contarCaracteres({ texto })
+
+
+  useEffect(() => {
+    if (!hasTracked && texto) {
+      const slug = pathname?.split('/').pop() || ''
+      trackCalculadoraEvent('calculate', slug)
+      setHasTracked(true)
+    }
+  }, [texto, hasTracked, pathname])
 
   return (
     <>

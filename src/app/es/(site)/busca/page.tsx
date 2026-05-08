@@ -46,9 +46,9 @@ export default function BuscaPage() {
   
   const results = useMemo(() => {
     const allCalcs = CALCULADORAS
-    if (!query.trim()) return allCalcs
-    const q = query.toLowerCase()
-    return allCalcs.map(c => {
+    const q = query.toLowerCase().trim()
+    
+    const translatedCalcs = allCalcs.map(c => {
       if (isSpanish) {
         const esData = CALCULADORAS_ES[c.slug]
         const esCat = CATEGORIAS_ES[c.categoriaSlug]
@@ -56,11 +56,16 @@ export default function BuscaPage() {
           ...c,
           nome: esData?.nome ?? c.nome,
           descricao: esData?.descricao ?? c.descricao,
-          categoria: esCat?.nome ?? c.categoria
+          categoria: esCat?.nome ?? c.categoria,
+          keywords: esData?.keywords ?? c.keywords
         }
       }
       return c
-    }).filter(c => 
+    })
+
+    if (!q) return translatedCalcs
+
+    return translatedCalcs.filter(c => 
       c.nome.toLowerCase().includes(q) || 
       c.descricao.toLowerCase().includes(q) || 
       c.keywords.toLowerCase().includes(q)

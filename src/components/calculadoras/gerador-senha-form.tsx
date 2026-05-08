@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
+import { trackCalculadoraEvent } from '@/components/layout/analytics'
 import { Button } from '@/components/ui/button'
 import { FormCard } from '@/components/ui/form-card'
 import { ResultCard } from '@/components/ui/result-card'
@@ -65,6 +66,8 @@ export function GeradorSenhaForm() {
   const [copiado, setCopiado] = useState(false)
 
   function handleGerar() {
+    const slug = pathname?.split('/').pop() || ''
+    trackCalculadoraEvent('calculate', slug)
     const nova = gerarSenha({ tamanho, maiusculas, minusculas, numeros, simbolos })
     setSenha(nova)
     setCopiado(false)

@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
+import { trackCalculadoraEvent } from '@/components/layout/analytics'
 import { Select } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
 import { FormCard } from '@/components/ui/form-card'
@@ -42,6 +43,8 @@ export function FusoHorarioForm() {
   const [result, setResult] = useState<ReturnType<typeof converterFuso> | null>(null)
 
   function handleConverter() {
+    const slug = pathname?.split('/').pop() || ''
+    trackCalculadoraEvent('calculate', slug)
     if (!hora || !/^\d{2}:\d{2}$/.test(hora)) return
     setResult(converterFuso(hora, fusoOrigem, fusoDestino))
   }

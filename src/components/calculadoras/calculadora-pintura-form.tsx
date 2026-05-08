@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
+import { trackCalculadoraEvent } from '@/components/layout/analytics'
 import { FormCard } from '@/components/ui/form-card'
 import { ResultCard } from '@/components/ui/result-card'
 import { Input } from '@/components/ui/input'
@@ -81,6 +82,8 @@ export function CalculadoraPinturaForm() {
   const [result, setResult] = useState<ReturnType<typeof calcularPintura> | null>(null)
 
   function handleCalcular() {
+    const slug = pathname?.split('/').pop() || ''
+    trackCalculadoraEvent('calculate', slug)
     setResult(calcularPintura(
       parseBRNumber(largura), 
       parseBRNumber(comprimento), 

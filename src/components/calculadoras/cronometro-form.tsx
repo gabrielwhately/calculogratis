@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { usePathname } from 'next/navigation'
+import { trackCalculadoraEvent } from '@/components/layout/analytics'
 import { formatarTempo } from '@/lib/calculadoras/cronometro'
 import { FormCard } from '@/components/ui/form-card'
 import { ResultCard } from '@/components/ui/result-card'
@@ -42,6 +43,7 @@ export function CronometroForm() {
   const pathname = usePathname()
   const isSpanish = pathname?.startsWith('/es')
   const t = isSpanish ? I18N.es : I18N.pt
+  const [hasTracked, setHasTracked] = useState(false)
 
   const [elapsed, setElapsed] = useState(0)
   const [rodando, setRodando] = useState(false)
@@ -61,8 +63,17 @@ export function CronometroForm() {
       startTimeRef.current = Date.now()
       rafRef.current = requestAnimationFrame(tick)
     }
+
     return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current) }
   }, [rodando, tick])
+
+  useEffect(() => {
+    if (!hasTracked && (rodando || elapsed > 0)) {
+      const slug = pathname?.split('/').pop() || ''
+      trackCalculadoraEvent('calculate', slug)
+      setHasTracked(true)
+    }
+  }, [rodando, elapsed, hasTracked, pathname])
 
   function handleIniciarPausar() {
     if (rodando) {

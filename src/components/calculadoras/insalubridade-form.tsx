@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
+import { trackCalculadoraEvent } from '@/components/layout/analytics'
 import { Input } from '@/components/ui/input'
 import { Select } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
@@ -72,6 +73,8 @@ export function InsalubridadeForm() {
   const [result, setResult] = useState<{ items: { label: string; value: string; highlight?: boolean }[]; mainValue: string; mainLabel: string; title: string } | null>(null)
 
   function handleCalcular() {
+    const slug = pathname?.split('/').pop() || ''
+    trackCalculadoraEvent('calculate', slug)
     const sal = parseBRNumber(salario)
     if (tipo === 'periculosidade') {
       const r = calcularPericulosidade(sal)

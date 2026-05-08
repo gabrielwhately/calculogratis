@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
+import { trackCalculadoraEvent } from '@/components/layout/analytics'
 import { Select } from '@/components/ui/select'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
@@ -51,6 +52,8 @@ export function GeradorLoremForm() {
   const [copiado, setCopiado] = useState(false)
 
   function handleGerar() {
+    const slug = pathname?.split('/').pop() || ''
+    trackCalculadoraEvent('calculate', slug)
     const qtd = Math.max(1, Math.min(50, parseInt(quantidade) || 1))
     const res = gerarLorem(tipo, qtd)
     setResultado(res)

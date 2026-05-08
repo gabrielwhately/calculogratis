@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
+import { trackCalculadoraEvent } from '@/components/layout/analytics'
 import { FormCard } from '@/components/ui/form-card'
 import { ResultCard } from '@/components/ui/result-card'
 import { Input } from '@/components/ui/input'
@@ -61,7 +62,9 @@ export function AdicionalNoturnoForm() {
   const [percentual, setPercentual] = useState('20')
   const [result, setResult] = useState<ReturnType<typeof calcularAdicionalNoturno> | null>(null)
 
-  function handleCalcular() {
+  function handleCalcular() { 
+    const slug = pathname?.split("/").pop() || ""
+    trackCalculadoraEvent("calculate", slug)
     const hm = parseInt(horasMensais) || 220
     setResult(calcularAdicionalNoturno(
       parseBRNumber(salario), 

@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
+import { trackCalculadoraEvent } from '@/components/layout/analytics'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Select } from '@/components/ui/select'
@@ -59,6 +60,8 @@ export function PesoIdealForm() {
   const [result, setResult] = useState<ReturnType<typeof calcularPesoIdeal> | null>(null)
 
   function handleCalcular() {
+    const slug = pathname?.split('/').pop() || ''
+    trackCalculadoraEvent('calculate', slug)
     const alturaNum = parseBRNumber(altura)
     if (!alturaNum || alturaNum <= 0) return
     setResult(calcularPesoIdeal({ altura: alturaNum, sexo }))

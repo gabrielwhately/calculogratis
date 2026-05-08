@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
+import { trackCalculadoraEvent } from '@/components/layout/analytics'
 import { FormCard } from '@/components/ui/form-card'
 import { ResultCard } from '@/components/ui/result-card'
 import { Input } from '@/components/ui/input'
@@ -66,6 +67,8 @@ export function CombustivelForm() {
   const [result, setResult] = useState<ReturnType<typeof calcularCombustivel> | null>(null)
 
   function handleCalcular() {
+    const slug = pathname?.split('/').pop() || ''
+    trackCalculadoraEvent('calculate', slug)
     setResult(calcularCombustivel({ 
       distancia: parseBRNumber(distancia), 
       consumo: parseBRNumber(consumo), 
