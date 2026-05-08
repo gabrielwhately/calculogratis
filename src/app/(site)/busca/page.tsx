@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react'
 import { usePathname } from 'next/navigation'
+import Link from 'next/link'
 import { CALCULADORAS } from '@/lib/constants/calculadoras'
 import { CATEGORIAS_ES, CALCULADORAS_ES } from '@/lib/i18n/calculadoras-es'
 import { Card } from '@/components/ui/card'
@@ -15,14 +16,26 @@ const I18N = {
     labelSearch: 'O que você quer calcular?',
     placeholder: 'Ex: rescisão, juros, imc...',
     noResults: 'Nenhuma calculadora encontrada para sua busca.',
+    suggested: 'Sugestões:',
+    back: 'Voltar para o início',
   },
   es: {
     title: 'Buscar Calculadora',
     labelSearch: '¿Qué quieres calcular?',
     placeholder: 'Ej: liquidación, intereses, imc...',
     noResults: 'No se encontraron calculadoras para su búsqueda.',
+    suggested: 'Sugerencias:',
+    back: 'Volver al inicio',
   }
 }
+
+const SUGGESTIONS = [
+  { pt: 'Rescisão', es: 'Liquidación', query: 'rescisao' },
+  { pt: 'Juros Compostos', es: 'Interés Compuesto', query: 'juros' },
+  { pt: 'Salário Líquido', es: 'Salario Neto', query: 'salario' },
+  { pt: 'IMC', es: 'IMC', query: 'imc' },
+  { pt: 'Financiamento', es: 'Préstamo', query: 'financia' },
+]
 
 export default function BuscaPage() {
   const pathname = usePathname()
@@ -56,9 +69,14 @@ export default function BuscaPage() {
 
   return (
     <div className="container-app py-8">
-      <h1 className="text-2xl font-bold text-navy dark:text-white mb-6 md:text-3xl">{t.title}</h1>
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-2xl font-bold text-navy dark:text-white md:text-3xl">{t.title}</h1>
+        <Link href={isSpanish ? '/es' : '/'} className="text-xs text-slate-500 hover:text-accent transition-colors">
+          {t.back}
+        </Link>
+      </div>
       
-      <FormCard className="mb-8">
+      <FormCard className="mb-4">
         <Input 
           label={t.labelSearch}
           id="search-input"
@@ -69,6 +87,19 @@ export default function BuscaPage() {
           autoFocus 
         />
       </FormCard>
+
+      <div className="flex flex-wrap items-center gap-2 mb-8">
+        <span className="text-xs text-slate-500 font-medium">{t.suggested}</span>
+        {SUGGESTIONS.map((s) => (
+          <button
+            key={s.query}
+            onClick={() => setQuery(isSpanish ? s.es : s.pt)}
+            className="text-xs px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-accent/10 hover:text-accent transition-all"
+          >
+            {isSpanish ? s.es : s.pt}
+          </button>
+        ))}
+      </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {results.map(c => {
