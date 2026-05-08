@@ -7,6 +7,7 @@ import { CATEGORIAS_ES, CALCULADORAS_ES } from '@/lib/i18n/calculadoras-es'
 import { Card } from '@/components/ui/card'
 import { FormCard } from '@/components/ui/form-card'
 import { Input } from '@/components/ui/input'
+import { CalculatorIcon } from '@/components/ui/icons'
 
 const I18N = {
   pt: {
@@ -77,7 +78,8 @@ export default function BuscaPage() {
               key={c.slug} 
               title={c.nome} 
               description={c.descricao} 
-              href={isSpanish ? `/es/${esCatSlug}/${c.slug}` : `/${c.categoriaSlug}/${c.slug}`} 
+              href={isSpanish ? `/es/${esCatSlug}/${c.slug}` : `/${c.categoriaSlug}/${c.slug}`}
+              icon={<CalculatorIcon className="h-5 w-5" />}
             />
           )
         })}

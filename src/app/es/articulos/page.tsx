@@ -8,6 +8,7 @@ export const metadata: Metadata = {
 
 const ARTICULOS = [
   {
+    slug: "liquidacion-2026",
     title: "Cómo calcular su liquidación laboral en 2026",
     excerpt: "Guía completa sobre prestaciones sociales, aviso previo y multa del FGTS.",
     date: "04 May 2026",
@@ -16,6 +17,7 @@ const ARTICULOS = [
     tags: ["Liquidación", "FGTS", "Derechos"]
   },
   {
+    slug: "interes-compuesto",
     title: "Interés Compuesto: El secreto de la riqueza",
     excerpt: "Entienda cómo el tiempo trabaja a su favor en las inversiones.",
     date: "02 May 2026",
@@ -24,6 +26,7 @@ const ARTICULOS = [
     tags: ["Inversiones", "Interés"]
   },
   {
+    slug: "salario-neto",
     title: "Guía del Salario Neto: ¿A dónde va su dinero?",
     excerpt: "Todo sobre deducciones de seguridad social e impuestos en la nómina.",
     date: "28 Abr 2026",
@@ -32,6 +35,7 @@ const ARTICULOS = [
     tags: ["Salario", "Impuestos"]
   },
   {
+    slug: "imc-salud",
     title: "IMC: Cómo interpretar sus resultados",
     excerpt: "Entienda lo que su Índice de Massa Corporal dice sobre su salud y cuáles son los límites de cada categoría.",
     date: "25 Abr 2026",
@@ -40,6 +44,7 @@ const ARTICULOS = [
     tags: ["Salud", "IMC"]
   },
   {
+    slug: "sac-o-frances",
     title: "¿SAC o Price: Cuál es la mejor tabla de financiamiento?",
     excerpt: "Descubra las diferencias entre los sistemas de amortización y cuál de ellos le hace pagar menos intereses a largo plazo.",
     date: "20 Abr 2026",
@@ -48,6 +53,7 @@ const ARTICULOS = [
     tags: ["Financiamiento", "SAC", "Price"]
   },
   {
+    slug: "seguro-desempleo",
     title: "Seguro de Desempleo 2026: ¿Quién tiene derecho y cómo calcular?",
     excerpt: "Guía actualizada sobre las nuevas reglas, plazos y valores de las cuotas del seguro de desempleo.",
     date: "15 Abr 2026",
@@ -96,7 +102,7 @@ export default function ArticlesPageES() {
                 ))}
               </div>
 
-              <Link href="#" className="mt-auto inline-flex items-center gap-2 text-accent font-bold group-hover:translate-x-1 transition-transform">
+              <Link href={`/es/articulos/${art.slug}`} className="mt-auto inline-flex items-center gap-2 text-accent font-bold group-hover:translate-x-1 transition-transform">
                 Leer guía completa
                 <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />

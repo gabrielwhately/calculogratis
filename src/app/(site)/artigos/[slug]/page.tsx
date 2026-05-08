@@ -12,6 +12,12 @@ const ARTIGOS_MAP: Record<string, { title: string, cat: string, date: string }> 
   "seguro-desemprego": { title: "Seguro Desemprego 2026: Quem tem direito e como calcular?", cat: "Trabalhista", date: "15 Abr 2026" },
 }
 
+export function generateStaticParams() {
+  return Object.keys(ARTIGOS_MAP).map((slug) => ({
+    slug,
+  }))
+}
+
 export default function ArticleDetailPage({ params }: { params: { slug: string } }) {
   const article = ARTIGOS_MAP[params.slug]
 
@@ -21,7 +27,7 @@ export default function ArticleDetailPage({ params }: { params: { slug: string }
     <div className="container-app py-12 max-w-4xl">
       <Link href="/artigos" className="inline-flex items-center text-sm text-slate-500 hover:text-accent mb-8 transition-colors">
         <svg className="mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
         </svg>
         Voltar para Artigos
       </Link>

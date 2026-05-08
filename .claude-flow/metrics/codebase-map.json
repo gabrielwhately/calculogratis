@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-05-07T23:45:58.016Z",
+  "timestamp": "2026-05-08T00:00:58.040Z",
   "projectRoot": "/home/claude/projects/calculogratis",
   "structure": {
     "hasPackageJson": true,
@@ -7,5 +7,5 @@
     "hasClaudeConfig": true,
     "hasClaudeFlow": true
   },
-  "scannedAt": 1778197558016
+  "scannedAt": 1778198458040
 }
