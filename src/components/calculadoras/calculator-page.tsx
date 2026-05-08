@@ -76,7 +76,9 @@ export function CalculatorPage({ slug, categoriaSlug, categoriaNome, nome, descr
   }
 
   const handleCopyEmbed = () => {
-    const code = `<iframe src="${BRAND_URL}/embed/${categoriaSlug}/${slug}" width="100%" height="600" frameborder="0"></iframe>`
+    const esCatSlug = CATEGORIAS_ES[categoriaSlug]?.slug ?? categoriaSlug
+    const embedPath = isSpanish ? `/es/embed/${esCatSlug}/${slug}` : `/embed/${categoriaSlug}/${slug}`
+    const code = `<iframe src="${BRAND_URL}${embedPath}" width="100%" height="600" frameborder="0"></iframe>`
     navigator.clipboard.writeText(code)
     setEmbedCopiado(true)
     showToast(t.codigoCopiado, 'success')
@@ -143,7 +145,7 @@ export function CalculatorPage({ slug, categoriaSlug, categoriaNome, nome, descr
             </button>
           </div>
           <code className="block p-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-[10px] text-slate-600 dark:text-slate-400 break-all overflow-hidden font-mono">
-            {`<iframe src="${BRAND_URL}/embed/${categoriaSlug}/${slug}" width="100%" height="600" frameborder="0"></iframe>`}
+            {`<iframe src="${BRAND_URL}${isSpanish ? `/es/embed/${CATEGORIAS_ES[categoriaSlug]?.slug ?? categoriaSlug}/${slug}` : `/embed/${categoriaSlug}/${slug}`}" width="100%" height="600" frameborder="0"></iframe>`}
           </code>
         </div>
       )}

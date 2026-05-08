@@ -39,6 +39,10 @@ const commands = {
       console.error('Key required');
       return;
     }
+    if (!/^[a-z0-9_]+$/i.test(key)) {
+      console.error('Invalid key format. Only alphanumeric and underscores allowed.');
+      return;
+    }
     const memory = loadMemory();
     memory[key] = value;
     memory._updated = new Date().toISOString();

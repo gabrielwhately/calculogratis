@@ -91,6 +91,10 @@ const commands = {
       console.log('No active session');
       return null;
     }
+    if (!/^[a-z0-9_]+$/i.test(key)) {
+      console.error('Invalid key format. Only alphanumeric and underscores allowed.');
+      return null;
+    }
 
     const session = JSON.parse(fs.readFileSync(SESSION_FILE, 'utf-8'));
     session.context[key] = value;
