@@ -26,6 +26,7 @@ This document summarizes the marketing and SEO readiness of `calculogratis` as v
 - [x] **Backlink Outreach**: Outreach templates for HR and Financial blogs drafted in `docs/OUTREACH_TEMPLATES.md` (Ready).
 - [x] **Newsletter**: Integrate lead capture and weekly tips (Week 4 Strategy - Done).
 - [x] **Personalization**: Saved results and history feature implemented for user retention (Done).
+- [x] **Feedback Loop**: Dedicated "Suggest a Calculator" page (`/sugerir`) implemented to capture user demand (Done).
 - [x] **Content Engine**: Start publishing 2 articles/week following the Tier 1 keyword map (Structure and initial articles ready).
 
 ## 5. Deployment Blocker

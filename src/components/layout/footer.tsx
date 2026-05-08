@@ -108,8 +108,13 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <a href={`mailto:contato@${BRAND_DOMAIN}`} className="text-sm text-slate-600 dark:text-slate-400 hover:text-accent transition-colors">
+                <Link href={`${prefix}/sugerir`} className="text-sm text-slate-600 dark:text-slate-400 hover:text-accent transition-colors">
                   {t.request}
+                </Link>
+              </li>
+              <li>
+                <a href={`mailto:contato@${BRAND_DOMAIN}`} className="text-sm text-slate-600 dark:text-slate-400 hover:text-accent transition-colors">
+                  {t.contact}
                 </a>
               </li>
             </ul>

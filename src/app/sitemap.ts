@@ -39,6 +39,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/es`, lastModified, changeFrequency: 'monthly', priority: 0.9 },
     { url: `${baseUrl}/es/artigos`, lastModified, changeFrequency: 'weekly', priority: 0.7 },
     { url: `${baseUrl}/es/widgets`, lastModified, changeFrequency: 'monthly', priority: 0.6 },
+    { url: `${baseUrl}/es/sugerir`, lastModified, changeFrequency: 'monthly', priority: 0.4 },
     ...[
       'liquidacion-2026', 'interes-compuesto', 'salario-neto', 'imc-salud', 'sac-o-frances', 'seguro-desempleo'
     ].map(slug => ({
