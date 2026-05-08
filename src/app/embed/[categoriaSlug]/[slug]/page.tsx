@@ -19,9 +19,8 @@ export function generateStaticParams() {
   }))
 }
 
-export default function EmbedPage({ params, searchParams }: EmbedPageProps) {
+export default function EmbedPage({ params }: EmbedPageProps) {
   const { slug } = params
-  const { theme = 'light' } = searchParams
   const calculadora = getCalculadora(slug)
 
   if (!calculadora) {
@@ -38,11 +37,7 @@ export default function EmbedPage({ params, searchParams }: EmbedPageProps) {
     )
   }
 
-  const themeClasses = {
-    light: 'bg-white text-navy',
-    dark: 'bg-slate-900 text-white dark',
-    navy: 'bg-navy text-white dark'
-  }[theme as keyof typeof themeClasses] || 'bg-white text-navy'
+  const themeClasses = 'bg-white text-navy'
 
   return (
     <div className={`min-h-screen p-2 sm:p-4 transition-colors ${themeClasses}`}>
