@@ -3,6 +3,7 @@ import { CATEGORIAS, CALCULADORAS } from "@/lib/constants/calculadoras"
 import { CATEGORIAS_ES, CALCULADORAS_ES } from "@/lib/i18n/calculadoras-es"
 import { Newsletter } from "@/components/layout/newsletter"
 import { Icons } from "@/components/ui/icons"
+import { getCalculatorOfTheDay } from "@/lib/calculator-of-the-day"
 
 const CATEGORY_ICONS: Record<string, React.ReactNode> = {
   briefcase: (
@@ -74,6 +75,9 @@ const POPULAR_ICONS: Record<string, React.ElementType> = {
 }
 
 export default function HomeES() {
+  const calcDoDia = getCalculatorOfTheDay()
+  const esCalcDoDia = CALCULADORAS_ES[calcDoDia.slug]
+  const esCatSlug = CATEGORIAS_ES[calcDoDia.categoriaSlug]?.slug ?? calcDoDia.categoriaSlug
   const calculadorasPopulares = CALCULADORAS.filter(c => POPULARES.includes(c.slug))
 
   return (
@@ -89,6 +93,30 @@ export default function HomeES() {
         <p className="mt-3 text-lg text-slate-600 dark:text-slate-400 max-w-xl mx-auto">
           Más de 50 calculadoras: liquidación laboral, salario neto, interés compuesto, financiamiento, IMC y mucho más — calcula en segundos.
         </p>
+      </section>
+
+      {/* Featured / Calc of the Day */}
+      <section className="relative group">
+        <Link 
+          href={`/es/${esCatSlug}/${calcDoDia.slug}`}
+          className="block p-8 rounded-3xl bg-accent/5 dark:bg-accent/10 border border-accent/20 hover:border-accent/40 transition-all shadow-sm hover:shadow-xl"
+        >
+          <div className="flex flex-col md:flex-row items-center gap-8">
+            <div className="shrink-0 w-16 h-16 bg-accent text-navy rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+              <Icons.Star className="w-8 h-8 fill-current" />
+            </div>
+            <div className="text-center md:text-left flex-1">
+              <span className="text-[10px] font-bold text-accent uppercase tracking-widest mb-1 block">Destacado de Hoy</span>
+              <h2 className="text-2xl font-bold text-navy dark:text-white mb-2">{esCalcDoDia?.nome ?? calcDoDia.nome}</h2>
+              <p className="text-slate-600 dark:text-slate-400 max-w-2xl">{esCalcDoDia?.descricao ?? calcDoDia.descricao}</p>
+            </div>
+            <div className="shrink-0">
+              <span className="px-6 py-3 bg-navy dark:bg-white text-white dark:text-navy font-bold rounded-xl text-sm group-hover:bg-blue-700 dark:group-hover:bg-slate-200 transition-colors">
+                Usar Ahora
+              </span>
+            </div>
+          </div>
+        </Link>
       </section>
 
       <section id="categorias">
