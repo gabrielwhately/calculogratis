@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { trackEvent } from '@/components/layout/analytics'
 import { FormCard } from '@/components/ui/form-card'

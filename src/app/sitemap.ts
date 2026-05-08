@@ -13,6 +13,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/widgets`, lastModified, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${baseUrl}/favoritos`, lastModified, changeFrequency: 'monthly', priority: 0.5 },
     { url: `${baseUrl}/historico`, lastModified, changeFrequency: 'monthly', priority: 0.5 },
+    { url: `${baseUrl}/sugerir`, lastModified, changeFrequency: 'monthly', priority: 0.4 },
+    { url: `${baseUrl}/termos`, lastModified, changeFrequency: 'yearly', priority: 0.3 },
+    { url: `${baseUrl}/privacidade`, lastModified, changeFrequency: 'yearly', priority: 0.3 },
     ...[
       'rescisao-2026', 'juros-compostos', 'salario-liquido', 'imc-saude', 'sac-vs-price', 'seguro-desempleo'
     ].map(slug => ({
@@ -37,13 +40,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const esRoutes: MetadataRoute.Sitemap = [
     { url: `${baseUrl}/es`, lastModified, changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${baseUrl}/es/artigos`, lastModified, changeFrequency: 'weekly', priority: 0.7 },
+    { url: `${baseUrl}/es/articulos`, lastModified, changeFrequency: 'weekly', priority: 0.7 },
     { url: `${baseUrl}/es/widgets`, lastModified, changeFrequency: 'monthly', priority: 0.6 },
+    { url: `${baseUrl}/es/favoritos`, lastModified, changeFrequency: 'monthly', priority: 0.5 },
+    { url: `${baseUrl}/es/historial`, lastModified, changeFrequency: 'monthly', priority: 0.5 },
     { url: `${baseUrl}/es/sugerir`, lastModified, changeFrequency: 'monthly', priority: 0.4 },
+    { url: `${baseUrl}/es/condiciones`, lastModified, changeFrequency: 'yearly', priority: 0.3 },
+    { url: `${baseUrl}/es/privacidad`, lastModified, changeFrequency: 'yearly', priority: 0.3 },
     ...[
       'liquidacion-2026', 'interes-compuesto', 'salario-neto', 'imc-salud', 'sac-o-frances', 'seguro-desempleo'
     ].map(slug => ({
-      url: `${baseUrl}/es/artigos/${slug}`,
+      url: `${baseUrl}/es/articulos/${slug}`,
       lastModified,
       changeFrequency: 'weekly' as const,
       priority: 0.6

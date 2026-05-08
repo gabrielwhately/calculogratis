@@ -158,7 +158,7 @@ export function FinanciamentoForm() {
           label={t.labelPrazo} 
           id="prazo" 
           value={prazo} 
-          onChange={(v) => setPrazo(v.replace(/\\D/g, ''))} 
+          onChange={(v) => setPrazo(v.replace(/\D/g, ''))} 
           inputMode="numeric" 
           placeholder={t.placeholderPrazo} 
         />

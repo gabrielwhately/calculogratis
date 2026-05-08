@@ -1,12 +1,14 @@
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import { Providers } from "@/components/layout/providers"
+import { BRAND_URL } from "@/lib/constants/branding"
 import "../../globals.css"
 
 const inter = Inter({ subsets: ["latin"], display: "swap", preload: true })
 
 export const metadata: Metadata = {
   title: "Calculo Gratis Embed",
+  metadataBase: new URL(BRAND_URL),
   robots: "noindex, nofollow",
 }
 
