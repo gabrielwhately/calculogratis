@@ -32,6 +32,7 @@ export default function HistoricoPage() {
   const pathname = usePathname()
   const isSpanish = pathname?.startsWith('/es')
   const t = isSpanish ? I18N.es : I18N.pt
+  const homePath = isSpanish ? '/es' : '/'
 
   const [results, setResults] = useState<SavedResult[]>([])
   
@@ -74,7 +75,7 @@ export default function HistoricoPage() {
           </div>
           <h2 className="text-lg font-semibold text-navy dark:text-white mb-2">{t.emptyTitle}</h2>
           <p className="text-slate-600 dark:text-slate-400 max-w-sm mx-auto mb-6">{t.emptyDesc}</p>
-          <Link href="/" className="inline-flex items-center px-6 py-3 bg-navy dark:bg-white dark:text-navy text-white font-bold rounded-xl transition-all hover:scale-105">
+          <Link href={homePath} className="inline-flex items-center px-6 py-3 bg-navy dark:bg-white dark:text-navy text-white font-bold rounded-xl transition-all hover:scale-105">
             {t.back}
           </Link>
         </div>

@@ -98,7 +98,7 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href={`${prefix}/historico`} className="text-sm text-slate-600 dark:text-slate-400 hover:text-accent transition-colors">
+                <Link href={isSpanish ? '/es/historial' : '/historico'} className="text-sm text-slate-600 dark:text-slate-400 hover:text-accent transition-colors">
                   {isSpanish ? 'Historial' : 'Histórico'}
                 </Link>
               </li>

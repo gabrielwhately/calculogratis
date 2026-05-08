@@ -4,7 +4,7 @@ import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { useState, Suspense } from 'react'
 import { getCalculadora } from '@/lib/constants/calculadoras'
-import { CALCULADORAS_ES } from '@/lib/i18n/calculadoras-es'
+import { CALCULADORAS_ES, CATEGORIAS_ES } from '@/lib/i18n/calculadoras-es'
 import { BRAND_URL } from '@/lib/constants/branding'
 
 function WidgetConfigSpanishContent() {
@@ -12,9 +12,10 @@ function WidgetConfigSpanishContent() {
   const slug = searchParams.get('slug') || 'rescisao'
   const calculadora = getCalculadora(slug)
   const esCalc = CALCULADORAS_ES[slug]
+  const esCatSlug = CATEGORIAS_ES[calculadora?.categoriaSlug || '']?.slug ?? calculadora?.categoriaSlug
 
-  const [width, setWidth] = useState('100%')
-  const [height, setHeight] = useState('600')
+  const [width, setWidth] = useState('100%' )
+  const [height, setHeight] = useState('600' )
 
   if (!calculadora) {
     return (
@@ -25,7 +26,7 @@ function WidgetConfigSpanishContent() {
     )
   }
 
-  const embedUrl = `${BRAND_URL}/es/embed/${calculadora.categoriaSlug}/${calculadora.slug}`
+  const embedUrl = `${BRAND_URL}/es/embed/${esCatSlug}/${calculadora.slug}`
   const embedCode = `<iframe 
   src="${embedUrl}" 
   width="${width}" 
@@ -77,7 +78,7 @@ function WidgetConfigSpanishContent() {
 
           <section className="bg-slate-900 p-6 rounded-2xl shadow-xl text-slate-300">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-sm font-bold uppercase tracking-wider text-slate-500">Código de Integração</h2>
+              <h2 className="text-sm font-bold uppercase tracking-wider text-slate-500">Código de Integración</h2>
               <button 
                 onClick={copyToClipboard}
                 className="text-xs font-bold text-accent hover:text-white transition-colors"

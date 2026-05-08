@@ -8,7 +8,7 @@ import { ThemeScript } from "@/components/layout/theme-script"
 import { SkipToContent } from "@/components/layout/skip-to-content"
 import { Providers } from "@/components/layout/providers"
 import { BRAND_NAME, BRAND_URL } from "@/lib/constants/branding"
-import "../globals.css"
+import "../../globals.css"
 
 const inter = Inter({ subsets: ["latin"], display: "swap", preload: true })
 

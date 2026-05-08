@@ -199,7 +199,7 @@ export default function HomeES() {
             </div>
           </div>
         </Link>
-        <Link href="/es/historico" className="group p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 hover:border-blue-200 dark:hover:border-blue-900/30 transition-all shadow-sm">
+        <Link href="/es/historial" className="group p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 hover:border-blue-200 dark:hover:border-blue-900/30 transition-all shadow-sm">
           <div className="flex items-center gap-4 mb-3">
             <div className="p-3 rounded-xl bg-blue-50 dark:bg-blue-900/20 text-blue-500 group-hover:scale-110 transition-transform">
               <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -207,7 +207,7 @@ export default function HomeES() {
               </svg>
             </div>
             <div>
-              <h3 className="font-bold text-navy dark:text-white group-hover:text-blue-500 transition-colors">Historial</h3>
+              <h3 className="font-bold text-navy dark:text-white group-hover:text-blue-500 transition-colors">Mi Historial</h3>
               <p className="text-xs text-slate-500">Resultados que has guardado.</p>
             </div>
           </div>
