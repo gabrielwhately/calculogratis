@@ -13,6 +13,7 @@ function WidgetConfigContent() {
 
   const [width, setWidth] = useState('100%')
   const [height, setHeight] = useState('600')
+  const [theme, setTheme] = useState('light')
 
   if (!calculadora) {
     return (
@@ -23,7 +24,7 @@ function WidgetConfigContent() {
     )
   }
 
-  const embedUrl = `${BRAND_URL}/embed/${calculadora.categoriaSlug}/${calculadora.slug}`
+  const embedUrl = `${BRAND_URL}/embed/${calculadora.categoriaSlug}/${calculadora.slug}?theme=${theme}`
   const embedCode = `<iframe 
   src="${embedUrl}" 
   width="${width}" 
@@ -52,6 +53,20 @@ function WidgetConfigContent() {
           <section className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
             <h2 className="text-lg font-bold mb-6 text-navy dark:text-white">Opções de Visualização</h2>
             <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-slate-600 dark:text-slate-400 mb-1">Tema</label>
+                <div className="flex gap-2">
+                  {['light', 'dark', 'navy'].map((t) => (
+                    <button
+                      key={t}
+                      onClick={() => setTheme(t)}
+                      className={`flex-1 px-4 py-2 rounded-lg border text-sm font-medium transition-all ${theme === t ? 'bg-accent border-accent text-navy' : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400'}`}
+                    >
+                      {t.charAt(0).toUpperCase() + t.slice(1)}
+                    </button>
+                  ))}
+                </div>
+              </div>
               <div>
                 <label className="block text-sm font-medium text-slate-600 dark:text-slate-400 mb-1">Largura (px ou %)</label>
                 <input 

@@ -4,7 +4,7 @@ import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { useState, Suspense } from 'react'
 import { getCalculadora } from '@/lib/constants/calculadoras'
-import { CALCULADORAS_ES, CATEGORIAS_ES } from '@/lib/i18n/calculadoras-es'
+import { CALCULADORAS_ES } from '@/lib/i18n/calculadoras-es'
 import { BRAND_URL } from '@/lib/constants/branding'
 
 function WidgetConfigSpanishContent() {
@@ -12,10 +12,10 @@ function WidgetConfigSpanishContent() {
   const slug = searchParams.get('slug') || 'rescisao'
   const calculadora = getCalculadora(slug)
   const esCalc = CALCULADORAS_ES[slug]
-  const esCatSlug = CATEGORIAS_ES[calculadora?.categoriaSlug || '']?.slug ?? calculadora?.categoriaSlug
 
-  const [width, setWidth] = useState('100%' )
-  const [height, setHeight] = useState('600' )
+  const [width, setWidth] = useState('100%')
+  const [height, setHeight] = useState('600')
+  const [theme, setTheme] = useState('light')
 
   if (!calculadora) {
     return (
@@ -26,7 +26,7 @@ function WidgetConfigSpanishContent() {
     )
   }
 
-  const embedUrl = `${BRAND_URL}/es/embed/${esCatSlug}/${calculadora.slug}`
+  const embedUrl = `${BRAND_URL}/es/embed/${calculadora.categoriaSlug}/${calculadora.slug}?theme=${theme}`
   const embedCode = `<iframe 
   src="${embedUrl}" 
   width="${width}" 
@@ -55,6 +55,20 @@ function WidgetConfigSpanishContent() {
           <section className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
             <h2 className="text-lg font-bold mb-6 text-navy dark:text-white">Opciones de Visualización</h2>
             <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-slate-600 dark:text-slate-400 mb-1">Tema</label>
+                <div className="flex gap-2">
+                  {['light', 'dark', 'navy'].map((t) => (
+                    <button
+                      key={t}
+                      onClick={() => setTheme(t)}
+                      className={`flex-1 px-4 py-2 rounded-lg border text-sm font-medium transition-all ${theme === t ? 'bg-accent border-accent text-navy' : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400'}`}
+                    >
+                      {t.charAt(0).toUpperCase() + t.slice(1)}
+                    </button>
+                  ))}
+                </div>
+              </div>
               <div>
                 <label className="block text-sm font-medium text-slate-600 dark:text-slate-400 mb-1">Ancho (px o %)</label>
                 <input 
