@@ -132,5 +132,19 @@ export const ES_CONTENT_MAP: Record<string, React.ReactNode> = {
       <p>La regla de tres es un método para resolver problemas de proporcionalidad entre tres valores conocidos y una incógnita. Puede ser directa (cuando una magnitud aumenta, la otra también) o inversa.</p>
       <p>Nuestra herramienta resuelve ambos casos automáticamente, ahorrándote tiempo y evitando errores de cálculo manual.</p>
     </>
+  ),
+  'fuso-horario': (
+    <>
+      <h2>Calculadora de Diferencia Horaria</h2>
+      <p>Con la globalización y el trabajo remoto, saber la hora exacta en diferentes partes del mundo es esencial. Nuestra herramienta te permite convertir el horario de Brasil (Brasilia) a cualquier otra zona horaria instantáneamente.</p>
+      <p>Ten en cuenta el horario de verano (Daylight Saving Time) que algunos países aplican en diferentes épocas del año para evitar errores en tus reuniones o viajes.</p>
+    </>
+  ),
+  'reajuste-aluguel': (
+    <>
+      <h2>Cómo calcular el reajuste del alquiler</h2>
+      <p>En Brasil, los contratos de alquiler suelen reajustarse anualmente basándose en índices de inflación. Los más comunes son el <strong>IGP-M</strong> (Índice General de Precios de Mercado) y el <strong>IPCA</strong> (Índice de Precios al Consumidor Amplio).</p>
+      <p>Simplemente ingresa el valor actual de tu alquiler y elige el índice para ver el nuevo valor actualizado según el acumulado de los últimos 12 meses.</p>
+    </>
   )
 }
