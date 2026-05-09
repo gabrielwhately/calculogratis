@@ -229,7 +229,7 @@ export default function Home() {
       {/* Why Us */}
       <section className="bg-slate-50 dark:bg-slate-900/40 rounded-3xl p-8 md:p-12 border border-slate-200 dark:border-slate-800">
         <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-2xl font-bold text-navy dark:text-white mb-8">Por que usar o Cálculo Grátis?</h2>
+          <h2 className="text-2xl font-bold text-navy dark:text-white mb-8">Por que escolher o Cálculo Grátis?</h2>
           <div className="grid gap-8 md:grid-cols-3">
             <div className="space-y-3">
               <div className="w-12 h-12 bg-white dark:bg-slate-800 rounded-2xl shadow-sm flex items-center justify-center mx-auto text-accent">

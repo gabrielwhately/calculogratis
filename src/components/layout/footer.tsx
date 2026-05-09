@@ -17,6 +17,7 @@ const I18N = {
     contact: 'Contato',
     request: 'Sugerir Calculadora',
     articles: 'Artigos e Dicas',
+    saved: 'Itens Salvos',
     copy: BRAND_DOMAIN,
   },
   es: {
@@ -28,6 +29,7 @@ const I18N = {
     contact: 'Contacto',
     request: 'Sugerir Calculadora',
     articles: 'Artículos y Consejos',
+    saved: 'Ítems Guardados',
     copy: BRAND_DOMAIN,
   }
 }
@@ -93,13 +95,8 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href={`${prefix}/favoritos`} className="text-sm text-slate-600 dark:text-slate-400 hover:text-accent transition-colors">
-                  {isSpanish ? 'Favoritos' : 'Favoritos'}
-                </Link>
-              </li>
-              <li>
-                <Link href={isSpanish ? '/es/historial' : '/historico'} className="text-sm text-slate-600 dark:text-slate-400 hover:text-accent transition-colors">
-                  {isSpanish ? 'Historial' : 'Histórico'}
+                <Link href={isSpanish ? '/es/guardados' : '/salvos'} className="text-sm text-slate-600 dark:text-slate-400 hover:text-accent transition-colors">
+                  {t.saved}
                 </Link>
               </li>
               <li>
