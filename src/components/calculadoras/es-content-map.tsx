@@ -146,5 +146,32 @@ export const ES_CONTENT_MAP: Record<string, React.ReactNode> = {
       <p>En Brasil, los contratos de alquiler suelen reajustarse anualmente basándose en índices de inflación. Los más comunes son el <strong>IGP-M</strong> (Índice General de Precios de Mercado) y el <strong>IPCA</strong> (Índice de Precios al Consumidor Amplio).</p>
       <p>Simplemente ingresa el valor actual de tu alquiler y elige el índice para ver el nuevo valor actualizado según el acumulado de los últimos 12 meses.</p>
     </>
+  ),
+  'rendimento-cdb': (
+    <>
+      <h2>Rendimiento de Renta Fija (CDB, LCI y LCA)</h2>
+      <p>El CDB (Certificado de Depósito Bancario) es uno de los instrumentos de renta fija más populares en Brasil. Su rentabilidad suele estar ligada al <strong>CDI</strong>, que sigue de cerca la tasa básica de interés (Selic).</p>
+      <p>Nuestra calculadora aplica automáticamente la <strong>tabla regresiva del Impuesto de Renta (IR)</strong> según el plazo de la inversión, permitiéndote comparar el valor bruto frente al valor líquido (lo que realmente recibes).</p>
+    </>
+  ),
+  'markup': (
+    <>
+      <h2>Cómo calcular el precio de venta ideal (Markup)</h2>
+      <p>El Markup es un índice que se aplica sobre el costo de un producto para determinar su precio de venta. Debe cubrir los gastos fijos, variables y el margen de lucro deseado.</p>
+      <p>Usar un markup correcto asegura que tu negocio sea sostenible y que no pierdas dinero por ignorar costos ocultos o impuestos sobre la venta.</p>
+    </>
+  ),
+  'gestacional': (
+    <>
+      <h2>Calculadora de Embarazo y Fecha de Parto</h2>
+      <p>Saber con precisión tu edad gestacional te ayuda a seguir el desarrollo de tu bebé semana a semana. Nuestra calculadora utiliza la <strong>Regla de Naegele</strong>, basada en la fecha de tu última menstruación (FUM).</p>
+      <p>Obtén una estimación de tu fecha probable de parto (FPP) y descubre en qué trimestre te encuentras actualmente.</p>
+    </>
+  ),
+  'calculadora-idade': (
+    <>
+      <h2>Calculadora de Edad Exacta</h2>
+      <p>Descubre cuántos años, meses y días tienes con total precisión. Nuestra herramienta también te dice cuántos días faltan para tu próximo cumpleaños y en qué día de la semana naciste.</p>
+    </>
   )
 }
