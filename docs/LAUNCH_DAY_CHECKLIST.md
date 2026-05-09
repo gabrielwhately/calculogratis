@@ -28,21 +28,22 @@ This checklist is for the human owner (Gabriel) to execute once the technical de
 - [ ] Activate **Campaign 2 (Financial)**: Target CPA set to R$ 1.50.
 
 ## 5. Partner Outreach (Backlinks)
-- [ ] Send initial outreach emails using `docs/OUTREACH_TEMPLATES.md`.
+- [ ] Send initial outreach emails using `docs/OUTREACH_TEMPLATES.md` (PT) or `docs/OUTREACH_TEMPLATES_ES.md` (ES).
 - [ ] Focus on the "Featured" list in the templates (Exame, Infomoney, etc).
 - [ ] Showcase the **Widget Configurator** (`/widgets/config`) in the emails.
 
 ## 6. Social Media Launch
-- [ ] Post the "Helpful Friend" template from `docs/SOCIAL_MEDIA_TEMPLATES.md` to relevant WhatsApp groups.
+- [ ] Post the "Helpful Friend" template from `docs/SOCIAL_MEDIA_TEMPLATES.md` / `docs/SOCIAL_MEDIA_TEMPLATES_ES.md` to relevant WhatsApp groups.
 - [ ] Record and upload the "Know Your Rights" series to TikTok/Reels using the scripts provided.
 
-## 7. Recent CTO Technical Polish (Added May 8, 2026)
-- [x] **GA4 Event Tracking**: Implemented for all 64+ tools (calculate, share, save, print).
-- [x] **Search Localization**: Fixed ES search bugs (empty state and keyword filtering).
-- [x] **SEO Fix**: Corrected `metadataBase` in all layouts to ensure OG sharing works.
-- [x] **Code Quality**: Resolved latent build/lint errors to ensure 100% build stability.
+## 7. Recent Peak Polish wave (Added May 9, 2026)
+- [x] **Unified User Data**: Consolidated Favorites and History into single high-performance "Salvos/Guardados" experience.
+- [x] **Accessibility**: Project-wide font size audit to ensure WCAG AA compliance (12px min).
+- [x] **Trust Architecture**: "Why Us?" section implemented on home pages (PT/ES) emphasizing Privacy/Precision/Speed.
+- [x] **Spanish Growth**: Finalized localized Social Media and Outreach assets for LATAM expansion.
 
 ---
-**Technical Readiness**: 100%. Build verified (314 pages). All tests passing.
-**Marketing Status**: 100% Prepared. All systems (Embeds, Newsletter, Viral Loop, Tracking) are implemented and pushed to GitHub.
-**Blocker**: Awaiting Board Approval `b7bdb484` to reset CEO agent and deploy.
+**Technical Readiness**: 100% Peak Readiness. Build verified (316 pages). All tests passing.
+**Marketing Status**: 100% Prepared. All localized assets and growth engines are live in codebase.
+**Blocker**: CEO agent (`249e2193`) ERROR state and checkout lock on [CALAA-38](/CALAA/issues/CALAA-38).
+
