@@ -226,6 +226,36 @@ export default function Home() {
         </Link>
       </section>
 
+      {/* Why Us */}
+      <section className="bg-slate-50 dark:bg-slate-900/40 rounded-3xl p-8 md:p-12 border border-slate-200 dark:border-slate-800">
+        <div className="max-w-3xl mx-auto text-center">
+          <h2 className="text-2xl font-bold text-navy dark:text-white mb-8">Por que usar o Cálculo Grátis?</h2>
+          <div className="grid gap-8 md:grid-cols-3">
+            <div className="space-y-3">
+              <div className="w-12 h-12 bg-white dark:bg-slate-800 rounded-2xl shadow-sm flex items-center justify-center mx-auto text-accent">
+                <Icons.ShieldCheck className="w-6 h-6" />
+              </div>
+              <h3 className="font-bold text-navy dark:text-white">Privacidade Total</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-400">Seus dados nunca saem do seu navegador. Não salvamos nada em nossos servidores.</p>
+            </div>
+            <div className="space-y-3">
+              <div className="w-12 h-12 bg-white dark:bg-slate-800 rounded-2xl shadow-sm flex items-center justify-center mx-auto text-accent">
+                <Icons.CheckCircle className="w-6 h-6" />
+              </div>
+              <h3 className="font-bold text-navy dark:text-white">Precisão 2026</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-400">Fórmulas rigorosamente atualizadas conforme a legislação e indicadores vigentes este ano.</p>
+            </div>
+            <div className="space-y-3">
+              <div className="w-12 h-12 bg-white dark:bg-slate-800 rounded-2xl shadow-sm flex items-center justify-center mx-auto text-accent">
+                <Icons.Zap className="w-6 h-6" />
+              </div>
+              <h3 className="font-bold text-navy dark:text-white">Velocidade Extrema</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-400">Resultados instantâneos enquanto você digita. Sem espera e sem burocracia.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* All calculators */}
       <section>
         <h2 className="text-lg font-bold text-navy dark:text-white mb-4 flex items-center gap-2">

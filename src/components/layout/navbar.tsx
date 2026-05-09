@@ -58,6 +58,12 @@ export function Navbar() {
               </Link>
             )
           })}
+          <Link 
+            href={isSpanish ? '/es/articulos' : '/artigos'} 
+            className="text-sm font-bold text-accent hover:text-white transition-colors"
+          >
+            {isSpanish ? 'Artículos' : 'Artigos'}
+          </Link>
           <Search />
           <ThemeToggle />
           <LanguageSwitcher />
@@ -99,6 +105,13 @@ export function Navbar() {
               </Link>
             )
           })}
+          <Link 
+            href={isSpanish ? '/es/articulos' : '/artigos'} 
+            onClick={() => setMenuOpen(false)}
+            className="block py-3 text-sm font-bold text-accent hover:text-white min-h-[44px] flex items-center"
+          >
+            {isSpanish ? 'Artículos' : 'Artigos'}
+          </Link>
           <div className="mt-2 py-2 border-t border-navy-light">
              <LanguageSwitcher />
           </div>

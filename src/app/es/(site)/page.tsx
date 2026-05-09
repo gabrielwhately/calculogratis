@@ -227,6 +227,36 @@ export default function HomeES() {
         </Link>
       </section>
 
+      {/* Why Us */}
+      <section className="bg-slate-50 dark:bg-slate-900/40 rounded-3xl p-8 md:p-12 border border-slate-200 dark:border-slate-800">
+        <div className="max-w-3xl mx-auto text-center">
+          <h2 className="text-2xl font-bold text-navy dark:text-white mb-8">¿Por qué usar Cálculo Gratis?</h2>
+          <div className="grid gap-8 md:grid-cols-3">
+            <div className="space-y-3">
+              <div className="w-12 h-12 bg-white dark:bg-slate-800 rounded-2xl shadow-sm flex items-center justify-center mx-auto text-accent">
+                <Icons.ShieldCheck className="w-6 h-6" />
+              </div>
+              <h3 className="font-bold text-navy dark:text-white">Privacidad Total</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-400">Sus datos nunca salen de su navegador. No guardamos nada en nuestros servidores.</p>
+            </div>
+            <div className="space-y-3">
+              <div className="w-12 h-12 bg-white dark:bg-slate-800 rounded-2xl shadow-sm flex items-center justify-center mx-auto text-accent">
+                <Icons.CheckCircle className="w-6 h-6" />
+              </div>
+              <h3 className="font-bold text-navy dark:text-white">Precisión 2026</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-400">Fórmulas rigurosamente actualizadas según la legislación e indicadores vigentes este año.</p>
+            </div>
+            <div className="space-y-3">
+              <div className="w-12 h-12 bg-white dark:bg-slate-800 rounded-2xl shadow-sm flex items-center justify-center mx-auto text-accent">
+                <Icons.Zap className="w-6 h-6" />
+              </div>
+              <h3 className="font-bold text-navy dark:text-white">Velocidad Extrema</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-400">Resultados instantáneos mientras escribe. Sin esperas y sin burocracia.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section>
         <h2 className="text-lg font-bold text-navy dark:text-white mb-4 flex items-center gap-2">
           <svg className="h-4 w-4 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>

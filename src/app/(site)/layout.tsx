@@ -14,7 +14,7 @@ const inter = Inter({ subsets: ["latin"], display: "swap", preload: true })
 
 export const metadata: Metadata = {
   title: { default: `${BRAND_NAME} — ${BRAND_TAGLINE}`, template: `%s | ${BRAND_NAME}` },
-  description: "Calculadoras e simuladores online grátis: rescisão trabalhista, salário líquido, juros compostos, financiamento, IMC, aposentadoria e mais de 50 ferramentas. Sem cadastro, resultados instantâneos.",
+  description: "Calculadoras e simuladores online grátis: rescisão trabalhista, salário líquido, juros compostos, financiamento, IMC, aposentadoria e mais de 160 ferramentas. Sem cadastro, resultados instantâneos.",
   metadataBase: new URL(BRAND_URL),
   keywords: "calculadora online, simulador online, calculadora grátis, ferramentas online, cálculos trabalhistas, cálculos financeiros",
   openGraph: { siteName: BRAND_NAME, locale: "pt_BR", type: "website" },
