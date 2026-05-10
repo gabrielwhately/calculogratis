@@ -2,6 +2,7 @@ import type { MetadataRoute } from 'next'
 import { CALCULADORAS, CATEGORIAS } from '@/lib/constants/calculadoras'
 import { CATEGORIAS_ES } from '@/lib/i18n/calculadoras-es'
 import { BRAND_URL } from '@/lib/constants/branding'
+import { ARTIGOS_PT, ARTICULOS_ES } from '@/lib/constants/articles'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = BRAND_URL
@@ -16,9 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/sugerir`, lastModified, changeFrequency: 'monthly', priority: 0.4 },
     { url: `${baseUrl}/termos`, lastModified, changeFrequency: 'yearly', priority: 0.3 },
     { url: `${baseUrl}/privacidade`, lastModified, changeFrequency: 'yearly', priority: 0.3 },
-    ...[
-      'rescisao-2026', 'juros-compostos', 'salario-liquido', 'imc-saude', 'sac-vs-price', 'seguro-desemprego'
-    ].map(slug => ({
+    ...Object.keys(ARTIGOS_PT).map(slug => ({
       url: `${baseUrl}/artigos/${slug}`,
       lastModified,
       changeFrequency: 'weekly' as const,
@@ -47,9 +46,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/es/sugerir`, lastModified, changeFrequency: 'monthly', priority: 0.4 },
     { url: `${baseUrl}/es/condiciones`, lastModified, changeFrequency: 'yearly', priority: 0.3 },
     { url: `${baseUrl}/es/privacidad`, lastModified, changeFrequency: 'yearly', priority: 0.3 },
-    ...[
-      'liquidacion-2026', 'interes-compuesto', 'salario-neto', 'imc-salud', 'sac-o-frances', 'seguro-desempleo'
-    ].map(slug => ({
+    ...Object.keys(ARTICULOS_ES).map(slug => ({
       url: `${baseUrl}/es/articulos/${slug}`,
       lastModified,
       changeFrequency: 'weekly' as const,
