@@ -21,8 +21,8 @@ const I18N = {
 }
 
 const POPULAR_LINKS = [
-  { pt: 'Rescisão', es: 'Liquidación', href: '/trabalhista/rescisao', esHref: '/es/laboral/liquidacion-trabajo' },
-  { pt: 'Juros Compostos', es: 'Interés Compuesto', href: '/financeiro/juros-compostos', esHref: '/es/finanzas/interes-compuesto' },
+  { pt: 'Rescisão', es: 'Liquidación', href: '/trabalhista/rescisao', esHref: '/es/laboral/rescisao' },
+  { pt: 'Juros Compostos', es: 'Interés Compuesto', href: '/financeiro/juros-compostos', esHref: '/es/financiero/juros-compostos' },
   { pt: 'Salário Líquido', es: 'Salario Neto', href: '/trabalhista/salario-liquido', esHref: '/es/laboral/salario-neto' },
 ]
 

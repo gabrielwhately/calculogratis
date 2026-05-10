@@ -91,7 +91,7 @@ export default function HomeES() {
           Calculadoras y Simuladores Online <span className="text-accent">Gratis</span>
         </h1>
         <p className="mt-3 text-lg text-slate-600 dark:text-slate-400 max-w-xl mx-auto">
-          Más de 50 calculadoras: liquidación laboral, salario neto, interés compuesto, financiamiento, IMC y mucho más — calcula en segundos.
+          Más de 160 herramientas: liquidación laboral, salario neto, interés compuesto, financiamiento, IMC y mucho más — calcula en segundos.
         </p>
       </section>
 
@@ -280,6 +280,36 @@ export default function HomeES() {
               </Link>
             )
           })}
+        </div>
+      </section>
+
+      {/* Trust / Differentials */}
+      <section className="bg-slate-50 dark:bg-slate-900/50 rounded-3xl p-8 md:p-12 border border-slate-100 dark:border-slate-800">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-2xl font-bold text-navy dark:text-white text-center mb-8">¿Por qué elegir Cálculo Gratis?</h2>
+          <div className="grid gap-8 md:grid-cols-3">
+            <div className="text-center">
+              <div className="w-12 h-12 bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center shadow-sm mx-auto mb-4 text-accent">
+                <Icons.LockClosed className="w-6 h-6" />
+              </div>
+              <h3 className="font-bold text-navy dark:text-white mb-2">100% Privado</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-400">Tus datos no salen de tu navegador. No recopilamos información personal.</p>
+            </div>
+            <div className="text-center">
+              <div className="w-12 h-12 bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center shadow-sm mx-auto mb-4 text-accent">
+                <Icons.ShieldCheck className="w-6 h-6" />
+              </div>
+              <h3 className="font-bold text-navy dark:text-white mb-2">Siempre Actualizado</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-400">Fórmulas revisadas para 2026, garantizando precisión en tus cálculos.</p>
+            </div>
+            <div className="text-center">
+              <div className="w-12 h-12 bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center shadow-sm mx-auto mb-4 text-accent">
+                <Icons.Bolt className="w-6 h-6" />
+              </div>
+              <h3 className="font-bold text-navy dark:text-white mb-2">Simple y Rápido</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-400">Sin formularios gigantes ni necesidad de crear cuenta. Resultado al instante.</p>
+            </div>
+          </div>
         </div>
       </section>
     </div>

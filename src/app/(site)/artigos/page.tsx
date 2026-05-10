@@ -60,6 +60,42 @@ const ARTIGOS = [
     category: "Trabalhista",
     readTime: "5 min",
     tags: ["Seguro Desemprego", "Direitos"]
+  },
+  {
+    slug: "guia-aposentadoria",
+    title: "Como planejar sua aposentadoria em 2026",
+    excerpt: "Entenda as regras atuais, idade mínima e tempo de contribuição para se aposentar pelo INSS.",
+    date: "08 Mai 2026",
+    category: "Previdência",
+    readTime: "6 min",
+    tags: ["Aposentadoria", "INSS", "Previdência"]
+  },
+  {
+    slug: "guia-irrf-2026",
+    title: "Tabela IRRF 2026: Como calcular o imposto retido",
+    excerpt: "Confira a tabela atualizada do Imposto de Renda 2026 e aprenda a calcular o desconto no seu salário.",
+    date: "09 Mai 2026",
+    category: "Trabalhista",
+    readTime: "4 min",
+    tags: ["IRRF", "Impostos", "2026"]
+  },
+  {
+    slug: "guia-ferias-clt",
+    title: "Cálculo de Férias: Entenda o terço constitucional",
+    excerpt: "Saiba quanto você vai receber ao tirar férias, incluindo o adicional de 1/3 e o abono pecuniário.",
+    date: "09 Mai 2026",
+    category: "Trabalhista",
+    readTime: "5 min",
+    tags: ["Férias", "CLT", "Direitos"]
+  },
+  {
+    slug: "rendimento-cdb",
+    title: "Como calcular o rendimento do CDB em 2026",
+    excerpt: "Entenda como a taxa Selic e o CDI afetam o rendimento dos seus investimentos em renda fixa.",
+    date: "10 Mai 2026",
+    category: "Financeiro",
+    readTime: "5 min",
+    tags: ["CDB", "Renda Fixa", "Investimentos"]
   }
 ]
 

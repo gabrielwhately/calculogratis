@@ -23,7 +23,7 @@ export default function PrivacidadePage() {
       <h2>4. Links Externos</h2>
       <p>Nosso site pode conter links para sites externos que não são operados por nós. Não temos controle sobre o conteúdo e práticas desses sites e não podemos aceitar responsabilidade por suas respectivas políticas de privacidade.</p>
       
-      <h2>2. Segurança</h2>
+      <h2>5. Segurança</h2>
       <p>Empregamos medidas de segurança padrão para proteger nosso site e seus visitantes contra acesso não autorizado ou alteração de dados.</p>
       
       <p className="mt-12 text-sm text-slate-500">Última atualização: 06 de Maio de 2026.</p>

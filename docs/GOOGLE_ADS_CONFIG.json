@@ -51,6 +51,138 @@
           "final_url": "https://calculo.gratis/financeiro/juros-compostos"
         }
       ]
+    },
+    {
+      "name": "Labor_PT_Salario",
+      "budget_daily": "40.00",
+      "target_cpa": "1.80",
+      "ad_groups": [
+        {
+          "name": "SalarioLiquido",
+          "keywords": [
+            "calculadora salário líquido",
+            "salário líquido 2026",
+            "desconto inss irrf",
+            "quanto vou receber de salário"
+          ],
+          "headlines": [
+            "Calculadora Salário Líquido",
+            "Saiba seu Salário Real",
+            "Cálculo INSS e IRRF 2026"
+          ],
+          "descriptions": [
+            "Calcule seu salário líquido em segundos com todos os descontos de 2026. Rápido e grátis.",
+            "Descubra quanto sobra do seu salário bruto. Simulador completo de descontos trabalhistas."
+          ],
+          "final_url": "https://calculo.gratis/trabalhista/salario-liquido"
+        }
+      ]
+    },
+    {
+      "name": "Health_PT_Search",
+      "budget_daily": "20.00",
+      "target_cpa": "1.00",
+      "ad_groups": [
+        {
+          "name": "IMC",
+          "keywords": [
+            "calculadora imc",
+            "índice de massa corporal",
+            "meu imc ideal",
+            "tabela imc 2026"
+          ],
+          "headlines": [
+            "Calculadora de IMC Grátis",
+            "Descubra seu Peso Ideal",
+            "Cálculo de IMC Online"
+          ],
+          "descriptions": [
+            "Calcule seu IMC em segundos e veja se você está no peso ideal. Resultado instantâneo.",
+            "Ferramenta simples e rápida para monitorar sua saúde. Baseado em padrões da OMS."
+          ],
+          "final_url": "https://calculo.gratis/saude/imc"
+        }
+      ]
+    }
+,
+    {
+      "name": "Labor_ES_Search",
+      "budget_daily": "40.00",
+      "target_cpa": "1.80",
+      "ad_groups": [
+        {
+          "name": "Liquidacion",
+          "keywords": [
+            "calculadora liquidación",
+            "cálculo laboral",
+            "derechos despido",
+            "simulador liquidación 2026"
+          ],
+          "headlines": [
+            "Calculadora de Liquidación",
+            "Calcule sus Derechos Gratis",
+            "Simulador Laboral Online"
+          ],
+          "descriptions": [
+            "Sepa exactamente cuánto debe recibir. 100% gratis y actualizado con las reglas de 2026.",
+            "Cálculo instantáneo de indemnización, vacaciones y aguinaldo. Sin registro."
+          ],
+          "final_url": "https://calculo.gratis/es/laboral/rescisao"
+          }
+          ]
+          },
+          {
+          "name": "Financial_ES_Search",
+          "budget_daily": "25.00",
+          "target_cpa": "1.40",
+          "ad_groups": [
+          {
+          "name": "InteresCompuesto",
+          "keywords": [
+            "simulador interés compuesto",
+            "calculadora inversiones",
+            "cuánto rinde mi dinheiro",
+            "interés sobre interés"
+          ],
+          "headlines": [
+            "Simulador Interés Compuesto",
+            "Planifique su Futuro",
+            "Calculadora de Inversiones"
+          ],
+          "descriptions": [
+            "Vea el poder del tiempo sobre su dinheiro. Simule aportes mensuales y tasas de rentabilidad gratis.",
+            "Compare diferentes escenarios de inversión y descubra cómo alcanzar sus metas."
+          ],
+          "final_url": "https://calculo.gratis/es/financiero/juros-compostos"
+
+        }
+      ]
+    },
+    {
+      "name": "Labor_PT_Seguro",
+      "budget_daily": "35.00",
+      "target_cpa": "1.60",
+      "ad_groups": [
+        {
+          "name": "SeguroDesemprego",
+          "keywords": [
+            "calculadora seguro desemprego",
+            "valor seguro desemprego 2026",
+            "quantas parcelas seguro desemprego",
+            "cálculo seguro desemprego online"
+          ],
+          "headlines": [
+            "Calculadora Seguro Desemprego",
+            "Saiba o Valor das Parcelas",
+            "Cálculo Atualizado 2026"
+          ],
+          "descriptions": [
+            "Calcule o valor e a quantidade de parcelas do seu seguro desemprego em segundos. Grátis e online.",
+            "Confira quanto você vai receber de seguro desemprego com as novas tabelas de 2026."
+          ],
+          "final_url": "https://calculo.gratis/trabalhista/seguro-desemprego"
+        }
+      ]
     }
   ]
 }

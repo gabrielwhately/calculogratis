@@ -68,16 +68,18 @@ export function ResultCard({ title, mainValue, mainLabel, items, visible, childr
   if (!visible) return null
 
   const getResultText = () => {
-    const emoji = '📊'
+    const chartEmoji = '📊'
+    const linkEmoji = '🔗'
+    
     const footer = isSpanish 
-      ? `Simula el tuyo en: ${BRAND_URL}` 
-      : `Simule o seu em: ${BRAND_URL}`
+      ? `${linkEmoji} Simula el tuyo en: ${BRAND_URL}/es` 
+      : `${linkEmoji} Simule o seu em: ${BRAND_URL}`
     
     const itemsText = items && items.length > 0 
       ? `\n${items.map(i => `• ${i.label}: ${i.value}`).join('\n')}`
       : ''
 
-    return `${emoji} *${title}*\n\n${mainLabel}: *${mainValue}*${itemsText}\n\n${footer}`
+    return `${chartEmoji} *${title}*\n\n${mainLabel}: *${mainValue}*${itemsText}\n\n${footer}`
   }
 
   const handleCopy = () => {
@@ -199,7 +201,7 @@ export function ResultCard({ title, mainValue, mainLabel, items, visible, childr
       {/* Viral loop */}
       <div className="mt-6 pt-4 border-t border-white/10 text-center print:hidden">
         <p className="text-xs text-slate-400">
-          {isSpanish ? '¿Te gustó? Ayuda a um amigo compartiendo este resultado.' : 'Gostou? Ajude um amigo compartilhando este resultado.'}
+          {isSpanish ? '¿Te gustó? Ayuda a un amigo compartiendo este resultado.' : 'Gostou? Ajude um amigo compartilhando este resultado.'}
         </p>
       </div>
 

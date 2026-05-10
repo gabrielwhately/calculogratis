@@ -90,7 +90,7 @@ export default function Home() {
           Calculadoras e Simuladores Online <span className="text-accent">Grátis</span>
         </h1>
         <p className="mt-3 text-lg text-slate-600 dark:text-slate-400 max-w-xl mx-auto">
-          Mais de 50 calculadoras: rescisão trabalhista, salário líquido, juros compostos, financiamento, IMC e muito mais — calcule em segundos.
+          Mais de 160 ferramentas: rescisão trabalhista, salário líquido, juros compostos, financiamento, IMC e muito mais — calcule em segundos.
         </p>
       </section>
 
@@ -276,6 +276,36 @@ export default function Home() {
               <p className="mt-1 text-xs text-slate-600 dark:text-slate-400 line-clamp-2">{calc.descricao}</p>
             </Link>
           ))}
+        </div>
+      </section>
+
+      {/* Trust / Differentials */}
+      <section className="bg-slate-50 dark:bg-slate-900/50 rounded-3xl p-8 md:p-12 border border-slate-100 dark:border-slate-800">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-2xl font-bold text-navy dark:text-white text-center mb-8">Por que escolher o Cálculo Grátis?</h2>
+          <div className="grid gap-8 md:grid-cols-3">
+            <div className="text-center">
+              <div className="w-12 h-12 bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center shadow-sm mx-auto mb-4 text-accent">
+                <Icons.LockClosed className="w-6 h-6" />
+              </div>
+              <h3 className="font-bold text-navy dark:text-white mb-2">100% Privado</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-400">Seus dados não saem do seu navegador. Não coletamos informações pessoais.</p>
+            </div>
+            <div className="text-center">
+              <div className="w-12 h-12 bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center shadow-sm mx-auto mb-4 text-accent">
+                <Icons.ShieldCheck className="w-6 h-6" />
+              </div>
+              <h3 className="font-bold text-navy dark:text-white mb-2">Sempre Atualizado</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-400">Fórmulas revisadas para 2026, garantindo precisão nos seus cálculos.</p>
+            </div>
+            <div className="text-center">
+              <div className="w-12 h-12 bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center shadow-sm mx-auto mb-4 text-accent">
+                <Icons.Bolt className="w-6 h-6" />
+              </div>
+              <h3 className="font-bold text-navy dark:text-white mb-2">Simples e Rápido</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-400">Sem formulários gigantes ou necessidade de criar conta. Resultado na hora.</p>
+            </div>
+          </div>
         </div>
       </section>
     </div>

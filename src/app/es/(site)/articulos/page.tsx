@@ -60,6 +60,42 @@ const ARTICULOS = [
     category: "Laboral",
     readTime: "5 min",
     tags: ["Seguro Desempleo", "Derechos"]
+  },
+  {
+    slug: "guia-jubilacion",
+    title: "Cómo planificar su jubilación en 2026",
+    excerpt: "Entienda las reglas actuales, edad mínima y tiempo de contribución para jubilarse.",
+    date: "08 May 2026",
+    category: "Previsión",
+    readTime: "5 min",
+    tags: ["Jubilación", "Seguridad Social"]
+  },
+  {
+    slug: "guia-irrf-2026",
+    title: "Impuesto de Renta 2026: Cómo calcular la retención",
+    excerpt: "Consulte la tabla actualizada del Impuesto sobre la Renta 2026 y aprenda a calcular el descuento.",
+    date: "09 May 2026",
+    category: "Laboral",
+    readTime: "4 min",
+    tags: ["IRRF", "Impuestos", "2026"]
+  },
+  {
+    slug: "guia-vacaciones-clt",
+    title: "Cálculo de Vacaciones: Entienda sus beneficios",
+    excerpt: "Sepa cuánto recibirá al tomar vacaciones, incluyendo el adicional legal y el bono vacacional.",
+    date: "09 May 2026",
+    category: "Laboral",
+    readTime: "5 min",
+    tags: ["Vacaciones", "Derechos"]
+  },
+  {
+    slug: "rendimiento-cdb",
+    title: "Cómo calcular el rendimiento del CDB en 2026",
+    excerpt: "Entienda cómo la tasa Selic y el CDI afectan el rendimiento de sus inversiones en renta fija.",
+    date: "10 May 2026",
+    category: "Finanzas",
+    readTime: "5 min",
+    tags: ["CDB", "Renta Fija", "Inversiones"]
   }
 ]
 
