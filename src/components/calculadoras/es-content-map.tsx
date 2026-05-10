@@ -173,5 +173,33 @@ export const ES_CONTENT_MAP: Record<string, React.ReactNode> = {
       <h2>Calculadora de Edad Exacta</h2>
       <p>Descubre cuántos años, meses y días tienes con total precisión. Nuestra herramienta también te dice cuántos días faltan para tu próximo cumpleaños y en qué día de la semana naciste.</p>
     </>
+  ),
+  'ipva': (
+    <>
+      <h2>Cálculo del IPVA 2026</h2>
+      <p>El IPVA (Impuesto sobre la Propiedad de Vehículos Automotores) es un impuesto anual que deben pagar los dueños de vehículos. El valor se calcula aplicando una alícuota sobre el valor venal del vehículo definido por la tabla FIPE.</p>
+      <p>Simula el valor de tu impuesto y conoce los plazos de pago para aprovechar los descuentos por pago al contado (cota única).</p>
+    </>
+  ),
+  'dias-entre-datas': (
+    <>
+      <h2>Calculadora de Días entre Fechas</h2>
+      <p>Cuenta exactamente cuántos días, semanas o meses hay entre dos fechas. Es ideal para planificar proyectos, plazos de entrega o simplemente saber cuánto tiempo falta para un evento importante.</p>
+      <p>Nuestra herramienta permite incluir o excluir el día final del conteo, dándote flexibilidad total para tus cálculos de plazos.</p>
+    </>
+  ),
+  'agua-diaria': (
+    <>
+      <h2>Cuánta agua debes beber al día</h2>
+      <p>La recomendación general de 2 litros por día no es exacta para todos. El consumo ideal de agua depende de factores como tu peso corporal y tu nivel de actividad física.</p>
+      <p>Mantenerse hidratado es fundamental para el funcionamiento del cerebro, la regulación de la temperatura corporal y la salud de la piel. ¡Calcula tu meta personalizada ahora!</p>
+    </>
+  ),
+  'custo-clt': (
+    <>
+      <h2>Costo de un Empleado para la Empresa</h2>
+      <p>En Brasil, el salario base es solo una parte de lo que una empresa paga por un trabajador. Hay cargos adicionales como el FGTS, vacaciones, aguinaldo e impuestos patronales.</p>
+      <p>Nuestra calculadora desglosa todos estos costos para que los emprendedores y gestores puedan planificar sus contrataciones con seguridad financiera.</p>
+    </>
   )
 }

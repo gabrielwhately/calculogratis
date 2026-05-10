@@ -45,28 +45,6 @@ export default function BuscaPage() {
 
   const [query, setQuery] = useState('')
   
-  // Track search queries (debounced)
-  useEffect(() => {
-    if (!query.trim()) return
-
-    const timer = setTimeout(() => {
-      trackEvent('search', {
-        search_term: query.toLowerCase(),
-        results_count: results.length,
-        language: isSpanish ? 'es' : 'pt'
-      })
-
-      if (results.length === 0) {
-        trackEvent('search_no_results', {
-          search_term: query.toLowerCase(),
-          language: isSpanish ? 'es' : 'pt'
-        })
-      }
-    }, 1500)
-
-    return () => clearTimeout(timer)
-  }, [query, results.length, isSpanish])
-
   const results = useMemo(() => {
     const allCalcs = CALCULADORAS
     const q = query.toLowerCase().trim()
@@ -94,6 +72,28 @@ export default function BuscaPage() {
       c.keywords.toLowerCase().includes(q)
     )
   }, [query, isSpanish])
+
+  // Track search queries (debounced)
+  useEffect(() => {
+    if (!query.trim()) return
+
+    const timer = setTimeout(() => {
+      trackEvent('search', {
+        search_term: query.toLowerCase(),
+        results_count: results.length,
+        language: isSpanish ? 'es' : 'pt'
+      })
+
+      if (results.length === 0) {
+        trackEvent('search_no_results', {
+          search_term: query.toLowerCase(),
+          language: isSpanish ? 'es' : 'pt'
+        })
+      }
+    }, 1500)
+
+    return () => clearTimeout(timer)
+  }, [query, results.length, isSpanish])
 
   return (
     <div className="container-app py-8">
