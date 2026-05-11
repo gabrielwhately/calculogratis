@@ -265,7 +265,7 @@ export const ARTIGOS_PT: Record<string, ArticleContent> = {
       "O 13º salário é um direito de todo trabalhador formal. Em 2026, as datas de pagamento seguem o cronograma tradicional estabelecido por lei.",
       "### Datas de Pagamento",
       "1. **1ª Parcela**: Deve ser paga entre 1º de fevereiro e 30 de novembro.",
-      "2. **2ª Parcela**: Deve ser paga até o dia 20 de dezembro.",
+      "2. **2ª Parcela**: Deve ser paga até the dia 20 de dezembro.",
       "### Como é feito o cálculo?",
       "O valor é proporcional aos meses trabalhados no ano. Se trabalhou o ano todo, recebe um salário extra. Se trabalhou parte do ano, o cálculo é (Salário / 12) * número de meses.",
       "### Descontos",
@@ -327,6 +327,23 @@ export const ARTIGOS_PT: Record<string, ArticleContent> = {
     ],
     ctaLabel: "Usar Calculadora de Porcentagem",
     ctaLink: "/matematica/porcentagem"
+  },
+  "guia-emprestimo": {
+    title: "Empréstimo Pessoal: Como conseguir as melhores taxas",
+    cat: "Financeiro",
+    date: "11 Mai 2026",
+    description: "Dicas essenciais para comparar empréstimos e entender o Custo Efetivo Total (CET).",
+    content: [
+      "Contratar um empréstimo pessoal exige cautela. O valor da parcela é apenas um dos fatores a considerar. O mais importante é o CET (Custo Efetivo Total).",
+      "### O que é o CET?",
+      "O CET engloba não apenas os juros, mas também tarifas bancárias, seguros e impostos (como o IOF). É o valor real que você está pagando pelo dinheiro emprestado.",
+      "### Dicas para Economizar",
+      "1. **Compare sempre**: Use nosso simulador para ver o impacto dos juros no longo prazo.",
+      "2. **Cuidado com o Seguro Prestamista**: Muitas vezes ele é opcional e encarece o contrato.",
+      "3. **Antecipe Parcelas**: Se sobrar dinheiro, antecipar as últimas parcelas garante um desconto proporcional nos juros."
+    ],
+    ctaLabel: "Simular Meu Empréstimo",
+    ctaLink: "/financeiro/emprestimo"
   }
 }
 
@@ -355,7 +372,7 @@ export const ARTICULOS_ES: Record<string, ArticleContent> = {
     title: "¿Cómo calcular su liquidación en 2026?",
     cat: "Laboral",
     date: "04 May 2026",
-    description: "Guía completa sobre conceptos de liquidación, plazos y derechos del trabajador en 2026.",
+    description: "Guía completa sobre conceptos de liquidación, plazos y derechos del trabajador in 2026.",
     content: [
       "Dejar un empleo genera muchas dudas, especialmente sobre cuánto tiene derecho a recibir. En 2026, las reglas siguen los estándares legales con tablas de impuestos actualizadas.",
       "### Conceptos Principales",
@@ -474,7 +491,7 @@ export const ARTICULOS_ES: Record<string, ArticleContent> = {
     title: "Impuesto de Renta 2026: Cómo calcular la retención",
     cat: "Laboral",
     date: "09 May 2026",
-    description: "Consulte la tabla actualizada del Impuesto sobre la Renta 2026 y aprenda a calcular el desconto en su salario.",
+    description: "Consulte la tabla actualizada del Impuesto sobre la Renta 2026 y aprenda a calcular el desconto in su salario.",
     content: [
       "El impuesto sobre la renta retenido en la fuente se aplica sobre los ingresos del trabajo. En 2026, las tasas y tramos de exención han sido actualizados.",
       "### Tabla Progresiva",
@@ -508,7 +525,7 @@ export const ARTICULOS_ES: Record<string, ArticleContent> = {
     title: "Cómo calcular el rendimiento del CDB en 2026",
     cat: "Finanzas",
     date: "10 May 2026",
-    description: "Entienda cómo la tasa Selic y el CDI afectan el rendimiento de sus inversiones en renta fija.",
+    description: "Entienda cómo la tasa Selic e el CDI afectan el rendimiento de sus inversiones en renta fija.",
     content: [
       "El Certificado de Depósito Bancario (CDB) es una de las inversiones más populares. Funciona como un préstamo que usted le hace al banco a cambio de intereses.",
       "### CDI y Selic",
@@ -530,7 +547,7 @@ export const ARTICULOS_ES: Record<string, ArticleContent> = {
       "Las horas extra son aquellas trabajadas más allá de la jornada normal contratada. En 2026, los recargos legales se mantienen según la normativa vigente.",
       "### Valor de la Hora Común",
       "Divida su salario bruto por el número de horas mensuales pactadas para encontrar el valor de su hora normal.",
-      "### Recargos del 50% y 100%",
+      "### Recargos del 50% e 100%",
       "1. **Días Laborables**: Recargo del 50% sobre la hora normal.",
       "2. **Domingos y Festivos**: Recargo del 100% (el doble de la hora normal).",
       "### Recargo Nocturno",
@@ -563,7 +580,7 @@ export const ARTICULOS_ES: Record<string, ArticleContent> = {
     date: "10 May 2026",
     description: "Decida entre trabajar de forma independiente o bajo contrato comparando beneficios y salario real.",
     content: [
-      "Decidir entre trabajar como freelance (independiente) o como empleado contratado es un dilema común en 2026. La elección depende del equilibrio entre seguridad, beneficios y salario neto real.",
+      "Decidir entre trabajar como freelance (independiente) o como empleado contratado es un dilema común in 2026. La elección depende del equilibrio entre seguridad, beneficios y salario neto real.",
       "### Ventajas del Empleado",
       "1. **Seguridad**: Seguro de desempleo, indemnizaciones por despido y mayor estabilidad legal.",
       "2. **Beneficios**: Aguinaldo (décimo tercero), vacaciones pagas y aportes patronales a la seguridad social.",
@@ -581,7 +598,7 @@ export const ARTICULOS_ES: Record<string, ArticleContent> = {
     title: "Guía del Aguinaldo: Fechas y cómo calcular",
     cat: "Laboral",
     date: "10 May 2026",
-    description: "Sepa cuándo recibe la primera y segunda parte de su gratificación anual en 2026.",
+    description: "Sepa cuándo recibe la primera y segunda parte de su gratificación anual in 2026.",
     content: [
       "El aguinaldo o décimo tercer sueldo es un derecho fundamental. En 2026, los plazos de pago se mantienen para asegurar que los trabajadores reciban este beneficio a tiempo.",
       "### Fechas de Pago",
@@ -599,7 +616,7 @@ export const ARTICULOS_ES: Record<string, ArticleContent> = {
     title: "Guía de Embarazo: Cómo contar las semanas",
     cat: "Salud",
     date: "10 May 2026",
-    description: "Entienda el cálculo de la edad gestacional y la fecha probable de parto (FPP).",
+    description: "Entienda el cálculo de la edad gestacional e la fecha probable de parto (FPP).",
     content: [
       "Al confirmar un embarazo, la primera pregunta es: ¿cuánto tiempo tengo? El método estándar utiliza la fecha de la última regla (FUR).",
       "### La importancia de las semanas",
@@ -648,5 +665,22 @@ export const ARTICULOS_ES: Record<string, ArticleContent> = {
     ],
     ctaLabel: "Usar Calculadora de Porcentaje",
     ctaLink: "/es/matematica/porcentagem"
+  },
+  "guia-prestamo": {
+    title: "Préstamo Personal: Cómo conseguir las mejores tasas",
+    cat: "Finanzas",
+    date: "11 May 2026",
+    description: "Consejos esenciales para comparar préstamos y entender el Costo Efectivo Total (CET).",
+    content: [
+      "Contratar un préstamo personal exige cautela. El valor de la cuota es solo uno de los factores a considerar. Lo más importante es el CET (Costo Efectivo Total).",
+      "### ¿Qué es el CET?",
+      "El CET incluye no solo los intereses, sino también tarifas bancarias, seguros e impuestos. Es el valor real que está pagando por el dinero prestado.",
+      "### Consejos para Ahorrar",
+      "1. **Compare siempre**: Use nuestro simulador para ver el impacto de los intereses a largo plazo.",
+      "2. **Cuidado con los Seguros**: Muchas veces son opcionales y encarecen el contrato.",
+      "3. **Anticipe Cuotas**: Si le sobra dinero, anticipar las últimas cuotas garantiza un descuento proporcional en los intereses."
+    ],
+    ctaLabel: "Simular Mi Préstamo",
+    ctaLink: "/es/financiero/emprestimo"
   }
 }

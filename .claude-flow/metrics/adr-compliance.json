@@ -1,0 +1,18 @@
+{
+  "timestamp": "2026-05-11T02:17:02+00:00",
+  "overallCompliance": 51,
+  "compliantCount": 7,
+  "totalADRs": 10,
+  "adrs": {
+    "ADR-001": {"score": 0, "title": "agentic-flow as core foundation"},
+    "ADR-002": {"score": 35, "title": "Domain-Driven Design structure"},
+    "ADR-003": {"score": 50, "title": "Single coordination engine"},
+    "ADR-004": {"score": 50, "title": "Plugin-based architecture"},
+    "ADR-005": {"score": 0, "title": "MCP-first API design"},
+    "ADR-006": {"score": 50, "title": "Unified memory service"},
+    "ADR-007": {"score": 50, "title": "Event sourcing for state"},
+    "ADR-008": {"score": 100, "title": "Vitest over Jest"},
+    "ADR-009": {"score": 75, "title": "Hybrid memory backend"},
+    "ADR-010": {"score": 100, "title": "Remove Deno support"}
+  }
+}

@@ -4,8 +4,6 @@ import { CATEGORIAS_ES } from '@/lib/i18n/calculadoras-es'
 import { BRAND_URL } from '@/lib/constants/branding'
 import { ARTIGOS_PT, ARTICULOS_ES } from '@/lib/constants/articles'
 
-import { ARTIGOS_PT, ARTICULOS_ES } from '@/lib/constants/articles'
-
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = BRAND_URL
   const lastModified = new Date()

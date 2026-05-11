@@ -201,5 +201,32 @@ export const ES_CONTENT_MAP: Record<string, React.ReactNode> = {
       <p>En Brasil, el salario base es solo una parte de lo que una empresa paga por un trabajador. Hay cargos adicionales como el FGTS, vacaciones, aguinaldo e impuestos patronales.</p>
       <p>Nuestra calculadora desglosa todos estos costos para que los emprendedores y gestores puedan planificar sus contrataciones con seguridad financiera.</p>
     </>
+  ),
+  'real-dolar': (
+    <>
+      <h2>Conversor de Real a Dólar</h2>
+      <p>El mercado de divisas es volátil y estar al tanto de la cotización actual es fundamental para viajeros y negocios internacionales. Nuestra herramienta permite convertir de Real (BRL) a Dólar (USD) y viceversa.</p>
+      <p>Recuerda que existen diferencias entre el <strong>dólar comercial</strong> y el <strong>dólar turista</strong>, además de los impuestos como el IOF que se aplican en transacciones internacionales.</p>
+    </>
+  ),
+  'real-bitcoin': (
+    <>
+      <h2>Precio del Bitcoin en Reales</h2>
+      <p>El Bitcoin es la criptomoneda más importante del mundo. Su precio varía las 24 horas del día. Con nuestro conversor, puedes saber exactamente cuántos Reales necesitas para comprar fracciones de BTC o cuánto valen tus satoshis hoy.</p>
+    </>
+  ),
+  'gerador-cpf': (
+    <>
+      <h2>Generador de CPF para Pruebas</h2>
+      <p>El CPF (Cadastro de Pessoas Físicas) es el documento de identificación fiscal en Brasil. Nuestra herramienta genera números válidos siguiendo el algoritmo oficial (dígitos verificadores) para ser utilizados exclusivamente en <strong>entornos de desarrollo y pruebas de software</strong>.</p>
+      <p>El uso de estos números para fines ilícitos o fraudulentos es responsabilidad exclusiva del usuario.</p>
+    </>
+  ),
+  'validador-cpf': (
+    <>
+      <h2>Validador de CPF Online</h2>
+      <p>Verifica instantáneamente si un número de CPF es matemáticamente válido. Nuestra herramienta comprueba los dígitos verificadores según las reglas de la Receita Federal de Brasil.</p>
+      <p>Nota: Esta herramienta valida la estructura del número, pero no consulta la base de datos oficial para verificar la situación catastral del ciudadano.</p>
+    </>
   )
 }
