@@ -198,6 +198,23 @@ export const ARTIGOS_PT: Record<string, ArticleContent> = {
     ],
     ctaLabel: "Calcular Rendimento CDB",
     ctaLink: "/financeiro/rendimento-cdb"
+  },
+  "guia-emprestimo": {
+    title: "Empréstimo Pessoal: Como conseguir as melhores taxas",
+    cat: "Financeiro",
+    date: "11 Mai 2026",
+    description: "Dicas essenciais para comparar empréstimos e entender o Custo Efetivo Total (CET).",
+    content: [
+      "Contratar um empréstimo pessoal exige cautela. O valor da parcela é apenas um dos fatores a considerar. O mais importante é o CET (Custo Efetivo Total).",
+      "### O que é o CET?",
+      "O CET engloba não apenas os juros, mas também tarifas bancárias, seguros e impostos (como o IOF). É o valor real que você está pagando pelo dinheiro emprestado.",
+      "### Dicas para Economizar",
+      "1. **Compare sempre**: Use nosso simulador para ver o impacto dos juros no longo prazo.",
+      "2. **Cuidado com o Seguro Prestamista**: Muitas vezes ele é opcional e encarece o contrato.",
+      "3. **Antecipe Parcelas**: Se sobrar dinheiro, antecipar as últimas parcelas garante um desconto proporcional nos juros."
+    ],
+    ctaLabel: "Simular Meu Empréstimo",
+    ctaLink: "/financeiro/emprestimo"
   }
 }
 
@@ -391,5 +408,22 @@ export const ARTICULOS_ES: Record<string, ArticleContent> = {
     ],
     ctaLabel: "Calcular Rendimiento CDB",
     ctaLink: "/es/financiero/rendimento-cdb"
+  },
+  "guia-prestamo": {
+    title: "Préstamo Personal: Cómo conseguir las mejores tasas",
+    cat: "Finanzas",
+    date: "11 May 2026",
+    description: "Consejos esenciales para comparar préstamos y entender el Costo Efectivo Total (CET).",
+    content: [
+      "Contratar un préstamo personal exige cautela. El valor de la cuota es solo uno de los factores a considerar. Lo más importante es el CET (Costo Efectivo Total).",
+      "### ¿Qué es el CET?",
+      "El CET incluye no solo los intereses, sino también tarifas bancarias, seguros e impuestos. Es el valor real que está pagando por el dinero prestado.",
+      "### Consejos para Ahorrar",
+      "1. **Compare siempre**: Use nuestro simulador para ver el impacto de los intereses a largo plazo.",
+      "2. **Cuidado con los Seguros**: Muchas veces son opcionales y encarecen el contrato.",
+      "3. **Anticipe Cuotas**: Si le sobra dinero, anticipar las últimas cuotas garantiza un descuento proporcional en los intereses."
+    ],
+    ctaLabel: "Simular Mi Préstamo",
+    ctaLink: "/es/financiero/emprestimo"
   }
 }
