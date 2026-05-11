@@ -251,7 +251,7 @@ export const ARTIGOS_PT: Record<string, ArticleContent> = {
       "1. **Liberdade**: Maior flexibilidade de horários e múltiplos clientes.",
       "2. **Ganho Líquido**: Geralmente o valor bruto é maior, e a carga tributária (Simples Nacional) pode ser menor.",
       "### Regra de Ouro",
-      "Como regra geral, para manter o mesmo padrão de vida, um contrato PJ deve pagar entre 30% a 50% a mais que o salário bruto da CLT."
+      "Como regra geral, para manter o mesmo padrão de vida, um contrato PJ deve pagar entre 30% a 50% a more que o salário bruto da CLT."
     ],
     ctaLabel: "Comparar PJ vs CLT Agora",
     ctaLink: "/trabalhista/pj-vs-clt"
@@ -334,7 +334,7 @@ export const ARTIGOS_PT: Record<string, ArticleContent> = {
     date: "11 Mai 2026",
     description: "Dicas essenciais para comparar empréstimos e entender o Custo Efetivo Total (CET).",
     content: [
-      "Contratar um empréstimo pessoal exige cautela. O valor da parcela é apenas um dos fatores a considerar. O mais importante é o CET (Costo Efectivo Total).",
+      "Contratar um empréstimo pessoal exige cautela. O valor da parcela é apenas um dos fatores a considerar. O mais importante é o CET (Custo Efetivo Total).",
       "### O que é o CET?",
       "O CET engloba não apenas os juros, mas também tarifas bancárias, seguros e impostos (como o IOF). É o valor real que você está pagando pelo dinheiro emprestado.",
       "### Dicas para Economizar",
@@ -344,6 +344,111 @@ export const ARTIGOS_PT: Record<string, ArticleContent> = {
     ],
     ctaLabel: "Simular Meu Empréstimo",
     ctaLink: "/financeiro/emprestimo"
+  },
+  "reajuste-aluguel-guia": {
+    title: "Guia do Reajuste de Aluguel 2026 (IGP-M e IPCA)",
+    cat: "Financeiro",
+    date: "11 Mai 2026",
+    description: "Entenda como funciona o reajuste do aluguel, quais índices são usados e como calcular o novo valor.",
+    content: [
+      "O reajuste do aluguel é um momento importante tanto para locadores quanto para locatários. Geralmente, ele ocorre anualmente no mês de aniversário do contrato.",
+      "### Índices Mais Comuns",
+      "1. **IGP-M**: Conhecido como a 'inflação do aluguel', é o índice mais tradicional para reajuste imobiliário.",
+      "2. **IPCA**: O índice oficial de inflação do Brasil, cada vez mais utilizado em novos contratos de locação.",
+      "### Como é feito o cálculo?",
+      "O valor é reajustado com base no acumulado dos últimos 12 meses do índice escolhido. Se o índice subiu 5%, o aluguel sobe 5%.",
+      "### Negociação",
+      "Lembre-se: o índice é uma referência contratual. Locador e locatário podem negociar um valor diferente caso o índice esteja muito acima do mercado."
+    ],
+    ctaLabel: "Calcular Reajuste de Aluguel",
+    ctaLink: "/financeiro/reajuste-aluguel"
+  },
+  "alcool-ou-gasolina-economizar": {
+    title: "Álcool ou Gasolina: Qual compensa mais em 2026?",
+    cat: "Utilidades",
+    date: "11 Mai 2026",
+    description: "Aprenda a regra dos 70% e saiba como economizar no abastecimento do seu carro flex.",
+    content: [
+      "Com a variação constante nos preços dos combustíveis, a dúvida entre álcool (etanol) ou gasolina é frequente para donos de carros flex.",
+      "### A Regra dos 70%",
+      "Historicamente, o etanol compensa se o seu preço for até 70% do preço da gasolina. Isso ocorre porque o etanol tem menor poder calorífico (rende menos por litro).",
+      "### Novos Motores e Eficiência",
+      "Carros modernos podem ter relações de eficiência diferentes (ex: 72% ou 75%). O ideal é calcular a média de consumo real do seu próprio veículo.",
+      "### Como calcular rapidamente?",
+      "Divida o preço do litro do álcool pelo preço do litro da gasolina. Se o resultado for menor que 0.7, o álcool é financeiramente mais vantajoso."
+    ],
+    ctaLabel: "Calcular Álcool ou Gasolina",
+    ctaLink: "/utilidades/combustivel"
+  },
+  "markup-vs-margem": {
+    title: "Markup vs Margem de Lucro: Qual a diferença?",
+    cat: "Financeiro",
+    date: "11 Mai 2026",
+    description: "Muitos empreendedores confundem markup com margem de lucro. Aprenda a precificar corretamente.",
+    content: [
+      "Saber a diferença entre markup e margem de lucro é fundamental para a saúde financeira de qualquer negócio. Embora ambos tratem de lucro, as bases de cálculo são diferentes.",
+      "### O que é Markup?",
+      "O markup é um multiplicador aplicado sobre o custo do produto para chegar ao preço de venda. Exemplo: se algo custa R$100 e você usa um markup de 1.5, o preço será R$150.",
+      "### O que é Margem de Lucro?",
+      "A margem é a porcentagem do preço de venda que sobra após os custos. No exemplo acima, o lucro é de R$50 sobre um preço de R$150, o que resulta em uma margem de 33,3%.",
+      "### Qual usar?",
+      "O markup é ótimo para definir preços rapidamente. A margem é essencial para analisar a rentabilidade real da empresa e comparar com a meta de lucro desejada."
+    ],
+    ctaLabel: "Calcular Markup e Margem",
+    ctaLink: "/financeiro/markup"
+  },
+  "custo-funcionario-clt": {
+    title: "Quanto custa um funcionário para a empresa em 2026?",
+    cat: "Trabalhista",
+    date: "11 Mai 2026",
+    description: "Entenda o custo real de um colaborador CLT, incluindo impostos e encargos trabalhistas.",
+    content: [
+      "Contratar um funcionário no regime CLT envolve custos que vão muito além do salário nominal que aparece na carteira de trabalho.",
+      "### Encargos Obrigatórios",
+      "1. **FGTS**: 8% mensais sobre o salário bruto.",
+      "2. **INSS Patronal**: Geralmente 20% (pode variar conforme o regime tributário).",
+      "3. **RAT e Terceiros**: Adicionais que incidem sobre a folha de pagamento.",
+      "### Provisões",
+      "Além dos impostos mensais, a empresa deve provisionar o valor das férias (+1/3) e do 13º salário.",
+      "### Custo Real",
+      "Na ponta do lápis, um funcionário pode custar entre 1,6 a 2 vezes o valor do seu salário bruto para a empresa."
+    ],
+    ctaLabel: "Calcular Custo de Funcionário",
+    ctaLink: "/trabalhista/custo-clt"
+  },
+  "guia-ipva-2026": {
+    title: "Guia do IPVA 2026: Alíquotas e como calcular",
+    cat: "Financeiro",
+    date: "11 Mai 2026",
+    description: "Saiba como o valor do IPVA é definido e como se planejar para o pagamento do imposto veicular.",
+    content: [
+      "O IPVA (Imposto sobre a Propriedade de Veículos Automotores) é um imposto estadual obrigatório que incide sobre a posse de veículos.",
+      "### Base de Cálculo",
+      "O valor é calculado multiplicando o valor de mercado do veículo (geralmente baseado na Tabela Fipe) pela alíquota do seu estado.",
+      "### Alíquotas Comuns",
+      "As taxas variam entre 1% e 4%, dependendo do tipo de veículo e do estado onde ele está registrado.",
+      "### Descontos",
+      "Muitos estados oferecem descontos significativos (entre 3% a 10%) para pagamentos em cota única (à vista) no início do ano."
+    ],
+    ctaLabel: "Calcular Meu IPVA",
+    ctaLink: "/financeiro/ipva"
+  },
+  "guia-correcao-monetaria": {
+    title: "Como calcular Correção Monetária em 2026",
+    cat: "Jurídica",
+    date: "11 Mai 2026",
+    description: "Entenda como atualizar valores financeiros e judiciais usando índices de inflação.",
+    content: [
+      "A correção monetária serve para preservar o poder de compra de um valor ao longo do tempo, compensando a desvalorização causada pela inflação.",
+      "### Índices Mais Utilizados",
+      "1. **IPCA/IBGE**: Índice oficial de inflação.",
+      "2. **INPC**: Muito usado em reajustes salariais e ações previdenciárias.",
+      "3. **SELIC**: Atualmente usada para correção de muitos débitos tributários e judiciais federais.",
+      "### Quando aplicar?",
+      "É essencial em contratos de longo prazo, aluguéis atrasados, dívidas judiciais e heranças para garantir que o valor recebido seja equivalente ao valor original."
+    ],
+    ctaLabel: "Calcular Correção Monetária",
+    ctaLink: "/juridica/correcao-monetaria"
   }
 }
 
@@ -372,7 +477,7 @@ export const ARTICULOS_ES: Record<string, ArticleContent> = {
     title: "¿Cómo calcular su liquidación en 2026?",
     cat: "Laboral",
     date: "04 May 2026",
-    description: "Guía completa sobre conceptos de liquidación, plazos y derechos del trabajador in 2026.",
+    description: "Guía completa sobre conceptos de liquidación, plazos y derechos del trabajador en 2026.",
     content: [
       "Dejar un empleo genera muchas dudas, especialmente sobre cuánto tiene derecho a recibir. En 2026, las reglas siguen los estándares legales con tablas de impuestos actualizadas.",
       "### Conceptos Principales",
@@ -408,7 +513,7 @@ export const ARTICULOS_ES: Record<string, ArticleContent> = {
     date: "28 Abr 2026",
     description: "Entienda la diferencia entre salario bruto y neto y cómo funcionan las deducciones legales.",
     content: [
-      "El salario neto es el valor que efectivamente recibe en su cuenta tras todos los descuentos obligatorios. Entender estas deducciones es vital para su planificación financiera.",
+      "El salario neto es el valor que efectivamente recibe en su cuenta tras todos los descuentos obligatórios. Entender estas deducciones es vital para su planificación financiera.",
       "### Deducciones Comunes",
       "1. **Seguridad Social**: Contribución para jubilación y beneficios sociales.",
       "2. **Impuesto sobre la Renta**: Impuesto que varía según el nivel de ingresos.",
@@ -429,7 +534,7 @@ export const ARTICULOS_ES: Record<string, ArticleContent> = {
       "1. **Menos de 18,5**: Bajo peso.",
       "2. **18,5 a 24,9**: Peso saludable.",
       "3. **25 a 29,9**: Sobrepeso.",
-      "4. **30 o más**: Obesidad.",
+      "4. **30 o más**: Obesidade.",
       "### Recomendación",
       "El IMC es una guía inicial. Siempre consulte con un profesional de la salud para una evaluación completa de su composición corporal."
     ],
@@ -474,7 +579,7 @@ export const ARTICULOS_ES: Record<string, ArticleContent> = {
     title: "Cómo planificar su jubilación en 2026",
     cat: "Previsión",
     date: "08 May 2026",
-    description: "Entienda las reglas actuales, edad mínima y tiempo de contribución para jubilarse.",
+    description: "Entenda las reglas actuales, edad mínima y tiempo de contribución para jubilarse.",
     content: [
       "Planificar la jubilación es esencial para garantizar tranquilidad en el futuro. En 2026, las regulaciones siguen evolucionando para asegurar la sostenibilidad del sistema.",
       "### Requisitos Principales",
@@ -491,9 +596,9 @@ export const ARTICULOS_ES: Record<string, ArticleContent> = {
     title: "Impuesto de Renta 2026: Cómo calcular la retención",
     cat: "Laboral",
     date: "09 May 2026",
-    description: "Consulte la tabla actualizada del Impuesto sobre la Renta 2026 y aprenda a calcular el desconto in su salario.",
+    description: "Consulte la tabla actualizada del Imposto sobre a Renda 2026 y aprenda a calcular el desconto en su salario.",
     content: [
-      "El impuesto sobre la renta retenido in la fuente se aplica sobre los ingresos del trabajo. En 2026, las tasas y tramos de exención han sido actualizados.",
+      "El impuesto sobre la renta retenido en la fuente se aplica sobre los ingresos del trabajo. En 2026, las tasas y tramos de exención han sido actualizados.",
       "### Tabla Progresiva",
       "El cálculo se basa en tramos: a mayor salario, mayor es la tasa aplicada. Existe un monto a deducir para cada tramo.",
       "### Deducciones Permitidas",
@@ -521,11 +626,11 @@ export const ARTICULOS_ES: Record<string, ArticleContent> = {
     ctaLabel: "Calcular mis Vacaciones",
     ctaLink: "/es/laboral/ferias"
   },
-  "rendimiento-cdb": {
+  "rendimento-cdb": {
     title: "Cómo calcular el rendimiento del CDB en 2026",
     cat: "Finanzas",
     date: "10 May 2026",
-    description: "Entienda cómo la tasa Selic e el CDI afectan el rendimiento de sus inversiones en renta fija.",
+    description: "Entienda cómo la tasa Selic y el CDI afectan el rendimiento de sus inversiones en renta fija.",
     content: [
       "El Certificado de Depósito Bancario (CDB) es una de las inversiones más populares. Funciona como un préstamo que usted le hace al banco a cambio de intereses.",
       "### CDI y Selic",
@@ -547,9 +652,9 @@ export const ARTICULOS_ES: Record<string, ArticleContent> = {
       "Las horas extra son aquellas trabajadas más allá de la jornada normal contratada. En 2026, los recargos legales se mantienen según la normativa vigente.",
       "### Valor de la Hora Común",
       "Divida su salario bruto por el número de horas mensuales pactadas para encontrar el valor de su hora normal.",
-      "### Recargos del 50% e 100%",
+      "### Recargos del 50% y 100%",
       "1. **Días Laborables**: Recargo del 50% sobre la hora normal.",
-      "2. **Domingos e Festivos**: Recargo del 100% (el doble de la hora normal).",
+      "2. **Domingos y Festivos**: Recargo del 100% (el doble de la hora normal).",
       "### Recargo Nocturno",
       "Si la hora extra se realiza en horario nocturno, se aplica un recargo adicional según la ley de cada país."
     ],
@@ -560,7 +665,7 @@ export const ARTICULOS_ES: Record<string, ArticleContent> = {
     title: "Salario Mínimo 2026: Valores y repercusiones",
     cat: "Laboral",
     date: "10 May 2026",
-    description: "Conozca los nuevos valores del salario mínimo in 2026 y cómo afecta a los beneficios y al mercado laboral.",
+    description: "Conozca los nuevos valores del salario mínimo en 2026 y cómo afecta a los beneficios y al mercado laboral.",
     content: [
       "El salario mínimo es la remuneración base legal. En 2026, los ajustes buscan mantener el poder adquisitivo frente a la inflación.",
       "### Impacto Económico",
@@ -580,9 +685,9 @@ export const ARTICULOS_ES: Record<string, ArticleContent> = {
     date: "10 May 2026",
     description: "Decida entre trabajar de forma independiente o bajo contrato comparando beneficios y salario real.",
     content: [
-      "Decidir entre trabajar como freelance (independiente) o como empleado contratado es un dilema común in 2026. La elección depende del equilibrio entre seguridad, beneficios y salario neto real.",
+      "Decidir entre trabajar como freelance (independiente) o como empleado contratado es un dilema común en 2026. La elección depende del equilibrio entre seguridad, beneficios y salario neto real.",
       "### Ventajas del Empleado",
-      "1. **Seguridad**: Seguro de desempleo, indemnizaciones por despido y mayor estabilidad legal.",
+      "1. **Segurança**: Seguro de desempleo, indemnizaciones por despido y mayor estabilidad legal.",
       "2. **Beneficios**: Aguinaldo (décimo tercero), vacaciones pagas y aportes patronales a la seguridad social.",
       "3. **Previsión**: Contribución automática para la jubilación.",
       "### Ventajas del Freelance",
@@ -598,7 +703,7 @@ export const ARTICULOS_ES: Record<string, ArticleContent> = {
     title: "Guía del Aguinaldo: Fechas y cómo calcular",
     cat: "Laboral",
     date: "10 May 2026",
-    description: "Sepa cuándo recibe la primera y segunda parte de su gratificación anual in 2026.",
+    description: "Sepa cuándo recibe la primera y segunda parte de su gratificación anual en 2026.",
     content: [
       "El aguinaldo o décimo tercer sueldo es un derecho fundamental. En 2026, los plazos de pago se mantienen para asegurar que los trabajadores reciban este beneficio a tiempo.",
       "### Fechas de Pago",
@@ -616,7 +721,7 @@ export const ARTICULOS_ES: Record<string, ArticleContent> = {
     title: "Guía de Embarazo: Cómo contar las semanas",
     cat: "Salud",
     date: "10 May 2026",
-    description: "Entienda el cálculo de la edad gestacional e la fecha probable de parto (FPP).",
+    description: "Entienda el cálculo de la edad gestacional y la fecha probable de parto (FPP).",
     content: [
       "Al confirmar un embarazo, la primera pregunta es: ¿cuánto tiempo tengo? El método estándar utiliza la fecha de la última regla (FUR).",
       "### La importancia de las semanas",
@@ -624,7 +729,7 @@ export const ARTICULOS_ES: Record<string, ArticleContent> = {
       "### Fecha Probable de Parto (FPP)",
       "La FPP es una guía estimada. El nacimiento se considera a término si ocurre entre la semana 37 y la 42.",
       "### Etapas del desarrollo",
-      "Dividimos el proceso in tres trimestres clave, cada uno con hitos específicos en el crecimiento del bebé y cuidados para la madre."
+      "Dividimos el proceso en tres trimestres clave, cada uno con hitos específicos en el crecimiento del bebé y cuidados para la madre."
     ],
     ctaLabel: "Calcular Edad Gestacional",
     ctaLink: "/es/salud/gestacional"
@@ -633,19 +738,19 @@ export const ARTICULOS_ES: Record<string, ArticleContent> = {
     title: "Cómo hacer Regla de Tres Simple y Compuesta",
     cat: "Matemática",
     date: "10 May 2026",
-    description: "Aprenda el paso a paso para resolver problemas de proporcionalidad directa e inversa.",
+    description: "Aprenda el paso a paso para resolver problemas de proporcionalidade direta e inversa.",
     content: [
       "La regla de tres es una de las herramientas matemáticas más útiles del día a día. Permite descubrir un valor desconocido a partir de otros tres que guardan una proporción entre sí.",
-      "### Regla de Tres Simple",
-      "Se utiliza cuando tenemos solo dos magnitudes. Puede ser Directa (cuando una aumenta, la otra también aumenta) o Inversa (cuando una aumenta, la otra disminuye).",
+      "### Regra de Três Simples",
+      "Se utiliza cuando tenemos solo dos magnitudes. Puede ser Direta (cuando una aumenta, la otra también aumenta) o Inversa (cuando una aumenta, la otra disminuye).",
       "### Passo a Passo",
       "1. Organice los datos en una tabla agrupando las magnitudes de la misma especie.",
       "2. Identifique si son directamente o inversamente proporcionales.",
       "3. Plantee la ecuación y despeje la X.",
-      "### Regla de Tres Compuesta",
-      "Involucra tres o más magnitudes. El proceso es similar, pero requiere analizar la proporcionalidad de cada magnitud respecto a la que contiene la incógnita X."
+      "### Regra de Três Composta",
+      "Involucra tres o más magnitudes. El proceso es similar, mas requiere analizar la proporcionalidad de cada magnitud respecto a la que contiene la incógnita X."
     ],
-    ctaLabel: "Resolver Regla de Tres Ahora",
+    ctaLabel: "Resolver Regra de Tres Ahora",
     ctaLink: "/es/matematica/regra-de-tres"
   },
   "porcentaje-guia-rapida": {
@@ -654,12 +759,12 @@ export const ARTICULOS_ES: Record<string, ArticleContent> = {
     date: "10 May 2026",
     description: "Aprenda a calcular descuentos, aumentos y variaciones porcentuales sin complicaciones.",
     content: [
-      "El cálculo de porcentajes está presente in casi todo: descuentos en tiendas, tasas de interés, impuestos y estadísticas. 'Por ciento' significa literalmente 'por cada cien'.",
+      "El cálculo de porcentajes está presente en casi todo: descuentos en tiendas, tasas de interés, impuestos y estadísticas. 'Por ciento' significa literalmente 'por cada cien'.",
       "### ¿Cómo calcular?",
       "La forma más simple es multiplicar el valor total por la tasa porcentual y dividir por 100. Ejemplo: el 20% de 500 es (500 * 20) / 100 = 100.",
       "### Aumentos y Descuentos",
       "1. **Aumento**: Multiplique por (1 + tasa). Ej: aumento del 10% -> valor * 1.10.",
-      "2. **Desconto**: Multiplique por (1 - tasa). Ej: descuento del 15% -> valor * 0.85.",
+      "2. **Desconto**: Multiplique por (1 - taxa). Ej: descuento del 15% -> valor * 0.85.",
       "### Variación Porcentual",
       "Para saber cuánto creció o disminuyó un valor: ((Valor Final / Valor Inicial) - 1) * 100."
     ],
@@ -682,5 +787,107 @@ export const ARTICULOS_ES: Record<string, ArticleContent> = {
     ],
     ctaLabel: "Simular Mi Préstamo",
     ctaLink: "/es/financiero/emprestimo"
+  },
+  "reajuste-alquiler-guia": {
+    title: "Guía del Reajuste de Alquiler 2026",
+    cat: "Finanzas",
+    date: "11 May 2026",
+    description: "Entienda cómo funciona el reajuste de la renta, qué índices se utilizan y cómo calcular el nuevo valor.",
+    content: [
+      "El reajuste del alquiler es un proceso anual en la mayoría de los contratos de arrendamiento. Entender cómo se aplica le ayudará a planificar mejor sus gastos de vivienda.",
+      "### ¿Cuándo ocurre?",
+      "Generalmente, el ajuste se realiza cada 12 meses basándose en un índice de inflación pactado previamente en el contrato.",
+      "### Índices Utilizados",
+      "Dependiendo del país, se suelen utilizar índices de precios al consumidor (IPC) o índices específicos del sector inmobiliario.",
+      "### Consejos de Negociación",
+      "Si el índice de reajuste es muy elevado, siempre existe la posibilidad de dialogar con el propietario para llegar a un acuerdo justo que beneficie a ambas partes y garantice la permanencia."
+    ],
+    ctaLabel: "Calcular Reajuste de Alquiler",
+    ctaLink: "/es/financiero/reajuste-aluguel"
+  },
+  "alcohol-o-gasolina-ahorro": {
+    title: "¿Alcohol o Gasolina: Cuál conviene más en 2026?",
+    cat: "Utilidades",
+    date: "11 May 2026",
+    description: "Aprenda la regla del 70% y sepa cómo ahorrar al llenar el tanque de su coche flexible.",
+    content: [
+      "La elección entre etanol (alcohol) y gasolina es un dilema diario para quienes poseen vehículos con tecnología flex.",
+      "### La Regla de Oro",
+      "En promedio, el alcohol es financieramente más rentable si su precio por litro es menor al 70% del precio de la gasolina.",
+      "### Rendimiento del Vehículo",
+      "Cada coche se comporta de manera diferente. Algunos modelos modernos mantienen una buena eficiencia incluso con una relación del 73% o 75%.",
+      "### Cómo hacer la cuenta rápidamente",
+      "Divida el precio del litro de alcohol por el de la gasolina. Si el resultado es inferior a 0.7, su bolsillo agradecerá el uso de alcohol en ese momento."
+    ],
+    ctaLabel: "Calcular Alcohol o Gasolina",
+    ctaLink: "/es/utilidades/combustivel"
+  },
+  "markup-vs-margem": {
+    title: "Markup vs Margen de Beneficio: ¿Cuál es la diferencia?",
+    cat: "Finanzas",
+    date: "11 May 2026",
+    description: "Confundir el markup con el margen de beneficio es un error común. Aprenda a fijar precios correctamente.",
+    content: [
+      "Entender la diferencia entre markup y margen de beneficio es fundamental para la salud financiera de cualquier negocio.",
+      "### ¿Qué es el Markup?",
+      "El markup es un multiplicador que se aplica al costo del producto para determinar el precio de venta. Ejemplo: si algo cuesta $100 y aplica un markup de 1.5, el precio será $150.",
+      "### ¿Qué es el Margen de Beneficio?",
+      "El margen es el porcentaje del precio de venta que queda después de cubrir los costos. En el ejemplo anterior, la ganancia es de $50 sobre un precio de $150, lo que resulta en un margen del 33,3%.",
+      "### ¿Cuál utilizar?",
+      "El markup es útil para fijar precios rápidamente. El margen es esencial para analizar la rentabilidad real de su empresa."
+    ],
+    ctaLabel: "Calcular Markup y Margen",
+    ctaLink: "/es/financiero/markup"
+  },
+  "costo-empleado-clt": {
+    title: "¿Cuánto cuesta un empleado para la empresa en 2026?",
+    cat: "Laboral",
+    date: "11 May 2026",
+    description: "Entienda el costo real de un trabajador contratado, incluyendo cargas sociales y beneficios legales.",
+    content: [
+      "Contratar a un empleado bajo un régimen formal implica costos que superan ampliamente el salario base que recibe el trabajador.",
+      "### Cargas Sociales",
+      "Dependiendo del país, las cargas pueden incluir aportes a la seguridad social, fondos de desempleo y seguros de accidentes laborales.",
+      "### Provisiones Anuales",
+      "La empresa debe provisionar mensualmente el costo proporcional de las vacaciones y los bonos anuales (como el aguinaldo).",
+      "### Costo Total",
+      "En la práctica, un empleado puede costar a la empresa entre un 60% y un 100% adicional sobre su salario base bruto."
+    ],
+    ctaLabel: "Calcular Costo Laboral",
+    ctaLink: "/es/laboral/custo-clt"
+  },
+  "guia-impuesto-vehicular": {
+    title: "Guía del Impuesto Vehicular 2026: Cómo calcular",
+    cat: "Finanzas",
+    date: "11 May 2026",
+    description: "Sepa cómo se determina el valor del impuesto sobre su vehículo y cómo planificar el pago.",
+    content: [
+      "El impuesto sobre la propiedad de vehículos es una obligación anual para la mayoría de los propietarios de coches y motocicletas.",
+      "### Base de Cálculo",
+      "Generalmente se basa en el valor de mercado del vehículo según tablas oficiales del sector.",
+      "### Tasas Aplicables",
+      "Las tasas variam según el tipo de vehículo (particular, comercial) y la región donde está registrado.",
+      "### Beneficios por Pago Anticipado",
+      "Muchas administraciones ofrecen descuentos por el pago total al inicio del calendario fiscal."
+    ],
+    ctaLabel: "Calcular Impuesto Vehicular",
+    ctaLink: "/es/financiero/ipva"
+  },
+  "guia-correcao-monetaria": {
+    title: "Cómo calcular la Corrección Monetaria en 2026",
+    cat: "Jurídica",
+    date: "11 May 2026",
+    description: "Entienda cómo actualizar valores financieros usando índices de inflación oficiales.",
+    content: [
+      "La corrección monetaria es la actualización de un valor para compensar la pérdida de poder adquisitivo causada por la inflación.",
+      "### Índices de Referencia",
+      "Se utilizan índices oficiales de precios al consumidor para determinar el factor de actualización.",
+      "### Aplicaciones Comunes",
+      "Es esencial en contratos de largo prazo, deudas antigas y procesos judiciales para asegurar que el valor sea equitativo al momento del pago.",
+      "### Cómo se calcula",
+      "Se multiplica el valor original por el factor de variación del índice acumulado entre la fecha inicial y la fecha de actualización."
+    ],
+    ctaLabel: "Calcular Corrección Monetaria",
+    ctaLink: "/es/juridica/correcao-monetaria"
   }
 }
