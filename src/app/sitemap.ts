@@ -4,6 +4,8 @@ import { CATEGORIAS_ES } from '@/lib/i18n/calculadoras-es'
 import { BRAND_URL } from '@/lib/constants/branding'
 import { ARTIGOS_PT, ARTICULOS_ES } from '@/lib/constants/articles'
 
+import { ARTIGOS_PT, ARTICULOS_ES } from '@/lib/constants/articles'
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = BRAND_URL
   const lastModified = new Date()
@@ -50,19 +52,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/es/articulos/${slug}`,
       lastModified,
       changeFrequency: 'weekly' as const,
-      priority: 0.6
+      priority: 0.7
     })),
     ...CATEGORIAS.map((cat) => ({
       url: `${baseUrl}/es/${CATEGORIAS_ES[cat.slug]?.slug ?? cat.slug}`,
       lastModified,
       changeFrequency: 'monthly' as const,
-      priority: 0.7,
+      priority: 0.8,
     })),
     ...CALCULADORAS.map((calc) => ({
       url: `${baseUrl}/es/${CATEGORIAS_ES[calc.categoriaSlug]?.slug ?? calc.categoriaSlug}/${calc.slug}`,
       lastModified,
       changeFrequency: 'monthly' as const,
-      priority: 0.8,
+      priority: 0.9,
     })),
   ]
 

@@ -96,6 +96,78 @@ const ARTICULOS = [
     category: "Finanzas",
     readTime: "5 min",
     tags: ["CDB", "Renta Fija", "Inversiones"]
+  },
+  {
+    slug: "como-calcular-hora-extra",
+    title: "Cómo calcular horas extra en 2026",
+    excerpt: "Aprenda a calcular el valor de sus horas adicionales con recargos del 50%, 100% y recargo nocturno.",
+    date: "10 May 2026",
+    category: "Laboral",
+    readTime: "4 min",
+    tags: ["Horas Extra", "Derechos", "Laboral"]
+  },
+  {
+    slug: "salario-minimo-2026",
+    title: "Salario Mínimo 2026: Valores y repercusiones",
+    excerpt: "Conozca los nuevos valores del salario mínimo en 2026 y cómo afecta a los beneficios y al mercado laboral.",
+    date: "10 May 2026",
+    category: "Laboral",
+    readTime: "5 min",
+    tags: ["Salario Mínimo", "Economía", "2026"]
+  },
+  {
+    slug: "renuncia-2-anos",
+    title: "¿Cuánto recibo si renuncio después de 2 años?",
+    excerpt: "Conozca sus derechos y beneficios económicos al solicitar la baja voluntaria tras 24 meses.",
+    date: "09 May 2026",
+    category: "Laboral",
+    readTime: "6 min",
+    tags: ["Renuncia", "Derechos", "Liquidación"]
+  },
+  {
+    slug: "freelance-vs-empleado",
+    title: "¿Freelance o Empleado: Cuál conviene más en 2026?",
+    excerpt: "Decida entre trabajar de forma independiente o bajo contrato comparando beneficios y salario real.",
+    date: "10 May 2026",
+    category: "Laboral",
+    readTime: "6 min",
+    tags: ["Freelance", "Contrato", "Laboral"]
+  },
+  {
+    slug: "guia-13-salario",
+    title: "Guía del Aguinaldo: Fechas y cómo calcular",
+    excerpt: "Sepa cuándo recibe la primera y segunda parte de su gratificación anual en 2026.",
+    date: "10 May 2026",
+    category: "Laboral",
+    readTime: "5 min",
+    tags: ["Aguinaldo", "Derechos", "Laboral"]
+  },
+  {
+    slug: "guia-calculadora-gestacional",
+    title: "Guía de Embarazo: Cómo contar las semanas",
+    excerpt: "Entienda el cálculo de la edad gestacional y la fecha probable de parto (FPP).",
+    date: "10 May 2026",
+    category: "Salud",
+    readTime: "5 min",
+    tags: ["Salud", "Embarazo", "Semanas"]
+  },
+  {
+    slug: "guia-regla-de-tres",
+    title: "Cómo hacer Regla de Tres Simple y Compuesta",
+    excerpt: "Aprenda el paso a paso para resolver problemas de proporcionalidad directa e inversa.",
+    date: "10 May 2026",
+    category: "Matemática",
+    readTime: "4 min",
+    tags: ["Matemática", "Educación", "Proporción"]
+  },
+  {
+    slug: "porcentaje-guia-rapida",
+    title: "Cómo calcular porcentajes: Guía rápida y práctica",
+    excerpt: "Aprenda a calcular descuentos, aumentos y variaciones porcentuales sin complicaciones.",
+    date: "10 May 2026",
+    category: "Matemática",
+    readTime: "3 min",
+    tags: ["Matemática", "Porcentaje", "Finanzas"]
   }
 ]
 

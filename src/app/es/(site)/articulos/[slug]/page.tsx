@@ -2,6 +2,23 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import { Newsletter } from "@/components/layout/newsletter"
 import { ARTICULOS_ES } from "@/lib/constants/articles"
+import { Metadata } from "next"
+
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const article = ARTICULOS_ES[params.slug]
+  if (!article) return { title: "Artículo no encontrado" }
+
+  return {
+    title: article.title,
+    description: article.description,
+    openGraph: {
+      title: article.title,
+      description: article.description,
+      type: "article",
+      publishedTime: article.date,
+    }
+  }
+}
 
 export function generateStaticParams() {
   const defaultSlugs = ["liquidacion-2026", "interes-compuesto", "salario-neto", "imc-salud", "sac-o-frances", "seguro-desempleo"]

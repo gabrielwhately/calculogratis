@@ -96,6 +96,78 @@ const ARTIGOS = [
     category: "Financeiro",
     readTime: "5 min",
     tags: ["CDB", "Renda Fixa", "Investimentos"]
+  },
+  {
+    slug: "como-calcular-hora-extra",
+    title: "Como calcular hora extra em 2026",
+    excerpt: "Aprenda a calcular o valor das suas horas adicionais com 50%, 100% e o adicional noturno.",
+    date: "10 Mai 2026",
+    category: "Trabalhista",
+    readTime: "4 min",
+    tags: ["Hora Extra", "Direitos", "CLT"]
+  },
+  {
+    slug: "salario-minimo-2026",
+    title: "Salário Mínimo 2026: Valor atualizado e impactos",
+    excerpt: "Confira o novo valor do salário mínimo em 2026 e como ele afeta benefícios e aposentadorias.",
+    date: "10 Mai 2026",
+    category: "Trabalhista",
+    readTime: "5 min",
+    tags: ["Salário Mínimo", "Economia", "2026"]
+  },
+  {
+    slug: "pedir-demissao-2-anos",
+    title: "Quanto recebo se pedir demissão com 2 anos de empresa?",
+    excerpt: "Saiba exatamente quais são seus direitos e valores ao solicitar desligamento após 24 meses.",
+    date: "09 Mai 2026",
+    category: "Trabalhista",
+    readTime: "6 min",
+    tags: ["Rescisão", "Pedido de Demissão", "Direitos"]
+  },
+  {
+    slug: "pj-vs-clt",
+    title: "PJ ou CLT: Qual vale mais a pena em 2026?",
+    excerpt: "Compare os ganhos reais e benefícios de cada modelo e escolha o melhor para sua carreira.",
+    date: "10 Mai 2026",
+    category: "Trabalhista",
+    readTime: "6 min",
+    tags: ["Carreira", "Salário", "Contrato"]
+  },
+  {
+    slug: "guia-13-salario",
+    title: "Guia do 13º Salário: Datas e como calcular",
+    excerpt: "Saiba quando você recebe a primeira e segunda parcela da gratificação natalina em 2026.",
+    date: "10 Mai 2026",
+    category: "Trabalhista",
+    readTime: "5 min",
+    tags: ["13º Salário", "Direitos", "CLT"]
+  },
+  {
+    slug: "guia-calculadora-gestacional",
+    title: "Guia da Gestação: Como contar as semanas",
+    excerpt: "Entenda o cálculo da idade gestacional e a data provável do parto (DPP).",
+    date: "10 Mai 2026",
+    category: "Saúde",
+    readTime: "5 min",
+    tags: ["Saúde", "Gravidez", "Gestação"]
+  },
+  {
+    slug: "guia-regra-de-tres",
+    title: "Como fazer Regra de Três Simples e Composta",
+    excerpt: "Aprenda o passo a passo para resolver problemas de proporcionalidade direta e inversa.",
+    date: "10 Mai 2026",
+    category: "Matemática",
+    readTime: "4 min",
+    tags: ["Matemática", "Educação", "Proporção"]
+  },
+  {
+    slug: "porcentagem-guia-rapido",
+    title: "Como calcular porcentagem: Guia rápido e prático",
+    excerpt: "Aprenda a calcular descontos, aumentos e variações percentuais sem complicação.",
+    date: "10 Mai 2026",
+    category: "Matemática",
+    readTime: "3 min",
+    tags: ["Matemática", "Porcentagem", "Finanças"]
   }
 ]
 
