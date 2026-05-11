@@ -168,6 +168,60 @@ const ARTICULOS = [
     category: "Matemática",
     readTime: "3 min",
     tags: ["Matemática", "Porcentaje", "Finanzas"]
+  },
+  {
+    slug: "reajuste-alquiler-guia",
+    title: "Guía del Reajuste de Alquiler 2026",
+    excerpt: "Entienda cómo funciona el reajuste de la renta, qué índices se utilizan y cómo calcular el nuevo valor.",
+    date: "11 May 2026",
+    category: "Finanzas",
+    readTime: "5 min",
+    tags: ["Alquiler", "IPC", "Finanzas"]
+  },
+  {
+    slug: "alcohol-o-gasolina-ahorro",
+    title: "¿Alcohol o Gasolina: Cuál conviene más en 2026?",
+    excerpt: "Aprenda la regla del 70% y sepa cómo ahorrar al llenar el tanque de su coche flexible.",
+    date: "11 May 2026",
+    category: "Utilidades",
+    readTime: "4 min",
+    tags: ["Combustible", "Ahorro", "Coche"]
+  },
+  {
+    slug: "markup-vs-margen",
+    title: "Markup vs Margen de Beneficio: ¿Cuál es la diferencia?",
+    excerpt: "Confundir el markup con el margen de beneficio es un error común. Aprenda a fijar precios correctamente.",
+    date: "11 May 2026",
+    category: "Finanzas",
+    readTime: "5 min",
+    tags: ["Emprendimiento", "Precio", "Finanzas"]
+  },
+  {
+    slug: "costo-empleado-clt",
+    title: "¿Cuánto cuesta un empleado para la empresa en 2026?",
+    excerpt: "Entienda el costo real de un trabajador contratado, incluyendo cargas sociales y beneficios legales.",
+    date: "11 May 2026",
+    category: "Laboral",
+    readTime: "6 min",
+    tags: ["Recursos Humanos", "Empresas", "Laboral"]
+  },
+  {
+    slug: "guia-impuesto-vehicular",
+    title: "Guía del Impuesto Vehicular 2026: Cómo calcular",
+    excerpt: "Sepa cómo se determina el valor del impuesto sobre su vehículo y cómo planificar el pago.",
+    date: "11 May 2026",
+    category: "Finanzas",
+    readTime: "4 min",
+    tags: ["Impuestos", "Coche", "Vehículo"]
+  },
+  {
+    slug: "guia-correccion-monetaria",
+    title: "Cómo calcular la Corrección Monetaria en 2026",
+    excerpt: "Entienda cómo actualizar valores financieros usando índices de inflación oficiales.",
+    date: "11 May 2026",
+    category: "Jurídica",
+    readTime: "5 min",
+    tags: ["Corrección Monetaria", "Inflación", "Finanzas"]
   }
 ]
 

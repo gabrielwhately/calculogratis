@@ -28,7 +28,7 @@ This document summarizes the marketing and SEO readiness of `calculogratis` as v
 - [x] **Newsletter**: Integrate lead capture and weekly tips (Week 4 Strategy - Done).
 - [x] **Personalization**: Saved results and history feature implemented for user retention (Done).
 - [x] **Feedback Loop**: Dedicated "Suggest a Calculator" page (`/sugerir`) implemented to capture user demand (Done).
-- [x] **Content Engine**: Start publishing 2 articles/week following the Tier 1 keyword map (36 real guides implemented for top tools).
+- [x] **Content Engine**: Start publishing 2 articles/week following the Tier 1 keyword map (48 real guides drafted for top tools).
 
 ## 5. Phase 1 Execution (Ready for Live)
 - [x] **Outreach Content Expansion**: Added LATAM, Tier 2, and Tier 3 specialized targets (XP, ABRH, Fintualist, Mobills, iDinheiro) in `docs/OUTREACH_TEMPLATES.md`.

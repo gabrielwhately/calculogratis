@@ -168,6 +168,60 @@ const ARTIGOS = [
     category: "Matemática",
     readTime: "3 min",
     tags: ["Matemática", "Porcentagem", "Finanças"]
+  },
+  {
+    slug: "reajuste-aluguel-guia",
+    title: "Guia do Reajuste de Aluguel 2026 (IGP-M e IPCA)",
+    excerpt: "Entenda como funciona o reajuste do aluguel, quais índices são usados e como calcular o novo valor.",
+    date: "11 Mai 2026",
+    category: "Financeiro",
+    readTime: "5 min",
+    tags: ["Aluguel", "IGP-M", "IPCA"]
+  },
+  {
+    slug: "alcool-ou-gasolina-economizar",
+    title: "Álcool ou Gasolina: Qual compensa mais em 2026?",
+    excerpt: "Aprenda a regra dos 70% e saiba como economizar no abastecimento do seu carro flex.",
+    date: "11 Mai 2026",
+    category: "Utilidades",
+    readTime: "4 min",
+    tags: ["Combustível", "Economia", "Carro"]
+  },
+  {
+    slug: "markup-vs-margem",
+    title: "Markup vs Margem de Lucro: Qual a diferença?",
+    excerpt: "Muitos empreendedores confundem markup com margem de lucro. Aprenda a precificar corretamente.",
+    date: "11 Mai 2026",
+    category: "Financeiro",
+    readTime: "5 min",
+    tags: ["Empreendedorismo", "Preço", "Finanças"]
+  },
+  {
+    slug: "custo-funcionario-clt",
+    title: "Quanto custa um funcionário para a empresa em 2026?",
+    excerpt: "Entenda o custo real de um colaborador CLT, incluindo impostos e encargos trabalhistas.",
+    date: "11 Mai 2026",
+    category: "Trabalhista",
+    readTime: "6 min",
+    tags: ["RH", "Empresas", "CLT"]
+  },
+  {
+    slug: "guia-ipva-2026",
+    title: "Guia do IPVA 2026: Alíquotas e como calcular",
+    excerpt: "Saiba como o valor do IPVA é definido e como se planejar para o pagamento do imposto veicular.",
+    date: "11 Mai 2026",
+    category: "Financeiro",
+    readTime: "4 min",
+    tags: ["IPVA", "Impostos", "Carro"]
+  },
+  {
+    slug: "guia-correcao-monetaria",
+    title: "Como calcular Correção Monetária em 2026",
+    excerpt: "Entenda como atualizar valores financeiros e judiciais usando índices de inflação.",
+    date: "11 Mai 2026",
+    category: "Jurídica",
+    readTime: "5 min",
+    tags: ["Correção Monetária", "Inflação", "Jurídico"]
   }
 ]
 
