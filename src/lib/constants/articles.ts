@@ -54,7 +54,7 @@ export const ARTIGOS_PT: Record<string, ArticleContent> = {
       "1. **INSS**: Contribuição previdenciária que varia de 7,5% a 14% em 2026.",
       "2. **IRRF**: Imposto de Renda Retido na Fonte, calculado após a dedução do INSS e dependentes.",
       "### Outros Possíveis Descontos",
-      "Vale-transporte (até 6%), plano de saúde, previdência privada e empréstimos consignados são exemplos comuns de deduções facultativas ou contratuais."
+      "Vale-transporte (até 6%), plano de saúde, previdência privada e empréstimos configurados são exemplos comuns de deduções facultativas ou contratuais."
     ],
     ctaLabel: "Calcular Salário Líquido",
     ctaLink: "/trabalhista/salario-liquido"
@@ -194,10 +194,139 @@ export const ARTIGOS_PT: Record<string, ArticleContent> = {
       "### Imposto de Renda (Tabela Regressiva)",
       "Diferente da poupança, o CDB tem desconto de IR sobre o lucro. A alíquota cai de 22,5% para até 15% dependendo do tempo que o dinheiro ficar investido.",
       "### Liquidez Diária vs. Vencimento",
-      "Escolha CDBs de liquidez diária para reserva de emergência e CDBs com prazo fechado para buscar rentabilidades maiores."
+      "Escolha CDBs de liquidez diaira para reserva de emergência e CDBs com prazo fechado para buscar rentabilidades maiores."
     ],
     ctaLabel: "Calcular Rendimento CDB",
     ctaLink: "/financeiro/rendimento-cdb"
+  },
+  "como-calcular-hora-extra": {
+    title: "Como calcular hora extra em 2026",
+    cat: "Trabalhista",
+    date: "10 Mai 2026",
+    description: "Aprenda a calcular o valor das suas horas adicionais com 50%, 100% e o adicional noturno.",
+    content: [
+      "As horas extras são aquelas trabalhadas além da jornada normal contratada. Em 2026, a legislação mantém os percentuais mínimos de acréscimo.",
+      "### Valor da Hora Comum",
+      "Divida seu salário bruto pelo número de horas mensais (ex: 220h) para encontrar o valor da sua hora normal.",
+      "### Adicional de 50% e 100%",
+      "1. **Dias Úteis**: Acréscimo de 50% sobre a hora normal.",
+      "2. **Domingos e Feriados**: Acréscimo de 100% (dobro da hora normal).",
+      "### Adicional Noturno",
+      "Se a hora extra for feita entre 22h e 5h, incide também o adicional noturno (mínimo 20% no meio urbano)."
+    ],
+    ctaLabel: "Calcular Minhas Horas Extra",
+    ctaLink: "/trabalhista/hora-extra"
+  },
+  "salario-minimo-2026": {
+    title: "Salário Mínimo 2026: Valor atualizado e impactos",
+    cat: "Trabalhista",
+    date: "10 Mai 2026",
+    description: "Confira o novo valor do salário mínimo em 2026 e como ele afeta benefícios e aposentadorias.",
+    content: [
+      "O salário mínimo é o menor valor que uma empresa pode pagar a um funcionário. Em 2026, o reajuste seguiu a política de valorização acima da inflação.",
+      "### Valor Vigente",
+      "O valor oficial para 2026 é utilizado como base para o cálculo de diversos benefícios sociais e trabalhistas.",
+      "### O que muda com o reajuste?",
+      "1. **Aposentadorias e Pensões**: O piso do INSS acompanha o mínimo.",
+      "2. **Seguro-Desemprego**: O valor das parcelas também é reajustado.",
+      "3. **PIS/PASEP**: O abono salarial tem o teto de um salário mínimo.",
+      "### Impacto para as Empresas",
+      "O custo total do funcionário aumenta proporcionalmente, afetando também o recolhimento de FGTS e INSS."
+    ],
+    ctaLabel: "Explorar Calculadoras Trabalhistas",
+    ctaLink: "/trabalhista"
+  },
+  "pj-vs-clt": {
+    title: "PJ ou CLT: Qual vale mais a pena em 2026?",
+    cat: "Trabalhista",
+    date: "10 Mai 2026",
+    description: "Compare os ganhos reais e benefícios de cada modelo e escolha o melhor para sua carreira.",
+    content: [
+      "Decidir entre ser um profissional PJ (Pessoa Jurídica) ou trabalhar com carteira assinada (CLT) é um dos maiores dilemas de carreira em 2026. A resposta depende não apenas do salário bruto, mas de todos os benefícios e encargos envolvidos.",
+      "### Vantagens da CLT",
+      "1. **Segurança**: Seguro-desemprego, aviso prévio e estabilidade relativa.",
+      "2. **Benefícios**: 13º salário, férias remuneradas (+1/3) e FGTS (8% mensais).",
+      "3. **Previdência**: Contribuição direta para o INSS com teto garantido.",
+      "### Vantagens do PJ",
+      "1. **Liberdade**: Maior flexibilidade de horários e múltiplos clientes.",
+      "2. **Ganho Líquido**: Geralmente o valor bruto é maior, e a carga tributária (Simples Nacional) pode ser menor.",
+      "### Regra de Ouro",
+      "Como regra geral, para manter o mesmo padrão de vida, um contrato PJ deve pagar entre 30% a 50% a mais que o salário bruto da CLT."
+    ],
+    ctaLabel: "Comparar PJ vs CLT Agora",
+    ctaLink: "/trabalhista/pj-vs-clt"
+  },
+  "guia-13-salario": {
+    title: "Guia do 13º Salário: Datas e como calcular",
+    cat: "Trabalhista",
+    date: "10 Mai 2026",
+    description: "Saiba quando você recebe a primeira e segunda parcela da gratificação natalina em 2026.",
+    content: [
+      "O 13º salário é um direito de todo trabalhador formal. Em 2026, as datas de pagamento seguem o cronograma tradicional estabelecido por lei.",
+      "### Datas de Pagamento",
+      "1. **1ª Parcela**: Deve ser paga entre 1º de fevereiro e 30 de novembro.",
+      "2. **2ª Parcela**: Deve ser paga até o dia 20 de dezembro.",
+      "### Como é feito o cálculo?",
+      "O valor é proporcional aos meses trabalhados no ano. Se trabalhou o ano todo, recebe um salário extra. Se trabalhou parte do ano, o cálculo é (Salário / 12) * número de meses.",
+      "### Descontos",
+      "Atenção: a primeira parcela é paga sem descontos. Todos os descontos de INSS e IRRF incidem integralmente sobre a segunda parcela."
+    ],
+    ctaLabel: "Calcular Meu 13º Salário",
+    ctaLink: "/trabalhista/decimo-terceiro"
+  },
+  "guia-calculadora-gestacional": {
+    title: "Guia da Gestação: Como contar as semanas",
+    cat: "Saúde",
+    date: "10 Mai 2026",
+    description: "Entenda o cálculo da idade gestacional e a data provável do parto (DPP).",
+    content: [
+      "Descobrir uma gravidez traz a dúvida: de quantas semanas estou? Médicos utilizam a data da última menstruação (DUM) para o cálculo padrão.",
+      "### Por que contar por semanas?",
+      "A gestação humana dura em média 40 semanas. Contar por semanas é mais preciso que meses, pois permite acompanhar marcos específicos do desenvolvimento fetal.",
+      "### Data Provável do Parto (DPP)",
+      "A DPP é apenas uma estimativa. Apenas 5% dos bebês nascem exatamente no dia calculado. O parto é considerado 'a termo' entre a 37ª e 42ª semana.",
+      "### Trimestres",
+      "A gravidez é dividida em três trimestres, cada um com desafios e exames específicos necessários para a saúde da mãe e do bebê."
+    ],
+    ctaLabel: "Calcular Idade Gestacional",
+    ctaLink: "/saude/gestacional"
+  },
+  "guia-regra-de-tres": {
+    title: "Como fazer Regra de Três Simples e Composta",
+    cat: "Matemática",
+    date: "10 Mai 2026",
+    description: "Aprenda o passo a passo para resolver problemas de proporcionalidade direta e inversa.",
+    content: [
+      "A regra de três é uma das ferramentas matemáticas mais úteis do dia a dia. Ela permite descobrir um valor desconhecido a partir de outros três que guardam uma proporção entre si.",
+      "### Regra de Três Simples",
+      "Utilizada quando temos apenas duas grandezas. Pode ser Direta (quando uma aumenta, a outra também aumenta) ou Inversa (quando uma aumenta, a outra diminui).",
+      "### Passo a Passo",
+      "1. Monte a tabela agrupando as grandezas da mesma espécie.",
+      "2. Identifique se são diretamente ou inversamente proporcionais.",
+      "3. Monte a equação e resolva para X.",
+      "### Regra de Três Composta",
+      "Envolve três ou mais grandezas. O processo é similar, mas requer atenção redobrada na análise de proporcionalidade de cada grandeza em relação àquela que contém o X."
+    ],
+    ctaLabel: "Resolver Regra de Três Agora",
+    ctaLink: "/matematica/regra-de-tres"
+  },
+  "porcentagem-guia-rapido": {
+    title: "Como calcular porcentagem: Guia rápido e prático",
+    cat: "Matemática",
+    date: "10 Mai 2026",
+    description: "Aprenda a calcular descontos, aumentos e variações percentuais sem complicação.",
+    content: [
+      "O cálculo de porcentagem está presente em quase tudo: descontos em lojas, taxas de juros, multas e estatísticas. 'Por cento' significa literalmente 'por cada cem'.",
+      "### Como calcular?",
+      "A forma mais simples é multiplicar o valor total pela taxa percentual e dividir por 100. Exemplo: 20% de 500 é (500 * 20) / 100 = 100.",
+      "### Aumento e Desconto",
+      "1. **Aumento**: Multiplique por (1 + taxa). Ex: aumento de 10% -> valor * 1.10.",
+      "2. **Desconto**: Multiplique por (1 - taxa). Ex: desconto de 15% -> valor * 0.85.",
+      "### Variação Percentual",
+      "Para saber quanto um valor cresceu ou diminuiu: ((Valor Final / Valor Inicial) - 1) * 100."
+    ],
+    ctaLabel: "Usar Calculadora de Porcentagem",
+    ctaLink: "/matematica/porcentagem"
   },
   "guia-emprestimo": {
     title: "Empréstimo Pessoal: Como conseguir as melhores taxas",
@@ -205,7 +334,7 @@ export const ARTIGOS_PT: Record<string, ArticleContent> = {
     date: "11 Mai 2026",
     description: "Dicas essenciais para comparar empréstimos e entender o Custo Efetivo Total (CET).",
     content: [
-      "Contratar um empréstimo pessoal exige cautela. O valor da parcela é apenas um dos fatores a considerar. O mais importante é o CET (Custo Efetivo Total).",
+      "Contratar um empréstimo pessoal exige cautela. O valor da parcela é apenas um dos fatores a considerar. O mais importante é o CET (Costo Efectivo Total).",
       "### O que é o CET?",
       "O CET engloba não apenas os juros, mas também tarifas bancárias, seguros e impostos (como o IOF). É o valor real que você está pagando pelo dinheiro emprestado.",
       "### Dicas para Economizar",
@@ -243,7 +372,7 @@ export const ARTICULOS_ES: Record<string, ArticleContent> = {
     title: "¿Cómo calcular su liquidación en 2026?",
     cat: "Laboral",
     date: "04 May 2026",
-    description: "Guía completa sobre conceptos de liquidación, plazos y derechos del trabajador en 2026.",
+    description: "Guía completa sobre conceptos de liquidación, plazos y derechos del trabajador in 2026.",
     content: [
       "Dejar un empleo genera muchas dudas, especialmente sobre cuánto tiene derecho a recibir. En 2026, las reglas siguen los estándares legales con tablas de impuestos actualizadas.",
       "### Conceptos Principales",
@@ -266,7 +395,7 @@ export const ARTICULOS_ES: Record<string, ArticleContent> = {
     content: [
       "El interés compuesto es considerado la 'octava maravilla del mundo'. A diferencia del interés simple, aquí los intereses se reinvierten para generar nuevos intereses.",
       "### La Fórmula de la Riqueza",
-      "La fórmula básica es M = C(1 + i)^t, donde el tiempo (t) es el factor más importante. Cuanto antes empiece, mayor será el efecto 'bola de nieve'.",
+      "La fórmula básica es M = C(1 + i)^t, onde el tiempo (t) es el factor más importante. Cuanto antes empiece, mayor será el efecto 'bola de nieve'.",
       "### ¿Dónde encontrar Interés Compuesto?",
       "Inversiones como Bonos, Depósitos a Plazo y Fondos de Inversión utilizan este sistema."
     ],
@@ -336,7 +465,7 @@ export const ARTICULOS_ES: Record<string, ArticleContent> = {
       "### Sistema Francés (Price)",
       "Las cuotas son fijas durante todo el plazo. Al principio, la mayor parte del pago corresponde a intereses, y al final, la mayor parte es amortización del capital.",
       "### ¿Cuál elegir?",
-      "El SAC suele resultar en un costo total menor de intereses, pero requiere mayores ingresos iniciales. El sistema Francés ofrece cuotas iniciales más accesibles y previsibilidad total."
+      "El SAC suele resultar en un costo total menor de intereses, pero requiere mayores ingresos iniciales. El sistema Francés ofrece cuotas iniciales más accesibles y previsibilidad total.",
     ],
     ctaLabel: "Simular Financiamiento",
     ctaLink: "/es/financiero/financiamento"
@@ -362,9 +491,9 @@ export const ARTICULOS_ES: Record<string, ArticleContent> = {
     title: "Impuesto de Renta 2026: Cómo calcular la retención",
     cat: "Laboral",
     date: "09 May 2026",
-    description: "Consulte la tabla actualizada del Impuesto sobre la Renta 2026 y aprenda a calcular el descuento en su salario.",
+    description: "Consulte la tabla actualizada del Impuesto sobre la Renta 2026 y aprenda a calcular el desconto in su salario.",
     content: [
-      "El impuesto sobre la renta retenido en la fuente se aplica sobre los ingresos del trabajo. En 2026, las tasas y tramos de exención han sido actualizados.",
+      "El impuesto sobre la renta retenido in la fuente se aplica sobre los ingresos del trabajo. En 2026, las tasas y tramos de exención han sido actualizados.",
       "### Tabla Progresiva",
       "El cálculo se basa en tramos: a mayor salario, mayor es la tasa aplicada. Existe un monto a deducir para cada tramo.",
       "### Deducciones Permitidas",
@@ -396,7 +525,7 @@ export const ARTICULOS_ES: Record<string, ArticleContent> = {
     title: "Cómo calcular el rendimiento del CDB en 2026",
     cat: "Finanzas",
     date: "10 May 2026",
-    description: "Entienda cómo la tasa Selic y el CDI afectan el rendimiento de sus inversiones en renta fija.",
+    description: "Entienda cómo la tasa Selic e el CDI afectan el rendimiento de sus inversiones en renta fija.",
     content: [
       "El Certificado de Depósito Bancario (CDB) es una de las inversiones más populares. Funciona como un préstamo que usted le hace al banco a cambio de intereses.",
       "### CDI y Selic",
@@ -408,6 +537,134 @@ export const ARTICULOS_ES: Record<string, ArticleContent> = {
     ],
     ctaLabel: "Calcular Rendimiento CDB",
     ctaLink: "/es/financiero/rendimento-cdb"
+  },
+  "como-calcular-hora-extra": {
+    title: "Cómo calcular horas extra en 2026",
+    cat: "Laboral",
+    date: "10 May 2026",
+    description: "Aprenda a calcular el valor de sus horas adicionales con recargos del 50%, 100% y recargo nocturno.",
+    content: [
+      "Las horas extra son aquellas trabajadas más allá de la jornada normal contratada. En 2026, los recargos legales se mantienen según la normativa vigente.",
+      "### Valor de la Hora Común",
+      "Divida su salario bruto por el número de horas mensuales pactadas para encontrar el valor de su hora normal.",
+      "### Recargos del 50% e 100%",
+      "1. **Días Laborables**: Recargo del 50% sobre la hora normal.",
+      "2. **Domingos e Festivos**: Recargo del 100% (el doble de la hora normal).",
+      "### Recargo Nocturno",
+      "Si la hora extra se realiza en horario nocturno, se aplica un recargo adicional según la ley de cada país."
+    ],
+    ctaLabel: "Calcular Mis Horas Extra",
+    ctaLink: "/es/laboral/hora-extra"
+  },
+  "salario-minimo-2026": {
+    title: "Salario Mínimo 2026: Valores y repercusiones",
+    cat: "Laboral",
+    date: "10 May 2026",
+    description: "Conozca los nuevos valores del salario mínimo in 2026 y cómo afecta a los beneficios y al mercado laboral.",
+    content: [
+      "El salario mínimo es la remuneración base legal. En 2026, los ajustes buscan mantener el poder adquisitivo frente a la inflación.",
+      "### Impacto Económico",
+      "El salario mínimo sirve como referencia para pensiones, subsidios de desempleo y otras ayudas estatales.",
+      "### Beneficios Afectados",
+      "1. **Pensiones**: Las pensiones mínimas suelen estar ligadas a este valor.",
+      "2. **Subsidios**: Ayudas por desempleo o maternidad/paternidad.",
+      "### Negociación Colectiva",
+      "Muchos sectores utilizan el salario mínimo como base para las tablas salariales de los convenios colectivos."
+    ],
+    ctaLabel: "Explorar Calculadoras Laborales",
+    ctaLink: "/es/laboral"
+  },
+  "freelance-vs-empleado": {
+    title: "¿Freelance o Empleado: Cuál conviene más en 2026?",
+    cat: "Laboral",
+    date: "10 May 2026",
+    description: "Decida entre trabajar de forma independiente o bajo contrato comparando beneficios y salario real.",
+    content: [
+      "Decidir entre trabajar como freelance (independiente) o como empleado contratado es un dilema común in 2026. La elección depende del equilibrio entre seguridad, beneficios y salario neto real.",
+      "### Ventajas del Empleado",
+      "1. **Seguridad**: Seguro de desempleo, indemnizaciones por despido y mayor estabilidad legal.",
+      "2. **Beneficios**: Aguinaldo (décimo tercero), vacaciones pagas y aportes patronales a la seguridad social.",
+      "3. **Previsión**: Contribución automática para la jubilación.",
+      "### Ventajas del Freelance",
+      "1. **Flexibilidad**: Autonomía de horarios y posibilidad de trabajar con múltiples proyectos internacionales.",
+      "2. **Ingreso Neto**: El valor bruto suele ser superior, y la gestión de impuestos puede ser más eficiente según el régimen fiscal.",
+      "### El Factor Comparativo",
+      "En promedio, para compensar la falta de beneficios corporativos, un contrato como independiente debería pagar entre un 40% y un 60% más que un sueldo base contratado."
+    ],
+    ctaLabel: "Comparar Freelance vs Empleado",
+    ctaLink: "/es/laboral/pj-vs-clt"
+  },
+  "guia-13-salario": {
+    title: "Guía del Aguinaldo: Fechas y cómo calcular",
+    cat: "Laboral",
+    date: "10 May 2026",
+    description: "Sepa cuándo recibe la primera y segunda parte de su gratificación anual in 2026.",
+    content: [
+      "El aguinaldo o décimo tercer sueldo es un derecho fundamental. En 2026, los plazos de pago se mantienen para asegurar que los trabajadores reciban este beneficio a tiempo.",
+      "### Fechas de Pago",
+      "1. **Primer Pago**: Generalmente se realiza a mitad de año o antes de diciembre.",
+      "2. **Segundo Pago**: Se debe completar antes de las festividades de fin de año.",
+      "### ¿Cómo se calcula?",
+      "El monto es proporcional a los meses trabajados durante el año calendario. La fórmula básica es (Sueldo mensual / 12) multiplicado por los meses de servicio.",
+      "### Deducciones Legales",
+      "Tenga en cuenta que el pago final suele incluir los descuentos de seguridad social e impuestos correspondientes al total del beneficio."
+    ],
+    ctaLabel: "Calcular Mi Aguinaldo",
+    ctaLink: "/es/laboral/decimo-terceiro"
+  },
+  "guia-calculadora-gestacional": {
+    title: "Guía de Embarazo: Cómo contar las semanas",
+    cat: "Salud",
+    date: "10 May 2026",
+    description: "Entienda el cálculo de la edad gestacional e la fecha probable de parto (FPP).",
+    content: [
+      "Al confirmar un embarazo, la primera pregunta es: ¿cuánto tiempo tengo? El método estándar utiliza la fecha de la última regla (FUR).",
+      "### La importancia de las semanas",
+      "El embarazo se mide en semanas para un seguimiento médico preciso. Un embarazo normal dura unas 40 semanas desde el primer día del último ciclo.",
+      "### Fecha Probable de Parto (FPP)",
+      "La FPP es una guía estimada. El nacimiento se considera a término si ocurre entre la semana 37 y la 42.",
+      "### Etapas del desarrollo",
+      "Dividimos el proceso in tres trimestres clave, cada uno con hitos específicos en el crecimiento del bebé y cuidados para la madre."
+    ],
+    ctaLabel: "Calcular Edad Gestacional",
+    ctaLink: "/es/salud/gestacional"
+  },
+  "guia-regra-de-tres": {
+    title: "Cómo hacer Regla de Tres Simple y Compuesta",
+    cat: "Matemática",
+    date: "10 May 2026",
+    description: "Aprenda el paso a paso para resolver problemas de proporcionalidad directa e inversa.",
+    content: [
+      "La regla de tres es una de las herramientas matemáticas más útiles del día a día. Permite descubrir un valor desconocido a partir de otros tres que guardan una proporción entre sí.",
+      "### Regla de Tres Simple",
+      "Se utiliza cuando tenemos solo dos magnitudes. Puede ser Directa (cuando una aumenta, la otra también aumenta) o Inversa (cuando una aumenta, la otra disminuye).",
+      "### Passo a Passo",
+      "1. Organice los datos en una tabla agrupando las magnitudes de la misma especie.",
+      "2. Identifique si son directamente o inversamente proporcionales.",
+      "3. Plantee la ecuación y despeje la X.",
+      "### Regla de Tres Compuesta",
+      "Involucra tres o más magnitudes. El proceso es similar, pero requiere analizar la proporcionalidad de cada magnitud respecto a la que contiene la incógnita X."
+    ],
+    ctaLabel: "Resolver Regla de Tres Ahora",
+    ctaLink: "/es/matematica/regra-de-tres"
+  },
+  "porcentaje-guia-rapida": {
+    title: "Cómo calcular porcentajes: Guía rápida y práctica",
+    cat: "Matemática",
+    date: "10 May 2026",
+    description: "Aprenda a calcular descuentos, aumentos y variaciones porcentuales sin complicaciones.",
+    content: [
+      "El cálculo de porcentajes está presente in casi todo: descuentos en tiendas, tasas de interés, impuestos y estadísticas. 'Por ciento' significa literalmente 'por cada cien'.",
+      "### ¿Cómo calcular?",
+      "La forma más simple es multiplicar el valor total por la tasa porcentual y dividir por 100. Ejemplo: el 20% de 500 es (500 * 20) / 100 = 100.",
+      "### Aumentos y Descuentos",
+      "1. **Aumento**: Multiplique por (1 + tasa). Ej: aumento del 10% -> valor * 1.10.",
+      "2. **Desconto**: Multiplique por (1 - tasa). Ej: descuento del 15% -> valor * 0.85.",
+      "### Variación Porcentual",
+      "Para saber cuánto creció o disminuyó un valor: ((Valor Final / Valor Inicial) - 1) * 100."
+    ],
+    ctaLabel: "Usar Calculadora de Porcentaje",
+    ctaLink: "/es/matematica/porcentagem"
   },
   "guia-prestamo": {
     title: "Préstamo Personal: Cómo conseguir las mejores tasas",

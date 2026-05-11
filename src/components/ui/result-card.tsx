@@ -21,6 +21,8 @@ const I18N = {
   pt: {
     print: 'Imprimir',
     shareWhatsApp: 'Compartilhar no WhatsApp',
+    shareTwitter: 'Compartilhar no X',
+    shareLinkedIn: 'Compartilhar no LinkedIn',
     copy: 'Copiar resultado',
     copySuccess: 'Resultado copiado!',
     calculatedAt: 'Calculado em:',
@@ -32,6 +34,8 @@ const I18N = {
   es: {
     print: 'Imprimir',
     shareWhatsApp: 'Compartir por WhatsApp',
+    shareTwitter: 'Compartir en X',
+    shareLinkedIn: 'Compartir en LinkedIn',
     copy: 'Copiar resultado',
     copySuccess: '¡Resultado copiado!',
     calculatedAt: 'Calculado en:',
@@ -67,7 +71,7 @@ export function ResultCard({ title, mainValue, mainLabel, items, visible, childr
 
   if (!visible) return null
 
-  const getResultText = () => {
+  const getResultText = (isUrlEncoded = false) => {
     const chartEmoji = '📊'
     const linkEmoji = '🔗'
     
@@ -79,7 +83,8 @@ export function ResultCard({ title, mainValue, mainLabel, items, visible, childr
       ? `\n${items.map(i => `• ${i.label}: ${i.value}`).join('\n')}`
       : ''
 
-    return `${chartEmoji} *${title}*\n\n${mainLabel}: *${mainValue}*${itemsText}\n\n${footer}`
+    const text = `${chartEmoji} *${title}*\n\n${mainLabel}: *${mainValue}*${itemsText}\n\n${footer}`
+    return isUrlEncoded ? encodeURIComponent(text) : text
   }
 
   const handleCopy = () => {
@@ -104,9 +109,19 @@ export function ResultCard({ title, mainValue, mainLabel, items, visible, childr
   }
 
   const handleWhatsApp = () => {
-    const text = encodeURIComponent(getResultText())
-    window.open(`https://wa.me/?text=${text}`, '_blank')
+    window.open(`https://wa.me/?text=${getResultText(true)}`, '_blank')
     trackCalculadoraEvent('share_whatsapp', slug)
+  }
+
+  const handleTwitter = () => {
+    const twitterText = encodeURIComponent(`${isSpanish ? '¡Mira mi resultado en' : 'Confira meu resultado no'} ${BRAND_DOMAIN}! 📊`)
+    window.open(`https://twitter.com/intent/tweet?text=${twitterText}&url=${encodeURIComponent(BRAND_URL + (isSpanish ? '/es' : ''))}`, '_blank')
+    trackCalculadoraEvent('share_twitter', slug)
+  }
+
+  const handleLinkedIn = () => {
+    window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(BRAND_URL + (isSpanish ? '/es' : ''))}`, '_blank')
+    trackCalculadoraEvent('share_linkedin', slug)
   }
 
   const handlePrint = () => {
@@ -167,6 +182,26 @@ export function ResultCard({ title, mainValue, mainLabel, items, visible, childr
           >
             <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
               <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.246 2.248 3.484 5.232 3.483 8.413-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.308 1.654zm6.241-3.528l.45.267c1.472.873 3.176 1.335 4.912 1.336 5.539 0 10.048-4.51 10.051-10.05 0-2.684-2.146-5.204-4.045-7.252-1.898-2.049-4.417-3.177-7.102-3.178-5.541 0-10.051 4.509-10.054 10.051-.001 1.88.52 3.715 1.503 5.311l.33.535-1.004 3.673 3.759-.986zm11.337-7.391c-.328-.164-1.94-.957-2.241-1.066-.301-.11-.52-.164-.739.164-.219.328-.847 1.066-1.039 1.285-.192.219-.384.246-.712.082-.328-.164-1.385-.51-2.637-1.627-.975-.87-1.633-1.946-1.824-2.274-.192-.328-.021-.505.143-.668.148-.147.328-.383.493-.574.164-.192.219-.328.328-.547.11-.219.055-.411-.027-.574-.082-.164-.739-1.777-1.012-2.434-.266-.639-.536-.552-.739-.563-.191-.01-.41-.011-.629-.011-.219 0-.575.082-.876.411-.301.328-1.15 1.122-1.15 2.735 0 1.612 1.177 3.169 1.341 3.388.164.219 2.316 3.535 5.609 4.957.783.338 1.394.54 1.869.691.787.249 1.503.214 2.069.139.631-.084 1.94-.793 2.214-1.558.274-.765.274-1.421.192-1.558-.083-.137-.302-.219-.63-.383z\"/>
+            </svg>
+          </button>
+          <button
+            onClick={handleTwitter}
+            className="p-2 rounded-lg bg-white/10 hover:bg-black/20 text-slate-300 hover:text-white transition-all active:scale-95"
+            aria-label={t.shareTwitter}
+            title={t.shareTwitter}
+          >
+             <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+          </button>
+          <button
+            onClick={handleLinkedIn}
+            className="p-2 rounded-lg bg-white/10 hover:bg-blue-600/20 text-slate-300 hover:text-blue-400 transition-all active:scale-95"
+            aria-label={t.shareLinkedIn}
+            title={t.shareLinkedIn}
+          >
+            <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M19 0h-14c-1.105 0-2 0.895-2 2v14c0 1.105 0.895 2 2 2h14c1.105 0 2-0.895 2-2v-14c0-1.105-0.895-2-2-2zM8 19h-3v-11h3v11zM6.5 6.732c-0.966 0-1.75-0.784-1.75-1.75s0.784-1.75 1.75-1.75 1.75 0.784 1.75 1.75-0.784 1.75-1.75 1.75zM19 19h-3v-5.742c0-0.845-0.017-1.933-1.177-1.933-1.179 0-1.36 0.921-1.36 1.872v5.803h-3v-11h2.879v1.503h0.041c0.401-0.759 1.381-1.559 2.839-1.559 3.036 0 3.6 2 3.6 4.599v6.457z"/>
             </svg>
           </button>
           <button

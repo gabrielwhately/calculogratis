@@ -2,6 +2,23 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import { Newsletter } from "@/components/layout/newsletter"
 import { ARTIGOS_PT } from "@/lib/constants/articles"
+import { Metadata } from "next"
+
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const article = ARTIGOS_PT[params.slug]
+  if (!article) return { title: "Artigo não encontrado" }
+  
+  return {
+    title: article.title,
+    description: article.description,
+    openGraph: {
+      title: article.title,
+      description: article.description,
+      type: "article",
+      publishedTime: article.date,
+    }
+  }
+}
 
 export function generateStaticParams() {
   const defaultSlugs = ["rescisao-2026", "juros-compostos", "salario-liquido", "imc-saude", "sac-vs-price", "seguro-desemprego"]

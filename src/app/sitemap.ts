@@ -50,19 +50,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/es/articulos/${slug}`,
       lastModified,
       changeFrequency: 'weekly' as const,
-      priority: 0.6
+      priority: 0.7
     })),
     ...CATEGORIAS.map((cat) => ({
       url: `${baseUrl}/es/${CATEGORIAS_ES[cat.slug]?.slug ?? cat.slug}`,
       lastModified,
       changeFrequency: 'monthly' as const,
-      priority: 0.7,
+      priority: 0.8,
     })),
     ...CALCULADORAS.map((calc) => ({
       url: `${baseUrl}/es/${CATEGORIAS_ES[calc.categoriaSlug]?.slug ?? calc.categoriaSlug}/${calc.slug}`,
       lastModified,
       changeFrequency: 'monthly' as const,
-      priority: 0.8,
+      priority: 0.9,
     })),
   ]
 

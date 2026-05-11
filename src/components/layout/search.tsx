@@ -12,6 +12,7 @@ const I18N = {
     ariaLabel: 'Buscar calculadora',
     viewAll: 'Ver todos os resultados',
     noResults: 'Nenhuma calculadora encontrada',
+    featured: 'Sugestões em destaque:',
     resultsFound: (count: number) => count === 1 ? '1 resultado encontrado' : `${count} resultados encontrados`,
     hrefPrefix: '',
     viewAllHref: '/busca',
@@ -21,11 +22,20 @@ const I18N = {
     ariaLabel: 'Buscar calculadora',
     viewAll: 'Ver todos los resultados',
     noResults: 'No se encontraron calculadoras',
+    featured: 'Sugerencias destacadas:',
     resultsFound: (count: number) => count === 1 ? '1 resultado encontrado' : `${count} resultados encontrados`,
     hrefPrefix: '/es',
     viewAllHref: '/es/busca',
   }
 }
+
+const FEATURED_SUGGESTIONS = [
+  'rescisao',
+  'juros-compostos',
+  'salario-liquido',
+  'imc',
+  'aposentadoria'
+]
 
 export function Search() {
   const router = useRouter()
@@ -169,8 +179,35 @@ export function Search() {
               </Link>
             </>
           ) : (
-            <div className="px-4 py-4 text-sm text-slate-500 text-center italic" role="status">
-              {t.noResults}
+            <div className="py-2">
+              <div className="px-4 py-2 text-xs font-bold text-slate-400 uppercase tracking-widest border-b border-slate-50 dark:border-slate-700/50 mb-1">
+                {t.noResults}
+              </div>
+              <div className="px-4 py-1.5 text-[10px] font-bold text-accent uppercase tracking-wider">
+                {t.featured}
+              </div>
+              {FEATURED_SUGGESTIONS.map((slug) => {
+                const calc = CALCULADORAS.find(c => c.slug === slug)
+                if (!calc) return null
+                
+                const esData = CALCULADORAS_ES[slug]
+                const esCatSlug = CATEGORIAS_ES[calc.categoriaSlug]?.slug ?? calc.categoriaSlug
+                const nome = isSpanish ? (esData?.nome ?? calc.nome) : calc.nome
+                const href = isSpanish 
+                  ? `/es/${esCatSlug}/${calc.slug}`
+                  : `/${calc.categoriaSlug}/${calc.slug}`
+
+                return (
+                  <Link
+                    key={slug}
+                    href={href}
+                    className="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
+                    onClick={() => { setIsOpen(false); setQuery('') }}
+                  >
+                    <div className="font-medium">{nome}</div>
+                  </Link>
+                )
+              })}
             </div>
           )}
         </div>
