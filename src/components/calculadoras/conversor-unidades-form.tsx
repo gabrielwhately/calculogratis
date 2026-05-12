@@ -30,6 +30,7 @@ const I18N = {
       m: 'Metros', km: 'Quilômetros', cm: 'Centímetros', mm: 'Milímetros', mi: 'Milhas', yd: 'Jardas', ft: 'Pés', in: 'Polegadas',
       kg: 'Quilogramas', g: 'Gramas', mg: 'Miligramas', t: 'Toneladas', lb: 'Libras', oz: 'Onças',
       l: 'Litros', ml: 'Mililitros', m3: 'Metros cúbicos', gal: 'Galões', qt: 'Quartos', cup: 'Xícaras',
+      'colher-sopa': 'Colheres de Sopa', 'colher-cha': 'Colheres de Chá',
       C: 'Celsius', F: 'Fahrenheit', K: 'Kelvin',
     } as Record<string, string>
   },
@@ -49,6 +50,7 @@ const I18N = {
       m: 'Metros', km: 'Kilómetros', cm: 'Centímetros', mm: 'Milímetros', mi: 'Millas', yd: 'Yardas', ft: 'Pies', in: 'Pulgadas',
       kg: 'Kilogramos', g: 'Gramos', mg: 'Miligramos', t: 'Toneladas', lb: 'Libras', oz: 'Onzas',
       l: 'Litros', ml: 'Mililitros', m3: 'Metros cúbicos', gal: 'Galones', qt: 'Cuartos', cup: 'Tazas',
+      'colher-sopa': 'Cucharadas', 'colher-cha': 'Cucharaditas',
       C: 'Celsius', F: 'Fahrenheit', K: 'Kelvin',
     } as Record<string, string>
   }

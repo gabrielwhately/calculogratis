@@ -88,7 +88,9 @@ const CALCULADORAS_ES: Record<string, CalculadoraI18n> = {
   'fuso-horario': { nome: 'Huso Horario', descricao: 'Convierta horarios entre husos horarios del mundo entero.', keywords: 'huso horario, convertir horario, diferencia horaria' },
   'consumo-energia': { nome: 'Consumo de Energía', descricao: 'Calcule cuánto gasta cada aparato de energía eléctrica por mes.', keywords: 'consumo energía, calculadora energía, cuenta de luz, kWh' },
   'simulador-consorcio': { nome: 'Simulador de Consorcio', descricao: 'Simule las cuotas y el costo total de un consorcio. Compare con financiamiento.', keywords: 'simulador consorcio, cuota consorcio, tasa administración' },
-  'frequencia-cardiaca': { nome: 'Frecuencia Cardíaca', descricao: 'Calcule su frecuencia cardíaca máxima y las zonas de entrenamiento ideales.', keywords: 'frecuencia cardíaca máxima, zonas de entrenamiento, FC máxima, Karvonen' },
+  'calculadora-parcelas': { nome: 'Calculadora de Cuotas (Price/SAC)', descricao: 'Calcule el valor de las cuotas de un préstamo usando las tablas Price y SAC.', keywords: 'calculadora cuotas, amortización, tabla price' },
+  'frequencia-cardiaca': { nome: 'Frecuencia Cardíaca', descricao: 'Calcule su frecuencia cardíaca máxima e las zonas de entrenamiento ideales.', keywords: 'frecuencia cardíaca máxima, zonas de entrenamiento, FC máxima, Karvonen' },
+
   'calculadora-pintura': { nome: 'Calculadora de Pintura', descricao: 'Calcule cuántos litros de pintura necesita para pintar una habitación.', keywords: 'calculadora pintura, cuánta pintura necesito, litros de pintura, m² pintura' },
 }
 

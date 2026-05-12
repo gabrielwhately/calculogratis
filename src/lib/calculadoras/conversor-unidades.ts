@@ -2,12 +2,13 @@ type Categoria = 'comprimento' | 'peso' | 'temperatura' | 'volume'
 
 const FATORES_COMPRIMENTO: Record<string, number> = { m: 1, km: 1000, cm: 0.01, mm: 0.001, mi: 1609.344, yd: 0.9144, ft: 0.3048, in: 0.0254 }
 const FATORES_PESO: Record<string, number> = { kg: 1, g: 0.001, mg: 0.000001, t: 1000, lb: 0.453592, oz: 0.0283495 }
-const FATORES_VOLUME: Record<string, number> = { l: 1, ml: 0.001, m3: 1000, gal: 3.78541, qt: 0.946353, cup: 0.236588 }
+const FATORES_VOLUME: Record<string, number> = { l: 1, ml: 0.001, m3: 1000, gal: 3.78541, qt: 0.946353, cup: 0.24, 'colher-sopa': 0.015, 'colher-cha': 0.005 }
 
 const NOMES: Record<string, string> = {
   m: 'Metros', km: 'Quilometros', cm: 'Centimetros', mm: 'Milimetros', mi: 'Milhas', yd: 'Jardas', ft: 'Pes', in: 'Polegadas',
   kg: 'Quilogramas', g: 'Gramas', mg: 'Miligramas', t: 'Toneladas', lb: 'Libras', oz: 'Oncas',
   l: 'Litros', ml: 'Mililitros', m3: 'Metros cubicos', gal: 'Galoes', qt: 'Quartos', cup: 'Xicaras',
+  'colher-sopa': 'Colheres de Sopa', 'colher-cha': 'Colheres de Cha',
   C: 'Celsius', F: 'Fahrenheit', K: 'Kelvin',
 }
 

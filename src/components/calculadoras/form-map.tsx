@@ -131,6 +131,7 @@ export const FORM_MAP: Record<string, ComponentType> = {
   'fuso-horario': FusoHorarioForm,
   'consumo-energia': ConsumoEnergiaForm,
   'simulador-consorcio': SimuladorConsorcioForm,
+  'calculadora-parcelas': FinanciamentoForm,
   'frequencia-cardiaca': FrequenciaCardiacaForm,
   'calculadora-pintura': CalculadoraPinturaForm,
 }
