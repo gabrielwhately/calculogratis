@@ -10,6 +10,7 @@ import { CustoCLTForm } from './custo-clt-form'
 import { PjVsCltForm } from './pj-vs-clt-form'
 import { AdicionalNoturnoForm } from './adicional-noturno-form'
 import { InsalubridadeForm } from './insalubridade-form'
+import { ValeTransporteForm } from './vale-transporte-form'
 import { JurosSimplesForm } from './juros-simples-form'
 import { JurosCompostosForm } from './juros-compostos-form'
 import { FinanciamentoForm } from './financiamento-form'
@@ -35,6 +36,7 @@ import { RegraDeTresForm } from './regra-de-tres-form'
 import { ConversorBasesForm } from './conversor-bases-form'
 import { CorrecaoMonetariaForm } from './correcao-monetaria-form'
 import { MultaAtrasoForm } from './multa-atraso-form'
+import { CustasProcessuaisForm } from './custas-processuais-form'
 import { PrazosJudiciaisForm } from './prazos-judiciais-form'
 import { RealDolarForm } from './real-dolar-form'
 import { RealBitcoinForm } from './real-bitcoin-form'
@@ -76,6 +78,7 @@ export const FORM_MAP: Record<string, ComponentType> = {
   'pj-vs-clt': PjVsCltForm,
   'adicional-noturno': AdicionalNoturnoForm,
   'insalubridade': InsalubridadeForm,
+  'vale-transporte': ValeTransporteForm,
   'juros-simples': JurosSimplesForm,
   'juros-compostos': JurosCompostosForm,
   'financiamento': FinanciamentoForm,
@@ -101,6 +104,7 @@ export const FORM_MAP: Record<string, ComponentType> = {
   'conversor-bases': ConversorBasesForm,
   'correcao-monetaria': CorrecaoMonetariaForm,
   'multa-atraso': MultaAtrasoForm,
+  'custas-processuais': CustasProcessuaisForm,
   'prazos-judiciais': PrazosJudiciaisForm,
   'real-dolar': RealDolarForm,
   'real-bitcoin': RealBitcoinForm,

@@ -31,6 +31,7 @@ export const CALCULADORAS: CalculadoraInfo[] = [
   { nome: 'PJ vs CLT', slug: 'pj-vs-clt', categoria: 'Trabalhista', categoriaSlug: 'trabalhista', descricao: 'Compare quanto você precisa ganhar como PJ para ter o equivalente ao salário CLT. Considere impostos e benefícios.', keywords: 'PJ vs CLT, comparar PJ CLT, vale mais a pena PJ ou CLT, salário PJ equivalente CLT' },
   { nome: 'Adicional Noturno', slug: 'adicional-noturno', categoria: 'Trabalhista', categoriaSlug: 'trabalhista', descricao: 'Calcule o adicional noturno sobre seu salário com hora reduzida (52min30s) conforme a CLT.', keywords: 'adicional noturno, hora noturna, cálculo adicional noturno, CLT noturno, trabalho noturno' },
   { nome: 'Insalubridade e Periculosidade', slug: 'insalubridade', categoria: 'Trabalhista', categoriaSlug: 'trabalhista', descricao: 'Calcule o adicional de insalubridade (10%, 20%, 40%) e periculosidade (30%) sobre seu salário.', keywords: 'insalubridade, periculosidade, adicional insalubridade, adicional periculosidade, NR-15, CLT' },
+  { nome: 'Vale-Transporte', slug: 'vale-transporte', categoria: 'Trabalhista', categoriaSlug: 'trabalhista', descricao: 'Calcule o desconto do vale-transporte no seu salário (Tabelas 2026). Descubra quanto a empresa deve pagar.', keywords: 'vale-transporte, cálculo VT, desconto vale transporte, benefício transporte, CLT vale transporte' },
 
   // === Financeiro ===
   { nome: 'Juros Simples', slug: 'juros-simples', categoria: 'Financeiro', categoriaSlug: 'financeiro', descricao: 'Calcule juros simples sobre qualquer valor. Informe capital, taxa e período para obter o montante e os juros.', keywords: 'juros simples, cálculo juros simples, matemática financeira, fórmula juros simples' },
@@ -67,6 +68,7 @@ export const CALCULADORAS: CalculadoraInfo[] = [
 
   // === Jurídica ===
   { nome: 'Correção Monetária', slug: 'correcao-monetaria', categoria: 'Jurídica', categoriaSlug: 'juridica', descricao: 'Calcule a correção monetária de valores por IPCA, IGP-M, INPC e outros índices oficiais.', keywords: 'correção monetária, atualização monetária, IPCA, IGP-M, INPC, inflação, valor corrigido' },
+  { nome: 'Custas Processuais', slug: 'custas-processuais', categoria: 'Jurídica', categoriaSlug: 'juridica', descricao: 'Estime o valor das custas processuais iniciais de uma ação judicial com base no valor da causa.', keywords: 'custas processuais, cálculo custas, taxa judiciária, valor da causa, quanto custa um processo' },
   { nome: 'Multa por Atraso', slug: 'multa-atraso', categoria: 'Jurídica', categoriaSlug: 'juridica', descricao: 'Calcule multa e juros de mora por atraso em pagamentos, boletos e obrigações contratuais.', keywords: 'multa atraso, juros de mora, cálculo multa, atraso pagamento, multa boleto' },
   { nome: 'Prazos Judiciais', slug: 'prazos-judiciais', categoria: 'Jurídica', categoriaSlug: 'juridica', descricao: 'Calcule prazos processuais e judiciais considerando dias úteis, feriados e recesso forense.', keywords: 'prazo judicial, prazo processual, dias úteis, contagem prazo, CPC, recesso forense' },
 

@@ -228,5 +228,35 @@ export const ES_CONTENT_MAP: Record<string, React.ReactNode> = {
       <p>Verifica instantáneamente si un número de CPF es matemáticamente válido. Nuestra herramienta comprueba los dígitos verificadores según las reglas de la Receita Federal de Brasil.</p>
       <p>Nota: Esta herramienta valida la estructura del número, pero no consulta la base de datos oficial para verificar la situación catastral del ciudadano.</p>
     </>
-  )
-}
+  ),
+  'vale-transporte': (
+    <>
+      <h2>Cómo funciona el subsidio de transporte en Brasil</h2>
+      <p>El <strong>vale-transporte (VT)</strong> es un derecho de todo trabajador bajo el régimen CLT que necesite utilizar transporte público para el trayecto entre su residencia y su lugar de trabajo.</p>
+      <p>La regla fundamental es que el costo del transporte se divide entre el empleado y el empleador, protegiendo el salario del trabajador de gastos excesivos en movilidad.</p>
+
+      <h3>La regla del descuento del 6%</h3>
+      <p>Por ley, la empresa puede descontar un máximo del <strong>6% del salario base</strong> del empleado para costear el vale-transporte. Es importante destacar que el descuento se aplica sobre el salario nominal, sin considerar horas extras o bonificaciones.</p>
+      <ul>
+        <li>Si el costo total del transporte es <strong>mayor</strong> al 6% del salario, el empleado paga el 6% y la empresa cubre el resto.</li>
+        <li>Si el costo total del transporte es <strong>menor</strong> al 6% del salario, el empleado paga solo el valor real del costo, y la empresa no descuenta nada adicional.</li>
+      </ul>
+      </>
+      ),
+      'custas-processuais': (
+      <>
+      <h2>Costas Procesales en Brasil (Justicia Común)</h2>
+      <p>Las <strong>costas procesales</strong> son los valores pagados al Estado para cubrir los gastos de la prestación del servicio judicial. En Brasil, cada Tribunal de Justicia (TJ) tiene su propia tabla de valores.</p>
+      <p>Nuestra calculadora ofrece una estimación basada en la tasa judicial estándar del 1% del valor de la causa, respetando los límites mínimos y máximos comunes.</p>
+
+      <h3>Cómo se calcula la tasa judicial</h3>
+      <p>Generalmente, el cálculo se basa en el <strong>Valor de la Causa</strong> indicado en la petición inicial:</p>
+      <ul>
+        <li><strong>Porcentaje:</strong> Varía entre el 1% y el 2% dependiendo del Estado.</li>
+        <li><strong>Límite Mínimo:</strong> Se aplica para causas de valor muy bajo.</li>
+        <li><strong>Límite Máximo:</strong> Existe un tope para evitar valores desproporcionados en causas multimillonarias.</li>
+      </ul>
+      <p>Es importante recordar que además de la tasa judicial inicial, pueden existir otros gastos como citaciones, diligencias de oficiales de justicia y honorarios periciales.</p>
+      </>
+      )
+      }
