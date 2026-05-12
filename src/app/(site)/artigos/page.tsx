@@ -222,6 +222,42 @@ const ARTIGOS = [
     category: "Jurídica",
     readTime: "5 min",
     tags: ["Correção Monetária", "Inflação", "Jurídico"]
+  },
+  {
+    slug: "guia-emprestimo",
+    title: "Empréstimo Pessoal: Como conseguir as melhores taxas",
+    excerpt: "Dicas essenciais para comparar empréstimos e entender o Custo Efetivo Total (CET).",
+    date: "11 Mai 2026",
+    category: "Financeiro",
+    readTime: "5 min",
+    tags: ["Empréstimo", "Crédito", "Finanças"]
+  },
+  {
+    slug: "guia-vale-transporte",
+    title: "Guia do Vale-Transporte 2026: Regras e Descontos",
+    excerpt: "Entenda como funciona o desconto de 6% do vale-transporte e quem tem direito ao benefício.",
+    date: "12 Mai 2026",
+    category: "Trabalhista",
+    readTime: "4 min",
+    tags: ["Vale-Transporte", "CLT", "Direitos"]
+  },
+  {
+    slug: "guia-custas-processuais",
+    title: "Guia de Custas Processuais: Como estimar gastos judiciais",
+    excerpt: "Saiba quanto custa abrir um processo na Justiça Comum e como funcionam as taxas judiciárias.",
+    date: "12 Mai 2026",
+    category: "Jurídica",
+    readTime: "5 min",
+    tags: ["Justiça", "Custas", "Processo"]
+  },
+  {
+    slug: "comparativo-sac-price",
+    title: "Amortização SAC vs Price: Qual parcela cabe no seu bolso?",
+    excerpt: "Compare as prestações de um financiamento pelos sistemas SAC e Price e veja qual a melhor opção.",
+    date: "12 Mai 2026",
+    category: "Financeiro",
+    readTime: "6 min",
+    tags: ["Amortização", "SAC", "Price"]
   }
 ]
 

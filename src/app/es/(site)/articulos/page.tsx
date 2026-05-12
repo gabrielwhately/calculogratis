@@ -222,6 +222,42 @@ const ARTICULOS = [
     category: "Jurídica",
     readTime: "5 min",
     tags: ["Corrección Monetaria", "Inflación", "Finanzas"]
+  },
+  {
+    slug: "guia-prestamo",
+    title: "Préstamo Personal: Cómo conseguir las mejores tasas",
+    excerpt: "Consejos esenciales para comparar préstamos y entender el Costo Efectivo Total (CET).",
+    date: "11 May 2026",
+    category: "Finanzas",
+    readTime: "5 min",
+    tags: ["Préstamo", "Crédito", "Finanzas"]
+  },
+  {
+    slug: "guia-vale-transporte",
+    title: "Guía de Vale-Transporte 2026: Reglas y Beneficios",
+    excerpt: "Entienda cómo funciona el beneficio de transporte para empleados y los límites legales de descuento.",
+    date: "12 May 2026",
+    category: "Laboral",
+    readTime: "4 min",
+    tags: ["Vale-Transporte", "Laboral", "Derechos"]
+  },
+  {
+    slug: "guia-costas-procesales",
+    title: "Guía de Costas Procesales: Cómo estimar gastos judiciales",
+    excerpt: "Conozca cuánto cuesta iniciar un proceso legal y cómo se determinan las tasas judiciales.",
+    date: "12 May 2026",
+    category: "Jurídica",
+    readTime: "5 min",
+    tags: ["Justicia", "Tasas", "Proceso"]
+  },
+  {
+    slug: "comparativa-sac-price",
+    title: "Amortización SAC vs Price: ¿Qué sistema elegir?",
+    excerpt: "Compare las cuotas de su financiamiento entre los sistemas SAC y Francés (Price) para decidir mejor.",
+    date: "12 May 2026",
+    category: "Finanzas",
+    readTime: "6 min",
+    tags: ["Amortización", "SAC", "Price"]
   }
 ]
 
