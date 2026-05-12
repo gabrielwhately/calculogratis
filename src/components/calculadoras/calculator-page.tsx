@@ -88,6 +88,7 @@ export function CalculatorPage({ slug, categoriaSlug, categoriaNome, nome, descr
 
   const jsonLd = calculadoraJsonLd(slug, isSpanish ? 'es' : 'pt')
   const relacionadas = getCalculadorasByCategoria(categoriaSlug).filter(c => c.slug !== slug)
+  const esCatSlug = CATEGORIAS_ES[categoriaSlug]?.slug ?? categoriaSlug
 
   return (
     <div className="container-app py-6 print:py-0">
@@ -97,7 +98,7 @@ export function CalculatorPage({ slug, categoriaSlug, categoriaNome, nome, descr
       <div className="print:hidden">
         <Breadcrumb items={[
           { label: t.inicio, href: isSpanish ? '/es' : '/' }, 
-          { label: categoriaNome, href: isSpanish ? `/es/${categoriaSlug}` : `/${categoriaSlug}` }, 
+          { label: categoriaNome, href: isSpanish ? `/es/${esCatSlug}` : `/${categoriaSlug}` }, 
           { label: `${t.calculadoraDe} ${nome}` }
         ]} />
       </div>
