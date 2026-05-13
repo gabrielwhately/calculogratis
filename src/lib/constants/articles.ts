@@ -447,8 +447,59 @@ export const ARTIGOS_PT: Record<string, ArticleContent> = {
       "### Quando aplicar?",
       "É essencial em contratos de longo prazo, aluguéis atrasados, dívidas judiciais e heranças para garantir que o valor recebido seja equivalente ao valor original."
     ],
-    ctaLabel: "Calcular Correção Monetária",
+    ctaLabel: "Calcular Correção Monetaria",
     ctaLink: "/juridica/correcao-monetaria"
+  },
+  "guia-vale-transporte": {
+    title: "Guia do Vale-Transporte 2026: Regras e Descontos",
+    cat: "Trabalhista",
+    date: "12 Mai 2026",
+    description: "Entenda como funciona o desconto de 6% do vale-transporte e quem tem direito ao benefício.",
+    content: [
+      "O vale-transporte é um direito de todo trabalhador para o deslocamento casa-trabalho e vice-versa. Em 2026, as regras de custeio permanecem as mesmas estabelecidas por lei.",
+      "### Desconto de 6%",
+      "A empresa pode descontar até 6% do salário básico do funcionário. Se o custo real for menor que esses 6%, o desconto deve ser apenas o custo real.",
+      "### Custo do Empregador",
+      "A parcela que exceder os 6% do salário é de responsabilidade total da empresa.",
+      "### Uso Obrigatório",
+      "O benefício deve ser utilizado exclusivamente para transporte público coletivo."
+    ],
+    ctaLabel: "Calcular Vale-Transporte",
+    ctaLink: "/trabalhista/vale-transporte"
+  },
+  "guia-custas-processuais": {
+    title: "Guia de Custas Processuais: Como estimar gastos judiciais",
+    cat: "Jurídica",
+    date: "12 Mai 2026",
+    description: "Saiba quanto custa abrir um processo na Justiça Comum e como funcionam as taxas judiciárias.",
+    content: [
+      "Iniciar uma ação judicial envolve o pagamento de custas processuais, que servem para custear o funcionamento da máquina pública.",
+      "### Base de Cálculo",
+      "Geralmente, as custas são calculadas como um percentual sobre o valor da causa, respeitando limites mínimos e máximos por estado.",
+      "### Justiça Gratuita",
+      "Pessoas que não possuem condições financeiras de arcar com as custas podem solicitar a gratuidade de justiça.",
+      "### Custas de Recurso",
+      "Caso a parte queira recorrer de uma decisão, novos pagamentos (preparo) podem ser necessários."
+    ],
+    ctaLabel: "Calcular Custas Judiciais",
+    ctaLink: "/juridica/custas-processuais"
+  },
+  "comparativo-sac-price": {
+    title: "Amortização SAC vs Price: Qual parcela cabe no seu bolso?",
+    cat: "Financeiro",
+    date: "12 Mai 2026",
+    description: "Compare as prestações de um financiamento pelos sistemas SAC e Price e veja qual a melhor opção.",
+    content: [
+      "Ao contratar um financiamento de longo prazo, a escolha do sistema de amortização define se suas parcelas serão fixas ou decrescentes.",
+      "### Tabela Price",
+      "As parcelas são fixas do início ao fim. Ideal para quem precisa de previsibilidade no orçamento mensal.",
+      "### Tabela SAC",
+      "As parcelas começam mais altas e diminuem todo mês. O custo total de juros costuma ser menor que na Price.",
+      "### Qual escolher?",
+      "Se você tem margem no orçamento agora, o SAC economiza dinheiro. Se precisa de uma parcela inicial menor, a Price é o caminho."
+    ],
+    ctaLabel: "Calcular Parcelas",
+    ctaLink: "/financeiro/calculadora-parcelas"
   }
 }
 
@@ -889,5 +940,56 @@ export const ARTICULOS_ES: Record<string, ArticleContent> = {
     ],
     ctaLabel: "Calcular Corrección Monetaria",
     ctaLink: "/es/juridica/correcao-monetaria"
+  },
+  "guia-vale-transporte": {
+    title: "Guía de Vale-Transporte 2026: Reglas y Beneficios",
+    cat: "Laboral",
+    date: "12 May 2026",
+    description: "Entienda cómo funciona el beneficio de transporte para empleados y los límites legales de descuento.",
+    content: [
+      "El vale-transporte es un beneficio esencial para el traslado de los trabajadores entre su hogar y el centro laboral.",
+      "### Límites de Descuento",
+      "La legislación establece un tope máximo que la empresa puede deducir del salario base del trabajador.",
+      "### Responsabilidad de la Empresa",
+      "El costo que supera el límite legal de descuento es cubierto íntegramente por el empleador.",
+      "### Transporte Público",
+      "Este beneficio está destinado específicamente al uso de servicios de transporte público colectivo."
+    ],
+    ctaLabel: "Calcular Vale-Transporte",
+    ctaLink: "/es/laboral/vale-transporte"
+  },
+  "guia-costas-procesales": {
+    title: "Guía de Costas Procesales: Cómo estimar gastos judiciales",
+    cat: "Jurídica",
+    date: "12 May 2026",
+    description: "Conozca cuánto cuesta iniciar un proceso legal y cómo se determinan las tasas judiciales.",
+    content: [
+      "Iniciar una acción legal conlleva el pago de costas procesales, destinadas a cubrir los gastos del sistema judicial.",
+      "### Cálculo de Tasas",
+      "Normalmente, se determinan como un porcentaje del valor total de la demanda, con límites establecidos por la jurisdicción.",
+      "### Asistencia Gratuita",
+      "Aquellas personas que demuestren falta de recursos pueden solicitar el beneficio de justicia gratuita.",
+      "### Costos de Apelación",
+      "Si una de las partes decide apelar, pueden generarse tasas adicionales de tramitación."
+    ],
+    ctaLabel: "Calcular Costas Judiciales",
+    ctaLink: "/es/juridica/custas-processuais"
+  },
+  "comparativa-sac-price": {
+    title: "Amortización SAC vs Price: ¿Qué sistema elegir?",
+    cat: "Finanzas",
+    date: "12 May 2026",
+    description: "Compare las cuotas de su financiamiento entre los sistemas SAC y Francés (Price) para decidir mejor.",
+    content: [
+      "La elección del sistema de amortización determina si las cuotas de su préstamo serán fijas o irán disminuyendo con el tiempo.",
+      "### Sistema Francés (Price)",
+      "Las cuotas son constantes durante todo el plazo, facilitando la planificación financiera mensual.",
+      "### Sistema SAC",
+      "Las cuotas son decrecientes. Aunque el pago inicial es mayor, el costo total de intereses es generalmente inferior.",
+      "### ¿Cuál conviene?",
+      "El SAC es más eficiente para ahorrar intereses a largo plazo, mientras que el sistema Francés ofrece accesibilidad con cuotas iniciales más bajas."
+    ],
+    ctaLabel: "Calcular Cuotas",
+    ctaLink: "/es/financiero/calculadora-parcelas"
   }
 }
