@@ -500,6 +500,40 @@ export const ARTIGOS_PT: Record<string, ArticleContent> = {
     ],
     ctaLabel: "Calcular Parcelas",
     ctaLink: "/financeiro/calculadora-parcelas"
+  },
+  "guia-real-dolar": {
+    title: "Como converter Real para Dólar em 2026",
+    cat: "Conversores",
+    date: "13 Mai 2026",
+    description: "Entenda a diferença entre câmbio comercial e turismo e saiba como economizar na compra de moeda.",
+    content: [
+      "Viajar ou investir no exterior exige entender como funciona a conversão de moedas. O valor que você vê no jornal nem sempre é o que você paga.",
+      "### Câmbio Comercial vs Turismo",
+      "O câmbio comercial é usado por empresas e bancos em grandes transações. O câmbio turismo é o que você paga em casas de câmbio, incluindo custos operacionais.",
+      "### Taxas e IOF",
+      "Não esqueça de considerar o IOF (Imposto sobre Operações Financeiras), que varia entre dinheiro em espécie e cartões pré-pagos ou de crédito.",
+      "### Dica de Especialista",
+      "Acompanhe a cotação em tempo real e tente comprar aos poucos para fazer um preço médio melhor."
+    ],
+    ctaLabel: "Converter Agora",
+    ctaLink: "/conversores/real-dolar"
+  },
+  "guia-consumo-energia": {
+    title: "Guia de Consumo de Energia: Como economizar na conta de luz",
+    cat: "Utilidades",
+    date: "13 Mai 2026",
+    description: "Aprenda a calcular o gasto de cada eletrodoméstico e identifique os vilões da sua conta mensal.",
+    content: [
+      "O aumento nas tarifas de energia exige uma gestão eficiente do consumo doméstico. Saber quanto cada aparelho custa é o primeiro passo.",
+      "### A Fórmula do Gasto",
+      "O consumo em kWh é calculado como: (Potência em Watts * Horas de Uso por Dia * Dias no Mês) / 1000.",
+      "### Principais Vilões",
+      "Ar-condicionado, chuveiro elétrico e geladeiras antigas costumam ser os responsáveis pela maior parte da fatura.",
+      "### Bandeiras Tarifárias",
+      "Fique atento à cor da bandeira vigente (Verde, Amarela ou Vermelha), pois ela adiciona um custo extra por cada 100 kWh consumidos."
+    ],
+    ctaLabel: "Calcular Meu Consumo",
+    ctaLink: "/utilidades/consumo-energia"
   }
 }
 
@@ -991,5 +1025,39 @@ export const ARTICULOS_ES: Record<string, ArticleContent> = {
     ],
     ctaLabel: "Calcular Cuotas",
     ctaLink: "/es/financiero/calculadora-parcelas"
+  },
+  "guia-real-dolar": {
+    title: "Cómo convertir Real a Dólar en 2026",
+    cat: "Conversores",
+    date: "13 May 2026",
+    description: "Entienda la diferencia entre el tipo de cambio oficial y el de mercado y sepa cómo ahorrar al comprar divisas.",
+    content: [
+      "Viajar o invertir en el extranjero requiere entender cómo funciona la conversión de monedas. El valor que ve en los medios no siempre es el que termina pagando.",
+      "### Cambio Oficial vs Mercado",
+      "El cambio oficial se utiliza para transacciones comerciales y bancarias de gran escala. El cambio de mercado o 'turismo' es el que se aplica en casas de cambio locales.",
+      "### Tasas e Impuestos",
+      "No olvide considerar los costos operativos y posibles impuestos locales que varían según el método de pago (efectivo o tarjetas).",
+      "### Consejo de Especialista",
+      "Siga la cotización en tiempo real y trate de realizar compras escalonadas para obtener un mejor precio promedio."
+    ],
+    ctaLabel: "Convertir Ahora",
+    ctaLink: "/es/conversores/real-dolar"
+  },
+  "guia-consumo-energia": {
+    title: "Guía de Consumo de Energía: Cómo ahorrar en la factura de luz",
+    cat: "Utilidades",
+    date: "13 May 2026",
+    description: "Aprenda a calcular el gasto de cada electrodoméstico e identifique los mayores consumidores de su hogar.",
+    content: [
+      "El aumento en las tarifas de energía exige una gestión eficiente del consumo doméstico. Saber cuánto cuesta cada aparato es el primer paso.",
+      "### La Fórmula del Gasto",
+      "El consumo en kWh se calcula como: (Potencia en Watts * Horas de Uso por Día * Días en el Mes) / 1000.",
+      "### Mayores Consumidores",
+      "El aire acondicionado, el calentador eléctrico y los refrigeradores antiguos suelen ser los responsables de la mayor parte de la factura.",
+      "### Consejos de Ahorro",
+      "Utilice electrodomésticos con certificación de eficiencia energética y evite dejar aparatos en modo 'standby' cuando no los esté usando."
+    ],
+    ctaLabel: "Calcular Mi Consumo",
+    ctaLink: "/es/utilidades/consumo-energia"
   }
 }

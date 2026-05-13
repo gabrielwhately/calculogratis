@@ -258,6 +258,24 @@ const ARTICULOS = [
     category: "Finanzas",
     readTime: "6 min",
     tags: ["Amortización", "SAC", "Price"]
+  },
+  {
+    slug: "guia-real-dolar",
+    title: "Cómo convertir Real a Dólar en 2026",
+    excerpt: "Entienda la diferencia entre el tipo de cambio oficial y el de mercado y sepa cómo ahorrar al comprar divisas.",
+    date: "13 May 2026",
+    category: "Conversores",
+    readTime: "4 min",
+    tags: ["Dólar", "Cambio", "Viajes"]
+  },
+  {
+    slug: "guia-consumo-energia",
+    title: "Guía de Consumo de Energía: Cómo ahorrar en la factura de luz",
+    excerpt: "Aprenda a calcular el gasto de cada electrodoméstico e identifique los mayores consumidores de su hogar.",
+    date: "13 May 2026",
+    category: "Utilidades",
+    readTime: "5 min",
+    tags: ["Energía", "Ahorro", "Hogar"]
   }
 ]
 
