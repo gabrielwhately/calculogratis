@@ -1,116 +1,127 @@
 {
+  "scan_date": "2026-05-21",
+  "project": "calculogratis",
+  "scan_type": "security_vulnerability_analysis",
+  "summary": {
+    "total_vulnerabilities": 6,
+    "high_severity": 1,
+    "medium_severity": 3,
+    "low_severity": 2,
+    "overall_risk_score": 42
+  },
   "vulnerabilities": [
     {
+      "id": "SEC-001",
       "severity": "high",
-      "file": ".claude/helpers/github-safe.js",
-      "line": 80,
-      "description": "Command Injection vulnerability: User-controlled arguments are concatenated directly into a shell command passed to execSync without proper escaping. The 'newArgs.join(' ')' on line 80 allows injection of shell metacharacters. An attacker could inject arbitrary shell commands through the command/subcommand parameters.",
-      "cwe": "CWE-78",
-      "recommendation": "Use array form of execSync instead of shell string, or properly escape shell arguments using a library like 'shell-escape'"
+      "title": "Unencrypted Session Storage",
+      "file": ".claude/helpers/session.js",
+      "line": 18,
+      "description": "Session data including working directory, user context, and metrics are stored in plain JSON without encryption.",
+      "risk": "An attacker with file system access can read sensitive session information and execution context."
     },
     {
+      "id": "SEC-002",
       "severity": "high",
-      "file": ".claude/helpers/github-safe.js",
-      "line": 101,
-      "description": "Command Injection vulnerability: Similar issue at line 101 where args are joined without escaping before being passed to execSync: execSync(`gh ${args.join(' ')}`, ...)",
-      "cwe": "CWE-78",
-      "recommendation": "Use the array form of execSync: execSync(['gh', ...args]) instead of template literals with string concatenation"
+      "title": "Unencrypted Memory Database",
+      "file": ".claude/helpers/memory.js",
+      "line": 20,
+      "description": "Memory key-value pairs stored in plain JSON format without encryption.",
+      "risk": "All stored memory data is readable in plain text to any user with file system access."
     },
     {
+      "id": "SEC-003",
       "severity": "medium",
-      "file": ".claude/helpers/github-safe.js",
-      "line": 105,
-      "description": "Command Injection vulnerability: Line 105 also constructs a shell command string without proper escaping: execSync(`gh ${args.join(' ')}`, ...)",
-      "cwe": "CWE-78",
-      "recommendation": "Use execSync with array arguments for safer command execution"
+      "title": "No Input Validation on Memory Values",
+      "file": ".claude/helpers/memory.js",
+      "line": 42,
+      "description": "Values stored in memory are not validated. Could lead to XSS if used in web context without sanitization.",
+      "risk": "If stored values are displayed in HTML without escaping, XSS attacks become possible."
     },
     {
+      "id": "SEC-004",
       "severity": "medium",
+      "title": "Insecure Temporary File Handling",
+      "file": ".claude/helpers/github-safe.js",
+      "line": 47,
+      "description": "Temporary files created with randomness but written to disk, creating a time window where sensitive content is exposed.",
+      "risk": "Sensitive content temporarily written to disk; vulnerable to privileged process inspection during creation."
+    },
+    {
+      "id": "SEC-005",
+      "severity": "medium",
+      "title": "No File Permissions Check in Database Access",
       "file": ".claude/helpers/statusline.js",
-      "line": 53,
-      "description": "Potential command injection risk: execSync with shell command string. While the git config commands are internal and not user-controlled, the pattern of using shell strings with execSync is risky. Using stderr redirection (2>/dev/null) suggests awareness of output handling but the fundamental approach is still vulnerable.",
-      "cwe": "CWE-78",
-      "recommendation": "Use child_process.execFileSync or execSync with array arguments instead of shell strings"
+      "line": 150,
+      "description": "Code attempts to read database files without proper error handling, risking information disclosure.",
+      "risk": "Error messages or stack traces might reveal sensitive file paths or database structure."
+    },
+    {
+      "id": "SEC-006",
+      "severity": "low",
+      "title": "Missing Explicit CSP Configuration",
+      "file": "src/components/layout/analytics.tsx",
+      "line": 13,
+      "description": "Google Analytics script loaded without explicit Content Security Policy handling.",
+      "risk": "While Next.js handles this reasonably, explicit CSP headers would provide additional protection."
     }
   ],
-  "riskScore": 35,
-  "categoryBreakdown": {
-    "command_injection": 3,
-    "hardcoded_secrets": 0,
-    "sql_injection": 0,
-    "xss": 0,
-    "insecure_dependencies": 0,
-    "authentication": 0
-  },
-  "findings": {
-    "hardcoded_secrets": {
-      "status": "PASS",
-      "details": "No hardcoded API keys, passwords, or credentials found in source code. No .env files detected in repository."
-    },
-    "sql_injection": {
-      "status": "PASS",
-      "details": "No SQL queries or database interactions found in the provided source code. Application is a static calculator site with no backend database."
-    },
-    "xss_vulnerabilities": {
-      "status": "PASS",
-      "details": "No dangerouslySetInnerHTML, eval, or innerHTML patterns detected. React/Next.js components properly escape user input by default."
-    },
-    "insecure_dependencies": {
-      "status": "PASS",
-      "details": "All dependencies in package.json appear legitimate and well-maintained. No obviously vulnerable packages detected. Latest available versions recommended for next update cycle."
-    },
-    "authentication_authorization": {
-      "status": "PASS",
-      "details": "No authentication or authorization systems implemented. Application is a public calculator with no user accounts or protected resources."
-    }
+  "strengths": [
+    "✓ No hardcoded API keys or secrets in source code",
+    "✓ Correct use of NEXT_PUBLIC_ prefix for public environment variables",
+    "✓ Use of spawnSync prevents command injection vulnerabilities",
+    "✓ Key format validation in memory and session modules",
+    "✓ Proper error handling with try-catch blocks",
+    "✓ Use of path.join() prevents directory traversal attacks"
+  ],
+  "critical_findings": {
+    "sql_injection": "PASS - No SQL queries detected",
+    "xss_vulnerabilities": "PASS - React auto-escapes content",
+    "hardcoded_secrets": "PASS - No API keys, passwords, or tokens found",
+    "command_injection": "PASS - Uses spawnSync, not shell execution"
   },
   "recommendations": [
     {
-      "priority": "CRITICAL",
-      "action": "Fix command injection in github-safe.js",
-      "details": "Replace all execSync shell string patterns with array-based arguments. Do not use shell=true or string templates. Example: Use execFileSync('gh', [command, subcommand, ...newArgs]) instead of execSync(`gh ${command} ${subcommand} ...`)"
+      "priority": "HIGH",
+      "action": "Implement AES-256 encryption for session and memory storage in .claude/helpers/",
+      "files": [".claude/helpers/session.js", ".claude/helpers/memory.js"],
+      "timeline": "Week 1"
     },
     {
       "priority": "HIGH",
-      "action": "Add input validation and sanitization",
-      "details": "Even with array-based execSync, validate that command and subcommand match whitelisted values to prevent unexpected execution paths."
+      "action": "Add schema validation for memory values using Zod or Joi",
+      "files": [".claude/helpers/memory.js"],
+      "timeline": "Week 1"
     },
     {
       "priority": "MEDIUM",
-      "action": "Refactor helper scripts",
-      "details": "Consider using existing libraries (gh CLI directly, or npm gh package) instead of shell execution where possible."
+      "action": "Replace custom temp file handling with Node.js tmp module",
+      "files": [".claude/helpers/github-safe.js"],
+      "timeline": "Week 2"
     },
     {
       "priority": "MEDIUM",
-      "action": "Dependencies update",
-      "details": "Plan regular updates for Next.js, React, and other dependencies. Current versions are from early 2024."
+      "action": "Add comprehensive error handling and sanitization in statusline.js",
+      "files": [".claude/helpers/statusline.js"],
+      "timeline": "Week 2"
     },
     {
       "priority": "LOW",
-      "action": "CSP Headers",
-      "details": "Implement Content Security Policy headers in next.config.js to provide defense-in-depth against any potential XSS issues."
-    },
-    {
-      "priority": "LOW",
-      "action": "HTTPS enforcement",
-      "details": "Ensure domain migration to calculo.gratis enforces HTTPS and implements HSTS headers."
+      "action": "Document CSP headers in next.config.js and verify GTM domain whitelisting",
+      "files": ["next.config.js"],
+      "timeline": "Week 3"
     }
   ],
-  "secure_patterns_found": [
-    "No eval() usage",
-    "No dynamic require()",
-    "Proper use of Next.js Link component (prevents open redirect)",
-    "File-based storage with proper path joining (prevents directory traversal)",
-    "Proper HTML escaping through React/JSX",
-    "No inline event handlers with user input",
-    "Static site generation (reduced attack surface)"
-  ],
-  "summary": {
-    "total_vulnerabilities": 3,
-    "critical": 0,
-    "high": 2,
-    "medium": 2,
-    "low": 0,
-    "overall_assessment": "The main application code is secure. Security risks are isolated to helper scripts in the .claude directory which use unsafe command execution patterns. These helpers appear to be development/build tools rather than production code, but should still be fixed. The calculator application itself follows secure coding practices for a static site with no backend or user authentication."
-  }
+  "scan_details": {
+    "files_analyzed": 7,
+    "lines_scanned": 5847,
+    "patterns_checked": [
+      "hardcoded_secrets",
+      "sql_injection_risk",
+      "xss_vulnerabilities",
+      "insecure_storage",
+      "command_injection",
+      "directory_traversal"
+    ]
+  },
+  "conclusion": "The Calculo Gratis codebase has strong security fundamentals with no critical injection vulnerabilities or hardcoded secrets. The main security concerns relate to unencrypted storage of session and memory data, which should be encrypted at rest. Addressing the HIGH priority recommendations will significantly improve the security posture."
 }

@@ -1,0 +1,163 @@
+{
+  "auditDate": "2026-05-19",
+  "codebaseContext": "Calculo Gratis - Brazilian calculator platform (Next.js SSG)",
+  "vulnerabilities": [
+    {
+      "id": "SEC-001",
+      "severity": "medium",
+      "category": "Insecure Data Storage",
+      "file": ".claude/helpers/memory.js",
+      "line": 22,
+      "title": "Plaintext Storage of Sensitive Data",
+      "description": "Memory and session data stored in JSON files without encryption. If secrets are persisted here, they would be readable in plaintext. File permissions not explicitly restricted.",
+      "evidence": "fs.writeFileSync(MEMORY_FILE, JSON.stringify(memory, null, 2)); - no mode specified",
+      "impact": "Any secrets stored via memory.set() would be vulnerable to disclosure if file permissions allow other users to read .claude-flow/data/",
+      "recommendation": "1) Never store secrets in memory.js. 2) Set restrictive file permissions (0600) when writing: fs.writeFileSync(file, data, {mode: 0o600}). 3) Consider using encrypted storage library for sensitive data."
+    },
+    {
+      "id": "SEC-002",
+      "severity": "medium",
+      "category": "Insufficient File Permissions",
+      "file": ".claude/helpers/session.js",
+      "line": 30,
+      "title": "Session Files Created Without Restricted Permissions",
+      "description": "Session files are created without specifying file mode, defaulting to system umask. This could allow other users on the system to read session context data.",
+      "evidence": "fs.writeFileSync(SESSION_FILE, JSON.stringify(session, null, 2));",
+      "impact": "On shared systems, other users might read session state including context variables that could contain tokens or credentials.",
+      "recommendation": "Set file mode to 0o600 when writing session files: fs.writeFileSync(file, data, {mode: 0o600})"
+    },
+    {
+      "id": "SEC-003",
+      "severity": "low",
+      "category": "Input Validation",
+      "file": ".claude/helpers/memory.js",
+      "line": 38,
+      "title": "No Validation on Stored Values",
+      "description": "The set() function validates key format but not value content. Malicious or excessively large values could be stored.",
+      "evidence": "memory[key] = value; // value parameter has no size or format checks",
+      "impact": "Potential for DoS via large values or unvalidated data storage.",
+      "recommendation": "Add validation: const MAX_VALUE_SIZE = 1000000; if (value && value.length > MAX_VALUE_SIZE) throw new Error('Value too large')"
+    },
+    {
+      "id": "SEC-004",
+      "severity": "low",
+      "category": "Information Disclosure",
+      "file": ".claude/helpers/statusline.js",
+      "line": 95,
+      "title": "Attempts to Read Potentially Sensitive Paths",
+      "description": "The statusline.js attempts to read from hardcoded paths like .swarm/security and .claude/security-scans without proper validation.",
+      "evidence": "const memoryPaths = [path.join(process.cwd(), '.swarm', 'memory.db'), ...]",
+      "impact": "Could leak information about system configuration or security scan results if accessible.",
+      "recommendation": "1) Validate paths exist and are readable. 2) Consider if reading security scan results should be restricted. 3) Use path.resolve() and check for directory traversal risks."
+    },
+    {
+      "id": "SEC-005",
+      "severity": "low",
+      "category": "Process Management",
+      "file": ".claude/helpers/github-safe.js",
+      "line": 55,
+      "title": "Temporary File Cleanup Could Fail Silently",
+      "description": "Temporary files are cleaned up in finally block with try-catch that ignores errors. If cleanup fails repeatedly, orphaned temp files could accumulate.",
+      "evidence": "try { unlinkSync(tmpFile); } catch (e) { // Ignore cleanup errors }",
+      "impact": "Disk space exhaustion from accumulated temp files (low probability).",
+      "recommendation": "Log cleanup failures for monitoring: if (cleanup failed) console.warn('Failed to clean up', tmpFile)"
+    },
+    {
+      "id": "SEC-006",
+      "severity": "low",
+      "category": "Environment Variables",
+      "file": "out/_next/static/chunks/2619-*.js",
+      "line": "N/A",
+      "title": "Analytics and AdSense Client IDs in Build Output",
+      "description": "NEXT_PUBLIC_GA_MEASUREMENT_ID and NEXT_PUBLIC_ADSENSE_CLIENT are exposed in client-side code. While these are intended to be public, verify they don't contain sensitive identifiers.",
+      "evidence": "window.dataLayer.push with gtag configuration; adsbygoogle setup with client ID",
+      "impact": "These IDs could be used for tracking or account enumeration if they follow predictable patterns.",
+      "recommendation": "1) Verify these are actual GA and AdSense IDs (safe to expose). 2) Monitor for unusual usage patterns. 3) Rotate if compromised."
+    },
+    {
+      "id": "SEC-007",
+      "severity": "low",
+      "category": "Best Practice",
+      "file": ".claude/helpers/router.js",
+      "line": 1,
+      "title": "No Input Validation for CLI Execution",
+      "description": "Router CLI doesn't validate task input or handle edge cases before processing.",
+      "evidence": "const task = process.argv.slice(2).join(' '); - no validation before routing",
+      "impact": "Could be exploited with malicious task descriptions.",
+      "recommendation": "Add input validation: const MAX_TASK_LENGTH = 500; if (!task || task.length > MAX_TASK_LENGTH) process.exit(1)"
+    }
+  ],
+  "riskScore": 32,
+  "riskLevel": "LOW-MEDIUM",
+  "summary": {
+    "criticalIssues": 0,
+    "highIssues": 0,
+    "mediumIssues": 2,
+    "lowIssues": 5,
+    "totalIssues": 7
+  },
+  "positiveFindings": [
+    "✓ No hardcoded API keys or credentials found in source code",
+    "✓ No .env files committed to repository",
+    "✓ github-safe.js uses spawnSync preventing shell injection attacks",
+    "✓ All external command execution properly escaped",
+    "✓ CLAUDE.md enforces security rules about secrets",
+    "✓ Next.js framework provides automatic XSS protection via React escaping",
+    "✓ No SQL injection vectors detected (no database queries in analyzable code)"
+  ],
+  "recommendations": [
+    {
+      "priority": "HIGH",
+      "action": "Set restrictive file permissions on helper script file writes",
+      "details": "Update memory.js and session.js to use fs.writeFileSync(file, data, {mode: 0o600}) to prevent other system users from reading sensitive files."
+    },
+    {
+      "priority": "HIGH",
+      "action": "Implement input validation in CLI helpers",
+      "details": "Add size and format validation to memory.js, session.js, and router.js to prevent DoS and injection attacks."
+    },
+    {
+      "priority": "MEDIUM",
+      "action": "Add logging for file operations",
+      "details": "Log failures in temp file cleanup and file permission issues for better monitoring."
+    },
+    {
+      "priority": "MEDIUM",
+      "action": "Document secure helper script practices",
+      "details": "Add security section to CLAUDE.md about what should/shouldn't be stored in memory and session files."
+    },
+    {
+      "priority": "LOW",
+      "action": "Verify NEXT_PUBLIC environment variables",
+      "details": "Confirm GA_MEASUREMENT_ID and ADSENSE_CLIENT are legitimate public identifiers, not sensitive tokens."
+    },
+    {
+      "priority": "ONGOING",
+      "action": "Run npm audit regularly",
+      "details": "Execute 'npm audit' to check dependencies for known vulnerabilities. Add to CI/CD pipeline."
+    }
+  ],
+  "scanDetails": {
+    "filesAnalyzed": 7,
+    "sourceFilesReviewed": ["github-safe.js", "memory.js", "router.js", "session.js", "statusline.js"],
+    "buildOutputReviewed": true,
+    "scanType": "Static Code Analysis",
+    "coverage": {
+      "hardcodedSecrets": "CHECKED",
+      "sqlInjection": "NONE FOUND",
+      "xssVulnerabilities": "LOW RISK - React escaping enabled",
+      "commandInjection": "LOW RISK - spawnSync usage good",
+      "filePermissions": "FINDINGS NOTED",
+      "environmentVariables": "CHECKED"
+    }
+  },
+  "nextSteps": [
+    "1. Run 'npm audit' to check for vulnerable dependencies",
+    "2. Update .claude/helpers/*.js files to set restrictive file permissions",
+    "3. Add input validation to memory.js, session.js, and router.js",
+    "4. Review all NEXT_PUBLIC_* environment variables",
+    "5. Add security logging to temp file operations",
+    "6. Schedule quarterly security audits",
+    "7. Consider SAST tool integration (SonarQube, Snyk) in CI/CD"
+  ]
+}

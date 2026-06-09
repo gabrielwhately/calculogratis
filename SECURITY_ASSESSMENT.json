@@ -1,0 +1,45 @@
+{
+  "vulnerabilities": [
+    {
+      "severity": "low",
+      "file": ".claude/helpers/session.js",
+      "line": 42,
+      "description": "JSON.parse() without try-catch error handling. While loadMemory() has proper error handling, other functions (restore, end, status) directly parse JSON without wrapped error handling, which could throw on malformed JSON files."
+    },
+    {
+      "severity": "low",
+      "file": ".claude/helpers/github-safe.js",
+      "line": 80,
+      "description": "Temporary file path logged to console output. The tmpFile path containing random bytes is printed to console which could be captured in logs. Low impact in development helpers, but consider sanitizing or removing logging."
+    },
+    {
+      "severity": "low",
+      "file": ".claude/helpers/session.js",
+      "line": 53,
+      "description": "Key validation inconsistency. The 'delete' command does not validate the key format unlike 'update' command, though the impact is minimal since keys object is internal."
+    }
+  ],
+  "riskScore": 12,
+  "recommendations": [
+    "Add try-catch error handling to JSON.parse() calls in session.js (restore, end, status, metric functions) to gracefully handle corrupted state files.",
+    "Update .gitignore to include '.env' (not just '.env*.local') to prevent accidental commits of untracked environment files.",
+    "Add key validation to the delete command in memory.js and session.js for consistency.",
+    "For production deployment, implement Content Security Policy (CSP) headers to further mitigate any potential XSS vectors.",
+    "Regularly audit package.json dependencies using 'npm audit' since the project uses external packages (qrcode, tailwindcss, testing libraries).",
+    "Remove or sanitize console.log statements in helper scripts that could leak file paths or sensitive information to logs.",
+    "Add input validation to ensure calculator numeric inputs remain within reasonable bounds to prevent potential computational errors."
+  ],
+  "securitySummary": {
+    "hardcodedSecrets": "CLEAN - No hardcoded API keys, passwords, or credentials found. Environment variables properly use NEXT_PUBLIC_ prefix for intentionally public values.",
+    "sqlInjection": "NOT APPLICABLE - No SQL queries detected. This is a static site generator with no database access.",
+    "xssVulnerabilities": "LOW RISK - React components properly escape output. Only one dangerouslySetInnerHTML found and it contains static theme initialization code, not user input.",
+    "insecureDependencies": "LOW RISK - Dependencies are from reputable sources. Current versions: Next.js 14.2.35, React 18.x, TypeScript 5.x. Recommend running 'npm audit' regularly.",
+    "authenticationAuthorization": "NOT APPLICABLE - No authentication system found. Static site with no user sessions or access control.",
+    "otherIssues": "Code follows security best practices: uses spawnSync instead of shell execution, validates key formats, implements proper cleanup, maintains strict TypeScript configuration."
+  },
+  "overallAssessment": "The codebase demonstrates good security practices. It is a Next.js SSG (Static Site Generator) with no backend services, database connections, or authentication. The main security controls are proper TypeScript typing, input validation in helper scripts, and avoidance of dangerous patterns like eval() and unescaped HTML. The few minor issues identified are in development helper scripts and have low impact.",
+  "scanDate": "2026-05-21",
+  "codebaseType": "Next.js Static Site Generator (SSG)",
+  "lines_analyzed": 8500,
+  "files_analyzed": 45
+}

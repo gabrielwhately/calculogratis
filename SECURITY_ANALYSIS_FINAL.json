@@ -1,0 +1,111 @@
+{
+  "vulnerabilities": [
+    {
+      "severity": "medium",
+      "file": ".claude/helpers/memory.js",
+      "line": 13,
+      "description": "Plaintext data storage without encryption. Session and memory data stored in JSON files without encryption could expose sensitive information if the .claude-flow directory is compromised.",
+      "type": "Data Storage Security",
+      "cwe": "CWE-312: Cleartext Storage of Sensitive Information"
+    },
+    {
+      "severity": "medium",
+      "file": ".claude/helpers/session.js",
+      "line": 16,
+      "description": "Plaintext session data storage. Session context and metrics stored unencrypted in .claude-flow/sessions/current.json",
+      "type": "Session Security",
+      "cwe": "CWE-312: Cleartext Storage of Sensitive Information"
+    },
+    {
+      "severity": "medium",
+      "file": ".claude/helpers/memory.js",
+      "line": 35,
+      "description": "Insufficient input validation on keys. While regex pattern /^[a-z0-9_]+$/i is present, it only validates format but not prevents reserved key names or namespace collisions",
+      "type": "Input Validation",
+      "cwe": "CWE-95: Improper Neutralization of Directives in Dynamically Evaluated Code"
+    },
+    {
+      "severity": "low",
+      "file": ".claude/helpers/statusline.js",
+      "line": 85,
+      "description": "Potential information disclosure via git commands. Executing git commands to retrieve user info (git config user.name) could expose user identity",
+      "type": "Information Disclosure",
+      "cwe": "CWE-200: Exposure of Sensitive Information"
+    },
+    {
+      "severity": "low",
+      "file": ".claude/helpers/session.js",
+      "line": 10,
+      "description": "Missing file permission validation. Directory created with default umask (recursive: true) may have overly permissive permissions",
+      "type": "File Permissions",
+      "cwe": "CWE-276: Incorrect Default Permissions"
+    },
+    {
+      "severity": "low",
+      "file": ".claude/helpers/memory.js",
+      "line": 25,
+      "description": "No rate limiting on memory operations. Multiple rapid calls could cause performance degradation or denial of service on file system",
+      "type": "Denial of Service",
+      "cwe": "CWE-770: Allocation of Resources Without Limits or Throttling"
+    },
+    {
+      "severity": "low",
+      "file": ".claude/helpers/github-safe.js",
+      "line": 40,
+      "description": "Temporary file cleanup in finally block could fail silently. Error handling for unlinkSync doesn't log or alert on cleanup failure",
+      "type": "Error Handling",
+      "cwe": "CWE-391: Unchecked Error Condition"
+    }
+  ],
+  "riskScore": 28,
+  "riskLevel": "LOW",
+  "summary": "The codebase has LOW overall risk with a few MEDIUM severity issues related to unencrypted data storage. No critical vulnerabilities, hardcoded secrets, SQL injection, or XSS vulnerabilities detected.",
+  "positive_findings": [
+    "✓ No hardcoded API keys, passwords, or credentials found",
+    "✓ No SQL injection vulnerabilities (calculator-focused app with no direct DB queries in provided code)",
+    "✓ No XSS vulnerabilities in React components (proper JSX escaping)",
+    "✓ Environment variables properly prefixed with NEXT_PUBLIC_ for frontend exposure",
+    "✓ Command injection properly mitigated using spawnSync (no shell interpretation)",
+    "✓ No CSRF vulnerabilities apparent in Next.js implementation",
+    "✓ Proper use of randomBytes for temporary file naming in github-safe.js",
+    "✓ Input validation present on key names in memory.js and session.js"
+  ],
+  "recommendations": [
+    {
+      "priority": "high",
+      "category": "Data Storage",
+      "description": "Encrypt sensitive data in memory.js and session.js using crypto module",
+      "implementation": "Use crypto.createCipheriv() for AES-256-GCM encryption of session/memory data before writing to disk"
+    },
+    {
+      "priority": "high",
+      "category": "File Permissions",
+      "description": "Set restrictive file permissions on .claude-flow directories",
+      "implementation": "Create directories with mode 0o700 (rwx------) to restrict access to owner only"
+    },
+    {
+      "priority": "medium",
+      "category": "Input Validation",
+      "description": "Strengthen key validation with reserved word checking",
+      "implementation": "Add blacklist of reserved keys: ['_updated', '_created', 'constructor', 'proto']"
+    },
+    {
+      "priority": "medium",
+      "category": "Rate Limiting",
+      "description": "Implement rate limiting on memory/session operations",
+      "implementation": "Add debouncing or throttling to prevent rapid sequential calls"
+    },
+    {
+      "priority": "medium",
+      "category": "Error Handling",
+      "description": "Improve temporary file cleanup with better error handling",
+      "implementation": "Log cleanup errors and implement retry logic with exponential backoff"
+    },
+    {
+      "priority": "low",
+      "category": "Logging & Monitoring",
+      "description": "Add security audit logging for sensitive operations",
+      "implementation": "Log all memory/session read/write operations with timestamp and operation type"
+    }
+  ]
+}

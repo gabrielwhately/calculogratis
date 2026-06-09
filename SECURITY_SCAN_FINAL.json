@@ -1,0 +1,92 @@
+{
+  "vulnerabilities": [
+    {
+      "severity": "low",
+      "file": ".claude/helpers/memory.js",
+      "line": 20,
+      "description": "Key validation uses basic regex. While adequate for intended purpose, consider adding length limits to prevent DOS via extremely long keys."
+    },
+    {
+      "severity": "low",
+      "file": ".claude/helpers/session.js",
+      "line": 35,
+      "description": "Session context values should validate types to prevent unexpected JSON serialization issues."
+    },
+    {
+      "severity": "low",
+      "file": "src/components/layout/theme-script.tsx",
+      "line": 4,
+      "description": "Uses dangerouslySetInnerHTML with hardcoded content (safe), but pattern could be misused if logic changes. Monitor for future modifications."
+    },
+    {
+      "severity": "low",
+      "file": "src/lib/calculadoras/calculadora-cientifica.ts",
+      "line": 76,
+      "description": "Expression parser uses toLowerCase() on input. Safe from injection, but consider documenting expected case-sensitivity behavior."
+    }
+  ],
+  "riskScore": 10,
+  "riskLevel": "LOW",
+  "summary": {
+    "criticalVulnerabilities": 0,
+    "highVulnerabilities": 0,
+    "mediumVulnerabilities": 0,
+    "lowVulnerabilities": 4,
+    "overallSecurityPosture": "STRONG"
+  },
+  "findings": {
+    "hardcodedSecrets": {
+      "status": "PASS",
+      "details": "No API keys, passwords, or secrets found. All sensitive config uses environment variables."
+    },
+    "sqlInjection": {
+      "status": "PASS",
+      "details": "No SQL injection risks - this is a static site generator with no database queries."
+    },
+    "xssVulnerabilities": {
+      "status": "PASS",
+      "details": "XSS properly mitigated. React auto-escapes by default. Only one dangerouslySetInnerHTML use with hardcoded content."
+    },
+    "insecureDependencies": {
+      "status": "PASS",
+      "details": "All dependencies current and maintained. Next.js 14.2.35, React 18, no known vulnerabilities."
+    },
+    "authenticationAuthorization": {
+      "status": "PASS",
+      "details": "Public read-only application. No sensitive authentication vectors exposed."
+    },
+    "inputValidation": {
+      "status": "PASS",
+      "details": "Calculator inputs properly validated. Uses safe expression parser instead of eval()."
+    },
+    "filePathTraversal": {
+      "status": "PASS",
+      "details": "All file operations use controlled paths. No user input in file paths."
+    },
+    "commandInjection": {
+      "status": "PASS",
+      "details": "Uses spawnSync() with array arguments, avoiding shell interpretation."
+    }
+  },
+  "recommendations": [
+    "Run 'npm audit' regularly to catch dependency updates",
+    "Add Content-Security-Policy headers in production deployment",
+    "Monitor Next.js security advisories and update regularly",
+    "Add size limits for localStorage values if they grow",
+    "Validate edge cases in calculator inputs (very large numbers, scientific notation)"
+  ],
+  "passedSecurityChecks": [
+    "✓ No hardcoded credentials",
+    "✓ No SQL injection vectors",
+    "✓ No XSS vulnerabilities", 
+    "✓ Proper input validation",
+    "✓ Safe command execution",
+    "✓ No directory traversal",
+    "✓ Secure file handling",
+    "✓ Current dependencies",
+    "✓ No eval() usage",
+    "✓ Static site generation reduces attack surface"
+  ],
+  "deploymentReady": true,
+  "generatedAt": "2026-05-20"
+}

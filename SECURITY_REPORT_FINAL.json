@@ -1,0 +1,62 @@
+{
+  "vulnerabilities": [
+    {
+      "severity": "low",
+      "file": ".claude/helpers/github-safe.js",
+      "line": 39,
+      "description": "Temporary files created with default system permissions. On multi-user systems, temp files could be world-readable before cleanup. The writeFileSync() uses default mode 0o666 (readable by all). Mitigated by immediate cleanup in finally block."
+    },
+    {
+      "severity": "low",
+      "file": ".claude/helpers/session.js",
+      "line": 25,
+      "description": "Session data stored in plaintext JSON without encryption. While currently non-sensitive data, any future sensitive information could be exposed."
+    },
+    {
+      "severity": "low",
+      "file": ".claude/helpers/memory.js",
+      "line": 20,
+      "description": "Memory/configuration data stored in plaintext JSON without encryption. Acceptable for current use case but not recommended for any sensitive data."
+    },
+    {
+      "severity": "low",
+      "file": "next.config.mjs",
+      "line": 1,
+      "description": "Missing security headers configuration. No Content-Security-Policy (CSP), X-Frame-Options, X-Content-Type-Options, or other security headers configured."
+    },
+    {
+      "severity": "info",
+      "file": "src/lib/saved-results.ts",
+      "line": 22,
+      "description": "Weak ID generation using Math.random().toString(36). While acceptable for calculator results, uses non-cryptographic randomness."
+    }
+  ],
+  "riskScore": 18,
+  "recommendations": [
+    "Add HTTP security headers (CSP, X-Frame-Options, X-Content-Type-Options) to next.config",
+    "Use crypto.getRandomValues() instead of Math.random() for ID generation in saved-results.ts",
+    "Set restrictive file permissions (0o600) on temporary files in github-safe.js",
+    "Add npm security scanning to CI/CD pipeline (snyk or npm audit)",
+    "Document security posture: static site with no backend, database, or authentication",
+    "Encrypt sensitive configuration if ever stored in session.js or memory.js"
+  ],
+  "findings": {
+    "hardcoded_secrets": "PASS - No API keys, passwords, or tokens found",
+    "sql_injection": "PASS - No SQL queries or database layer",
+    "xss_vulnerabilities": "PASS - Only safe hardcoded dangerouslySetInnerHTML",
+    "authentication_issues": "PASS - No authentication required",
+    "insecure_dependencies": "PASS - Minimal, up-to-date dependencies",
+    "api_security": "PASS - No backend API calls except Google services",
+    "environment_variables": "PASS - Only public NEXT_PUBLIC variables",
+    "input_validation": "PASS - Input validation via masking functions",
+    "data_storage": "ACCEPTABLE - localStorage used for non-sensitive data only"
+  },
+  "overallRisk": "LOW",
+  "criticalIssues": 0,
+  "highIssues": 0,
+  "mediumIssues": 0,
+  "lowIssues": 3,
+  "infoIssues": 1,
+  "status": "SECURE",
+  "summary": "This is a static HTML/JavaScript calculator platform with no backend, database, or authentication. The architecture significantly reduces attack surface. No hardcoded secrets, SQL injection, XSS vulnerabilities, or authentication issues found. Main findings are minor: missing security headers and unencrypted local storage (appropriate for non-sensitive data). Code follows security best practices for public-facing calculator applications."
+}

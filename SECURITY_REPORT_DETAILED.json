@@ -1,0 +1,104 @@
+{
+  "vulnerabilities": [
+    {
+      "severity": "medium",
+      "type": "Command Injection / Insecure Temp File Handling",
+      "file": ".claude/helpers/github-safe.js",
+      "line": "77-85",
+      "description": "Temporary files are created in world-writable /tmp directory with 8 bytes of randomness. While spawnSync usage is safe, the temp file handling creates a TOCTOU (Time-of-Check-Time-of-Use) race condition window where another process could manipulate the file between creation and execution.",
+      "code_snippet": "const tmpFile = join(tmpdir(), `gh-body-${randomBytes(8).toString('hex')}.tmp`);\nwriteFileSync(tmpFile, body, 'utf8');",
+      "impact": "An attacker with local access could potentially exploit the race condition to inject malicious content into GitHub API calls.",
+      "recommendation": "Use fs.mkdtempSync() to create a secure temporary directory, or use 'tmp' npm package with proper permissions (mode 0o700)"
+    },
+    {
+      "severity": "low",
+      "type": "Hardcoded Shell Execution",
+      "file": ".claude/helpers/statusline.js",
+      "line": "75",
+      "description": "Shell execution with '-c' flag, even though the command is hardcoded. This is not ideal practice and could be refactored to avoid shell invocation.",
+      "code_snippet": "spawnSync('sh', ['-c', 'ps aux 2>/dev/null | grep -c agentic-flow || echo \"0\"']",
+      "impact": "Low risk since the command is hardcoded, but violates security best practices. If this code were ever modified to include user input, it would become a command injection vulnerability.",
+      "recommendation": "Use process.exec() or spawn without '-c' flag. Better: use 'ps' module or similar to avoid shell entirely: `const {exec} = require('child_process'); exec('ps aux | grep agentic-flow', ...)` or use native process APIs"
+    },
+    {
+      "severity": "low",
+      "type": "Potential Path Traversal in Memory File",
+      "file": ".claude/helpers/memory.js",
+      "line": "34-42",
+      "description": "While key validation is in place (/^[a-z0-9_]+$/i), the JSON structure stored is user-controlled and deserialized without schema validation. Malformed JSON could cause unexpected behavior.",
+      "code_snippet": "if (!/^[a-z0-9_]+$/.test(key)) {\n  console.error('Invalid key format...');\n  return;\n}\nconst memory = loadMemory();\nmemory[key] = value;",
+      "impact": "Low risk. Validation prevents directory traversal. However, malformed JSON in the memory file could cause errors.",
+      "recommendation": "Add try-catch around JSON.parse() in loadMemory() to handle corrupted memory files gracefully"
+    },
+    {
+      "severity": "low",
+      "type": "No Input Validation in Session Updates",
+      "file": ".claude/helpers/session.js",
+      "line": "105-110",
+      "description": "Session.update() validates the key but not the value parameter. While the key is restricted, arbitrary values could be stored.",
+      "code_snippet": "update: (key, value) => {\n  if (!/^[a-z0-9_]+$/i.test(key)) {\n    console.error('Invalid key format...');\n    return null;\n  }\n  const session = JSON.parse(...);\n  session.context[key] = value;",
+      "impact": "Very low risk for this internal tool. Could store arbitrary data in context, but this is by design.",
+      "recommendation": "No action needed unless using session context for sensitive operations"
+    }
+  ],
+  "hardcoded_secrets": [],
+  "secrets_check": {
+    "status": "PASS",
+    "findings": "No hardcoded API keys, passwords, tokens, or credentials found in source code. All environment variables use NEXT_PUBLIC_ prefix, indicating they are intended as public values (Google Analytics ID, Google AdSense Client ID).",
+    "files_checked": [
+      "src/**/*.{ts,tsx}",
+      ".claude/helpers/**/*.js",
+      "package.json"
+    ]
+  },
+  "sql_injection_risk": {
+    "status": "PASS",
+    "findings": "No SQL queries found in codebase. Application appears to be a pure frontend calculator with no backend database integration."
+  },
+  "xss_vulnerabilities": {
+    "status": "PASS",
+    "findings": "Only one dangerouslySetInnerHTML usage found in theme-script.tsx with hardcoded theme initialization script. Input is properly sanitized in form components using parseBRNumber() and parseInt() with fallbacks. All user-facing calculators validate numeric input before processing."
+  },
+  "authentication_authorization": {
+    "status": "SAFE",
+    "findings": "No authentication system found. Application is public and stateless. No authorization checks needed."
+  },
+  "dependency_security": {
+    "status": "UNKNOWN",
+    "findings": "Cannot audit without access to package-lock.json or yarn.lock. Recommend running: npm audit or yarn audit regularly."
+  },
+  "riskScore": 28,
+  "riskLevel": "LOW",
+  "recommendations": [
+    {
+      "priority": "MEDIUM",
+      "action": "Fix temporary file race condition in github-safe.js",
+      "details": "Replace tmpdir() usage with fs.mkdtempSync() for atomic temporary directory creation"
+    },
+    {
+      "priority": "LOW",
+      "action": "Refactor hardcoded shell execution in statusline.js",
+      "details": "Replace 'sh -c' invocation with direct process execution or use 'ps' module"
+    },
+    {
+      "priority": "LOW",
+      "action": "Add error handling to memory.js loadMemory()",
+      "details": "Gracefully handle corrupted JSON in memory file with try-catch"
+    },
+    {
+      "priority": "HIGH",
+      "action": "Run regular dependency audits",
+      "details": "Execute `npm audit` in CI/CD pipeline and address vulnerabilities promptly"
+    },
+    {
+      "priority": "MEDIUM",
+      "action": "Add Content Security Policy headers",
+      "details": "Implement CSP in next.config.js to prevent XSS attacks"
+    },
+    {
+      "priority": "LOW",
+      "action": "Consider adding input rate limiting",
+      "details": "If planning to add backend services, implement rate limiting on calculator endpoints"
+    }
+  ]
+}

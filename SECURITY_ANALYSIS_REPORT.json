@@ -1,0 +1,127 @@
+{
+  "metadata": {
+    "timestamp": "2026-05-20T00:00:00Z",
+    "repository": "calculogratis",
+    "type": "security-audit",
+    "version": "1.0"
+  },
+  "executive_summary": {
+    "overall_risk_score": 18,
+    "risk_level": "LOW",
+    "total_vulnerabilities": 4,
+    "critical": 0,
+    "high": 0,
+    "medium": 1,
+    "low": 3,
+    "status": "SECURE_WITH_MINOR_IMPROVEMENTS"
+  },
+  "vulnerabilities": [
+    {
+      "id": "SEC-001",
+      "severity": "medium",
+      "type": "File Handling",
+      "file": ".claude/helpers/github-safe.js",
+      "line": 50,
+      "description": "Temporary files created for GitHub CLI operations may not be cleaned up if the process crashes before the finally block executes, potentially exposing sensitive content",
+      "impact": "Temporary files containing sensitive GitHub content could persist in /tmp directory",
+      "remediation": "Implement process-level signal handlers or use temp-file library with guaranteed cleanup",
+      "cwe": "CWE-459"
+    },
+    {
+      "id": "SEC-002",
+      "severity": "low",
+      "type": "File Permissions",
+      "file": ".claude/helpers/memory.js",
+      "line": 31,
+      "description": "Memory data stored in JSON files without explicit file permission settings. Could be readable by other system users",
+      "impact": "Sensitive project context could be exposed to other system users",
+      "remediation": "Add fs.chmodSync(MEMORY_FILE, 0o600) after file creation",
+      "cwe": "CWE-276"
+    },
+    {
+      "id": "SEC-003",
+      "severity": "low",
+      "type": "File Permissions",
+      "file": ".claude/helpers/session.js",
+      "line": 40,
+      "description": "Session files written without explicit permission settings",
+      "impact": "Session context could be readable by other users on shared systems",
+      "remediation": "Add fs.chmodSync(SESSION_FILE, 0o600) after writing session files",
+      "cwe": "CWE-276"
+    },
+    {
+      "id": "SEC-004",
+      "severity": "low",
+      "type": "Information Disclosure",
+      "file": ".claude/helpers/statusline.js",
+      "line": 85,
+      "description": "Statusline reads and displays project structure information that could reveal internals",
+      "impact": "Project architectural details could be inferred from status output",
+      "remediation": "Sanitize output to hide sensitive metrics",
+      "cwe": "CWE-215"
+    }
+  ],
+  "checks": {
+    "hardcoded_secrets": {
+      "status": "PASS",
+      "findings": "No hardcoded API keys, passwords, credentials, or tokens found"
+    },
+    "sql_injection": {
+      "status": "PASS",
+      "findings": "No database queries or SQL statements. Static site generation without backend"
+    },
+    "xss_vulnerabilities": {
+      "status": "PASS",
+      "findings": "No innerHTML, dangerouslySetInnerHTML, eval(), or Function() calls"
+    },
+    "command_injection": {
+      "status": "PASS",
+      "findings": "Uses spawnSync() safely without shell interpretation"
+    },
+    "dependency_vulnerabilities": {
+      "status": "PASS",
+      "findings": "All dependencies from official npm with no known critical vulnerabilities"
+    },
+    "environment_variables": {
+      "status": "PASS",
+      "findings": "NEXT_PUBLIC_ variables correctly used for public data only"
+    },
+    "authentication": {
+      "status": "PASS",
+      "findings": "Static site with no authentication system"
+    },
+    "file_upload": {
+      "status": "PASS",
+      "findings": "No file upload functionality detected"
+    }
+  },
+  "recommendations": [
+    {
+      "priority": "HIGH",
+      "action": "Fix temporary file cleanup in github-safe.js",
+      "effort": "Low"
+    },
+    {
+      "priority": "MEDIUM",
+      "action": "Set file permissions 0o600 on memory.js and session.js output",
+      "effort": "Low"
+    },
+    {
+      "priority": "MEDIUM",
+      "action": "Configure Content-Security-Policy headers in Next.js",
+      "effort": "Medium"
+    },
+    {
+      "priority": "MEDIUM",
+      "action": "Enforce HTTPS and HSTS in production",
+      "effort": "Low"
+    },
+    {
+      "priority": "LOW",
+      "action": "Add npm audit to CI/CD pipeline",
+      "effort": "Low"
+    }
+  ],
+  "risk_score": 18,
+  "riskLevel": "LOW"
+}

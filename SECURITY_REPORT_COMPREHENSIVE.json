@@ -1,0 +1,179 @@
+{
+  "vulnerabilities": [
+    {
+      "severity": "critical",
+      "file": "package.json (glob dependency)",
+      "line": null,
+      "description": "glob 10.2.0-10.4.5: Command injection via -c/--cmd executes matches with shell=true (GHSA-5j98-mcp5-4vw2). Used indirectly via @next/eslint-plugin-next. Allows arbitrary command execution during build.",
+      "cwe": "CWE-78",
+      "impact": "Build-time command injection could compromise development environment"
+    },
+    {
+      "severity": "critical",
+      "file": "package.json (next dependency)",
+      "line": null,
+      "description": "Next.js 9.3.4-16.3.0: HTTP request smuggling in rewrites (GHSA-ggv3-7p47-pfv8), Image Optimizer DoS (GHSA-9g9p-9gw9-jx7f), XSS in CSP nonces (GHSA-ffhc-5mcf-pf4q), Server Components DoS (GHSA-q4gf-8mx6-v5v3). Multiple critical DoS and security vulnerabilities.",
+      "cwe": "CWE-444,CWE-400,CWE-79,CWE-400",
+      "impact": "Production exploitation possible: DoS, request smuggling, XSS via CSP nonces"
+    },
+    {
+      "severity": "critical",
+      "file": "package.json (postcss dependency)",
+      "line": null,
+      "description": "PostCSS <8.5.10: XSS vulnerability via unescaped </style> in CSS stringify output (GHSA-qx2v-qp2m-jg93). Affects build-time CSS processing.",
+      "cwe": "CWE-79",
+      "impact": "Malicious CSS input during build could inject XSS into output pages"
+    },
+    {
+      "severity": "high",
+      "file": "src/lib/saved-results.ts",
+      "line": 22,
+      "description": "Weak random ID generation using Math.random().toString(36) instead of cryptographically secure random. IDs are predictable and could be enumerated.",
+      "cwe": "CWE-338",
+      "impact": "Attackers could predict or guess saved result IDs, potentially accessing or modifying other users' saved calculations"
+    },
+    {
+      "severity": "high",
+      "file": ".claude/helpers/session.js",
+      "line": 15,
+      "description": "Session ID generated using Date.now() which is predictable. An attacker could enumerate valid session IDs based on time.",
+      "cwe": "CWE-338",
+      "impact": "Session ID prediction attacks; weak cryptographic randomness for session identifiers"
+    },
+    {
+      "severity": "high",
+      "file": ".claude/helpers/github-safe.js",
+      "line": 93,
+      "description": "Temporary file cleanup errors are silently ignored. If unlinkSync fails, sensitive GitHub content (API tokens, personal data) could remain on disk.",
+      "cwe": "CWE-459",
+      "impact": "Sensitive GitHub content persists on filesystem after command execution; disk forensics could recover data"
+    },
+    {
+      "severity": "medium",
+      "file": ".claude/helpers/memory.js",
+      "line": 26,
+      "description": "Memory JSON file created with world-readable permissions (rw-rw-r--). If containing sensitive configuration or state, any user on system can read it.",
+      "cwe": "CWE-275",
+      "impact": "Horizontal privilege escalation on multi-user systems; stored secrets readable by other users"
+    },
+    {
+      "severity": "medium",
+      "file": ".claude/helpers/github-safe.js",
+      "line": 65,
+      "description": "Temporary file created without explicit restrictive permissions. GitHub content (possibly containing tokens) accessible to other system users.",
+      "cwe": "CWE-275",
+      "impact": "Other users on shared systems could read sensitive GitHub content and credentials"
+    },
+    {
+      "severity": "medium",
+      "file": ".claude/helpers/session.js",
+      "line": 30,
+      "description": "Session JSON files created with default permissions (rw-rw-r--). Session context could contain sensitive information readable by other users.",
+      "cwe": "CWE-275",
+      "impact": "Session state, metrics, and context readable by other system users"
+    },
+    {
+      "severity": "medium",
+      "file": ".claude/helpers/github-safe.js",
+      "line": 80,
+      "description": "Command execution logged to console showing file paths and command parameters. Sensitive GitHub content paths exposed in logs.",
+      "cwe": "CWE-532",
+      "impact": "Information disclosure: temporary file paths and potentially sensitive GitHub parameters logged to stdout"
+    },
+    {
+      "severity": "low",
+      "file": ".claude/helpers/memory.js",
+      "line": 18,
+      "description": "JSON parsing errors silently caught and ignored without logging. Corrupted memory.json files fail silently.",
+      "cwe": "CWE-390",
+      "impact": "Silent failures hide data corruption; state loss goes undetected; difficult debugging"
+    },
+    {
+      "severity": "low",
+      "file": ".claude/helpers/session.js",
+      "line": 42,
+      "description": "JSON parsing errors in restore() are not caught. Invalid JSON crashes the operation.",
+      "cwe": "CWE-390",
+      "impact": "Corrupted session files cause unhandled exceptions and application crashes"
+    },
+    {
+      "severity": "low",
+      "file": ".claude/helpers/statusline.js",
+      "line": 55,
+      "description": "File operations on security paths (.swarm/security) without path normalization. While unlikely, vulnerable to directory traversal attacks.",
+      "cwe": "CWE-22",
+      "impact": "Potential directory traversal if paths are user-controlled in future versions"
+    }
+  ],
+  "riskScore": 78,
+  "riskBreakdown": {
+    "critical": 3,
+    "high": 3,
+    "medium": 4,
+    "low": 3,
+    "total": 13
+  },
+  "summary": {
+    "hardcoded_secrets": 0,
+    "sql_injection_risks": 0,
+    "xss_vulnerabilities": 1,
+    "auth_issues": 0,
+    "cryptography_issues": 2,
+    "file_permission_issues": 3,
+    "dependency_vulnerabilities": 3,
+    "error_handling_issues": 2
+  },
+  "recommendations": [
+    "CRITICAL (P0): Update Next.js to 16.2.6+ immediately to fix multiple DoS, XSS, and HTTP smuggling vulnerabilities",
+    "CRITICAL (P0): Update glob to 10.5.0+ or remove ESLint glob plugin to prevent command injection during builds",
+    "CRITICAL (P0): Update PostCSS to 8.5.10+ to fix XSS in CSS processing",
+    "CRITICAL (P0): Replace Math.random() with crypto.randomUUID() in src/lib/saved-results.ts line 22",
+    "HIGH (P1): Fix temporary file cleanup in .claude/helpers/github-safe.js - add retry logic and proper error handling",
+    "HIGH (P1): Replace Date.now() session ID with crypto.randomBytes(16).toString('hex') in .claude/helpers/session.js line 15",
+    "HIGH (P1): Add try-catch blocks for all JSON.parse() operations in helper scripts",
+    "MEDIUM (P2): Set file permissions to 0o600 (owner-only) for all sensitive files: memory.js, session.js, and github-safe.js",
+    "MEDIUM (P2): Remove or sanitize console.log statements that expose file paths (line 80 in github-safe.js)",
+    "MEDIUM (P2): Add proper error logging instead of silent catches in memory.js load function",
+    "LOW (P3): Normalize and validate file paths in statusline.js using path.resolve()",
+    "Implement automated dependency scanning: run 'npm audit' in CI/CD pipeline",
+    "Add security-specific ESLint plugin: eslint-plugin-security",
+    "Review and document file permission requirements for all helper scripts"
+  ],
+  "nextSteps": [
+    {
+      "priority": "IMMEDIATE",
+      "task": "Run 'npm audit' and 'npm audit fix' to address dependency vulnerabilities",
+      "timeline": "Today"
+    },
+    {
+      "priority": "IMMEDIATE",
+      "task": "Update Next.js, glob, and PostCSS to patched versions",
+      "timeline": "Today"
+    },
+    {
+      "priority": "HIGH",
+      "task": "Fix cryptographic random ID generation in saved-results.ts",
+      "timeline": "This week"
+    },
+    {
+      "priority": "HIGH",
+      "task": "Fix file permissions and improve error handling in helper scripts",
+      "timeline": "This week"
+    }
+  ],
+  "context": {
+    "codebase_type": "Next.js Static Site Generator (Calculator Application)",
+    "architecture": "Frontend-only, no backend API or database",
+    "deployment": "Static site generation with no server-side code execution",
+    "users": "General public (no authentication)",
+    "data_handling": "Client-side only (localStorage) - no server-side data storage"
+  },
+  "notes": "This codebase is primarily a static Next.js site with minimal backend exposure. The main security concerns are: (1) Dependency vulnerabilities in build-time and runtime dependencies, (2) Weak cryptography in client-side ID generation, (3) File permission issues in internal helper scripts for development workflows. No SQL injection, hardcoded secrets, or significant XSS vulnerabilities were found in the application code itself. The React components properly escape user content.",
+  "metadata": {
+    "audit_date": "2026-05-18",
+    "scanner": "Claude Code Security Analysis",
+    "node_version_required": "18+",
+    "files_scanned": 50,
+    "severity_distribution": "3 critical, 3 high, 4 medium, 3 low"
+  }
+}

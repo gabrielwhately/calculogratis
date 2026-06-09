@@ -1,0 +1,158 @@
+{
+  "audit_date": "2026-05-21",
+  "codebase": "calculogratis",
+  "vulnerabilities": [
+    {
+      "severity": "medium",
+      "type": "Insecure File Permissions",
+      "file": ".claude/helpers/session.js",
+      "line": 1,
+      "description": "Session files and helper scripts are world-readable (rw-rw-r--). Session data could be read by other users on shared systems. Session IDs are predictable using only Date.now().",
+      "impact": "Session hijacking on multi-user systems",
+      "recommendation": "Change file permissions to 600 (rw-------), use cryptographically secure random session ID generation"
+    },
+    {
+      "severity": "medium",
+      "type": "Insecure File Permissions",
+      "file": ".claude/helpers/memory.js",
+      "line": 1,
+      "description": "Memory storage files are world-readable (rw-rw-r--). Sensitive data stored in JSON could be exposed to other users.",
+      "impact": "Information disclosure on shared systems",
+      "recommendation": "Change file permissions to 600, implement encryption for stored data, validate data before parsing"
+    },
+    {
+      "severity": "medium",
+      "type": "Insecure File Permissions",
+      "file": ".claude-flow/data/",
+      "line": 1,
+      "description": "Data directory and all JSON files are world-readable and world-writable (rw-rw-r--). Stored data includes application state and metrics.",
+      "impact": "Data tampering, information disclosure",
+      "recommendation": "Change directory and file permissions to 700 (rwx------) and 600 (rw------) respectively"
+    },
+    {
+      "severity": "low",
+      "type": "Weak Session ID Generation",
+      "file": ".claude/helpers/session.js",
+      "line": 22,
+      "description": "Session IDs generated using only timestamp: session-${Date.now()}. Timestamps are sequential and predictable.",
+      "impact": "Session ID prediction attacks",
+      "recommendation": "Use randomBytes or crypto.randomUUID() for session ID generation"
+    },
+    {
+      "severity": "low",
+      "type": "Unencrypted Data Storage",
+      "file": ".claude/helpers/memory.js",
+      "line": 18,
+      "description": "Session and memory data stored in plain text JSON files without encryption.",
+      "impact": "Sensitive data exposure if filesystem is compromised",
+      "recommendation": "Implement encryption using Node.js crypto module for sensitive data"
+    }
+  ],
+  "passed_checks": [
+    {
+      "check": "Hardcoded Secrets",
+      "status": "PASS",
+      "detail": "No hardcoded API keys, passwords, or credentials found in source code. NEXT_PUBLIC_* variables properly used for public config."
+    },
+    {
+      "check": "SQL Injection",
+      "status": "PASS",
+      "detail": "No SQL queries found. This is a static site generator (SSG) with no backend database. No database-related vulnerabilities."
+    },
+    {
+      "check": "XSS Vulnerabilities",
+      "status": "PASS",
+      "detail": "Only safe dangerouslySetInnerHTML usage found (hardcoded theme script). All user input properly escaped in React components."
+    },
+    {
+      "check": "Code Injection",
+      "status": "PASS",
+      "detail": "No eval(), Function constructor, or dynamic code execution found. Subprocess spawning uses spawnSync without shell interpretation."
+    },
+    {
+      "check": "Dependency Vulnerabilities",
+      "status": "PASS",
+      "detail": "Modern, up-to-date dependencies: Next.js 14.2.35, React 18, Tailwind CSS 3.4.19. No known vulnerable packages detected."
+    },
+    {
+      "check": "Input Validation",
+      "status": "PASS",
+      "detail": "memory.js validates keys with /^[a-z0-9_]+$/i. localStorage data has try-catch error handling."
+    },
+    {
+      "check": "CORS & CSP",
+      "status": "PASS",
+      "detail": "Static site (SSG output). Cross-origin requests only to Google APIs (fonts, analytics, ads) with proper crossOrigin attributes."
+    },
+    {
+      "check": "Authentication",
+      "status": "PASS",
+      "detail": "No authentication required. Public calculator site. No sensitive auth mechanisms exposed."
+    }
+  ],
+  "riskScore": 28,
+  "riskLevel": "LOW",
+  "recommendations": [
+    {
+      "priority": "HIGH",
+      "title": "Fix File Permissions",
+      "description": "Change helper scripts and data directories to restrict access to the owner only",
+      "steps": [
+        "chmod 600 .claude/helpers/session.js .claude/helpers/memory.js .claude/helpers/router.js",
+        "chmod 700 .claude-flow/data/",
+        "chmod 600 .claude-flow/data/*.json",
+        "Document permissions in SECURITY.md"
+      ]
+    },
+    {
+      "priority": "HIGH",
+      "title": "Secure Session ID Generation",
+      "description": "Replace predictable session IDs with cryptographically secure random values",
+      "steps": [
+        "Update session.js to use randomBytes(16).toString('hex')",
+        "Add uuid or nanoid library if needed",
+        "Test session ID uniqueness and unpredictability"
+      ]
+    },
+    {
+      "priority": "MEDIUM",
+      "title": "Encrypt Stored Data",
+      "description": "Implement encryption for session and memory data files",
+      "steps": [
+        "Use Node.js crypto module with AES-256-GCM",
+        "Derive encryption key from a master secret or key file",
+        "Add encryption/decryption to memory.js and session.js",
+        "Document key management process"
+      ]
+    },
+    {
+      "priority": "MEDIUM",
+      "title": "Add Security Documentation",
+      "description": "Create SECURITY.md file documenting security practices and permissions",
+      "steps": [
+        "Document file permission model",
+        "Add security guidelines for contributors",
+        "Include incident response procedures",
+        "List dependencies and known vulnerabilities"
+      ]
+    },
+    {
+      "priority": "LOW",
+      "title": "Add Session Expiration",
+      "description": "Implement session timeout and cleanup mechanism",
+      "steps": [
+        "Add TTL to session metadata",
+        "Implement periodic cleanup of expired sessions",
+        "Log session creation and destruction"
+      ]
+    }
+  ],
+  "summary": {
+    "total_issues": 5,
+    "critical": 0,
+    "high": 0,
+    "medium": 3,
+    "low": 2,
+    "key_findings": "Codebase is generally secure with no critical vulnerabilities. Main concerns are file system permissions on helper scripts and data directories (world-readable), and predictable session ID generation. The application properly handles input validation, avoids injection attacks, and maintains up-to-date dependencies."
+  }
+}

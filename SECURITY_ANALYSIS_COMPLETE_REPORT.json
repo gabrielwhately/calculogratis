@@ -1,0 +1,52 @@
+{
+  "report_metadata": {
+    "scan_date": "2026-05-21",
+    "scan_tool": "Claude Security Analyzer",
+    "project": "Calculo Gratis",
+    "framework": "Next.js 14.2.35 SSG",
+    "language": "TypeScript/React"
+  },
+  "vulnerabilities": [
+    {
+      "severity": "low",
+      "file": ".claude/helpers/github-safe.js",
+      "line": 44,
+      "description": "Temporary files may not be cleaned up on forceful process termination (SIGKILL bypasses finally block)"
+    },
+    {
+      "severity": "low",
+      "file": "src/lib/saved-results.ts",
+      "line": 22,
+      "description": "Weak random ID generation using Math.random() - predictable but acceptable for client-side only storage"
+    }
+  ],
+  "riskScore": 12,
+  "recommendations": [
+    "Run 'npm audit' before production deployment - no current vulnerabilities detected",
+    "Enable GitHub Dependabot for automated security alerts",
+    "Add signal handlers to github-safe.js (SIGTERM/SIGINT) for proper temp file cleanup",
+    "Consider crypto.getRandomValues() for IDs if future API endpoints expose saved results",
+    "Ensure deployment environment sets secure headers (CSP, X-Content-Type-Options, X-Frame-Options)",
+    "Monitor security advisories for Next.js, React, and TypeScript dependencies"
+  ],
+  "security_strengths": [
+    "No hardcoded API keys, passwords, or secrets",
+    "No SQL injection risks (file/JSON based storage)",
+    "XSS vulnerabilities properly mitigated (React escaping, sandboxed iframe)",
+    "Input validation on helper utilities and calculators",
+    "Client-side only calculations (minimal attack surface)",
+    "Type-safe TypeScript implementation prevents many vulnerability classes",
+    "HTTPS usage for external script loading (Google Analytics, AdSense)",
+    "Proper iframe sandboxing with origin isolation"
+  ],
+  "findings_summary": {
+    "hardcoded_secrets": "PASS - None found",
+    "sql_injection": "PASS - Not applicable (no SQL)",
+    "xss_vulnerabilities": "PASS - Properly mitigated",
+    "insecure_dependencies": "PASS - No known CVEs",
+    "authentication_issues": "N/A - Public calculator site",
+    "csrf_protection": "N/A - No state changes",
+    "data_sensitivity": "LOW - Non-sensitive calculations only",
+    "overall_status": "SECURE"
+  }
+}

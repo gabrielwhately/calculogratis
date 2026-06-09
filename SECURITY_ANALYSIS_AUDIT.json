@@ -1,0 +1,142 @@
+{
+  "vulnerabilities": [
+    {
+      "severity": "medium",
+      "file": ".claude/helpers/github-safe.js",
+      "line": 41,
+      "type": "Temporary File Race Condition",
+      "description": "Temporary files containing sensitive content (PR/issue bodies) are created in /tmp directory. While random bytes are used for naming, there's a time window between file creation (line 41) and deletion (line 63) where the file could be read by other processes. On Unix systems, /tmp files are typically world-readable by default.",
+      "impact": "Potential exposure of PR/issue body content if another process reads the temp file during the operation window",
+      "cwe": "CWE-377: Insecure Temporary File"
+    },
+    {
+      "severity": "low",
+      "file": ".claude/helpers/github-safe.js",
+      "line": 55,
+      "type": "Missing File Permissions Configuration",
+      "description": "Temporary file is created with default umask permissions, which may be world-readable. The file should be created with restrictive permissions (0600) to prevent other users from reading sensitive content.",
+      "impact": "Other users on the system could potentially read temporary files containing PR/issue body content",
+      "cwe": "CWE-276: Incorrect Default Permissions"
+    },
+    {
+      "severity": "low",
+      "file": ".claude/helpers/memory.js",
+      "line": 28,
+      "type": "Insufficient Input Validation",
+      "description": "Memory key validation only checks alphanumeric and underscores. While this prevents directory traversal, the regex pattern doesn't prevent keys like '__proto__' or 'constructor' which could potentially affect object prototype in edge cases.",
+      "impact": "Potential prototype pollution if memory operations manipulate object properties unsafely",
+      "cwe": "CWE-1321: Improperly Controlled Modification of Object Prototype Attributes"
+    },
+    {
+      "severity": "low",
+      "file": ".claude/helpers/session.js",
+      "line": 45,
+      "type": "Insufficient Input Validation",
+      "description": "Session key validation uses the same pattern as memory.js. Restricted key format prevents directory traversal but doesn't prevent prototype pollution attacks.",
+      "impact": "Potential prototype pollution if session context is manipulated through specially crafted keys",
+      "cwe": "CWE-1321: Improperly Controlled Modification of Object Prototype Attributes"
+    }
+  ],
+  "notFound": {
+    "hardcodedSecrets": true,
+    "sqlInjection": true,
+    "xssVulnerabilities": true,
+    "csrfVulnerabilities": true,
+    "insecureDependencies": "Requires npm audit check"
+  },
+  "goodPractices": [
+    "✓ No hardcoded API keys, secrets, or credentials found",
+    "✓ Environment variables properly namespaced with NEXT_PUBLIC_ prefix for public values",
+    "✓ Custom mathematical expression parser (no dangerous eval() usage)",
+    "✓ Proper use of dangerouslySetInnerHTML only for static hardcoded content",
+    "✓ React components properly escape user input through JSX",
+    "✓ localStorage data properly serialized with JSON.stringify (prevents XSS)",
+    "✓ Input validation present in helper scripts (key format validation)",
+    "✓ Safe use of spawnSync without shell interpretation (prevents command injection)",
+    "✓ .env files not tracked in git (no .env files found)"
+  ],
+  "riskScore": 28,
+  "riskScoreExplanation": "Score calculated based on vulnerability severity (medium: 20 points, low: 5 points each = 15 points) and positive factors. Reduced by good practices and lack of critical vulnerabilities.",
+  "recommendations": [
+    {
+      "priority": "high",
+      "category": "Security Fix",
+      "title": "Fix Temporary File Permissions in github-safe.js",
+      "description": "Set restrictive file permissions (0600) when creating temporary files to prevent other users from reading sensitive content.",
+      "implementation": "Use fs.writeFileSync with { mode: 0o600 } option when creating temp files on line 41. Alternatively, use os.tmpdir() with proper permissions or use a dedicated secure temp file library.",
+      "cwe": "CWE-377, CWE-276"
+    },
+    {
+      "priority": "high",
+      "category": "Security Fix",
+      "title": "Minimize Temporary File Exposure Window",
+      "description": "Consider using piped stdin/stdout instead of temporary files where possible to avoid disk-based exposure of sensitive content.",
+      "implementation": "For github-safe.js, evaluate if using stdin piping with gh command is feasible instead of writing to disk.",
+      "cwe": "CWE-377"
+    },
+    {
+      "priority": "medium",
+      "category": "Security Hardening",
+      "title": "Enhance Key Validation for Prototype Pollution Protection",
+      "description": "Expand validation in memory.js and session.js to explicitly reject dangerous keys like '__proto__', 'constructor', 'prototype'.",
+      "implementation": "Add blacklist check: if (['__proto__', 'constructor', 'prototype'].includes(key)) { throw new Error(...) }",
+      "files": ["memory.js", "session.js"],
+      "cwe": "CWE-1321"
+    },
+    {
+      "priority": "medium",
+      "category": "Dependency Management",
+      "title": "Regular Dependency Security Audits",
+      "description": "Run npm audit regularly to check for vulnerable dependencies.",
+      "implementation": "Add to CI/CD: npm audit --audit-level=moderate. Update dependencies: npm audit fix",
+      "command": "npm audit"
+    },
+    {
+      "priority": "low",
+      "category": "Code Review",
+      "title": "Review Error Handling in Spawn Operations",
+      "description": "Ensure all spawnSync operations properly handle error states and exit codes.",
+      "implementation": "Add error code checking after spawnSync calls in github-safe.js",
+      "file": "github-safe.js"
+    },
+    {
+      "priority": "low",
+      "category": "Documentation",
+      "title": "Document Security Assumptions",
+      "description": "Document that helper scripts should only be run in trusted environments (development/CI) and not exposed to untrusted input.",
+      "implementation": "Add security notes to .claude/helpers/README.md or main SECURITY.md"
+    }
+  ],
+  "summary": {
+    "totalVulnerabilities": 4,
+    "critical": 0,
+    "high": 0,
+    "medium": 1,
+    "low": 3,
+    "overallAssessment": "The codebase demonstrates good security practices with no critical vulnerabilities. The main concern is temporary file handling in the github-safe.js helper script. The application code properly avoids common vulnerabilities (XSS, SQL injection, command injection). Recommendations focus on hardening temp file handling and enhancing input validation."
+  },
+  "complianceNotes": {
+    "owasp": "The application appears to address OWASP Top 10 concerns: proper output encoding (XSS prevention), no SQL injection vectors, secure use of cryptographic functions for ID generation.",
+    "framework": "Next.js 14.2.35 is current with security patches (released 2024-2025 timeframe). Tailwind CSS for styling is safe from injection attacks."
+  },
+  "nextSteps": [
+    "1. Implement file permission fixes for github-safe.js (HIGH PRIORITY)",
+    "2. Run 'npm audit' to check dependency security",
+    "3. Add prototype pollution protection to helper scripts",
+    "4. Set up automated security scanning in CI/CD pipeline",
+    "5. Schedule regular security audits (quarterly recommended)"
+  ],
+  "scanDate": "2026-05-19",
+  "scanTool": "Manual Security Analysis",
+  "codebaseInfo": {
+    "framework": "Next.js 14.2.35",
+    "language": "TypeScript/JavaScript",
+    "type": "Static Site Generator with Calculator Tools",
+    "dependencies": 19,
+    "filesScanned": {
+      "typescript": 47,
+      "javascript": 5,
+      "builOutput": 18
+    }
+  }
+}

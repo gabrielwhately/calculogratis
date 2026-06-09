@@ -1,0 +1,149 @@
+{
+  "auditDate": "2026-05-19",
+  "codebaseType": "Next.js Static Site (SSG)",
+  "vulnerabilities": [
+    {
+      "id": "WEAK_ID_GENERATION",
+      "severity": "medium",
+      "file": "src/lib/saved-results.ts",
+      "line": 22,
+      "description": "Weak random ID generation using Math.random().toString(36).substring(2, 9). This generates predictable IDs for saved calculator results that could be guessed or enumerated.",
+      "code": "id: Math.random().toString(36).substring(2, 9)",
+      "impact": "Saved results could be identified and potentially accessed by guessing IDs, though localStorage is client-side only so risk is limited",
+      "recommendation": "Use crypto.randomUUID() instead of Math.random() for ID generation"
+    },
+    {
+      "id": "UNSAFE_INLINE_CSP",
+      "severity": "medium",
+      "file": "vercel.json",
+      "line": 8,
+      "description": "Content Security Policy allows 'unsafe-inline' for scripts. This weakens protection against inline script injection attacks.",
+      "code": "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com",
+      "impact": "Potential for inline script injection if user input is reflected in script tags, though current code properly handles this",
+      "recommendation": "Consider using nonce-based CSP for scripts. If Google Analytics requires unsafe-inline, use proper output encoding for all dynamic content"
+    },
+    {
+      "id": "PLAINTEXT_LOCAL_STORAGE",
+      "severity": "low",
+      "file": "src/lib/saved-results.ts",
+      "line": 26,
+      "description": "Saved calculator results are stored in plaintext localStorage. On shared devices, cached results could be visible to other users.",
+      "impact": "Low - stored data is not sensitive (calculator results, not personal data), but could show previous user's calculations",
+      "recommendation": "Add clear data on logout for shared environments, or add optional encryption for sensitive calculator inputs"
+    },
+    {
+      "id": "PLAINTEXT_SESSION_FILES",
+      "severity": "low",
+      "file": ".claude/helpers/session.js",
+      "line": 30,
+      "description": "Session data stored in plaintext JSON files in .claude-flow/sessions/. Local file system compromise could expose session context.",
+      "impact": "Low - file system is local-only, but session metadata could be sensitive in some contexts",
+      "recommendation": "Encrypt session files at rest if they contain sensitive user context, or ensure proper file system permissions (chmod 600)"
+    }
+  ],
+  "securityPositives": [
+    {
+      "title": "No Hardcoded Secrets",
+      "description": "Excellent practice - no API keys, passwords, or credentials found in source code. All sensitive config uses environment variables."
+    },
+    {
+      "title": "Proper Environment Variable Handling",
+      "description": "Uses NEXT_PUBLIC_ prefix correctly for public values (GA ID, AdSense). No risk of exposing server-side secrets."
+    },
+    {
+      "title": "No SQL Injection Risk",
+      "description": "Static site with no database queries or SQL code. All data is computed client-side."
+    },
+    {
+      "title": "Safe Command Execution",
+      "description": "github-safe.js uses spawnSync() instead of shell execution, preventing command injection attacks."
+    },
+    {
+      "title": "Input Validation",
+      "description": "Helper scripts (memory.js, session.js) validate keys with regex (/^[a-z0-9_]+$/i), preventing injection."
+    },
+    {
+      "title": "Strong HTTP Security Headers",
+      "description": "Implements HSTS, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, and XSS-Protection headers."
+    },
+    {
+      "title": "Next.js Built-in Protections",
+      "description": "Uses Next.js Script component for analytics (properly isolated), not raw inline scripts. React handles XSS by default with proper escaping."
+    },
+    {
+      "title": "No External API Calls",
+      "description": "Only external dependency is Google Analytics (first-party) and Google AdSense. No third-party API tokens exposed."
+    }
+  ],
+  "riskScore": 18,
+  "riskScoreBasis": {
+    "criticalVulnerabilities": 0,
+    "highVulnerabilities": 0,
+    "mediumVulnerabilities": 2,
+    "lowVulnerabilities": 2,
+    "informationalFindings": 0,
+    "mitigatingFactors": "Static site with no backend, no user authentication, no sensitive data processing"
+  },
+  "recommendations": [
+    {
+      "priority": "HIGH",
+      "item": "Replace Math.random() ID generation with crypto.randomUUID() in saved-results.ts line 22",
+      "effort": "5 minutes",
+      "impact": "Eliminates predictable ID vulnerability"
+    },
+    {
+      "priority": "MEDIUM",
+      "item": "Review and strengthen CSP policy - consider nonce-based script handling for better inline script protection",
+      "effort": "30 minutes",
+      "impact": "Reduces inline script injection risk"
+    },
+    {
+      "priority": "MEDIUM",
+      "item": "Ensure .claude-flow/sessions files have restrictive permissions (chmod 600) to prevent unauthorized local access",
+      "effort": "5 minutes",
+      "impact": "Protects session metadata from local privilege escalation"
+    },
+    {
+      "priority": "LOW",
+      "item": "Add optional data clearing mechanism for calculator history on public/shared devices",
+      "effort": "30 minutes",
+      "impact": "Improves privacy for shared device scenarios"
+    },
+    {
+      "priority": "LOW",
+      "item": "Run npm audit and address any dependency warnings",
+      "effort": "10 minutes",
+      "impact": "Ensures all dependencies are up to date"
+    },
+    {
+      "priority": "INFORMATIONAL",
+      "item": "Add security documentation in SECURITY.md explaining data handling, privacy, and no-backend architecture",
+      "effort": "20 minutes",
+      "impact": "Improves security transparency and user trust"
+    }
+  ],
+  "dependencyAnalysis": {
+    "totalDependencies": 6,
+    "vulnerablePackages": 0,
+    "outdatedPackages": 0,
+    "riskLevel": "low",
+    "notes": "Next.js 14.2.35 is current, all dependencies are standard and well-maintained"
+  },
+  "complianceNotes": [
+    "No GDPR compliance issues - no personal data processing",
+    "No sensitive data handling - calculator results only",
+    "Proper HTTPS enforcement via HSTS header",
+    "CSP headers implemented for defense-in-depth"
+  ],
+  "penetrationTestingConsiderations": [
+    "Test for localStorage XSS by injecting malicious data in calculator inputs",
+    "Verify CSP policy blocks inline scripts from user input",
+    "Check if Math.random() IDs can be enumerated in saved results",
+    "Test iframe embed functionality for clickjacking vulnerabilities"
+  ],
+  "overallAssessment": {
+    "rating": "Good",
+    "summary": "This is a well-secured static calculator website. The main risk factors are minor issues with ID generation and CSP policy. The absence of backend services, user authentication, and sensitive data processing significantly reduces the attack surface. No critical vulnerabilities found.",
+    "riskLevel": "LOW"
+  }
+}

@@ -1,0 +1,174 @@
+{
+  "vulnerabilities": [
+    {
+      "severity": "medium",
+      "file": ".claude/helpers/session.js",
+      "line": 29,
+      "description": "Insecure file permissions: fs.mkdirSync() and fs.writeFileSync() do not set explicit file permissions. Created files may be readable/writable by other users on shared systems. Should use mode 0600 for sensitive session data.",
+      "cwe": "CWE-276: Incorrect Default File Permissions"
+    },
+    {
+      "severity": "medium",
+      "file": ".claude/helpers/memory.js",
+      "line": 25,
+      "description": "Insecure file permissions: Memory data stored in plaintext JSON without encryption or restrictive file permissions. Sensitive data could be exposed if filesystem is compromised. Consider adding file mode 0600.",
+      "cwe": "CWE-276: Incorrect Default File Permissions"
+    },
+    {
+      "severity": "medium",
+      "file": ".claude/helpers/session.js",
+      "line": 42,
+      "description": "Unhandled JSON parsing errors: JSON.parse() on line 42 is not wrapped in try-catch. Malformed session files could cause uncaught exceptions. Only line 110 properly handles this case.",
+      "cwe": "CWE-248: Uncaught Exception"
+    },
+    {
+      "severity": "medium",
+      "file": ".claude/helpers/session.js",
+      "line": 56,
+      "description": "Unhandled JSON parsing errors: JSON.parse() on line 56 is not wrapped in try-catch. Malformed session files in end() method could cause uncaught exceptions.",
+      "cwe": "CWE-248: Uncaught Exception"
+    },
+    {
+      "severity": "medium",
+      "file": ".claude/helpers/session.js",
+      "line": 78,
+      "description": "Unhandled JSON parsing errors: JSON.parse() on line 78 is not wrapped in try-catch in status() method.",
+      "cwe": "CWE-248: Uncaught Exception"
+    },
+    {
+      "severity": "medium",
+      "file": ".claude/helpers/session.js",
+      "line": 120,
+      "description": "Unhandled JSON parsing errors: JSON.parse() on line 120 is not wrapped in try-catch in metric() method.",
+      "cwe": "CWE-248: Uncaught Exception"
+    },
+    {
+      "severity": "low",
+      "file": ".claude/helpers/github-safe.js",
+      "line": 62,
+      "description": "Temporary file may be readable by other users: writeFileSync() on line 62 does not set restrictive file permissions. Temp file in /tmp could be readable by other users. Should use fs.writeFileSync with mode option or create with stricter permissions.",
+      "cwe": "CWE-276: Incorrect Default File Permissions"
+    },
+    {
+      "severity": "low",
+      "file": ".claude/helpers/github-safe.js",
+      "line": 100,
+      "description": "Command injection risk: Line 100 passes user arguments directly to spawnSync without validation. While spawnSync with array is safer than shell execution, no validation of command names is performed.",
+      "cwe": "CWE-78: Improper Neutralization of Special Elements in OS Command"
+    },
+    {
+      "severity": "low",
+      "file": ".claude/helpers/session.js",
+      "line": 61,
+      "description": "Directory traversal potential: Archive path constructed from session.id without validation. While session.id is controlled, defensive programming suggests validating the filename before using in path operations.",
+      "cwe": "CWE-22: Improper Limitation of a Pathname to a Restricted Directory"
+    },
+    {
+      "severity": "low",
+      "file": "src/components/layout/theme-script.tsx",
+      "line": 4,
+      "description": "Usage of dangerouslySetInnerHTML: While the content is hardcoded and safe, this pattern could lead to XSS if modified to include user input in the future. Consider using alternative approaches.",
+      "cwe": "CWE-79: Cross-site Scripting"
+    }
+  ],
+  "riskScore": 35,
+  "riskLevel": "Low-Medium",
+  "summary": {
+    "overall_posture": "Good",
+    "critical_issues": 0,
+    "high_issues": 0,
+    "medium_issues": 6,
+    "low_issues": 4,
+    "info_issues": 0
+  },
+  "positiveFindings": [
+    "✓ No hardcoded API keys, passwords, or credentials found",
+    "✓ No SQL injection risks (SSG site, no database queries)",
+    "✓ No XSS vulnerabilities in user-facing components (proper React escaping)",
+    "✓ Safe use of spawnSync() instead of shell execution for commands",
+    "✓ Input validation on key formats (alphanumeric + underscore only)",
+    "✓ Public environment variables properly namespaced (NEXT_PUBLIC_*)",
+    "✓ No eval() or dynamic code execution",
+    "✓ Proper temporary file cleanup in try-finally blocks"
+  ],
+  "recommendations": [
+    {
+      "priority": "high",
+      "category": "File Permissions",
+      "recommendation": "Set explicit restrictive file permissions (0600) when creating sensitive files in session.js and memory.js",
+      "implementation": "fs.mkdirSync(MEMORY_DIR, { recursive: true, mode: 0o700 }); fs.writeFileSync(MEMORY_FILE, ..., { mode: 0o600 })"
+    },
+    {
+      "priority": "high",
+      "category": "Error Handling",
+      "recommendation": "Wrap all JSON.parse() calls in try-catch blocks to handle malformed JSON gracefully",
+      "implementation": "Add try-catch around lines 42, 56, 78, 120 in session.js"
+    },
+    {
+      "priority": "medium",
+      "category": "File Permissions",
+      "recommendation": "Set restrictive permissions on temporary files in github-safe.js",
+      "implementation": "fs.writeFileSync(tmpFile, body, { mode: 0o600, encoding: 'utf8' })"
+    },
+    {
+      "priority": "medium",
+      "category": "Input Validation",
+      "recommendation": "Validate session.id format before using in file path operations",
+      "implementation": "Add validation: if (!/^session-\\d+$/.test(session.id)) throw new Error('Invalid session ID')"
+    },
+    {
+      "priority": "low",
+      "category": "Code Quality",
+      "recommendation": "Add gh command existence check in github-safe.js before attempting to spawn",
+      "implementation": "Use spawnSync('which', ['gh']) to verify gh is available before using it"
+    },
+    {
+      "priority": "low",
+      "category": "Security",
+      "recommendation": "Consider encrypting sensitive session and memory data at rest",
+      "implementation": "Use crypto module to encrypt/decrypt session data with a derived key"
+    },
+    {
+      "priority": "low",
+      "category": "Development",
+      "recommendation": "Document dangerouslySetInnerHTML usage and mark as static content only",
+      "implementation": "Add comment explaining why dangerouslySetInnerHTML is safe in theme-script.tsx"
+    },
+    {
+      "priority": "low",
+      "category": "Dependency Security",
+      "recommendation": "Regularly audit dependencies with npm audit and update vulnerabilities",
+      "implementation": "Run 'npm audit' and 'npm audit fix' periodically"
+    }
+  ],
+  "standards_compliance": {
+    "OWASP_Top_10": {
+      "A01_Broken_Access_Control": "No issues detected - proper access control for file operations",
+      "A02_Cryptographic_Failure": "Medium risk - plaintext storage of session data without encryption",
+      "A03_Injection": "No SQL injection (SSG, no DB). Low risk for command injection (spawnSync used)",
+      "A04_Insecure_Design": "No major design issues identified",
+      "A05_Security_Misconfiguration": "Medium risk - insecure file permissions on sensitive files",
+      "A06_Vulnerable_Components": "Requires regular npm audit checks",
+      "A07_Authentication_Failure": "No authentication implemented (SSG calculator site)",
+      "A08_Data_Integrity_Failure": "Low risk - no critical data operations",
+      "A09_Logging_Monitoring": "No logging vulnerabilities detected",
+      "A10_SSRF": "No server-side request forgery risks detected"
+    },
+    "CWE_Coverage": {
+      "CWE-22": "Low - Minor directory traversal potential",
+      "CWE-78": "Low - Command injection risk minimized by spawnSync",
+      "CWE-79": "Low - React escaping prevents XSS",
+      "CWE-248": "Medium - Unhandled exceptions in JSON parsing",
+      "CWE-276": "Medium - Insecure file permissions"
+    }
+  },
+  "testing_recommendations": [
+    "Manual test: Corrupt session.json file and verify error handling",
+    "Manual test: Verify file permissions on created session/memory files (should be 0600)",
+    "Automated test: Add unit tests for JSON parsing error scenarios",
+    "Automated test: Verify temporary files are cleaned up even on errors",
+    "Code review: Audit all fs.* operations for permission settings"
+  ],
+  "security_audit_date": "2026-05-19",
+  "auditor_notes": "The codebase demonstrates good security practices overall with no critical vulnerabilities. Primary concerns are around file permissions and error handling in helper utilities. The main Next.js application itself is secure with proper input handling and no XSS/SQL injection risks. Recommend implementing the medium-priority recommendations before production deployment."
+}

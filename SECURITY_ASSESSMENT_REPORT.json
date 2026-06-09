@@ -1,0 +1,80 @@
+{
+  "scan_date": "2026-05-20",
+  "codebase": "calculogratis",
+  "vulnerabilities": [
+    {
+      "severity": "medium",
+      "file": ".claude-flow/sessions/*.json",
+      "line": null,
+      "description": "Session files created with world-writable permissions (0664). Any user on system can read/modify sensitive session context. Found 50+ session files with rw-rw-r-- permissions."
+    },
+    {
+      "severity": "medium",
+      "file": ".claude-flow/data/",
+      "line": null,
+      "description": "Memory and state files stored without encryption in plain text JSON with world-readable permissions. Files include auto-memory-store.json, graph-state.json, intelligence-snapshot.json."
+    },
+    {
+      "severity": "low",
+      "file": ".claude/helpers/memory.js",
+      "line": 21,
+      "description": "Key validation regex /^[a-z0-9_]+$/i lacks length constraints. No maximum key length enforced, allowing potential DoS through memory exhaustion."
+    },
+    {
+      "severity": "low",
+      "file": ".claude/helpers/github-safe.js",
+      "line": 53,
+      "description": "Temporary files created in system /tmp directory. While random naming prevents collisions, files are world-readable if cleanup fails. No retry mechanism on delete failure."
+    },
+    {
+      "severity": "low",
+      "file": ".claude/helpers/session.js",
+      "line": 33,
+      "description": "Session context stored in plain JSON without encryption. Future enhancements could inadvertently store sensitive data like API keys or tokens."
+    },
+    {
+      "severity": "informational",
+      "file": "package.json",
+      "line": null,
+      "description": "Dependencies use caret ranges (^) allowing automatic patch/minor updates. While generally safe, consider exact pinning for critical dependencies. Run 'npm audit' regularly."
+    },
+    {
+      "severity": "informational",
+      "file": "src/components/layout/",
+      "line": null,
+      "description": "POSITIVE: Public environment variables (GA_MEASUREMENT_ID, ADSENSE_CLIENT) properly prefixed with NEXT_PUBLIC_. No secrets exposed in client code. Compliant with Next.js best practices."
+    }
+  ],
+  "riskScore": 42,
+  "recommendations": [
+    "1. Update session.js line 25 and memory.js to use restrictive file permissions: fs.writeFileSync(path, data, { mode: 0o600 })",
+    "2. Implement encryption for sensitive stored data using Node.js crypto module",
+    "3. Add maximum length validation to memory key: /^[a-z0-9_]{1,64}$/i",
+    "4. Add retry logic with exponential backoff for temporary file cleanup",
+    "5. Run 'npm audit' and fix any critical vulnerabilities",
+    "6. Add SECURITY_POLICY.md documenting secure development practices",
+    "7. Implement automated security scanning in CI/CD pipeline",
+    "8. Never commit .env files or secrets - maintain .gitignore properly"
+  ],
+  "security_summary": {
+    "critical_issues": 0,
+    "high_issues": 0,
+    "medium_issues": 2,
+    "low_issues": 3,
+    "informational": 2,
+    "overall_risk": "MODERATE",
+    "main_concerns": [
+      "File permissions misconfiguration on session/memory files",
+      "Lack of encryption for stored state data",
+      "Missing input validation constraints"
+    ],
+    "positive_findings": [
+      "No hardcoded secrets in source code",
+      "Safe expression evaluation (no eval)",
+      "Proper command execution (spawnSync, no shell)",
+      "No SQL injection risks (no database operations)",
+      "No XSS vulnerabilities detected",
+      "No dangerous dangerouslySetInnerHTML usage with user input"
+    ]
+  }
+}

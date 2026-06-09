@@ -1,0 +1,108 @@
+{
+  "vulnerabilities": [
+    {
+      "severity": "high",
+      "file": "package.json",
+      "line": null,
+      "type": "dependency_vulnerability",
+      "description": "glob 10.2.0-10.4.5: Command injection vulnerability (GHSA-5j98-mcp5-4vw2). Uses shell:true allowing command injection via glob patterns. Used indirectly via @next/eslint-plugin-next.",
+      "cve": "GHSA-5j98-mcp5-4vw2"
+    },
+    {
+      "severity": "high",
+      "file": "package.json",
+      "line": null,
+      "type": "dependency_vulnerability",
+      "description": "Next.js 14.2.35: Multiple DoS and security vulnerabilities including HTTP request smuggling in rewrites (GHSA-ggv3-7p47-pfv8), Image Optimizer DoS, XSS in CSP nonces (GHSA-ffhc-5mcf-pf4q), Server Components DoS.",
+      "cve": "GHSA-ggv3-7p47-pfv8"
+    },
+    {
+      "severity": "high",
+      "file": "package.json",
+      "line": null,
+      "type": "dependency_vulnerability",
+      "description": "PostCSS <8.5.10: XSS vulnerability via unescaped </style> in CSS stringify output (GHSA-qx2v-qp2m-jg93). Could allow CSS injection attacks.",
+      "cve": "GHSA-qx2v-qp2m-jg93"
+    },
+    {
+      "severity": "medium",
+      "file": ".claude/helpers/memory.js",
+      "line": 20,
+      "type": "insecure_file_permissions",
+      "description": "Memory JSON file created with default permissions (mode 0o666). If containing sensitive configuration, any local user can read. Sensitive data exposed."
+    },
+    {
+      "severity": "medium",
+      "file": ".claude/helpers/github-safe.js",
+      "line": 49,
+      "type": "insecure_file_permissions",
+      "description": "Temporary files created without explicit permissions. GitHub content could be read by other system users."
+    },
+    {
+      "severity": "medium",
+      "file": ".claude/helpers/session.js",
+      "line": 21,
+      "type": "weak_randomness",
+      "description": "Session ID generated using Date.now() which is predictable. Should use crypto.randomBytes() for cryptographic security."
+    },
+    {
+      "severity": "medium",
+      "file": ".claude/helpers/session.js",
+      "line": 30,
+      "type": "insecure_file_permissions",
+      "description": "Session JSON files created without explicit file permissions. Session context could be readable by other local users."
+    },
+    {
+      "severity": "medium",
+      "file": "src/components/layout/analytics.tsx",
+      "line": null,
+      "type": "third_party_risk",
+      "description": "Google Analytics loaded from external CDN without Subresource Integrity (SRI). Could be compromised for XSS attacks."
+    },
+    {
+      "severity": "low",
+      "file": ".claude/helpers/memory.js",
+      "line": 9,
+      "type": "error_handling",
+      "description": "JSON parsing errors silently caught without logging. Corrupted memory files fail silently without alerting users."
+    },
+    {
+      "severity": "low",
+      "file": ".claude/helpers/statusline.js",
+      "line": null,
+      "type": "path_traversal_risk",
+      "description": "File operations on dynamic paths without normalization. Should use path.resolve() for defense in depth."
+    },
+    {
+      "severity": "low",
+      "file": "/out directory",
+      "line": null,
+      "type": "information_disclosure",
+      "description": "Build artifacts in version control. Should be gitignored and regenerated at deploy time."
+    }
+  ],
+  "riskScore": 65,
+  "recommendations": [
+    "CRITICAL: Update Next.js to 16.2.6+ to fix DoS vulnerabilities, XSS flaws, and HTTP request smuggling",
+    "CRITICAL: Update glob to 10.5.0+ to prevent command injection vulnerability",
+    "CRITICAL: Update PostCSS to 8.5.10+ to fix CSS-based XSS vulnerability",
+    "HIGH: Fix file permissions in helper scripts using fs.writeFileSync(path, data, { mode: 0o600 })",
+    "HIGH: Replace Date.now() session ID generation with crypto.randomBytes(16).toString('hex')",
+    "MEDIUM: Add Subresource Integrity (SRI) to Google Analytics external script",
+    "MEDIUM: Add error logging in memory.js JSON parsing to detect and report file corruption",
+    "MEDIUM: Run npm audit in CI/CD pipeline and fail builds on high/critical vulnerabilities",
+    "LOW: Remove /out directory from git and regenerate at build time",
+    "LOW: Normalize file paths using path.resolve() in statusline.js for defense in depth"
+  ],
+  "summary": {
+    "critical_issues": 3,
+    "high_issues": 3,
+    "medium_issues": 5,
+    "low_issues": 3,
+    "total_vulnerabilities": 14,
+    "hardcoded_secrets_found": 0,
+    "sql_injection_risks": 0,
+    "xss_vulnerabilities": 2,
+    "authentication_issues": 1
+  }
+}

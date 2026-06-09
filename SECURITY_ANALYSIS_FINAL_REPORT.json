@@ -1,0 +1,201 @@
+{
+  "vulnerabilities": [
+    {
+      "severity": "high",
+      "file": "package.json",
+      "line": null,
+      "description": "Command injection vulnerability in glob 10.2.0-10.4.5 (GHSA-5j98-mcp5-4vw2): -c/--cmd executes matches with shell:true. Indirectly used via eslint-config-next. Update glob to >=11.0.0",
+      "cve": "GHSA-5j98-mcp5-4vw2",
+      "recommendation": "Update glob to version 11.0.0 or higher via npm audit fix"
+    },
+    {
+      "severity": "high",
+      "file": "package.json",
+      "line": null,
+      "description": "Multiple vulnerabilities in Next.js 14.2.35: HTTP request smuggling in rewrites (GHSA-ggv3-7p47-pfv8), Image Optimizer DoS (GHSA-9g9p-9gw9-jx7f), XSS in CSP nonces (GHSA-ffhc-5mcf-pf4q). Update to 15.0.0+",
+      "cve": "GHSA-ggv3-7p47-pfv8,GHSA-9g9p-9gw9-jx7f,GHSA-ffhc-5mcf-pf4q",
+      "recommendation": "Update Next.js to version 15.0.0 or later. Test thoroughly after upgrade for breaking changes"
+    },
+    {
+      "severity": "medium",
+      "file": ".claude/helpers/memory.js",
+      "line": 26,
+      "description": "Insecure file permissions: Memory JSON created with mode rw-rw-r-- (664). Sensitive data stored in plaintext readable by any system user. Potential exposure of configuration or credentials.",
+      "cwe": "CWE-276",
+      "recommendation": "Use fs.writeFileSync(MEMORY_FILE, data, {mode: 0o600}) to restrict to owner only"
+    },
+    {
+      "severity": "medium",
+      "file": ".claude/helpers/github-safe.js",
+      "line": 49,
+      "description": "Temporary files created without explicit permissions (rw-rw-r--). GitHub content (issues, PRs, comments) written to readable temp files. Readable by any system user.",
+      "cwe": "CWE-276",
+      "recommendation": "Use fs.writeFileSync(tmpFile, body, {mode: 0o600}) or fs.mkdtemp with restricted permissions"
+    },
+    {
+      "severity": "medium",
+      "file": ".claude/helpers/session.js",
+      "line": 15,
+      "description": "Weak session ID generation: Uses Date.now() instead of cryptographic randomness. Session IDs are predictable, allowing potential session hijacking attacks.",
+      "cwe": "CWE-330",
+      "recommendation": "Replace session ID generation: const sessionId = `session-${crypto.randomBytes(16).toString('hex')}`"
+    },
+    {
+      "severity": "medium",
+      "file": "package.json",
+      "line": null,
+      "description": "PostCSS XSS vulnerability (GHSA-qx2v-qp2m-jg93) in versions <8.5.10. Unescaped </style> in CSS stringify output. Affects Next.js build process.",
+      "cve": "GHSA-qx2v-qp2m-jg93",
+      "recommendation": "Verify postcss is updated to 8.5.10+ via npm update postcss"
+    },
+    {
+      "severity": "low",
+      "file": ".claude/helpers/session.js",
+      "line": 25,
+      "description": "Session JSON files created without explicit permissions (rw-rw-r--). Session context readable by other system users. May contain sensitive developer information.",
+      "cwe": "CWE-276",
+      "recommendation": "Set mode 0o600 when writing session files to restrict to owner only"
+    },
+    {
+      "severity": "low",
+      "file": ".claude/helpers/memory.js",
+      "line": 18,
+      "description": "Silent error handling: JSON parse errors caught and ignored without logging. Corrupted memory.json files fail silently, potentially losing application state without alerting user.",
+      "cwe": "CWE-391",
+      "recommendation": "Log parse errors: catch (e) { console.error('Failed to parse memory:', e); }"
+    },
+    {
+      "severity": "low",
+      "file": "src/components/layout/analytics.tsx",
+      "line": 21,
+      "description": "GA_MEASUREMENT_ID directly embedded in inline script via template literal. While NEXT_PUBLIC_ variables are meant to be public, ensure this is the intended value. Risk if value could be user-controlled.",
+      "cwe": "CWE-95",
+      "recommendation": "Verify NEXT_PUBLIC_GA_MEASUREMENT_ID is hardcoded in .env and never from user input. Current implementation is acceptable."
+    }
+  ],
+  "riskScore": 68,
+  "riskLevel": "MEDIUM-HIGH",
+  "riskBreakdown": {
+    "critical": 0,
+    "high": 2,
+    "medium": 3,
+    "low": 3
+  },
+  "securityCheckResults": {
+    "hardcodedSecrets": "PASS - No API keys or credentials hardcoded in source. NEXT_PUBLIC_ env vars are intended to be public.",
+    "sqlInjection": "PASS - No database operations detected. All calculations done in-memory.",
+    "xssVulnerabilities": "FAIL - Dependency vulnerabilities in Next.js and PostCSS introduce XSS risks. No user-controlled HTML injection in source code.",
+    "insecureDependencies": "FAIL - High severity vulnerabilities in glob, Next.js. Medium severity in PostCSS.",
+    "authenticationAuthorizationIssues": "PASS - No authentication system in codebase. App is public calculator (no auth needed).",
+    "filePermissions": "FAIL - Helper scripts create world-readable files (mode 664) instead of restricted (600)",
+    "cryptography": "FAIL - Session IDs use predictable Date.now() instead of crypto.randomBytes()"
+  },
+  "recommendations": [
+    {
+      "priority": "CRITICAL",
+      "action": "Update dependencies",
+      "steps": [
+        "Run: npm audit fix",
+        "Update Next.js to 15.0.0+",
+        "Update glob to 11.0.0+",
+        "Verify postcss >= 8.5.10",
+        "Run full test suite after updates"
+      ],
+      "estimatedTime": "30-60 minutes"
+    },
+    {
+      "priority": "HIGH",
+      "action": "Fix file permission issues in .claude/helpers/",
+      "steps": [
+        "Update memory.js line 26: fs.writeFileSync(MEMORY_FILE, JSON.stringify(memory, null, 2), {mode: 0o600})",
+        "Update session.js lines 30, 44, 62, 103: Add {mode: 0o600} to all writeFileSync calls",
+        "Update github-safe.js line 49: fs.writeFileSync(tmpFile, body, {mode: 0o600})"
+      ],
+      "estimatedTime": "10-15 minutes"
+    },
+    {
+      "priority": "HIGH",
+      "action": "Fix session ID generation in .claude/helpers/session.js",
+      "steps": [
+        "Add: const crypto = require('crypto');",
+        "Replace line 15: const sessionId = `session-${crypto.randomBytes(16).toString('hex')}`;",
+        "Test session creation and restoration"
+      ],
+      "estimatedTime": "5-10 minutes"
+    },
+    {
+      "priority": "MEDIUM",
+      "action": "Improve error handling in helper scripts",
+      "steps": [
+        "Add logging to silent catches in memory.js and session.js",
+        "Log parse errors to help debug corrupted JSON files",
+        "Consider adding recovery mechanisms for corrupt files"
+      ],
+      "estimatedTime": "15-20 minutes"
+    },
+    {
+      "priority": "LOW",
+      "action": "Security review",
+      "steps": [
+        "Run: npm audit to see updated vulnerability list",
+        "Review CSP headers if deployed",
+        "Verify no user input reaches template literals in scripts"
+      ],
+      "estimatedTime": "10-15 minutes"
+    }
+  ],
+  "positiveFindings": [
+    "No hardcoded API keys, passwords, or credentials in source code",
+    "No SQL injection risks (no database operations)",
+    "No XSS vulnerabilities from user input in source code (search uses safe string includes)",
+    "Environment variables properly separated via NEXT_PUBLIC_ prefix",
+    "GitHub CLI helper uses safe spawnSync (no shell injection)",
+    "No use of dangerouslySetInnerHTML or innerHTML",
+    "Input validation present in memory.js and session.js key validation",
+    "Proper use of Next.js Script component for third-party scripts"
+  ],
+  "dependency_analysis": {
+    "safe": [
+      "react@18",
+      "react-dom@18",
+      "qrcode@1.5.4",
+      "tailwindcss@3.4.19"
+    ],
+    "vulnerable": [
+      {
+        "package": "next@14.2.35",
+        "severity": "high",
+        "advisories": ["GHSA-ggv3-7p47-pfv8", "GHSA-9g9p-9gw9-jx7f", "GHSA-ffhc-5mcf-pf4q"],
+        "fixVersion": "15.0.0+"
+      },
+      {
+        "package": "glob",
+        "severity": "high",
+        "advisory": "GHSA-5j98-mcp5-4vw2",
+        "fixVersion": "11.0.0+"
+      },
+      {
+        "package": "postcss",
+        "severity": "medium",
+        "advisory": "GHSA-qx2v-qp2m-jg93",
+        "fixVersion": "8.5.10+"
+      }
+    ]
+  },
+  "complianceNotes": {
+    "gdpr": "App stores user favorites/history in localStorage only (client-side). No server-side storage or user tracking. GA is configured.",
+    "pci_dss": "Not applicable - no payment processing",
+    "owasp": "Several OWASP Top 10 items require attention: A06:2021 – Vulnerable and Outdated Components (outdated deps)",
+    "cwe": "CWE-276 (File permissions), CWE-330 (Weak randomness), CWE-391 (Silent error handling)"
+  },
+  "testingRecommendations": [
+    "Run npm audit and resolve all vulnerabilities",
+    "Test file permissions after fixes: stat .claude-flow/data/memory.json (should show 600)",
+    "Verify session IDs are now unique and non-predictable",
+    "Regression test all calculator functionality after Next.js update",
+    "Run OWASP ZAP or similar tool for web security scanning"
+  ],
+  "generatedAt": "2026-05-20T00:00:00Z",
+  "analyzer": "Claude Code Security Analysis v3",
+  "scope": "Full source code analysis including dependencies, helper scripts, and public components"
+}

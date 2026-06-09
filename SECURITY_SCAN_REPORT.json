@@ -1,0 +1,219 @@
+{
+  "vulnerabilities": [
+    {
+      "severity": "high",
+      "category": "Insecure File Permissions",
+      "file": ".claude/helpers/memory.js",
+      "line": 26,
+      "description": "Session memory files are written without restrictive permissions. Files are created world-readable (default mode 0o644), exposing sensitive session data. Use fs.writeFileSync with mode 0o600 or set permissions explicitly with fs.chmodSync().",
+      "code": "fs.writeFileSync(MEMORY_FILE, JSON.stringify(memory, null, 2));",
+      "remediation": "fs.writeFileSync(MEMORY_FILE, JSON.stringify(memory, null, 2), { mode: 0o600 });"
+    },
+    {
+      "severity": "high",
+      "category": "Insecure File Permissions",
+      "file": ".claude/helpers/session.js",
+      "line": 30,
+      "description": "Session files are written without restrictive permissions, exposing session data (working directory, metrics, context) to all users on the system. Sessions may contain sensitive information.",
+      "code": "fs.writeFileSync(SESSION_FILE, JSON.stringify(session, null, 2));",
+      "remediation": "fs.writeFileSync(SESSION_FILE, JSON.stringify(session, null, 2)); fs.chmodSync(SESSION_FILE, 0o600);"
+    },
+    {
+      "severity": "high",
+      "category": "Insecure File Permissions",
+      "file": ".claude/helpers/session.js",
+      "line": 62,
+      "description": "Archived session files are created with world-readable permissions. Archive historical data may contain sensitive context information.",
+      "code": "fs.writeFileSync(archivePath, JSON.stringify(session, null, 2));",
+      "remediation": "fs.writeFileSync(archivePath, JSON.stringify(session, null, 2), { mode: 0o600 });"
+    },
+    {
+      "severity": "medium",
+      "category": "Unencrypted Sensitive Data Storage",
+      "file": ".claude/helpers/memory.js",
+      "line": 16,
+      "description": "Memory data stored in plaintext JSON format without encryption. If sensitive data like API keys, tokens, or credentials are stored via the set() command, they would be accessible in plaintext on disk.",
+      "remediation": "Implement encryption using crypto module (AES-256-GCM) before storing sensitive data, or use a secure credential store."
+    },
+    {
+      "severity": "medium",
+      "category": "Unencrypted Sensitive Data Storage",
+      "file": ".claude/helpers/session.js",
+      "line": 42,
+      "description": "Session context data is stored and retrieved in plaintext JSON. The context object can contain sensitive information that should be encrypted.",
+      "remediation": "Encrypt sensitive context data before storing to disk, or implement secure session storage using encrypted cookies or secure databases."
+    },
+    {
+      "severity": "medium",
+      "category": "Improper Error Handling",
+      "file": ".claude/helpers/memory.js",
+      "line": 18,
+      "description": "JSON.parse() errors are silently caught and ignored. Corrupted memory files will silently return empty object without warning user, potentially losing critical state.",
+      "code": "} catch (e) {\n    // Ignore\n  }",
+      "remediation": "Log or warn about parse errors: } catch (e) { console.warn('Failed to parse memory file:', e.message); }"
+    },
+    {
+      "severity": "medium",
+      "category": "Improper Error Handling",
+      "file": ".claude/helpers/session.js",
+      "line": 110,
+      "description": "JSON.parse() errors are silently caught. Corrupted session files will silently return null without notifying the user, potentially causing session loss.",
+      "code": "try {\n      const session = JSON.parse(fs.readFileSync(SESSION_FILE, 'utf-8'));\n      return key ? (session.context || {})[key] : session.context;\n    } catch { return null; }",
+      "remediation": "Log parse errors: catch(e) { console.warn('Failed to read session:', e.message); return null; }"
+    },
+    {
+      "severity": "medium",
+      "category": "Insufficient Input Validation",
+      "file": ".claude/helpers/session.js",
+      "line": 115,
+      "description": "The metric() function at line 115-121 doesn't validate the metric name before using it as an object key. Although JavaScript allows arbitrary keys, this could be exploited to manipulate session metrics or access unintended properties.",
+      "code": "if (session.metrics[name] !== undefined) {",
+      "remediation": "Validate metric names: if (!/^[a-z0-9_]+$/i.test(name) || !session.metrics.hasOwnProperty(name)) { console.error('Invalid metric'); return null; }"
+    },
+    {
+      "severity": "low",
+      "category": "Missing Input Validation",
+      "file": ".claude/helpers/router.js",
+      "line": 28,
+      "description": "Regular expression patterns in TASK_PATTERNS lack anchors and could match unintended strings. For example, 'test' pattern could match 'attest' or 'testimony'.",
+      "code": "'test|spec|coverage|unit test|integration': 'tester',",
+      "remediation": "Use word boundaries: '\\\\b(test|spec|coverage|unit test|integration)\\\\b' for better pattern matching."
+    },
+    {
+      "severity": "low",
+      "category": "Missing Dependency Verification",
+      "file": ".claude/helpers/github-safe.js",
+      "line": 51,
+      "description": "No verification that 'gh' CLI command exists before attempting to use it. If GitHub CLI is not installed, cryptic error messages may appear.",
+      "remediation": "Add pre-check: const { execSync } = require('child_process'); try { execSync('which gh'); } catch { console.error('GitHub CLI not found'); process.exit(1); }"
+    }
+  ],
+  "riskScore": 65,
+  "riskLevel": "MEDIUM",
+  "summary": {
+    "totalVulnerabilities": 10,
+    "high": 3,
+    "medium": 4,
+    "low": 3,
+    "criticalIssues": "Insecure file permissions on session/memory storage",
+    "overallAssessment": "The codebase has moderate security risks primarily related to file permissions and unencrypted storage of session data. The application is a static Next.js site without database or API endpoints, which significantly reduces attack surface. However, local file storage mechanisms (.claude/helpers) expose potential vulnerabilities if deployed in multi-user environments."
+  },
+  "recommendations": [
+    {
+      "priority": "HIGH",
+      "action": "Implement Strict File Permissions",
+      "description": "All session and memory files must be created with mode 0o600 (read/write for owner only). Use fs.chmodSync() or native file creation options.",
+      "files": [
+        ".claude/helpers/memory.js:26",
+        ".claude/helpers/session.js:30,44,62,102,123"
+      ],
+      "estimatedEffort": "30 minutes"
+    },
+    {
+      "priority": "HIGH",
+      "action": "Add Encryption for Sensitive Data",
+      "description": "Implement AES-256-GCM encryption for memory and session context using Node.js crypto module. Create an encryption/decryption wrapper.",
+      "files": [
+        ".claude/helpers/memory.js",
+        ".claude/helpers/session.js"
+      ],
+      "estimatedEffort": "2 hours"
+    },
+    {
+      "priority": "MEDIUM",
+      "action": "Improve Error Handling and Logging",
+      "description": "Replace silent error catching with proper logging. Add console.warn() or structured logging for JSON parse failures and file read errors.",
+      "files": [
+        ".claude/helpers/memory.js:18",
+        ".claude/helpers/session.js:110,120"
+      ],
+      "estimatedEffort": "45 minutes"
+    },
+    {
+      "priority": "MEDIUM",
+      "action": "Add Input Validation for Metrics",
+      "description": "Validate metric names in session.metric() function before using as object keys. Implement whitelist of allowed metrics.",
+      "files": [
+        ".claude/helpers/session.js:115"
+      ],
+      "estimatedEffort": "30 minutes"
+    },
+    {
+      "priority": "LOW",
+      "action": "Improve Regex Patterns",
+      "description": "Add word boundaries to pattern matching in router.js for more precise task classification.",
+      "files": [
+        ".claude/helpers/router.js:28-35"
+      ],
+      "estimatedEffort": "15 minutes"
+    },
+    {
+      "priority": "LOW",
+      "action": "Verify External Dependencies",
+      "description": "Add existence checks for required CLI tools (gh, git) before use in helper scripts.",
+      "files": [
+        ".claude/helpers/github-safe.js",
+        ".claude/helpers/statusline.js"
+      ],
+      "estimatedEffort": "45 minutes"
+    }
+  ],
+  "dependencies": {
+    "status": "SECURE",
+    "findings": [
+      {
+        "severity": "info",
+        "package": "next",
+        "version": "14.2.35",
+        "status": "LATEST_STABLE",
+        "notes": "Using stable, well-maintained version. No known critical CVEs in this version."
+      },
+      {
+        "severity": "info",
+        "package": "react",
+        "version": "^18",
+        "status": "LATEST",
+        "notes": "React 18+ has strong XSS protections and security updates."
+      },
+      {
+        "severity": "low",
+        "package": "qrcode",
+        "version": "1.5.4",
+        "status": "OUTDATED",
+        "notes": "Latest version is 1.5.5. Update recommended for security patches."
+      }
+    ],
+    "vulnerabilityCount": 0,
+    "recommendedAction": "Run 'npm audit' to verify dependency security status."
+  },
+  "architecture": {
+    "type": "Static Site (Next.js SSG)",
+    "hasDatabase": false,
+    "hasAPI": false,
+    "hasAuth": false,
+    "comments": "This is a pure static calculator website with no backend, no authentication, and no database. XSS and SQL injection risks are minimal. Primary risks are from local file storage mechanisms and build-time operations."
+  },
+  "compliance": {
+    "OWASP_TOP_10": {
+      "A01_BrokenAccessControl": "MEDIUM - Improper file permissions on session storage",
+      "A02_CryptographicFailures": "MEDIUM - Unencrypted sensitive data at rest",
+      "A03_Injection": "LOW - No dynamic SQL or code execution",
+      "A04_InsecureDesign": "LOW - Static site with minimal attack surface",
+      "A05_SecurityMisconfiguration": "MEDIUM - File permissions not properly configured",
+      "A06_VulnerableOutdatedComponents": "LOW - Dependencies are current",
+      "A07_AuthenticationFailure": "N/A - No authentication system",
+      "A08_DataIntegrity": "MEDIUM - No integrity checks on stored data",
+      "A09_LoggingMonitoring": "LOW - Minimal logging in helper scripts",
+      "A10_SSRF": "N/A - Static site, no network requests to untrusted sources"
+    }
+  },
+  "scanDate": "2026-05-18",
+  "scannerVersion": "claude-security-analyzer-v1",
+  "nextActions": [
+    "1. Implement HIGH priority fixes within 1 week",
+    "2. Add security tests to verify file permissions are enforced",
+    "3. Implement encryption for session/memory storage",
+    "4. Set up regular npm audit checks in CI/CD pipeline",
+    "5. Document security practices in SECURITY.md"
+  ]
+}

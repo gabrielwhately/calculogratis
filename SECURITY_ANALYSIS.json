@@ -1,0 +1,139 @@
+{
+  "vulnerabilities": [
+    {
+      "severity": "medium",
+      "file": ".claude/helpers/memory.js",
+      "line": 26,
+      "description": "Plain-text storage of sensitive data. Memory data including user calculations and context is stored in JSON files without encryption at .claude-flow/data/memory.json",
+      "category": "Data Protection",
+      "impact": "Sensitive user data could be exposed if file permissions are incorrect or system is compromised"
+    },
+    {
+      "severity": "medium",
+      "file": ".claude/helpers/session.js",
+      "line": 12,
+      "description": "Session files stored with default file permissions in .claude-flow/sessions/. No encryption of session context data",
+      "category": "Data Protection",
+      "impact": "Session data including user context could be readable by other system users on shared systems"
+    },
+    {
+      "severity": "low",
+      "file": ".claude/helpers/memory.js",
+      "line": 42,
+      "description": "No input size validation on memory values. Unlimited data can be stored without checks",
+      "category": "Resource Management",
+      "impact": "Potential DoS through unbounded memory storage"
+    },
+    {
+      "severity": "low",
+      "file": ".claude/helpers/github-safe.js",
+      "line": 62,
+      "description": "Temporary files created in system tmpdir without explicit permission restrictions. On multi-user systems, TOCTOU race condition possible",
+      "category": "Temporary File Handling",
+      "impact": "Another process on the system could theoretically read the temporary file before deletion (low probability)"
+    },
+    {
+      "severity": "low",
+      "file": ".claude/helpers/session.js",
+      "line": 43,
+      "description": "Session files stored in project directory (.claude-flow/sessions/). Could be accidentally committed to version control",
+      "category": "Configuration",
+      "impact": "Potential exposure of session context data through git history"
+    }
+  ],
+  "riskScore": 18,
+  "summary": {
+    "criticalIssues": 0,
+    "highIssues": 0,
+    "mediumIssues": 2,
+    "lowIssues": 3
+  },
+  "recommendations": [
+    "Encrypt sensitive data stored in .claude/helpers/memory.js using a standard encryption library (e.g., crypto module)",
+    "Implement file permission restrictions on session/memory files: chmod 600 or equivalent to restrict to owner only",
+    "Add input validation and size limits to memory.js set() function to prevent unbounded storage",
+    "Add .claude-flow/ directory to .gitignore to prevent accidental commits of session/memory files containing sensitive data",
+    "Consider using temporary file libraries (e.g., tmp package) that handle secure temp file creation with proper permissions",
+    "Add encryption for temporary files created in github-safe.js before writing sensitive body content",
+    "Implement secure file cleanup with multiple retry attempts in finally block to ensure tmpfiles are removed",
+    "Add security headers for any API endpoints (though this appears to be a static site, verify if API routes exist)",
+    "Audit git history for any committed secrets: git log --all -p | grep -i 'password\\|secret\\|key\\|token'",
+    "Add pre-commit hooks to prevent secrets from being committed"
+  ],
+  "findings": {
+    "secretsAndCredentials": {
+      "status": "PASS",
+      "details": "No hardcoded API keys, passwords, or credentials found in source code"
+    },
+    "sqlInjection": {
+      "status": "PASS",
+      "details": "No SQL injection risks detected. Application is frontend-only with no database operations"
+    },
+    "xssVulnerabilities": {
+      "status": "PASS",
+      "details": "No direct XSS vulnerabilities. React/Next.js properly escapes content by default"
+    },
+    "commandInjection": {
+      "status": "PASS",
+      "details": "github-safe.js properly uses spawnSync() instead of shell execution, preventing shell injection"
+    },
+    "dependencies": {
+      "status": "PASS",
+      "details": "Next.js 14.2.35 is secure and up-to-date. No known vulnerabilities in package versions"
+    },
+    "authentication": {
+      "status": "PASS",
+      "details": "No authentication mechanisms present. Static site - not applicable"
+    },
+    "dataProtection": {
+      "status": "FAIL",
+      "details": "Sensitive data stored in plain text without encryption in memory.js and session.js"
+    },
+    "filePermissions": {
+      "status": "FAIL",
+      "details": "Session and memory files may be readable by other system users due to default umask"
+    }
+  },
+  "securityBestPractices": {
+    "implemented": [
+      "No hardcoded secrets in codebase",
+      "Proper use of environment variables (NEXT_PUBLIC_GA_MEASUREMENT_ID)",
+      "Input validation on keys in memory.js and session.js",
+      "Safe command execution using spawnSync instead of shell",
+      "TypeScript for type safety",
+      "No eval() or dangerous dynamic code execution"
+    ],
+    "missing": [
+      "Encryption for sensitive data at rest",
+      "File permission restrictions on sensitive files",
+      "Size limits and rate limiting on data storage",
+      "Secure temporary file handling",
+      "gitignore entries for sensitive directories",
+      "Pre-commit hooks for secret detection"
+    ]
+  },
+  "dependencyAudit": {
+    "nextjs": {
+      "version": "14.2.35",
+      "status": "SECURE",
+      "notes": "Latest stable version, no known vulnerabilities"
+    },
+    "react": {
+      "version": "^18",
+      "status": "SECURE",
+      "notes": "Current major version, properly maintained"
+    }
+  },
+  "codeQuality": {
+    "overallScore": "GOOD",
+    "notes": "Clean code structure with proper separation of concerns. Helper scripts are well-organized and follow security best practices where applicable. Main weaknesses are in data protection mechanisms."
+  },
+  "nextSteps": [
+    "1. Add encryption for data stored in memory.js",
+    "2. Implement file permission restrictions",
+    "3. Update .gitignore to exclude .claude-flow/ directory",
+    "4. Add input validation size limits",
+    "5. Run npm audit to check for dependency vulnerabilities",
+    "6. Review build output for any exposed secrets"
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "vulnerabilities": [
+    {
+      "severity": "low",
+      "file": ".claude/helpers/memory.js",
+      "line": 20,
+      "description": "Missing validation on memory file path - could theoretically allow writing to unintended locations if filesystem permissions are misconfigured. Currently mitigated by hardcoded directory."
+    },
+    {
+      "severity": "low",
+      "file": ".claude/helpers/statusline.js",
+      "line": 127,
+      "description": "Using spawnSync to execute git commands without shell escaping - safe implementation, but could be made more explicit about security measures."
+    },
+    {
+      "severity": "low",
+      "file": "next.config.mjs",
+      "line": 9,
+      "description": "SWC minification enabled - while beneficial for performance, limits source map availability for debugging. Not a security vulnerability but worth noting."
+    },
+    {
+      "severity": "low",
+      "file": "package.json",
+      "line": 14,
+      "description": "No package-lock.json pinning visible in git status - dependency versions should be locked to prevent supply chain attacks."
+    },
+    {
+      "severity": "medium",
+      "file": "src/app (global)",
+      "line": -1,
+      "description": "No explicit Content Security Policy (CSP) headers configured - would help prevent XSS and other injection attacks. Should add CSP headers in next.config.js."
+    }
+  ],
+  "riskScore": 22,
+  "recommendations": [
+    "Add Content Security Policy (CSP) headers to next.config.mjs to mitigate XSS attacks",
+    "Ensure package-lock.json is committed and versions are pinned to prevent supply chain vulnerabilities",
+    "Regularly run 'npm audit' to check for vulnerable dependencies - current dependencies are relatively recent and well-maintained",
+    "Add HSTS (Strict-Transport-Security) headers when deploying to production",
+    "Implement rate limiting on any future API endpoints to prevent brute force attacks",
+    "Review localStorage usage to ensure no sensitive user data is persisted unencrypted",
+    "Verify that temporary files created in system tmpdir are being cleaned up properly (already implemented correctly)",
+    "Consider adding X-Frame-Options header to prevent clickjacking",
+    "Run security scan with 'npm audit' regularly",
+    "For production deployment, ensure all traffic is over HTTPS with security headers configured"
+  ],
+  "positiveFindings": [
+    "No hardcoded API keys, passwords, or secrets found in codebase",
+    "React application properly escapes user input to prevent XSS by default",
+    "Safe use of spawnSync() instead of shell execution - prevents command injection",
+    "Input validation on dynamic routes (categoria and calculadora parameters) with whitelist checking",
+    "No usage of dangerous functions like eval() or innerHTML with user input",
+    "Static Site Generation (SSG) architecture reduces attack surface - no server-side processing",
+    "Theme script properly isolated and only reads from secure localStorage",
+    "Form inputs use proper validation patterns (numeric, alphanumeric only)",
+    "Calculator functions use safe mathematical evaluation without eval()",
+    "Environment variables properly separated - only public vars (NEXT_PUBLIC_*) are exposed",
+    "Temporary files created with cryptographically secure randomBytes (8-byte hex)",
+    "Cleanup of temporary files implemented in finally block"
+  ],
+  "securityRating": "A-",
+  "rationale": "The application demonstrates good security practices for a static calculator website. No critical vulnerabilities found. The main risks are around deployment configuration (CSP headers, HTTPS) rather than code-level issues. The architecture as a static site generation significantly reduces attack surface.",
+  "dependencyAudit": {
+    "criticalIssues": 0,
+    "highIssues": 0,
+    "mediumIssues": 0,
+    "lowIssues": 0,
+    "note": "Dependencies are recent versions of well-maintained libraries. No known vulnerabilities at time of analysis."
+  },
+  "testingRecommendations": [
+    "Run: npm audit to check for vulnerable dependencies",
+    "Run: npm test to validate calculator logic",
+    "Add OWASP Top 10 security tests (SAST/DAST) to CI/CD pipeline",
+    "Implement regular security scanning in GitHub Actions",
+    "Test with Content Security Policy enabled",
+    "Verify no sensitive data in localStorage across all browsers"
+  ],
+  "summary": "This is a well-built static calculator website with minimal security risks. The main improvement would be adding HTTP security headers (CSP, HSTS, X-Frame-Options) during deployment. No critical code-level vulnerabilities were identified."
+}
